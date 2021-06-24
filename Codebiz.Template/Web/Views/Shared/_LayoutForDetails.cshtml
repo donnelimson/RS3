@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - TARELCO</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link rel="shortcut icon" href="~/Content/Image/Tarelconew.ico" type="image/x-icon" />
+    <!-- BEGIN CSS -->
+    @Html.Partial("_Styles")
+    @RenderSection("pagestyles", required: false)
+    <!-- END CSS -->
+</head>
+<!-- END HEAD -->
+<body class="page-header-fixed page-footer-fixed page-content-white page-md" ng-app="MetronicApp">
+    <div class="page-wrapper">
+        <!-- BEGIN HEADER -->
+        <div class="page-header navbar navbar-fixed-top">
+            <!-- BEGIN HEADER INNER -->
+            <div class="page-header-inner ">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo">
+                    <a href="@Url.Action("Index","Home")">
+                        <img src="@Url.Content("~/content/image/tarelco1logo.png")" alt="logo" height="27" class="logo-default" />
+                    </a>
+                </div>
+                <!-- END LOGO -->
+            </div>
+            <!-- END HEADER INNER -->
+        </div>
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <div class="page-content" style="background-color: #eef1f5; margin-left:unset">
+                    @RenderBody()
+                    @Html.Partial("_Modal") <!-- MODAL -->
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+            <!-- BEGIN QUICK SIDEBAR -->
+            <!-- /*Html.Partial("_QuickSidebar")*/-->
+            <!-- END QUICK SIDEBAR -->
+        </div>
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        @Html.Partial("_Footer")
+        <!-- END FOOTER -->
+    </div>
+    <!-- BEGIN SCRIPT -->
+    @Html.Partial("_Scripts")
+    @RenderSection("pagepluginscripts", required: false)
+    @RenderSection("pagescripts", required: false)
+    @RenderSection("angularjsplugins", required: false)
+    @RenderSection("angularjspage", required: false)
+</body>
+</html>

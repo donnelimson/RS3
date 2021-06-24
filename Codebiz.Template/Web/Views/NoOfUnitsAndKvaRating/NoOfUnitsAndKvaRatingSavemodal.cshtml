@@ -1,0 +1,103 @@
+﻿
+<script type="text/ng-template" id="NoOfUnitsAndKvaRatingSaveModal.html">
+    <!-- MODAL HEADER -->
+    <div class="modal-header">
+        <h4 class="form-sub-title">No Of Units And KVA Rating - {{isUpdate ? 'Edit' : 'Add'}}</h4>
+    </div>
+    <!-- MODAL BODY -->
+    <div id="modal-body" class="modal-body" ng-form="saveNoOfUnitsAndKvaRatingForm">
+        <div class="form-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- TEXTBOX FOR NoOfUnits -->
+                    <div class="form-group" style="margin-right:5px" ng-class="saveNoOfUnitsAndKvaRatingForm.NoOfUnits.$invalid && (saveNoOfUnitsAndKvaRatingForm.NoOfUnits.$dirty || formSubmitted)? 'has-error' : 'myForm.myDecimal.$invalid'">
+                        <label class="control-label">No. Of Units</label><span class="required"> * </span>
+                        <input type="text" numbers-only style="text-align:right;" class="form-control" name="NoOfUnits" ng-required="true" ng-model="noOfUnitsAndKvaRating.NoOfUnits" ng-pattern="/^([1-9]\d*)$/" />
+                        <span color="red" ng-show="saveNoOfUnitsAndKvaRatingForm.NoOfUnits.$error.required && (saveNoOfUnitsAndKvaRatingForm.NoOfUnits.$dirty || formSubmitted)" class="text-danger
+                                  field-validation-error"><small>The No Of Units is required.</small></span>
+                        <span color="red" ng-show="saveNoOfUnitsAndKvaRatingForm.NoOfUnits.$error.pattern" class="text-danger
+                                  field-validation-error"><small>The No Of Units accepts positive integers only </small></span>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <!-- TEXTBOX FOR KvaRating -->
+                    <div class="form-group" style="margin-right:5px" ng-class="saveNoOfUnitsAndKvaRatingForm.KvaRating.$error.pattern || 
+                         (saveNoOfUnitsAndKvaRatingForm.KvaRating.$invalid && (saveNoOfUnitsAndKvaRatingForm.KvaRating.$dirty || formSubmitted)) ? 'has-error' : ''">
+                        <label class="control-label">KVA Rating</label><span class="required"> * </span>
+                        <input  type="text" numbers-decimal-only id="kva" style="text-align:right;"  class="form-control" name="KvaRating" ng-model="noOfUnitsAndKvaRating.KvaRating" 
+                               ng-blur="addZeroKVA()" ng-pattern="/^([1-9][0-9]{0,20})(\.[0-9]{1,2})?$/" step="0.01" ng-required="true" required />
+                        <span color="red" ng-show="saveNoOfUnitsAndKvaRatingForm.KvaRating.$error.required && (saveNoOfUnitsAndKvaRatingForm.KvaRating.$dirty || formSubmitted)" class="text-danger
+                                  field-validation-error"><small>The KVA Rating is required.</small></span>
+                        <span color="red" ng-show="saveNoOfUnitsAndKvaRatingForm.KvaRating.$error.pattern" class="text-danger
+                                  field-validation-error"><small>The KVA Rating must be 1-100 only and 2 decimal places only </small></span>
+
+                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- TEXTBOX FOR CODE -->
+                    <div class="form-group" style="margin-right:5px">
+                        <label class="control-label">Energy Deposit</label>
+                        <input id="txtAmountTransfer" ng-blur="addZero()"  type="text" numbers-decimal-only style="text-align:right;" class="form-control" name="EnergyDeposit"  ng-model="noOfUnitsAndKvaRating.EnergyDeposit" ng-pattern="/^([1-9][0-9]{0,20})(\.[0-9]{1,2})?$/"/>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <!-- TEXTBOX FOR CODE -->
+                    <div class="form-group" style="margin-right:5px">
+                        <label class="control-label">Monthly Rental</label>
+                        <input id="txtMonthlyRental" ng-blur="addZeroMonthlyRental()" type="text" numbers-decimal-only style="text-align:right;" class="form-control" name="MonthlyRental" ng-model="noOfUnitsAndKvaRating.MonthlyRental" ng-pattern="/^([1-9][0-9]{0,20})(\.[0-9]{1,2})?$/"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- TEXTBOX FOR CODE -->
+                    <div class="form-group" style="margin-right:5px">
+                        <label class="control-label">Installation Fee</label>
+                        <input id="txtInstallationFee" ng-blur="addZeroInstallationFee()" type="text" numbers-decimal-only style="text-align:right;" class="form-control" name="InatallationFee" ng-model="noOfUnitsAndKvaRating.InatallationFee" ng-pattern="/^([1-9][0-9]{0,20})(\.[0-9]{1,2})?$/"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- TEXTBOX FOR CODE -->
+                    <div class="form-group" style="margin-right:5px">
+                        <label class="control-label">Transformer Loss</label>
+                        <input id="txtTransformerLoss" ng-blur="addZeroTransformerLoss()" type="text" numbers-decimal-only style="text-align:right;" class="form-control" name="TransformerLoss" ng-model="noOfUnitsAndKvaRating.TransformerLoss" ng-pattern="/^([1-9][0-9]{0,20})(\.[0-9]{1,2})?$/" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- TEXTBOX FOR CODE -->
+                    <div class="form-group" style="margin-right:5px">
+                        <label class="control-label">Demand Energy</label>
+                        <input id="txtDemandEnergy" ng-blur="addZeroDemandEnergy()" type="text" numbers-decimal-only style="text-align:right;" class="form-control" name="DemandEnergy" ng-model="noOfUnitsAndKvaRating.DemandEnergy" ng-pattern="/^([1-9][0-9]{0,20})(\.[0-9]{1,2})?$/" step="0.01" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- TEXTBOX FOR CODE -->
+                    <div class="form-group" style="margin-right:5px">
+                        <label class="control-label">Core Loss</label>
+                        <input id="txtCoreLoss" ng-blur="addZeroCoreLoss()" type="text" numbers-decimal-only style="text-align:right;" class="form-control" name="CoreLoss" ng-model="noOfUnitsAndKvaRating.CoreLoss" ng-pattern="/^([0-9]{0,20})(\.[0-9]{1,2})?$/" step="0.01" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Footer-->
+    <div class="modal-footer pull-left">
+        <!--Actions -->
+        <button class="btn btn-success" style="width:90px;" ng-click="saveNoOfUnitsAndKvaRating()">
+            <span class="glyphicon glyphicon-ok"></span> {{isUpdate ? 'Update' : 'Save'}}
+        </button>
+        <button class="btn btn-default" style="width:90px;" ng-click="cancel()">
+            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+        </button>
+    </div>
+    <div class="clearfix"></div>
+
+
+</script>

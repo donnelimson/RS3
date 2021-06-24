@@ -1,0 +1,71 @@
+@{
+    var userAccessResult = Html.GetUserNavLinkAccess();
+}
+
+<div class="page-sidebar-wrapper">
+    <!-- BEGIN SIDEBAR -->
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <div class="page-sidebar navbar-collapse collapse">
+        <!-- BEGIN SIDEBAR MENU -->
+        <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+            <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+            <li class="sidebar-toggler-wrapper hide">
+                <div class="sidebar-toggler">
+                    <span></span>
+                </div>
+            </li>
+            <!-- END SIDEBAR TOGGLER BUTTON -->
+            <li class="heading">
+                <h3 class="uppercase">Navigations</h3>
+            </li>
+            @foreach (var item in Html.GetMainNavigations())
+            {
+                @RenderLink(item, userAccessResult);
+            }
+        </ul>
+        <!-- END SIDEBAR MENU -->
+        <!-- END SIDEBAR MENU -->
+    </div>
+    <!-- END SIDEBAR -->
+</div>
+@helper RenderLink(Codebiz.Domain.Common.Model.NavLink navlink, UserNavLinkAccessResult userAccess)
+{
+if (navlink.IsParent)
+{
+    if (userAccess.ParentNavLinkIds.Count() > 0 && userAccess.ParentNavLinkIds.Contains(navlink.NavLinkId))
+    {
+            <li class="nav-item">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="@navlink.IconClass"></i>
+                    <span class="title">@navlink.Name</span>
+                    <span class="selector"></span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    @if (navlink.ChildNavLinks != null && navlink.ChildNavLinks.Count > 0)
+                    {
+                        foreach (var item in navlink.ChildNavLinks)
+                        {
+                            @RenderLink(item, userAccess)
+                        }
+                    }
+                </ul>
+            </li>
+    }
+}
+else
+{
+    if (userAccess.NavLinkIds.Count() > 0 && userAccess.NavLinkIds.Contains(navlink.NavLinkId))
+    {
+            <li class="nav-item">
+                <a href="@Url.Action(navlink.Action, navlink.Controller, new { area = navlink.Area })" class="nav-link @Html.IsSelected(controller: navlink.Controller, action: navlink.Action, area: navlink.Area)">
+                    <i class="@navlink.IconClass"></i>
+                    <span class="title">@navlink.Name</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+    }
+}
+}

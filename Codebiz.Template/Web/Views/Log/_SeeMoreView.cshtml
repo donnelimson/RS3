@@ -1,0 +1,68 @@
+﻿<style>
+    .modal-body {
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+    }
+</style>
+<script type="text/ng-template" id="SeeMoreView.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">×</span><span class="sr-only">Close Modal</span></button>
+
+        <h4 class="modal-title" id="modal-title" style="color:#67809f">More Details</h4>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                    <table ng-table="tableParams" class="table table-bordered table-striped table-hover">
+                        <tr>
+                            <th style="color:#337ab7">FIELD</th>
+                            <th style="color:#337ab7">VALUES</th>
+                        </tr>
+                        <tr ng-repeat="(field,value) in Changes">
+
+                            <td width="50%" header-class="'table-header text-left'" class="text-left">
+                                {{field}}
+                            </td>
+                            <td width="50%" header-class="'table-header text-left'" class="text-left">
+                                <div ng-if="!value.IsArray">
+                                    {{value}}
+                                </div>
+                                <div ng-if="value.IsArray" class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                                    <table ng-table="subTableParams" class="table table-bordered table-striped table-hover">
+                                        <tr>
+                                            <th style="color:#337ab7">COUNT</th>
+                                            <th style="color:#337ab7">CONTENT</th>
+                                        </tr>
+                                        <tr ng-repeat="(subKey,subValue) in value">
+
+                                            <td width="1%" header-class="'table-header text-left'" class="text-left">
+                                                {{subKey + 1}}
+                                            </td>
+                                            <td width="20%" header-class="'table-header text-left'" class="text-left">
+                                                <table ng-table="subExTableParams" class="table table-bordered table-striped table-hover">
+                                                    <tr>
+                                                        <th style="color:#337ab7">FIELD</th>
+                                                        <th style="color:#337ab7">VALUES</th>
+                                                    </tr>
+                                                    <tr ng-repeat="(subExKey,subExValue) in subValue">
+                                                        <td width="50%" header-class="'table-header text-left'" class="text-left">
+                                                            {{subExKey}}
+                                                        </td>
+                                                        <td width="50%" header-class="'table-header text-left'" class="text-left">
+                                                            {{subExValue}}
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

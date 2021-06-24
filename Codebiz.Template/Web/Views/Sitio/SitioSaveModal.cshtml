@@ -1,0 +1,89 @@
+﻿<script type="text/ng-template" id="SitioSaveModal.html">
+    <!--Modal Head-->
+    <div class="modal-header">
+        <h4 class="form-sub-title">{{addOrEdit}} Sitio</h4>
+    </div>
+    <div id="modal-body" class="modalbody" ng-form="addSitioForm">
+        <div class="form-body">
+            <div class="row">
+                <!-- TEXTBOX FOR CODE -->
+                <div class="col-md-12" style="padding-top:10px; padding-bottom:10px">
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="addSitioForm.code.$invalid && (addSitioForm.code.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Code</label><span class="required"> * </span>
+                            <input type="text" class="form-control" name="code" ng-model="sitio.Code" ng-required="true" tabindex="1" maxlength="50" alphanumeric-dash-only />
+                            <span color="red" ng-show="addSitioForm.code.$error.required && (addSitioForm.code.$dirty || formSubmitted)" class="text-danger field-validation-error"><small>Code is required.</small></span>
+                        </div>
+                    </div>
+                    <!-- TEXTBOX FOR NAME -->
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="addSitioForm.name.$invalid && (addSitioForm.name.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Name</label><span class="required"> * </span>
+                            <input type="text" class="form-control" name="name" ng-model="sitio.Name" ng-required="true" tabindex="1" maxlength="50" alphanumeric-dash-only />
+                            <span color="red" ng-show="addSitioForm.name.$error.required && (addSitioForm.name.$dirty || formSubmitted)" class="text-danger field-validation-error"><small>Name is required.</small></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="addSitioForm.ProvinceId.$invalid && (addSitioForm.ProvinceId.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Province</label><span class="required"> * </span>
+                            <div id="ProvinceIdDiv">
+                                <select select2 name="ProvinceId" ng-required="true" class="form-control" ng-model="sitio.ProvinceId"
+                                        ng-change="GetCityTown()" tabindex="1"
+                                        ng-options="province.ProvinceId as (province.Name) for province in provinces">
+                                    <option value="">---Please select---</option>
+                                </select>
+                            </div>
+                            <span color="red" ng-show="addSitioForm.ProvinceId.$error.required && (addSitioForm.ProvinceId.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                                <small>Province is required</small>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="addSitioForm.CityTownId.$invalid && (addSitioForm.CityTownId.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Municipality</label><span class="required"> * </span>
+                            <div id="CityTownIdDiv">
+                                <select select2 name="CityTownId" ng-required="true" class="form-control" ng-model="sitio.CityTownId"
+                                        ng-change="GetBarangay()" tabindex="1"
+                                        ng-options="city.CityTownId as (city.Name) for city in cityTowns">
+                                    <option value="">---Please select---</option>
+                                </select>
+                            </div>
+                            <span color="red" ng-show="addSitioForm.CityTownId.$error.required && (addSitioForm.CityTownId.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                                <small>Municipality is required</small>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="addSitioForm.BarangayId.$invalid && (addSitioForm.BarangayId.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Barangay</label><span class="required"> * </span>
+                            <div id="BarangayIdDiv">
+                                <select select2 name="BarangayId" ng-required="true" class="form-control" ng-model="sitio.BarangayId" tabindex="1"
+                                        ng-options="barangay.BarangayId as (barangay.Name) for barangay in barangays">
+                                    <option value="">---Please select---</option>
+                                </select>
+                            </div>
+                            <span color="red" ng-show="addSitioForm.BarangayId.$error.required && (addSitioForm.BarangayId.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                                <small>Barangay is required</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer pull-left">
+        <div class="form-actions">
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-success" ng-click="saveSitio()" tabindex="1">
+                        <span class="glyphicon glyphicon-ok"></span> {{saveOrUpdate}}
+                    </button>
+                    <button class="btn btn-default" ng-click="cancel()" tabindex="1">
+                        <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</script>

@@ -1,0 +1,110 @@
+﻿
+<div class="row">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <h4 class="bold">Search</h4>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Code</label>
+                                <input type="text" name="Name" class="form-control" autocomplete="off" maxlength="50"
+                                       ng-model="search.WhsCode" alphanumeric-dash-only>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Name</label>
+                                <input type="text" name="Description" class="form-control" autocomplete="off" maxlength="100"
+                                       ng-model="search.WhsName" alphanumeric-dash-only>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        List
+                    </div>
+                    <div class="actions">
+                        <a href="" class="btn green-dark">
+                            <i class="fa fa-share-square-o"></i>
+                            <span class="">Export</span>
+                        </a>
+                        <a href="" class="btn btn-info" ng-click="onbtnNewClick()">
+                            <i class="fa fa-plus"></i>
+                            <span class=""> New </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table ng-table="tableParams" class="table table-bordered table-striped table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <td>Action</td>
+                                        <td>Code</td>
+                                        <td>Name</td>
+                                        <td>Rate</td>
+                                        <td>Effective Date</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="d in $data | filter:search:strict">
+                                        <td width="1%" header-class="'text-center'" class="text-center">
+                                            <div class="btn-group">
+                                                <button id="bars" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-bars"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditTaxGroup)>
+                                                        <a ng-click="onEditClick(d)">
+                                                            <i class="fa fa-edit"></i> Edit
+                                                        </a>
+                                                    </li>
+                                                    <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditTaxGroup)>
+                                                        <a ng-click="onDeleteClick(d)">
+                                                            <i class="fa fa-trash"></i> Delete
+                                                        </a>
+                                                    </li>
+                                                    <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditTaxGroup)>
+                                                        <a ng-click="onInactiveClick(d)">
+                                                            <i class="fa fa-ban"></i> Deactivate
+                                                        </a>
+                                                    </li>
+                                                    <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditTaxGroup)>
+                                                        <a ng-click="onActiveClick(d)">
+                                                            <i class="fa fa-check-circle"></i> Reactivate
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>{{d.AcctCode}}</td>
+                                        <td>{{d.AcctName}}</td>
+                                    </tr>
+                                    <tr ng-show="data.length == 0">
+                                        <td colspan="8" class="text-center" style="font-style:unset">
+                                            No data available
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

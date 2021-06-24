@@ -1,0 +1,102 @@
+﻿<!-- Consumer Type Modal -->
+@model string
+<script type="text/ng-template" id="_WarningMessageModal.html">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title"> <span class="glyphicon glyphicon-warning-sign" style="color:gold"></span>&nbsp; NOTIFICATION</h4>
+    </div>
+
+    <div class="modal-body" id="modal-body">
+        <!-- BEGIN FORM-->
+        <div class="form-body">
+            <div class="row">
+                @if (Model == "billTrans")
+                {
+                    <div class="col-md-12"><h5 class="form-sub-title">Accounts with impediments</h5><hr/></div>
+                    <div class="col-md-12">
+                        <div class="table-responsive padding-bottom-50" style="overflow-x:hidden;" loading-container="tableParams.settings().$loading">
+                            <table ng-table="tableParams" ng-class="{'loading': isLoading}"
+                                   class="table table-bordered table-striped table-hover">
+                                <tr>
+                                    <th  style="background-color: #4682b4;color:white" class="text-left">
+                                        ACCOUNT NO.
+                                    </th>
+                                    <th style="background-color: #4682b4; color:white" class="text-left">
+                                        NAME
+                                    </th>
+                                    <th style="background-color: #4682b4; color:white" class="text-left">
+                                        REMARKS
+                                    </th>
+                                </tr>
+                                <tr ng-repeat="item in filteredData">
+                                    <td width="25%" data-title="'ACCOUNT NO'" class="text-left">{{item.AccountNo}}</td>
+                                    <td width="35%" data-title="'NAME'"  class="text-left">{{item.Name}}</td>
+                                    <td width="40%" data-title="'REMARKS'" class="text-left">
+                                    <span ng-show="item.NoAccountOnBP">No account for business partner.<br /></span>  
+                                    <span ng-show="item.NoCustomerGroup">No customer group <br /></span>
+                                    <span ng-show="item.InvalidAccountingSetup">Invalid customer accounting setup<br /></span>
+                                    </td>
+
+
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12" ng-show="canProceed">
+                        <span style="color:red">By clicking continue, all valid account/s will be posted.</span>
+                    </div>
+                }
+                @if (Model == "approvalTemplate")
+                {
+                    <div class="col-md-12">
+                        <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                            <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped">
+                                <tr ng-repeat="item in data" ng-show="item.Transactions.length!=0">
+
+                                    <td width="20%" data-title="'ORIGINATOR'" header-class="'table-header text-left'" class="text-left">
+                                   {{item.Originators}}
+
+                                    </td>
+                                    <td width="40%" data-title="'TRANSACTION'" header-class="'table-header text-left'" class="text-left">
+                                        <span ng-repeat="transaction in item.Transactions">
+                                            <span>{{transaction}}</span><span ng-show="!$last">,&nbsp;</span>
+                                        </span>
+                                    </td>
+                                    <td width="40%" data-title="'STAGE'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.Stages}}
+                                    </td>
+
+                                </tr>
+                                <tr ng-show="$data.length == 0">
+                                    <td colspan="8" class="text-center" style="font-style:unset">
+                                        No data available
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- END FORM-->
+    <div class="modal-footer pull-left">
+        <a href="" class="btn green-dark" ng-click="exportWarningDataToExcelFile()">
+            <i class="fa fa-arrow-down"></i>
+            <span class="">Download</span>
+        </a>
+        <button type="button" class="btn btn-success" style="width: 90px;" ng-click="continue()">
+            &nbsp;Continue
+        </button>
+        <button type="button" class="btn btn-default" style="width: 90px;" ng-click="cancel()">
+            &nbsp;Cancel
+        </button>
+    </div>
+    <div class="clearfix"></div>
+
+</script>
+@section AngularJSPlugins {
+
+}
+@section PageScripts{
+
+}

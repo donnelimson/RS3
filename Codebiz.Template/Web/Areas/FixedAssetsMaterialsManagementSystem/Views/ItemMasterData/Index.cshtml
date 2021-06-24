@@ -1,0 +1,253 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+@{
+    ViewBag.Title = "Item Master Data";
+}
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a>FAMMS</a>
+            <i class="fa fa-circle"></i>
+            <a>Inventory</a>
+            <i class="fa fa-circle"></i>
+            <a>Item Master Data</a>
+            <i class="fa fa-circle"></i>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Item Master Data  <small>View, add, edit or search item master data</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12" ng-controller="ItemMasterDataController as controller">
+        <!-- BEGIN PORTLET -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET -->
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <h4 class="bold">Search</h4>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Item No</label>
+                                    <input type="text" name="itemNo" ng-model="itemNo" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Bar Code</label>
+                                    <input type="text" name="barCode" ng-model="barCode" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Description</label>
+                                    <input type="text" name="description" ng-model="description" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Item Type</label>
+                                    <div id="ItemTypeIdDiv">
+                                        <select select2 name="ItemTypeId"
+                                                ng-model="itemTypeId"
+                                                ng-options="it.Id as it.Description for it in itemTypes"
+                                                ng-change="search()">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Item Group</label>
+                                    <div id="ItemGroupIdDiv">
+                                        <select select2 name="ItemGroupId"
+                                                ng-model="itemGroupId"
+                                                ng-options="ig.Id as ig.Description for ig in itemGroups"
+                                                ng-change="search()">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Price List</label>
+                                    <div id="PriceListIdDiv">
+                                        <select select2 name="PriceListId"
+                                                ng-model="priceListId"
+                                                ng-options="pl.Id as pl.Description for pl in priceLists"
+                                                ng-change="search()">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-md-checkboxes">
+                                    <div class="md-checkbox-inline">
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" class="md-check" ng-model="isInventoryItem" ng-true-value="true" ng-false-value="false"
+                                                    id="inventoryItem" ng-click="search();">
+                                            <label for="inventoryItem">
+                                                <span class="inc"></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span>
+                                            </label>
+                                            Inventory Item
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" class="md-check" id="salesItem"
+                                                    ng-model="isSalesItem" ng-true-value="true" ng-false-value="false" ng-click="search();">
+                                            <label for="salesItem">
+                                                <span class="inc"></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span>
+                                            </label>
+                                            Sales Item
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" class="md-check" ng-model="isPurchaseItem" ng-true-value="true" ng-false-value="false"
+                                                    id="purchaseItem" ng-click="search();">
+                                            <label for="purchaseItem">
+                                                <span class="inc"></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span>
+                                            </label>
+                                            Purchase Item
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" class="md-check" ng-model="isFixedAssets" ng-true-value="true" ng-false-value="false"
+                                                    id="fixedAssets" ng-click="search();">
+                                            <label for="fixedAssets">
+                                                <span class="inc"></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span>
+                                            </label>
+                                            Fixed Assets
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-success" ng-click="search()">
+                                        <i class="fa fa-search"></i>
+                                        <span class=""> Search </span>
+                                    </button> &nbsp;&nbsp;
+                                    <button type="button" class="btn btn-white" ng-click="reset()">
+                                        <i class="fa fa-rotate-left"></i>
+                                        <span class=""> Reset </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET -->
+            </div>
+        </div>
+
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    List
+                </div>
+                <div class="actions">
+                    <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportItemMasterData)>
+                        <i class="fa fa-share-square-o"></i>
+                        <span class="">Export</span>
+                    </a>
+                    <a ng-click="gotoCreate()" href="javascript:;" class="btn btn-info" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddItemMasterData)>
+                        <i class="fa fa-plus"></i>
+                        <span class=""> New </span>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                        <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover
+                                @Html.UserHasPermission(userPermission:new List<string>()
+                             { PermissionData.UserCanEditItemMasterData})">
+                            <tr ng-repeat="item in $data">
+                                <td width="1%">
+                                    <div class="btn-group">
+                                        <button id="item" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-list"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="">
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditItemMasterData)>
+                                                <a ng-click="goToEdit(item.ItemMasterDataId)">
+                                                    <i class="glyphicon glyphicon-pencil"></i> Edit
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="10%" data-title="'ITEM NO'" sortable="'ItemNo'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.ItemNo}}
+                                </td>
+                                <td width="10%" data-title="'BAR CODE'" sortable="'BarCode'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.BarCode}}
+                                </td>
+                                <td width="10%" data-title="'DESCRIPTION'" sortable="'Description'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.Description}}
+                                </td>
+                                <td width="9%" data-title="'ITEM TYPE'" sortable="'ItemType'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.ItemType}}
+                                </td>
+                                <td width="9%" data-title="'ITEM GROUP'" sortable="'ItemGroup'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.ItemGroup}}
+                                </td> <td width="9%" data-title="'PRICE LIST'" sortable="'PriceList'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.PriceList}}
+                                </td>
+                                <td width="9%" data-title="'INVENTORY'" sortable="'IsInventoryItem'" header-class="'table-header text-left'" class="text-left">
+                                    <span class="label label-sm" ng-class="item.IsInventoryItem ? 'label-success' : 'label-danger'">{{item.IsInventoryItem ? 'Yes': 'No'}}</span>
+                                </td>
+                                <td width="9%" data-title="'SALES'" sortable="'IsSalesItem'" header-class="'table-header text-left'" class="text-left">
+                                    <span class="label label-sm" ng-class="item.IsSalesItem ? 'label-success' : 'label-danger'">{{item.IsSalesItem ? 'Yes': 'No'}}</span>
+                                </td>
+                                <td width="9%" data-title="'PURCHASE'" sortable="'IsPurchaseItem'" header-class="'table-header text-left'" class="text-left">
+                                    <span class="label label-sm" ng-class="item.IsPurchaseItem ? 'label-success' : 'label-danger'">{{item.IsPurchaseItem ? 'Yes': 'No'}}</span>
+                                </td>
+                                <td width="9%" data-title="'FIXED ASSETS'" sortable="'IsFixedAssets'" header-class="'table-header text-left'" class="text-left">
+                                    <span class="label label-sm" ng-class="item.IsFixedAssets ? 'label-success' : 'label-danger'">{{item.IsFixedAssets ? 'Yes': 'No'}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length == 0">
+                                <td colspan="11" class="text-center" style="font-style:unset">
+                                    No data available
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section angularjspage {
+    @Scripts.Render("~/Areas/FixedAssetsMaterialsManagementSystem/Scripts/App/Services/FAMMS/Inventory/ItemMasterData/ItemMasterDataService.js")
+    @Scripts.Render("~/Areas/FixedAssetsMaterialsManagementSystem/Scripts/App/Controllers/FAMMS/Inventory/ItemMasterData/ItemMasterDataController.js")
+}

@@ -1,0 +1,256 @@
+﻿@model  Web.Models.JobOrderViewModel
+@{
+    ViewBag.Title = Model.JobOrderType;
+}
+
+<div ng-app="MetronicApp">
+    <ng-view></ng-view>
+
+    @Html.Partial("~/Views/JobOrderManagement/_JobOrderTmpl.cshtml")
+    @Html.Partial("~/Views/JobOrderManagement/_JobOrderTypeAddTemplate.cshtml")
+
+</div>
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/JobOrder/JobOrderManagementService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/JobOrder/JobOrderManagementAddOrUpdateController.js")
+}
+<!-- END PAGE TITLE-->
+<!--SCRIPTS TABLE -->
+@section PageScripts {
+    <script>
+        (function () {
+            var app = angular.module('MetronicApp');
+            app.requires.push.apply(app.requires, ['ngRoute'])
+
+            app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+                $routeProvider
+                    .when('/', {
+                        templateUrl: 'JobOrderTypeListTemplate.html'
+                    })
+                    .when('/New', {
+                        templateUrl: 'JobOrderTypeAddTemplate.html',
+                        params: { jobOrderType: '@Model.JobOrderType' }
+                    })
+                    .when('/Edit/:id', {
+                        templateUrl: 'JobOrderTypeAddTemplate.html',
+                        params: { jobOrderType: '@Model.JobOrderType' }
+                    })
+                    .otherwise({
+                        templateUrl: 'JobOrderTypeAddTemplate.html',
+                    })
+
+                $locationProvider.html5Mode(false).hashPrefix('!')
+            }])
+            .controller('JobOrderController', ['$scope', 'NgTableParams', 'JobOrderManagementService', 'CommonService', '$q', '$location',
+                function ($scope, NgTableParams, JobOrderManagementService, CommonService, $q, $location) {
+
+                    var jobOrderType = '@Model.JobOrderType'
+
+                    this.$onInit = function () {
+                        $scope.sortColumn = "CreatedDate";
+                        $scope.sortOrder = "desc";
+                        $scope.reset();
+                    };
+
+                    //#region Search
+
+                    $scope.search = function () {
+                        var initialSettings = {
+                            getData: function (params) {
+                                for (var i in params.sorting()) {
+                                    $scope.sortColumn = i;
+                                    $scope.sortOrder = params.sorting()[i];
+                                }
+
+                                if (jobOrderType === 'Task To Be Performs') {
+                                    $scope.jobOrderType = 'Task to be perform';
+                                    $scope.jobOrderTypeLower = 'task to be perform';
+                                    $scope.jobOrderTitle = 'TASK TO BE PERFORM';
+                                    var d = $q.defer();
+
+                                    JobOrderManagementService.GetJobOrderTaskToPerformList({
+                                        Page: params.page(),
+                                        PageSize: params.count(),
+                                        SortDirection: $scope.sortOrder,
+                                        SortColumn: $scope.sortColumn,
+                                        jobOrderTypeSearch: $scope.jobOrderTypeSearch,
+                                        JobOrderType: jobOrderType,
+                                        CreatedOnFrom: getDateRangePickerValue(1, $scope.createdDate),
+                                        CreatedOnTo: getDateRangePickerValue(2, $scope.createdDate)
+                                    }).then(function (data) {
+                                        $scope.data = data.DataResult;
+                                        $scope.resultsLength = data.TotalRecordCount;
+                                        params.total($scope.resultsLength);
+                                        d.resolve(data.DataResult);
+                                    });
+
+                                    return d.promise;
+                                }
+
+
+                                if (jobOrderType === 'Nature Types') {
+                                    $scope.jobOrderType = 'Nature type';
+                                    $scope.jobOrderTypeLower = 'nature type';
+                                    $scope.jobOrderTitle = 'NATURE TYPE';
+                                    var d = $q.defer();
+
+                                    JobOrderManagementService.GetJobOrderNatureTypeList({
+                                        Page: params.page(),
+                                        PageSize: params.count(),
+                                        SortDirection: $scope.sortOrder,
+                                        SortColumn: $scope.sortColumn,
+                                        jobOrderTypeSearch: $scope.jobOrderTypeSearch,
+                                        JobOrderType: jobOrderType,
+                                        CreatedOnFrom: getDateRangePickerValue(1, $scope.createdDate),
+                                        CreatedOnTo: getDateRangePickerValue(2, $scope.createdDate)
+                                    }).then(function (data) {
+                                        $scope.data = data.DataResult;
+                                        $scope.resultsLength = data.TotalRecordCount;
+                                        params.total($scope.resultsLength);
+                                        d.resolve(data.DataResult);
+                                    });
+
+                                    return d.promise;
+                                }
+
+                            }
+
+                        };
+                        $scope.tableParams = new NgTableParams(10, initialSettings);
+                    };
+
+                    //#endregion
+
+                    //#region Export Data To Excel File
+
+                    $scope.exportDataToExcelFile = function () {
+                        if ($scope.resultsLength > 0) {
+                            CommonService.showLoading();
+                            if (jobOrderType === 'Nature Types') {
+
+                                JobOrderManagementService.ExportJONatureTypeDataToExcelFile({
+                                    SortDirection: $scope.sortOrder,
+                                    SortColumn: $scope.sortColumn,
+                                    jobOrderTypeSearch: $scope.jobOrderTypeSearch,
+                                    JobOrderType: jobOrderType,
+                                    CreatedOnFrom: getDateRangePickerValue(1, $scope.createdDate),
+                                    CreatedOnTo: getDateRangePickerValue(2, $scope.createdDate)
+                                }).then(function (data) {
+                                    CommonService.hideLoading();
+                                    window.location.href = document.FileUpload + "DownloadExcelFile?fileName=" + data.data.FileName;
+
+                                }, function (error /*Error event should handle here*/) {
+                                    console.log("Error");
+                                }, function (data /*Notify event should handle here*/) {
+                                    console.log("Error");
+                                });
+                            }
+                            if (jobOrderType === 'Task To Be Performs') {
+
+                                JobOrderManagementService.ExportJOTaskToBePerformDataToExcelFile({
+                                    SortDirection: $scope.sortOrder,
+                                    SortColumn: $scope.sortColumn,
+                                    jobOrderTypeSearch: $scope.jobOrderTypeSearch,
+                                    JobOrderType: jobOrderType,
+                                    CreatedOnFrom: getDateRangePickerValue(1, $scope.createdDate),
+                                    CreatedOnTo: getDateRangePickerValue(2, $scope.createdDate)
+                                }).then(function (data) {
+                                    CommonService.hideLoading();
+                                    window.location.href = document.FileUpload + "DownloadExcelFile?fileName=" + data.data.FileName;
+
+                                }, function (error /*Error event should handle here*/) {
+                                    console.log("Error");
+                                }, function (data /*Notify event should handle here*/) {
+                                    console.log("Error");
+                                });
+                            }
+                        }
+                    };
+
+                    //#endregion
+
+                    //#region Reset Filter Fields
+
+                    $scope.reset = function () {
+                        $scope.jobOrderTypeSearch = "";
+                        $scope.createdDate = null;
+                        $scope.search();
+                    };
+
+                    //#endregion
+
+                    //#region Reactivate / Deactivate
+
+                    $scope.toggleActiveStatus = function (item) {
+                        CommonService.reactivateDeactivate(function () {
+                            JobOrderManagementService.ToggleActiveStatus({
+                                id: item.JobOrderDataId,
+                                isActive: item.IsActive,
+                                name: item.JobOrderData,
+                                type: jobOrderType
+                            }).then(function (data) {
+                                if (data.success) {
+                                    CommonService.successMessage(data.message);
+                                    $scope.search();
+                                }
+                                else {
+                                    CommonService.warningMessage(data.message);
+                                }
+
+                            }), function (error /*Error event should handle here*/) {
+                                console.log(error);
+                                CommonService.errorMessage("Unexpected error occured.");
+                            }, function (data /*Notify event should handle here*/) {
+                            };
+                        }, item.JobOrderData, item.IsActive);
+                    }
+
+                    //#endregion
+
+                    $scope.goToAddOrEdit = function (id) {
+                        if (id != 0) {
+                            $location.path("Edit/" + id);
+                        }
+                        else {
+                            $location.path("New");
+                        }
+                    }
+
+                    //#region Search When Enter
+
+                    $scope.searchWhenEnter = function ($event) {
+                        var keyCode = $event.which || $event.keyCode;
+                        if (keyCode === 13) {
+                            $scope.search();
+                        }
+                    };
+
+                    //#endregion
+                }
+            ]);
+        }());
+
+         $(document).ready(function () {
+            $(function () {
+                $('input[name="CreatedDate"]').daterangepicker({
+                    opens: 'left',
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                }, function (start, end, label) {
+                });
+            });
+
+            $('input[name="CreatedDate"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                $(this).trigger('change');
+            });
+
+            $('input[name="CreatedDate"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+                $(this).trigger('change');
+            });
+        })
+    </script>
+}

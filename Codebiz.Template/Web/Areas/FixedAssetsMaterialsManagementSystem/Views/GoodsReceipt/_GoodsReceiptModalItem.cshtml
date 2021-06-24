@@ -1,0 +1,63 @@
+﻿
+
+<script type="text/ng-template" id="OrderingModalItem.html">
+    <div class="modal-body" id="modal-body">
+
+        <div class="col-xs-4">
+            <div class="form-group">
+                <label class="control-label">Filter by supplier</label>
+                <select name="supplierId" class="form-control" ng-model="supplierId"
+                        ui-validate="{minimum : '$value>0'}"
+                        ng-required="true"
+                        ng-change="supplierChange(supplierId)"
+                        ng-options="map.Id as (map.Description) for map in mapSupplier">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-xs-4">
+            <div class="form-group">
+                <label class="control-label">Search product</label>
+                <input type="text" ng-model="searcher" ng-change="searchProduct(searcher)" tabindex="-1" class="form-control" />
+            </div>
+        </div>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr class="uppercase">
+                    <th width="2%">
+                        All  <input type="checkbox" ng-model="selectAll" ng-change="selectAllItems()" ng-disabled="allAreSelected" />
+                    </th>
+
+                    <th>
+                        item Id
+                    </th>
+                    <th>
+                        item Code
+                    </th>
+                    <th>
+                        Long Description
+                    </th>
+                    <th>
+                        Cost
+                    </th>
+                </tr>
+            </thead>
+            <tr ng-repeat="row in mapItems" ng-class="{selected:row.isChecked}">
+                <td><input type="checkbox" ng-model="row.selectedItem" ng-change="selectedItem(row)" multi-checkbox name="rowName" ng-disabled="row.checkedIn" ng-checked="row.selectedItem || selectAll" /></td>
+                <td ng-bind="row.Id" ng-dblclick="addToItemDblClck(row)"></td>
+                <td ng-bind="row.ItemCode" ng-dblclick="addToItemDblClck(row)"></td>
+                <td ng-bind="row.Description" ng-dblclick="addToItemDblClck(row)"></td>
+                <td ng-bind="row.Cost|number:2" ng-dblclick="addToItemDblClck(row)"></td>
+            </tr>
+
+            <tbody></tbody>
+
+        </table>
+        <button class="btn btn-green" ng-model="addItem" ng-disabled="itemDetail.length==1" ng-click="getCost()">Add selected items</button>
+        <div class="modal-footer">
+            <button class="btn btn-white" type="button" ng-click="cancel()">Close</button>
+        </div>
+    </div>
+</script>
+

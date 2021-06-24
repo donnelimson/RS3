@@ -1,0 +1,215 @@
+﻿@{
+    ViewBag.Title = "Approval Stage - Add or Update";
+}
+
+<div class="row" ng-app="MetronicApp" ng-controller="ApprovalStageAddOrUpdateController as asc" ng-form="approvalStageForm">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>Management</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Approval Procedure</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a ng-href="{{approvalStageIndex}}">Approval Stage</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>{{viewOnly ? "Details" : isUpdate ? "Edit" : "Add"}}</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            Approval Stage <small>{{viewOnly ? "details" : "form"}}</small>
+        </h1>
+        <!-- END PAGE TITLE-->
+        <div class="row">
+            <div class="col-md-12 loading-container" loading-container="isDataLoading">
+                <div class="portlet light" style="margin-bottom:unset">
+                    <div class="portlet-body form">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h5 class="form-sub-title"> INFORMATION </h5>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group" ng-class="approvalStageForm.Name.$error.required && (approvalStageForm.Name.$dirty || formSubmitted) ? 'has-error' : ''">
+                                            <label class="control-label">Name</label><span class="required"> *</span>
+                                            <input type="text"
+                                                   name="Name"
+                                                   ng-model="approvalStage.Name"
+                                                   class="form-control"
+                                                   ng-required="true"
+                                                   maxlength="300"
+                                                   capitalize
+                                                   ng-disabled="viewOnly">
+                                            <span ng-show="approvalStageForm.Name.$error.required && (approvalStageForm.Name.$dirty || formSubmitted)"
+                                                  class="text-danger field-validation-error"><small>Name is required!</small></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group" ng-class="approvalStageForm.Description.$invalid && (approvalStageForm.Description.$dirty || formSubmitted) ? 'has-error' : ''">
+                                            <label class="control-label">Description</label><span class="required"> *</span>
+                                            <input type="text"
+                                                   name="Description"
+                                                   ng-model="approvalStage.Description"
+                                                   class="form-control"
+                                                   ng-required="true"
+                                                   maxlength="2000"
+                                                   capitalize
+                                                   ng-disabled="viewOnly">
+                                            <span ng-show="approvalStageForm.Description.$error.required && (approvalStageForm.Description.$dirty || formSubmitted)"
+                                                  class="text-danger field-validation-error"><small>Description is required!</small></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group" ng-class="approvalStageForm.RequiredApprovals.$invalid && (approvalStageForm.RequiredApprovals.$dirty || formSubmitted) ? 'has-error' : ''">
+                                            <label class="control-label">Required Approvals</label><span class="required"> *</span>
+                                            <input type="number"
+                                                   name="RequiredApprovals"
+                                                   ng-model="approvalStage.RequiredApprovals"
+                                                   min="1" maxlength="3"
+                                                   class="form-control"
+                                                   ng-keyup="validateRequiredApprovals()"
+                                                   ng-required="true"
+                                                   ng-disabled="viewOnly">
+                                            <span ng-show="approvalStageForm.RequiredApprovals.$error.required && (approvalStageForm.RequiredApprovals.$dirty || formSubmitted)"
+                                                  class="text-danger field-validation-error"><small>Required approvals is required!</small></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group" ng-class="approvalStageForm.RequiredRejections.$invalid && (approvalStageForm.RequiredRejections.$dirty || formSubmitted) ? 'has-error' : ''">
+                                            <label class="control-label">Required Rejections</label><span class="required"> *</span>
+                                            <input type="number" name="RequiredRejections"
+                                                   ng-model="approvalStage.RequiredRejections"
+                                                   min="1"
+                                                   max="{{approvalStage.RequiredApprovals}}"
+                                                   maxlength="3" class="form-control"
+                                                   ng-required="true"
+                                                   ng-disabled="viewOnly">
+                                            <span ng-show="approvalStageForm.RequiredRejections.$error.required && (approvalStageForm.RequiredRejections.$dirty || formSubmitted)"
+                                                  class="text-danger field-validation-error"><small>Required rejections is required!</small></span>
+                                            <span ng-show="approvalStageForm.RequiredRejections.$error.max || approvalStageForm.RequiredRejections.$error.min && (approvalStageForm.RequiredRejections.$dirty || formSubmitted)"
+                                                  class="text-danger field-validation-error"><small>Required rejections should not be greater than required approvals or less than 0!</small></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group" ng-class="approvalStageForm.Label.$invalid && (approvalStageForm.Label.$dirty || formSubmitted) ? 'has-error' : ''">
+                                            <label class="control-label">Approver Label</label><span class="required"> *</span>
+                                            <div class="form-group" ng-class="approvalStageForm.Label.$invalid && (approvalStageForm.Label.$dirty || formSubmitted) ? 'has-error' : ''">
+                                                <select select2
+                                                        name="Label"
+                                                        class="form-control"
+                                                        ng-model="approvalStage.LabelId"
+                                                        ng-options="label.Id as (label.Description) disable when label.IsActive == false for label  in labels | orderBy : 'Description'"
+                                                        ng-required="true"
+                                                        ng-disabled="viewOnly">
+                                                    <option value="">--Please select--</option>
+                                                </select>
+                                                <span ng-show="approvalStageForm.Label.$error.required && (approvalStageForm.Label.$dirty || formSubmitted)"
+                                                      class="text-danger field-validation-error"><small>Approver label is required!</small></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="title-action">
+                                    <div class="caption">
+                                        <h5 class="form-sub-title"> APPROVER(S) </h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive padding-bottom-10" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                                            <table ng-table="ApproverListParams" ng-class="{'loading': isLoading}" class="table table-bordered table-hover table-striped">
+                                                <tr ng-repeat="item in $data | orderBy : 'Name'">
+                                                    <td width="1%" header-class="'text-center width-1'" class="text-center" header="'ng-table/headers/addApprovers.html'" ng-if="!viewOnly">
+                                                        <button class="btn btn-danger btn-mini" ng-click="deleteApprover(item)">
+                                                            <i class="glyphicon glyphicon-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td width="30%" data-title="'NAME'" header-class="'table-header text-left'" class="text-left">
+                                                        {{item.FullName}}
+                                                    </td>
+                                                    <td width="15%" data-title="'POSITION'" header-class="'table-header text-left'" class="text-left">
+                                                        {{item.Position}}
+                                                    </td>
+                                                    <td width="15%" data-title="'AREA'" header-class="'table-header text-left'" class="text-left ">
+                                                        {{item.Office}}
+                                                    </td>
+                                                </tr>
+                                                <tr ng-show="$data.length == 0">
+                                                    <td colspan="8" class="text-center" style="font-style:unset">
+                                                        <span class="text-danger field-validation-error">
+                                                            Please add atleast one (1) approver.
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET -->
+            </div>
+        </div>
+        <div class="row" ng-hide="viewOnly">
+            <div class="col-md-12">
+                <div class="portlet light" style="border-top:solid thin #e7ecf1">
+                    <!--Actions (Save/Cancel)-->
+                    <div class="form-action">
+                        <div class="actions btn-set">
+                            <button class="btn btn-success" style="width: 90px;" ng-click="save()">
+                                <span class="glyphicon glyphicon-ok"></span>&nbsp; {{isUpdate? 'Update':'Save'}}
+                            </button>
+                            <button class="btn btn-default" style="width: 90px;" ng-click="cancel()">
+                                <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="ng-table/headers/addApprovers.html">
+    <div class="btn-group">
+        <button class="btn btn-mini btn-info" ng-click="addApprovers()">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+</script>
+
+@section PageStyles {
+}
+
+@section PageScripts {
+}
+
+@section AngularJSPlugins {
+}
+
+@section AngularJSPage {
+    @Scripts.Render("~/Scripts/App/Services/LookUpService.js")
+    @Scripts.Render("~/Scripts/App/Services/ApprovalStageService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/ApprovalStage/ApprovalStageAddOrUpdateController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/SearchEmployeeMultipleController.js")
+    @Scripts.Render("~/Areas/Lookups/Scripts/Service/ChooseFromListDataService.js")
+    @Scripts.Render("~/Areas/Lookups/Scripts/Controller/ChooseFromListMultipleSelectCtrl.js")
+}

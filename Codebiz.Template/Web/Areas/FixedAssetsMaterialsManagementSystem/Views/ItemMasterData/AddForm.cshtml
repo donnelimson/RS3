@@ -1,0 +1,923 @@
+﻿
+@{
+    ViewBag.Title = "Item Master Data";
+}
+<div ng-app="MetronicApp" ng-controller="ItemMasterDataAddOrUpdateController" ng-form="ItemMasterDataForm" file-upload="options">
+
+    <!-- BEGIN PAGE BAR -->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a>FAMMS</a>
+                <i class="fa fa-circle"></i>
+                <a>Inventory</a>
+                <i class="fa fa-circle"></i>
+                <a>Item Master Data</a>
+                <i class="fa fa-circle"></i>
+                <span>{{isUpdate ? 'Edit' : 'Add'}}</span>
+            </li>
+        </ul>
+        <div class="page-toolbar">
+            <a class="btn btn-sm btn-default" ng-click="goToIndex()">Back to List</a>
+        </div>
+    </div>
+    <!-- END PAGE BAR -->
+    <!-- BEGIN PAGE TITLE-->
+
+    <h1 class="page-title">
+        Item Master Data <small>form</small>
+    </h1>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row" ng-cloak>
+        <div class="col-md-12">
+            <!-- BEGIN PORTLET -->
+            <div class="portlet light bordered">
+                <div class="portlet-body">
+                    <div class="row" style="padding-bottom:3px">
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">Item No.<span class="required">*</span></label>
+                            <div class="col-md-2">
+                                <div id="DocumetNumberingTransactionTypeIdDiv">
+                                    <select select2 name="ItemTypeId" class="form-control"
+                                            ng-model="documentNumberingTransactionTypeId"
+                                            ng-options="t.DocumentNumberingTransactionTypeId as t.Name for t in documentNumberings"
+                                            ng-change="getSeeding(documentNumberingTransactionTypeId)"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" ng-disabled="!IsManual" ng-model="itemCode">
+                            </div>
+                            <label class="col-md-1 control-label">Bar Code<span class="required">*</span></label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-bottom:3px">
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">Description<span class="required">*</span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-bottom:3px">
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">Item Type<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div id="ItemTypeIdDiv">
+                                    <select select2 name="ItemTypeId"
+                                            ng-model="itemTypeId"
+                                            ng-options="it.Id as it.Description for it in itemTypes">
+                                        <option value="">---Please select---</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-bottom:3px">
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">Item Group<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div id="ItemGroupIdDiv">
+                                    <select select2 name="ItemGroupId"
+                                            ng-model="itemGroupId"
+                                            ng-options="ig.Id as ig.Description for ig in itemGroups">
+                                        <option value="">---Please select---</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-bottom:3px">
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">Price List<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div id="PriceListIdDiv">
+                                    <select select2 name="PriceListId"
+                                            ng-model="priceListId"
+                                            ng-options="pl.Id as pl.Description for pl in priceLists">
+                                        <option value="">---Please select---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <label class="col-md-1 control-label">Unit Price<span class="required">*</span></label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row checkbox-row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11">
+                            <div class="form-group form-md-checkboxes">
+                                <div class="md-checkbox-inline">
+                                    <div class="md-checkbox">
+                                        <input type="checkbox" class="md-check" ng-model="isInventoryItem" ng-true-value="true" ng-false-value="false"
+                                               id="inventoryItem">
+                                        <label for="inventoryItem">
+                                            <span class="inc"></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span>
+                                        </label>
+                                        Inventory Item
+                                    </div>
+                                    <div class="md-checkbox">
+                                        <input type="checkbox" class="md-check" id="salesItem"
+                                               ng-model="isSalesItem" ng-true-value="true" ng-false-value="false">
+                                        <label for="salesItem">
+                                            <span class="inc"></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span>
+                                        </label>
+                                        Sales Item
+                                    </div>
+                                    <div class="md-checkbox">
+                                        <input type="checkbox" class="md-check" ng-model="isPurchaseItem" ng-true-value="true" ng-false-value="false"
+                                               id="purchaseItem">
+                                        <label for="purchaseItem">
+                                            <span class="inc"></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span>
+                                        </label>
+                                        Purchase Item
+                                    </div>
+                                    <div class="md-checkbox">
+                                        <input type="checkbox" class="md-check" ng-model="isFixedAssets" ng-true-value="true" ng-false-value="false"
+                                               id="fixedAssets">
+                                        <label for="fixedAssets">
+                                            <span class="inc"></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span>
+                                        </label>
+                                        Fixed Assets
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PORTLET -->
+        </div>
+    </div>
+    <div class="portlet light bordered">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light">
+                    <div class="portlet-title tabbable-line">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#general" data-toggle="tab">GENERAL</a>
+                            </li>
+                            <li>
+                                <a href="#purchasingData" data-toggle="tab">PURCHASING DATA</a>
+                            </li>
+                            <li>
+                                <a href="#salesData" data-toggle="tab">SALES DATA</a>
+                            </li>
+                            <li>
+                                <a href="#inventoryData" data-toggle="tab">INVENTORY DATA</a>
+                            </li>
+                            <li>
+                                <a href="#remarks" data-toggle="tab">REMARKS</a>
+                            </li>
+                            <li>
+                                <a href="#attachments" data-toggle="tab">ATTACHMENTS</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="general">
+                            <div class="row" style="padding-bottom:3px">
+                                <div class="col-md-6">
+                                    <br />
+                                    <div class="form-group form-md-checkboxes">
+                                        <div class="md-checkbox-inline">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" class="md-check" ng-true-value="true" ng-false-value="false"
+                                                       ng-model="istaxLiable"
+                                                       id="taxLiable">
+                                                <label for="taxLiable">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                                Tax Liable
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-bottom:3px">
+                                <div class="form-group">
+                                    <label class="col-md-1">Manufacturer<span class="required">*</span></label>
+                                    <div class="col-md-4">
+                                        <div id="ManufacturerIdDiv">
+                                            <select select2 name="manufacturerId"
+                                                    ng-model="manufacturerId"
+                                                    ng-options="m.ManufacturerId as m.Name for m in manufacturers">
+                                                <option value="">---Please select---</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-bottom:3px">
+                                <div class="form-group">
+                                    <label class="col-md-1">Additional Identifier</label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-bottom:3px">
+                                <div class="form-group">
+                                    <label class="col-md-1">Shipping Type</label>
+                                    <div class="col-md-4">
+                                        <div id="ShippingTypeIdDiv">
+                                            <select select2 name="shippingTypeId"
+                                                    ng-model="shippingTypeId"
+                                                    ng-options="st.ShippingTypeId as st.Name for st in shippingTypes">
+                                                <option value="">---Please select---</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 class="bold" style="color:#3598DC">Serial and Batch Numbers</h5>
+                            <div class="row" style="padding-bottom:3px">
+                                <div class="form-group">
+                                    <label class="col-md-1">Manage Item By</label>
+                                    <div class="col-md-4">
+                                        <div id="ManageItemIdDiv">
+                                            <select select2 name="ManageItemId"
+                                                    ng-model="manageItemId"
+                                                    ng-options="m.Id as m.Description for m in manageItemsBy">
+                                                <option value="">---Please select---</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 class="bold" style="color:#3598DC">Production Data</h5>
+                            <div class="row" style="padding-bottom:3px">
+                                <div class="form-group">
+                                    <label class="col-md-1">Issued Method</label>
+                                    <div class="col-md-4">
+                                        <div id="IssuedMethodIdDiv">
+                                            <select select2 name="IssuedMethodId"
+                                                    ng-model="issuedMethodId"
+                                                    ng-options="im.Id as im.Description for im in issuedMethod">
+                                                <option value="">---Please select---</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 class="bold" style="color:#3598DC">Status</h5>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-md-radios">
+                                        <div class="md-radio-inline">
+                                            <div ng-repeat="status in statuses" class="md-radio">
+                                                <input type="radio" id="radio{{$index}}" name="Status" class="md-radiobtn"
+                                                       ng-model="statusId"
+                                                       ng-click="changeStatus(statusId)"
+                                                       value="{{status.Id}}" />
+                                                <label for="radio{{$index}}">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                    {{status.Description}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="statusId !=3">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label"> Date Range </label>
+                                        <div class="input-group date">
+                                            <input type="text" name="DateRange" id="dateRange"
+                                                   placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _"
+                                                   ng-model="dateRange"
+                                                   class="form-control white-input" autocomplete="off"
+                                                   is-open="dateRangeDatePicker.opened" close-text="Close"
+                                                   ng-click="openDateRangeDatePicker()" readonly>
+                                            <span class="input-group-addon" ng-click="openDateRangeDatePicker()" onclick="$('#dateRange').focus()">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7" style="margin-top:23px">
+                                    <div class="form-group">
+                                        <input type="text" name="remarks" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="statusId == 3">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label"> Active Date Range </label>
+                                        <div class="input-group date">
+                                            <input type="text" name="DateRange"
+                                                   id="dateRange" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _"
+                                                   class="form-control white-input" autocomplete="off"
+                                                   ng-model="activeDataRange"
+                                                   is-open="dateRangeDatePicker.opened" close-text="Close"
+                                                   ng-click="openDateRangeDatePicker()" readonly>
+                                            <span class="input-group-addon" ng-click="openDateRangeDatePicker()" onclick="$('#dateRange').focus()">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7" style="margin-top:23px">
+                                    <div class="form-group">
+                                        <input type="text" name="remarks" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="statusId == 3">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label"> InActive Date Range </label>
+                                        <div class="input-group date">
+                                            <input type="text" name="DateRange" id="dateRange"
+                                                   placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _"
+                                                   ng-model="inActiveDataRange"
+                                                   class="form-control white-input" autocomplete="off"
+                                                   is-open="dateRangeDatePicker.opened" close-text="Close"
+                                                   ng-click="openDateRangeDatePicker()" readonly>
+                                            <span class="input-group-addon" ng-click="openDateRangeDatePicker()" onclick="$('#dateRange').focus()">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7" style="margin-top:23px">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="remarks">
+
+                            <div class="row" style="padding-bottom:3px">
+                                <div class="col-md-12">
+                                    <textarea name="Notes" rows="6" ng-model="remarks" placeholder="Enter remarks...."
+                                              class="form-control" ng-required="true"></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="purchasingData">
+
+                            <div class="row" style="padding-bottom:3px">
+                                <div class="col-md-8">
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Preferred Vendor</label>
+                                            <div class="col-md-6">
+                                                <div id="SalesUoMDiv">
+                                                    <div class="form-group" ng-class="ItemMasterDataForm.preferredVendor.$invalid && (ItemMasterDataForm.preferredVendor.$dirty || formSubmitted) ? 'has-error' : ''">
+                                                        <div class="input-group">
+                                                            <input type="text" name="preferredVendor" tabindex="14" class="form-control" maxlength="10" autocomplete="off"
+                                                                   ng-maxlength="10" ng-minlength="10"
+                                                                   ng-model="preferredVendor"
+                                                                   ng-required="true">
+                                                            <span class="input-group-addon" style="cursor:pointer">&bull;&bull;&bull;</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Purchasing UoM<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <div id="SalesUoMDiv">
+                                                    <div class="form-group" ng-class="ItemMasterDataForm.purchasingUoM.$invalid && (ItemMasterDataForm.purchasingUoM.$dirty || formSubmitted) ? 'has-error' : ''">
+                                                        <div class="input-group">
+                                                            <input type="text" name="purchasingUoM" tabindex="14" class="form-control" maxlength="10" autocomplete="off"
+                                                                   ng-maxlength="10" ng-minlength="10"
+                                                                   ng-model="purchasingUoM"
+                                                                   ng-required="true">
+                                                            <span class="input-group-addon" style="cursor:pointer">&bull;&bull;&bull;</span>
+                                                        </div>
+                                                        <span ng-show="ItemMasterDataForm.purchasingUoM.$error.required && (ItemMasterDataForm.purchasingUoM.$dirty || formSubmitted)"
+                                                              class="text-danger field-validation-error"><small>Sales UoM is required!</small></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:9px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Item per Sales Unit</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-model="purchasingItemPerSalesUnit" numbers-only />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Packaging UoM (Purchasing)</label>
+                                            <div class="col-md-6">
+                                                <div id="PackagingUoMDiv">
+                                                    <div class="form-group" ng-class="ItemMasterDataForm.purchasingPackagingUoM.$invalid && (ItemMasterDataForm.purchasingPackagingUoM.$dirty || formSubmitted) ? 'has-error' : ''">
+                                                        <div class="input-group">
+
+                                                            <input type="text" name="purchasingPackagingUoM" tabindex="14" class="form-control" maxlength="10" autocomplete="off"
+                                                                   ng-maxlength="10" ng-minlength="10"
+                                                                   ng-model="purchasingPackagingUoM"
+                                                                   ng-required="true">
+                                                            <span class="input-group-addon" style="cursor:pointer">&bull;&bull;&bull;</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="row" style="padding-bottom:50px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Quantity per Packaging UoM</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-model="purchasingQuantityPerPackagingUoM" numbers-only />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Tax Type</label>
+                                            <div id="TaxTypeId">
+                                                <div class="col-md-6">
+                                                    <select select2 name="taxType" ng-model="taxTypeId" class="form-control"
+                                                            ng-options="tt.Id as tt.Name for tt in taxTypes "></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Length</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-model="purchasingLength" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Width</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-model="purchasingWidth" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Height</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-model="purchasingHeight" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Volume</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-model="purchasingVolume" />
+
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div id="VolumeIdDiv">
+                                                    <select select2 name="volume" ng-model="purchasingVolumeId" class="form-control"
+                                                            ng-options="vol.Id as vol.Name for vol in volumes"></select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:50px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Weight</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-model="purchasingWeight" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Factor 1<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-required="true" ng-model="purchasingFactor1" numbers-only />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Factor 2<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-required="true" ng-model="purchasingFactor2" numbers-only />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Factor 3<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-required="true" ng-model="purchasingFactor3" numbers-only />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Factor 4<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-required="true" ng-model="purchasingFactor4" numbers-only />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="salesData">
+
+                            <div class="row" style="padding-bottom:3px">
+                                <div class="col-md-8">
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Sales UoM<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <div id="SalesUoMDiv">
+                                                    <div class="form-group" ng-class="ItemMasterDataForm.salesUoM.$invalid && (ItemMasterDataForm.salesUoM.$dirty || formSubmitted) ? 'has-error' : ''">
+                                                        <div class="input-group">
+                                                            <input type="text" name="salesUoM" tabindex="14" class="form-control" maxlength="10" autocomplete="off"
+                                                                   ng-maxlength="10" ng-minlength="10"
+                                                                   ng-model="salesUoM"
+                                                                   ng-required="true">
+                                                            <span class="input-group-addon" style="cursor:pointer">&bull;&bull;&bull;</span>
+                                                        </div>
+                                                        <span ng-show="ItemMasterDataForm.salesUoM.$error.required && (ItemMasterDataForm.salesUoM.$dirty || formSubmitted)"
+                                                              class="text-danger field-validation-error"><small>Sales UoM is required!</small></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:9px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Item per Sales Unit</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-model="salesItemPerSalesUnit" numbers-only />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Packaging UoM (Sales)</label>
+                                            <div class="col-md-6">
+                                                <div id="PackagingUoMDiv">
+                                                    <div class="form-group" ng-class="ItemMasterDataForm.salesPackagingUoM.$invalid && (ItemMasterDataForm.salesPackagingUoM.$dirty || formSubmitted) ? 'has-error' : ''">
+                                                        <div class="input-group">
+
+                                                            <input type="text" name="salesPackagingUoM" tabindex="14" class="form-control" maxlength="10" autocomplete="off"
+                                                                   ng-maxlength="10" ng-minlength="10"
+                                                                   ng-model="salesPackagingUoM"
+                                                                   ng-required="true">
+                                                            <span class="input-group-addon" style="cursor:pointer">&bull;&bull;&bull;</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Quantity per Packaging UoM</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-model="salesQuantityPerPackagingUoM" numbers-only />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Length</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-model="salesLength" ng-change="calculateSalesVolume()" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Width</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-model="salesWidth" ng-change="calculateSalesVolume()" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Height</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-model="salesHeight" ng-change="calculateSalesVolume()" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Volume</label>
+                                            <div class="col-md-6">
+
+                                                <input type="text" class="form-control text-right" ng-model="salesVolume" />
+
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div id="VolumeIdDiv">
+                                                    <select select2 name="volume" ng-model="salesVolumeId" class="form-control" ng-options="vol.Id as vol.Name for vol in volumes"></select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:50px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Weight</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-model="salesWeight" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Factor 1<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-required="true" ng-model="salesFactor1" numbers-only />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Factor 2<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-required="true" ng-model="salesFactor2" numbers-only />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Factor 3<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-required="true" ng-model="salesFactor3" numbers-only />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-bottom:3px">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Factor 4<span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control text-right" ng-required="true" ng-model="salesFactor4" numbers-only />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="attachments">
+
+                            <div class="row" style="padding-bottom:3px">
+                                <div class="col-md-12">
+
+                                    <div class="portlet-body" id="supportingDocuments">
+                                        <br />
+                                        <div ng-show="attachments.length === 0 && formSubmitted"
+                                             class="text-danger field-validation-error">Please attach atleast one document.</div>
+                                        <div class="form-body">
+                                            <!-- The file upload form used as target for the file upload widget -->
+                                            <form id="fileupload" action="" method="POST" enctype="multipart/form-data" data-ng-class="{'fileupload-processing': processing() || loadingFiles}">
+                                                <!-- Redirect browsers with JavaScript disabled to the origin page -->
+                                                <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
+                                                <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+                                                <div class="row fileupload-buttonbar">
+                                                    <div class="col-md-12 text-right">
+                                                        <!-- The fileinput-button span is used to style the file input field as button -->
+                                                        <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+                                                            <i class="glyphicon glyphicon-plus"></i>
+                                                            <span>Add files...</span>
+                                                            <input type="file" name="files[]" accept="image/jpeg,application/pdf,image/png,image/pjpeg,.docx" multiple>
+                                                        </span>
+                                                        <!-- The global file processing state -->
+                                                        <span class="fileupload-process"></span>
+                                                    </div>
+                                                    <!-- The global progress state -->
+                                                    <div class="col-md-10 fade" data-ng-class="{in: active()}">
+                                                        <!-- The global progress bar -->
+                                                        <div class="progress progress-striped active" data-file-upload-progress="progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div></div>
+                                                        <!-- The extended global progress state -->
+                                                        <div class="progress-extended">&nbsp;</div>
+                                                    </div>
+                                                </div>
+                                                <!-- The table listing the files available for upload/download -->
+                                                <div class="portlet-body">
+                                                    <div class="panel panel-default">
+                                                        <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                                                            <table class="table table-striped files ng-cloak">
+                                                                <tr>
+                                                                    <th>Preview</th>
+                                                                    <th>File Name</th>
+                                                                    <th>File Size</th>
+
+                                                                    <th style="width: 20%" class="text-center">
+                                                                    </th>
+                                                                </tr>
+                                                                <tr data-ng-repeat="file in queue" data-ng-class="{'processing': file.$processing()}" set-document-tags-to>
+                                                                    <td data-ng-switch data-on="!!file.thumbnailUrl">
+                                                                        <div class="preview" data-ng-switch-when="true">
+                                                                            <img class="resizeThumb" ng-src="{{file.thumbnailUrl}}" alt="">
+                                                                        </div>
+                                                                        <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="name" data-ng-switch data-on="!!file.url">
+                                                                            <span data-ng-switch-default>{{file.name}}</span>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td>
+                                                                        {{file.size | formatFileSize}}
+                                                                        <div class="progress progress-striped active fade" data-ng-class="{pending: 'in'}[file.$state()]" data-file-upload-progress="file.$progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div></div>
+                                                                    </td>
+
+                                                                    <td style="width: 20%;" data-ng-controller="FileDestroyController" class="text-center">
+                                                                        <button type="button" class="btn btn-warning cancel removeFile" data-ng-click="file.$cancel()" data-ng-hide="!file.$cancel">
+                                                                            <i class="glyphicon glyphicon-ban-circle"></i>
+                                                                            <span>Cancel</span>
+                                                                        </button>
+                                                                        <span class="text-danger field-validation-error" ng-show="file.$state() === 'rejected'" ng-o style="display: block;"><small>Invalid file type.</small></span>
+                                                                        <button type="button" class="btn btn-danger destroy removeFile" data-ng-click="file.$destroy()" data-ng-hide="!file.$destroy && file.$cancel" ng-show="file.error">
+                                                                            <i class="glyphicon glyphicon-trash"></i>
+                                                                            <span>Delete</span>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <br>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Notes</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <ul>
+                                                        @*<li>The maximum file size for uploads in this demo is <strong>999 KB</strong> (default file size is unlimited).</li>*@
+                                                        <li>Only files (<strong>JPG, PNG, DOCX, PDF</strong>) are allowed.</li>
+                                                        @*<li>Uploaded files will be deleted automatically after <strong>5 minutes or less</strong> (demo files are stored in memory).</li>*@
+                                                        <li>You can <strong>drag &amp; drop</strong> files from your desktop on this webpage (see <a href="https://github.com/blueimp/jQuery-File-Upload/wiki/Browser-support">Browser support</a>).</li>
+                                                        @*<li>Please refer to the <a href="https://github.com/blueimp/jQuery-File-Upload">project website</a> and <a href="https://github.com/blueimp/jQuery-File-Upload/wiki">documentation</a> for more information.</li>*@
+                                                        @*<li>Built with the <a href="http://getbootstrap.com/">Bootstrap</a> CSS framework and Icons from <a href="http://glyphicons.com/">Glyphicons</a>.</li>*@
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="portlet light bordered">
+            <div class="row">
+                <div class="col-lg-3 col-md-4">
+                    <div class="form-action">
+                        <div class="actions btn-set">
+                            <button class="btn btn-success" style="width: 90px;" ng-click="save()">
+                                <span class="glyphicon glyphicon-ok"></span>&nbsp; Save
+                            </button>
+                            <button class="btn btn-default" style="width: 90px;">
+                                <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section PageStyles {
+    <style>
+
+        .resizeThumb {
+            width: 60px;
+            height: 60px;
+        }
+    </style>
+    @Styles.Render("~/assets/global/plugins/fancybox/source/jquery.fancybox.css")
+    @Styles.Render("~/assets/global/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css")
+    @Styles.Render("~/css/fileupload")
+    @Styles.Render("~/assets/global/plugins/jcrop/css/jquery.Jcrop.min.css")
+    @Styles.Render("~/assets/pages/css/image-crop.min.css")
+    @Styles.Render("~/Content/ng-table.min.css")
+    @Styles.Render("~/Content/jquery.mloading.css")
+    @Styles.Render("~/assets/global/css/consumer-account-details.css")
+}
+
+@section angularjspage {
+    @Scripts.Render("~/Areas/CommercialServicesApplication/Scripts/App/Controller/SuportingDocumentController.js")
+
+    @Scripts.Render("~/Areas/FixedAssetsMaterialsManagementSystem/Scripts/App/Services/FAMMS/Inventory/ItemMasterData/ItemMasterDataService.js")
+    @Scripts.Render("~/Areas/FixedAssetsMaterialsManagementSystem/Scripts/App/Controllers/FAMMS/Inventory/ItemMasterData/ItemMasterDataAddOrUpdateController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/FileDestroyController.js")
+
+}
+@section PageScripts {
+    <script>
+        $(".js-example-placeholder-single").select2({
+            placeholder: "Select a state",
+            allowClear: true
+        });
+        $(document).ready(function () {
+            $(function () {
+                $('input[name="DateRange"]').daterangepicker({
+                    drops: 'up',
+                    autoUpdateInput: false
+                }, function (start, end, label) {
+                });
+            });
+            $('input[name="DateRange"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                $(this).trigger('change');
+            });
+
+            $('input[name="DateRange"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+                $(this).trigger('change');
+            });
+        })
+    </script>
+    @Scripts.Render("~/Content/jquery.mloading.js")
+}
+@section AngularJSPlugins{
+    @Scripts.Render("~/bundles/fileupload");
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js")
+    @*@Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/tmpl.min.js")*@
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/load-image.min.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/blueimp-gallery/jquery.blueimp-gallery.min.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.iframe-transport.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-process.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-image.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-audio.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-video.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-validate.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-ui.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-angular.js")
+}

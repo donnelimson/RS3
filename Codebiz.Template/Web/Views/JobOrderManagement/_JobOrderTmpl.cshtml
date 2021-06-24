@@ -1,0 +1,183 @@
+﻿@model  Web.Models.JobOrderViewModel
+@{
+    ViewBag.Title = Model.JobOrderType;
+}
+
+<!--Job Order Template-->
+<script type="text/ng-template" id="JobOrderTypeListTemplate.html">
+    <div class="row">
+        <div class="col-md-12" ng-controller="JobOrderController as controller">
+            <!-- BEGIN PAGE BAR -->
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <span>Job Order</span>
+                        <i class="fa fa-circle"></i>
+                        <a ng-click="goToIndex(jobOrderType)">{{jobOrderType}}</a>
+                        <i class="fa fa-circle"></i>
+                        <span>List</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- END PAGE BAR -->
+            <!-- BEGIN PAGE TITLE-->
+            <h1 class="page-title">
+                {{jobOrderType}}  &nbsp;<small>View, search, add, edit, delete {{jobOrderTypeLower}}</small>
+            </h1>
+            <!-- END PAGE TITLE -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <h4 class="bold">Search</h4>
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="expand"> </a>
+                            </div>
+                        </div>
+                        <!-- BEGIN FILTERS -->
+                        <div class="portlet-body tabs-below" style="display: none;">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="control-label">Search</label>
+                                        <input type="text" name="jobOrderType" ng-model="jobOrderTypeSearch" alpha-slash-dash-only tabindex="1"
+                                               ng-keypress="searchWhenEnter($event)" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Created On</label>
+                                        <div class='input-group date'>
+                                            <input type="text" name="CreatedDate" id="createdDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                                   is-open="createdOnDatePicker.opened" close-text="Close"
+                                                   ng-model="createdDate" ng-click="openCreatedOnDatePicker()" ng-change="search()" tabindex="1" readonly />
+                                            <span class="input-group-addon" ng-click="openCreatedOnDatePicker()" onclick="$('#createdDate').focus()">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="actions btn-set btn-filter">
+                                        <button type="button" class="btn btn-success" ng-click="search()">
+                                            <i class="fa fa-search"></i>
+                                            <span class=""> Search </span>
+                                        </button>
+                                        <button type="button" class="btn" ng-click="reset()">
+                                            <i class="fa fa-rotate-left"></i>
+                                            <span class=""> Reset </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                List
+                            </div>
+                            <div class="actions">
+                                <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: Model.UserCanExportJO)>
+                                    <i class="fa fa-share-square-o"></i>
+                                    <span class="">Export</span>
+                                </a>
+                                <a href="" class="btn btn-info" ng-click="goToAddOrEdit(0)"
+                                   ng-show="@Html.UserHasPermissionIndex(userPermission: Model.UserCanAddJO) &&
+                                           !@Html.UserHasPermissionIndex(userPermission: Model.UserCanEditJO) &&
+                                           !@Html.UserHasPermissionIndex(userPermission: Model.UserCanDeleteJO)">
+                                    <i class="fa fa-plus"></i>
+                                    <span class=""> Add </span>
+                                </a>
+                                <a href="" class="btn btn-info" ng-click="goToAddOrEdit(0)"
+                                   ng-show="!@Html.UserHasPermissionIndex(userPermission: Model.UserCanAddJO) &&
+                                            @Html.UserHasPermissionIndex(userPermission: Model.UserCanEditJO) &&
+                                           !@Html.UserHasPermissionIndex(userPermission: Model.UserCanDeleteJO)">
+                                    <i class="fa fa-pencil"></i>
+                                    <span class=""> Edit </span>
+                                </a>
+                                <a href="" class="btn btn-danger" ng-click="goToAddOrEdit(0)"
+                                   ng-show="!@Html.UserHasPermissionIndex(userPermission: Model.UserCanAddJO) &&
+                                           !@Html.UserHasPermissionIndex(userPermission: Model.UserCanEditJO) &&
+                                            @Html.UserHasPermissionIndex(userPermission: Model.UserCanDeleteJO)">
+                                    <i class="fa fa-trash"></i>
+                                    <span class=""> Delete </span>
+                                </a>
+                                <a href="" class="btn btn-info" ng-click="goToAddOrEdit(0)"
+                                   ng-show="@Html.UserHasPermissionIndex(userPermission: Model.UserCanAddJO) &&
+                                           @Html.UserHasPermissionIndex(userPermission: Model.UserCanEditJO) &&
+                                           @Html.UserHasPermissionIndex(userPermission: Model.UserCanDeleteJO)">
+                                    <span class=""> Add/Edit/Delete </span>
+                                </a>
+                                <a href="" class="btn btn-info" ng-click="goToAddOrEdit(0)"
+                                   ng-show="!@Html.UserHasPermissionIndex(userPermission: Model.UserCanAddJO) &&
+                                           @Html.UserHasPermissionIndex(userPermission: Model.UserCanEditJO) &&
+                                           @Html.UserHasPermissionIndex(userPermission: Model.UserCanDeleteJO)">
+                                    <span class=""> Edit/Delete </span>
+                                </a>
+                                <a href="" class="btn btn-info" ng-click="goToAddOrEdit(0)"
+                                   ng-show="@Html.UserHasPermissionIndex(userPermission: Model.UserCanAddJO) &&
+                                           @Html.UserHasPermissionIndex(userPermission: Model.UserCanEditJO) &&
+                                           !@Html.UserHasPermissionIndex(userPermission: Model.UserCanDeleteJO)">
+                                    <span class=""> Add/Edit </span>
+                                </a>
+                                <a href="" class="btn btn-info" ng-click="goToAddOrEdit(0)"
+                                   ng-show="@Html.UserHasPermissionIndex(userPermission: Model.UserCanAddJO) &&
+                                           !@Html.UserHasPermissionIndex(userPermission: Model.UserCanEditJO) &&
+                                           @Html.UserHasPermissionIndex(userPermission: Model.UserCanDeleteJO)">
+                                    <span class=""> Add/Delete </span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive padding-bottom-15" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                                    <table ng-table="tableParams" ng-class=" {'loading': isLoading}" class="table table-bordered table-striped">
+                                        <tr ng-repeat="item in data">
+                                            <td width="30%" data-title="jobOrderTitle" sortable="'JobOrderData'" header-class="'table-header text-left'" class="text-left">
+                                                {{item.JobOrderData}}
+                                            </td>
+                                            <td ng-if="jobOrderType == 'Nature type'" width="10%" data-title="'JO REQUEST '" sortable="'ForJORequest'" header-class="'table-header text-center'" class="text-center">
+                                                <span class="label label-sm" ng-class="item.ForJORequest ? 'label-success' : 'label-danger'">{{item.ForJORequest ? 'Yes': 'No'}}</span>
+                                            </td>
+                                            <td ng-if="jobOrderType == 'Nature type'" width="10%" data-title="'JO COMPLAINT'" sortable="'ForJOComplaint'" header-class="'table-header text-center'" class="text-center">
+                                                <span class="label label-sm" ng-class="item.ForJOComplaint ? 'label-success' : 'label-danger'">{{item.ForJOComplaint ? 'Yes': 'No'}}</span>
+                                            </td>
+                                            <td ng-if="jobOrderType == 'Task to be perform'" width="20%" data-title="'NATURE TYPE'" header-class="'table-header text-left'" class="text-left">
+                                                {{item.NatureType}}
+                                            </td>
+                                            <td width="10%" data-title="'ACTIVE'" sortable="'IsActive'" header-class="'table-header text-center'" class="text-center">
+                                                <span class="label label-sm" ng-class="item.IsActive ? 'label-success' : 'label-danger'">{{item.IsActive ? 'Yes': 'No'}}</span>
+                                            </td>
+                                            <td width="15%" data-title="'CREATED BY'" sortable="'CreatedBy'" header-class="'table-header text-left'" class="text-left">
+                                                {{item.CreatedBy}}
+                                            </td>
+                                            <td width="15%" data-title="'CREATED ON'" sortable="'CreatedDate'" header-class="'table-header text-left'" class="text-left">
+                                                {{item.CreatedDate | date : 'MM/dd/yyyy hh:mm a' }}
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="data.length == 0">
+                                            <td colspan="10" class="text-center" style="font-style:unset">
+                                                No data available
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</script>

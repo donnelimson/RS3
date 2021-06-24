@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{65B43F3F-1492-44FF-95D7-48FCED4CCEB4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Codebiz.Core.ERP</RootNamespace>
+    <AssemblyName>Codebiz.Core.ERP</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper.SimpleCRUD, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.SimpleCRUD.2.0.1\lib\net45\Dapper.SimpleCRUD.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Approvals\ApprovalCondition.cs" />
+    <Compile Include="Approvals\ApprovalLevelStage.cs" />
+    <Compile Include="Approvals\ApprovalModule.cs" />
+    <Compile Include="Approvals\ApprovalStage.cs" />
+    <Compile Include="Approvals\ApprovalTemplate.cs" />
+    <Compile Include="Approvals\ApprovalUserSource.cs" />
+    <Compile Include="Data\Accounts\BusinessPartnerAddressBase.cs" />
+    <Compile Include="Data\Accounts\BusinessPartnerBase.cs" />
+    <Compile Include="Data\Accounts\BusinessPartner.cs" />
+    <Compile Include="Data\Accounts\BusinessPartnerAddress.cs" />
+    <Compile Include="Data\Accounts\BusinessPartnerLookup.cs" />
+    <Compile Include="Data\Accounts\PaymentTermBase.cs" />
+    <Compile Include="Data\Accounts\PaymentTerm_Line.cs" />
+    <Compile Include="Data\Accounts\PaymentTerm_LineBase.cs" />
+    <Compile Include="Data\Accounts\PaymentTerms.cs" />
+    <Compile Include="Data\Company\CompanyDetail.cs" />
+    <Compile Include="Data\Documents\DocumentBase.cs" />
+    <Compile Include="Data\Documents\DocumentInstallmentBase.cs" />
+    <Compile Include="Data\Documents\DocumentTaxBase.cs" />
+    <Compile Include="Data\Documents\Document_LineBase.cs" />
+    <Compile Include="Data\Financials\FinanceDataContext.cs" />
+    <Compile Include="Data\Financials\JournalEntry.cs" />
+    <Compile Include="Data\Financials\JournalEntry_Line.cs" />
+    <Compile Include="Data\Financials\JournalEntry_LineBase.cs" />
+    <Compile Include="Data\Documents\Purchases\PurchaseCreditNote.cs" />
+    <Compile Include="Data\Documents\Purchases\PurchaseCreditNote_Line.cs" />
+    <Compile Include="Data\Documents\Purchases\PurchaseDelivery.cs" />
+    <Compile Include="Data\Documents\Purchases\PurchaseDelivery_Line.cs" />
+    <Compile Include="Data\Documents\Purchases\PurchaseInvoice.cs" />
+    <Compile Include="Data\Documents\Purchases\PurchaseInvoice_Line.cs" />
+    <Compile Include="Data\Documents\Purchases\PurchaseReturn.cs" />
+    <Compile Include="Data\Documents\Purchases\PurchaseOrder.cs" />
+    <Compile Include="Data\Documents\Purchases\PurchaseReturn_Line.cs" />
+    <Compile Include="Data\Documents\Purchases\PurchaseOrder_Line.cs" />
+    <Compile Include="Data\Documents\Purchases\PurchaseQuotation.cs" />
+    <Compile Include="Data\Documents\Purchases\PurchaseQuotation_Line.cs" />
+    <Compile Include="Data\Documents\PurchaseDataContext.cs" />
+    <Compile Include="Data\Documents\SalesDataContext.cs" />
+    <Compile Include="Data\Documents\DraftDocument.cs" />
+    <Compile Include="Data\Documents\DraftDocument_Line.cs" />
+    <Compile Include="Data\Documents\Sales\SalesInvoice.cs" />
+    <Compile Include="Data\Documents\Sales\SalesDelivery.cs" />
+    <Compile Include="Data\Documents\Sales\SalesCreditNote.cs" />
+    <Compile Include="Data\Documents\Sales\SalesCreditNote_Line.cs" />
+    <Compile Include="Data\Documents\Sales\SalesReturn.cs" />
+    <Compile Include="Data\Documents\Sales\SalesReturn_Line.cs" />
+    <Compile Include="Data\Documents\Sales\SalesQuotation.cs" />
+    <Compile Include="Data\Documents\Sales\SalesInvoice_Line.cs" />
+    <Compile Include="Data\Documents\Sales\SalesDelivery_Line.cs" />
+    <Compile Include="Data\Documents\Sales\SalesQuotation_Line.cs" />
+    <Compile Include="Data\Documents\Sales\SalesOrder_Line.cs" />
+    <Compile Include="Data\Documents\Sales\SalesOrder.cs" />
+    <Compile Include="Data\Financials\GLAccountSegmentDetail.cs" />
+    <Compile Include="Data\Financials\FinancialPeriodBase.cs" />
+    <Compile Include="Data\Financials\GLAccountBase.cs" />
+    <Compile Include="Data\Financials\GLAccount.cs" />
+    <Compile Include="Data\Financials\CostCenter.cs" />
+    <Compile Include="Data\Financials\Department.cs" />
+    <Compile Include="Data\Financials\FinancialPeriod.cs" />
+    <Compile Include="Data\Financials\GLAccountSegment.cs" />
+    <Compile Include="Data\Financials\ProjectBase.cs" />
+    <Compile Include="Data\Financials\Project.cs" />
+    <Compile Include="Data\Inventory\ItemGroupBase.cs" />
+    <Compile Include="Data\Inventory\ItemGroup.cs" />
+    <Compile Include="Data\Inventory\ItemMasterBase.cs" />
+    <Compile Include="Data\Inventory\ItemMaster.cs" />
+    <Compile Include="Data\Inventory\ItemPriceBase.cs" />
+    <Compile Include="Data\Inventory\ItemPrice.cs" />
+    <Compile Include="Data\Inventory\ItemWarehouseBase.cs" />
+    <Compile Include="Data\Inventory\ItemWarehouse.cs" />
+    <Compile Include="Data\Inventory\PriceListBase.cs" />
+    <Compile Include="Data\Inventory\PriceList.cs" />
+    <Compile Include="Data\Inventory\ItemContext.cs" />
+    <Compile Include="Data\Financials\JournalEntryBase.cs" />
+    <Compile Include="Data\LoggingBase.cs" />
+    <Compile Include="Data\Payments\CheckPaymentBase.cs" />
+    <Compile Include="Data\Payments\CreditCardPaymentBase.cs" />
+    <Compile Include="Data\Payments\IncommingPayments\IncomingPayment.cs" />
+    <Compile Include="Data\Payments\OutgoingPayments\OutgoingPayment.cs" />
+    <Compile Include="Data\Payments\PaymentBase.cs" />
+    <Compile Include="Data\Payments\Payment_LineBase.cs" />
+    <Compile Include="Data\Reconcilations\InternalReconcilation.cs" />
+    <Compile Include="Data\Reconcilations\InternalReconcilation_Line.cs" />
+    <Compile Include="EFRepository.cs" />
+    <Compile Include="IEFRepository.cs" />
+    <Compile Include="Migrations\201903061623265_Codebiz.Core.ERP.Data.Documents.SalesDataContext.cs" />
+    <Compile Include="Migrations\201903061623265_Codebiz.Core.ERP.Data.Documents.SalesDataContext.Designer.cs">
+      <DependentUpon>201903061623265_Codebiz.Core.ERP.Data.Documents.SalesDataContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commons\" />
+    <Folder Include="Data\Banking\" />
+    <Folder Include="Data\Documents\Matching\" />
+    <Folder Include="Data\General\" />
+    <Folder Include="Extentions\" />
+    <Folder Include="FileSystems\" />
+    <Folder Include="Logging\" />
+    <Folder Include="Messenging\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903061623265_Codebiz.Core.ERP.Data.Documents.SalesDataContext.resx">
+      <DependentUpon>201903061623265_Codebiz.Core.ERP.Data.Documents.SalesDataContext.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

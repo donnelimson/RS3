@@ -1,0 +1,181 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData;
+
+@{
+    ViewBag.Title = "Approval - Index";
+}
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a ng-href="@Url.Action("Index", "Approval")">Approval</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Approval  <small>View, process, search approval</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="ApprovalController as controller">
+        <!-- BEGIN FILTER PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="bold">Search</h4>
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="expand"> </a>
+                </div>
+            </div>
+            <!-- BEGIN FILTERS -->
+            <div class="portlet-body tabs-below" style="display: none;">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Transaction Type</label>
+                            <select select2 name="TransactionTypeId" class="form-control" tabindex="4" ng-model="transactionTypeId" ng-change="search()"
+                                    ng-options="type.Id as (type.Description) for type in transactionType">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Reference No.</label>
+                            <input type="text" name="ReferenceNo" ng-model="referenceNo" ng-keypress="search()" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Status</label>
+                            <select select2 name="StatusId" class="form-control" tabindex="5" ng-model="statusId" ng-change="search()"
+                                    ng-options="status.Id as (status.Description) for status in approvalStatus">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Action On</label>
+                            <div class='input-group date'>
+                                <input date-rangeright type="text" name="CreatedDate" id="actionDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                       is-open="createdOnDatePicker.opened" close-text="Close"
+                                       ng-model="actionDate" ng-click="openCreatedOnDatePicker()" ng-change="search()" readonly>
+                                <span class="input-group-addon" ng-click="openCreatedOnDatePicker()" onclick="$('#actionDate').focus()">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="actions btn-set btn-filter">
+                            <button type="button" class="btn btn-success" ng-click="search()">
+                                <i class="fa fa-search"></i>
+                                <span class=""> Search </span>
+                            </button>
+                            <button type="button" class="btn" ng-click="reset()">
+                                <i class="fa fa-rotate-left"></i>
+                                <span class=""> Reset </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END FILTER PORTLET -->
+        <!-- BEGIN TABLE PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    List
+                </div>
+                <div class="actions">
+                    <div class="actions">
+                        <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportApprovalViewList)>
+                            <i class="fa fa-share-square-o"></i>
+                            <span class="">Export</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive padding-bottom-10" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                        <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover">
+                            <tr ng-repeat="item in $data">
+                                <td width="1%" header-class="'text-center'" class="text-center">
+                                    <div class="btn-group approval-actions"
+                                         ng-show="(@Html.UserHasPermissionIndex(userPermission: PermissionData.UserCanProcessApprovalData) && item.Status == 'PENDING') ||  @Html.UserHasPermissionIndex(userPermission: PermissionData.UserCanViewApprovalResult)">
+                                        <button id="approval" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-list"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="approval">
+
+                                            <li ng-show="item.Status == 'PENDING' && @Html.UserHasPermissionIndex(userPermission: PermissionData.UserCanProcessApprovalData)">
+                                                <a ng-click="process(item.ApprovalId, item.ApprovalApproverId, item.TransactionTypeId)">
+                                                    <i class="fa fa-share"></i> Process
+                                                </a>
+                                            </li>
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanViewApprovalResult)>
+                                                <a ng-click="approvalResult(item.ApprovalId)">
+                                                    <i class="fa fa-eye"></i> View Result
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="10%" data-title="'APPROVAL NO.'" sortable="'ApprovalNo'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.ApprovalNo}}
+                                </td>
+                                <td width="20%" data-title="'TRANSACTION TYPE'" sortable="'TransactionType'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.TransactionType}}
+                                </td>
+                                <td width="10%" data-title="'REFERENCE NO'" sortable="'TransactionCode'" header-class="'table-header text-left'" class="text-left">
+                                    <a ng-click="gotoDetails(item)">{{item.TransactionCode}}</a>
+                                </td>
+                                <td width="8%" data-title="'STATUS'" sortable="'Status'" header-class="'table-header text-left'" class="text-center">
+                                    <span class="label label-sm" ng-class="item.Status == 'APPROVED' ? 'label-success'
+                                          : item.Status == 'DISAPPROVED' ? 'label-warning'
+                                          : item.Status == 'PENDING'? 'label-info'
+                                          : 'label-rejected'">{{item.Status}}</span>
+                                </td>
+                                <td width="20%" data-title="'REMARKS'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.Remarks}}
+                                </td>
+                                <td width="12%" data-title="'ACTION ON'" sortable="'ActionOn'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.ActionOn | date : 'MM/dd/yyyy hh:mm a'}}
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length == 0">
+                                <td colspan="10" class="text-center" style="font-style:unset">
+                                    No data available
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @Html.Partial("_ApprovalResultModal")
+        </div>
+        <!-- END TABLE PORTLET -->
+    </div>
+</div>
+
+@section PageScripts {
+}
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Scripts/App/Services/ApprovalService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Approval/ApprovalFormController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Approval/ApprovalController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Approval/ApprovalResultController.js")
+}

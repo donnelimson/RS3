@@ -1,0 +1,271 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+@{
+    ViewBag.Title = "Routes";
+}
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>
+                Management
+            </span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>
+                Address
+            </span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Route")">Routes</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Routes  <small>View, search , add, edit, delete, deactivate or reactivate routes</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="RouteController as controller" ng-form="addRouteForm">
+
+        <!-- BEGIN PORTLET -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET -->
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <h4 class="bold">Search</h4>
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="expand"> </a>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                    <div class="portlet-body tabs-below" style="display: none;">
+                        <!--SEARCH TABLE -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Description</label>
+                                    <input type="text" name="Description" ng-model="description" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--CODE SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Route</label>
+                                    <input type="text" name="Route" ng-model="routeCode" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--BOOK NO SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Book No.</label>
+                                    <input type="text" name="BookNo" ng-model="bookNo" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--BARANGAY SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Barangay</label>
+                                    <input type="text" name="Barangay" ng-model="barangay" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--MUNICIPALITY SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Municipality</label>
+                                    <input type="text" name="Municipality" ng-model="municipality" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--PROVINCE SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Province</label>
+                                    <input type="text" name="Province" ng-model="province" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--CREATED BY SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Created By</label>
+                                    <input type="text" name="CreatedBy" ng-model="createdBy" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--CREATED DATE SEARCH DATE PICKER -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Created Date</label>
+                                    <div class='input-group date'>
+                                        <input type="text" name="CreatedDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                               is-open="createdOnDatePicker.opened" close-text="Close"
+                                               id="drp" ng-model="createdDate" ng-click="openCreatedOnDatePicker()" ng-change="search()" readonly>
+                                        <span class="input-group-addon" onclick="$('#drp').focus()">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- BUTTONS -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="actions btn-set btn-filter">
+                                    <button type="button" class="btn btn-success" ng-click="search()">
+                                        <i class="fa fa-search"></i>
+                                        <span class=""> Search </span>
+                                    </button>
+                                    <button type="button" class="btn" ng-click="reset()">
+                                        <i class="fa fa-rotate-left"></i>
+                                        <span class=""> Reset </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET -->
+            </div>
+        </div>
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    List
+                </div>
+                <!--ADD NEW BUTTON -->
+                <div class="actions">
+                    <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportRoute)>
+                        <i class="fa fa-share-square-o"></i>
+                        <span class="">Export</span>
+                    </a>
+                    <a href="" class="btn btn-info" ng-click="openRouteSaveModal(0)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddRoute)>
+                        <i class="fa fa-plus"></i>
+                        <span class=""> New </span>
+                    </a>
+                </div>
+            </div>
+            <!--DATA TABLE -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                        <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover @Html.UserHasPermission(userPermission:new List<string>() {PermissionData.UserCanDeactivateReactivateRoute, PermissionData.UserCanDeleteRoute,PermissionData.UserCanEditRoute})">
+                            <tr ng-repeat="routes in $data">
+                                <!--ACTION BUTTONS -->
+                                <td width="1%" header-class="'text-center'" class="text-center">
+                                    <div class="btn-group">
+                                        <button id="bars" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditRoute)>
+                                                <a ng-click="openRouteSaveModal(routes.RouteId)">
+                                                    <i class="fa fa-edit"></i> Edit
+                                                </a>
+                                            </li>
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeleteRoute)>
+                                                <a ng-click="deleteRoute(routes.RouteId,routes.RouteCode)">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </a>
+                                            </li>
+                                            <li ng-hide="!routes.IsActive" @Html.UserHasPermission(userPermission: PermissionData.UserCanDeactivateReactivateRoute)>
+                                                <a ng-click="toggleActiveStatus(routes.RouteId, false,routes.RouteCode)">
+                                                    <i class="fa fa-ban"></i> Deactivate
+                                                </a>
+                                            </li>
+                                            <li ng-hide="routes.IsActive" @Html.UserHasPermission(userPermission: PermissionData.UserCanDeactivateReactivateRoute)>
+                                                <a ng-click="toggleActiveStatus(routes.RouteId, true,routes.RouteCode)">
+                                                    <i class="fa fa-check-circle"></i> Reactivate
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="4%" data-title="'DESCRIPTION'" sortable="'Description'" header-class="'table-header text-left'" class="text-left">
+                                    {{routes.Description}}
+                                </td>
+                                <td width="4%" data-title="'ROUTE'" sortable="'RouteCode'" header-class="'table-header text-left'" class="text-left">
+                                    {{routes.RouteCode}}
+                                </td>
+                                <td width="9%" data-title="'BOOK NO.'" sortable="'BookNo'" header-class="'table-header text-left'" class="text-left">
+                                    {{routes.BookNo}}
+                                </td>
+                                <td width="9%" data-title="'BARANGAY'" sortable="'Barangay'" header-class="'table-header text-left'" class="text-left">
+                                    {{routes.Barangay}}
+                                </td>
+                                <td width="9%" data-title="'MUNICIPALITY'" sortable="'CityTown'" header-class="'table-header text-left'" class="text-left">
+                                    {{routes.CityTown}}
+                                </td>
+                                <td width="9%" data-title="'PROVINCE'" sortable="'Province'" header-class="'table-header text-left'" class="text-left">
+                                    {{routes.Province}}
+                                </td>
+                                <td width="2%" data-title="'ACTIVE'" sortable="'IsActive'" header-class="'table-header text-center'" class="text-center">
+                                    <span class="label label-sm" ng-class="routes.IsActive ? 'label-success' : 'label-danger'">{{routes.IsActive ? 'Yes': 'No'}}</span>
+                                </td>
+                                <td width="9%" data-title="'CREATED BY'" sortable="'CreatedBy'" header-class="'table-header text-left'" class="text-left">
+                                    {{routes.CreatedBy}}
+                                </td>
+                                <td width="5%" data-title="'CREATED DATE'" sortable="'CreatedDate'" header-class="'table-header text-left'" class="text-left">
+                                    {{routes.CreatedDate | date : 'MM/dd/yyyy hh:mm a'}}
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length == 0">
+                                <td colspan="10" class="text-center" style="font-style:unset">
+                                    No data available
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @Html.Partial("RouteSaveModal")
+        </div>
+    </div>
+</div>
+
+<!--SCRIPTS TABLE -->
+@section PageScripts {
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $('input[name="CreatedDate"]').daterangepicker({
+                    opens: 'left',
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                }, function (start, end, label) {
+                });
+            });
+
+            $('input[name="CreatedDate"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                $(this).trigger('change');
+            });
+
+            $('input[name="CreatedDate"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+                $(this).trigger('change');
+            });
+        })
+    </script>
+}
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/ng-table.js")
+    @Scripts.Render("~/Scripts/App/Services/RouteService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Route/RouteSaveModalController.js")
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Route/RouteController.js")
+}

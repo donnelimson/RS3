@@ -1,0 +1,162 @@
+﻿@model Web.Models.ViewModels.ConfigSetting.ConfigSettingViewModel
+@{
+    ViewBag.Title = "Edit Configuration Setting";
+}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="@Url.Action("Index", "ConfigSetting")">Configuration Setting</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Edit</span>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <a class="btn btn-sm btn-default" href="@Url.Action("Index", "ConfigSetting")">Back to List</a>
+    </div>
+</div>
+<h1 class="page-title">
+    Configuration Setting
+    <small>View, edit Configuration Setting</small>
+</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    @*<i class="fa fa-search"></i>*@Edit
+                </div>
+            </div>
+            <div class="portlet-body form">
+                @using (Html.BeginForm("Edit", "ConfigSetting", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ConfigSettingId)
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ConfigSettingGroupId, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.ConfigSettingGroupId, Model.ConfigSettingGroupLookUp, new { @class = "form-control select2", placeholder = "ConfigSettingGroup" })
+                                @Html.ValidationMessageFor(model => model.ConfigSettingGroupId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ConfigSettingDataTypeId, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.ConfigSettingDataTypeId, Model.ConfigSettingDataTypeLookUp, new { @class = "form-control select2", placeholder = "ConfigSettingDataType" })
+                                @Html.ValidationMessageFor(model => model.ConfigSettingDataTypeId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Name" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", placeholder = "Description" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div id="txtVal" class="col-md-4">
+                                @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <div id="cbxVal" class="mt-checkbox-inline">
+                                    <label class="mt-checkbox mt-checkbox-outline">
+                                        <input name="checkbox" type="checkbox" value="true" @(Model.Value == "true" ? "checked" : "")>
+                                        <span></span>
+                                    </label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions fluid">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn green">Submit</button>
+                                <a class="btn white" href="@Url.Action("Index")">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section PageScripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        //  thick and show hide controls based on selected datatype upon load
+        $(document).ready(function () {
+            if ($("#ConfigSettingDataTypeId").val() == 4) {
+                var myCheckBox = $("#checkbox");
+                if ($("#Value").val() == "true") { $("#checkbox").attr("checked", "checked"); }
+                $("#checkbox").val($("#checkbox").is(":checked") ? $("#Value").val("true") : $("#Value").val("false"));
+                $("#txtVal").hide();
+                $("#cbxVal").show();
+            } else {
+                $("#txtVal").show();
+                $("#cbxVal").hide();
+            }
+        });
+
+        // show hide controls based on selected datatype
+        $("#ConfigSettingDataTypeId").on("change", function () {
+            if ($("#ConfigSettingDataTypeId option:selected").val() == 4) {
+                $("#txtVal").hide();
+                $("#cbxVal").show();
+                $("#checkbox").val($("#checkbox").is(":checked") ? $("#Value").val("true") : $("#Value").val("false"));
+            } else {
+                $("#txtVal").show();
+                $("#cbxVal").hide();
+                $("#Value").val("");
+            }
+        });
+
+        // assign string value to checkbox
+        $(":checkbox").change(function () {
+            $(this).val($(this).is(":checked") ? $("#Value").val("true") : $("#Value").val("false"));
+        });
+
+        /// allow only integer value if selected datatype is integer
+        $("#Value").keypress(function (event) {
+            if ($("#ConfigSettingDataTypeId").val() == 1) {
+                var key = event.which;
+                if (!(key >= 48 && key <= 57)) {
+                    event.preventDefault();
+                    alert("Please enter only integer value.");
+                }
+            }
+        });
+
+       /// allow only decimal value if selected datatype is decimal
+        $('#Value').on('blur', function () {
+            var inpValue = $(this).val();
+            var key = event.which;
+            if ($("#ConfigSettingDataTypeId").val() == 3) {
+                var a = /^[0-9]+(\.[0-9]+)+$/;
+                if (inpValue.match(a)) {
+                    return true;
+                }
+                else {
+                    alert("Please enter valid decimal value.");
+                    $("#Value").val("");
+                    return false;
+                }
+            }
+        });
+    </script>
+}

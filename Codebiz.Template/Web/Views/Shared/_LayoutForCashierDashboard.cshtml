@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<!-- BEGIN HEAD -->
+<head>
+    <style>
+
+        .cashier-page {
+            display: block;
+            height: 50px;
+            padding-top: 8px;
+            width: 17%;
+            padding-right: 150px;
+            float: left;
+            position: unset;
+            z-index:3
+        }
+        .page-header.navbar .page-logo-cashier {
+            float: left;
+            display: block;
+            width: 150px;
+            height: 50px;
+            padding-left: 20px;
+            padding-top:8px;
+            padding-right: 20px;
+        }
+        .select2-container--bootstrap .select2-selection{
+            background-color:#66cccc;
+        }
+        .body{
+            background-color:white
+        }
+
+    </style>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - TARELCO</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link rel="shortcut icon" href="~/Content/Image/Tarelconew.ico" type="image/x-icon" />
+    <!-- BEGIN CSS -->
+    @Html.Partial("_Styles")
+    @RenderSection("pagestyles", required: false)
+    <!-- END CSS -->
+</head>
+<!-- END HEAD -->
+<body class="page-header-fixed page-footer-fixed page-content-white page-md" ng-app="MetronicApp" ng-controller="CashierDashboardController">
+    <div class="page-wrapper">
+        <!-- BEGIN HEADER -->
+        <div class="page-header navbar navbar-fixed-top"  style="background-color:#3a6b35; z-index:0">
+            <!-- BEGIN HEADER INNER -->
+            <div class="page-header-inner ">
+                <!-- BEGIN LOGO -->
+
+                <div class="page-logo-cashier">
+                    <a>
+                        <img src="@Url.Content("~/content/image/tarelco1logo.png")" alt="logo" height="27" class="logo-default" />
+                    </a>
+
+
+                </div>
+           
+                <div class="cashier-page" style="width:auto !important;min-width:20% !important">
+                    <select select2 class="form-control select2" 
+                            ng-model="officeId" id="officeSelect" ng-options="of.OfficeId as (of.Name) for of in offices" style="background-color:#66cccc;position:fixed !important"
+                           ng-change="loadMedia()">
+                    </select>
+                </div>
+                <div style="float:right;right:20px">
+                    <span id="time" name="time"><b style="color:white;font-size:20px;float:right">{{time}}</b></span><br />
+                    <span id="date" name="date"><b style="color:white;font-size:20px;float:left;">{{date}}</b></span>
+                </div>
+                <br />
+                <!-- END LOGO -->
+            </div>
+
+            <!-- END HEADER INNER -->
+        </div>
+
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div style="overflow:hidden">
+
+          
+                <div class="page-content" style="background-color: white; margin-left:unset">
+                    @RenderBody()
+                    @Html.Partial("_Modal") <!-- MODAL -->
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+            <!-- BEGIN QUICK SIDEBAR -->
+            <!-- /*Html.Partial("_QuickSidebar")*/-->
+            <!-- END QUICK SIDEBAR -->
+        </div>
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        @Html.Partial("_Footer")
+        <!-- END FOOTER -->
+    </div>
+    <!-- BEGIN SCRIPT -->
+    @Html.Partial("_Scripts")
+    @RenderSection("pagepluginscripts", required: false)
+    @RenderSection("pagescripts", required: false)
+    @RenderSection("angularjsplugins", required: false)
+    @RenderSection("angularjspage", required: false)
+</body>
+</html>

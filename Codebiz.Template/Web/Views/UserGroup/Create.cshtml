@@ -1,0 +1,361 @@
+﻿@model Web.Models.ViewModels.UserGroup.UserGroupCreateViewModel
+@{
+    ViewBag.Title = "Add User Group";
+}
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>Admin</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a @*href="@Url.Action("Index", "UserGroup")"*@ class="cancelButtons">User Groups</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Add</span>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <a class="btn btn-sm btn-default cancelButtons" @*href="@Url.Action("Index", "UserGroup")"*@>Back to List</a>
+    </div>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    User Groups
+    <small>View, add, edit user groups</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    @*<i class="fa fa-search"></i>*@Add
+                </div>
+            </div>
+            <div class="portlet-body form" id="createForm">
+                @using (Html.BeginForm("Create", "UserGroup", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                <div class="form-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Name" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-4">
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Description", rows = "4", required=true  })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-4">
+                            <div class="mt-checkbox-inline">
+                                <label class="mt-checkbox mt-checkbox-outline">
+                                    <input name="IsActive" type="checkbox" value="true" @(Model.IsActive ? "checked" : "")>
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<hr class="hr">
+        <div class="form-group last">
+            @Html.LabelFor(model => model.SelectedNavlinks, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                <div class="mt-checkbox-list">
+                    @foreach (var item in Model.NavlinksLookUp)
+                    {
+                        <label class="mt-checkbox mt-checkbox-outline">
+                            <input name="SelectedNavlinks" type="checkbox" value="@item.Key" @(Model.SelectedNavlinks != null && Model.SelectedNavlinks.Contains(item.Key) ? "checked" : "")> @item.Value
+                            <span></span>
+                        </label>
+                    }
+                </div>
+            </div>
+        </div>*@
+
+                    @*<hr class="hr">*@
+                    <div class="form-group last">
+                        @Html.LabelFor(model => model.SelectedPermissions, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="input-group">
+                                        <input id="txtSearchPermission" type="text" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button id="btnSearchPermission" type="button" class="btn btn-success">
+                                                <i class="fa fa-search"></i>
+                                                <span class="hidden-md hidden-sm hidden-xs"> Search </span>
+                                            </button>
+                                        </span>
+                                        <span class="input-group-btn">
+                                            <button id="btnResetPermission" class="btn white" type="button">
+                                                <i class="fa fa-rotate-left"></i>
+                                                <span class="hidden-md hidden-sm hidden-xs"> Clear </span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="row">
+                                        @*<label class="mt-checkbox mt-checkbox-outline" style="margin-bottom: 1px;">
+                                <input id="chkShowSelectedOnly" name="showSelectedOnly" type="checkbox" value="true"> Show selected only
+                                <span></span>
+                            </label>*@
+                                        <div class="col-md-12">
+                                            <select id="permissionFilter" class="form-control pull-right" style="width: auto;">
+                                                <option value="1">Show all</option>
+                                                <option value="2">Show selected only</option>
+                                                <option value="3">Show unselected only</option>
+                                            </select>
+                                            <label class="control-label pull-right" style="margin-bottom: 1px;">Filter: &nbsp;</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-control height-auto">
+                                <div class="scroller" style="height:275px;" data-always-visible="1">
+                                    <ul class="list-unstyled">
+                                        @foreach (var permissionGroup in Model.PermissionGroupsLookUp)
+                                        {
+                                            if (permissionGroup.Permissions != null && permissionGroup.Permissions.Count > 0)
+                                            {
+                                                <li>
+                                                    <label class="mt-checkbox mt-checkbox-outline">
+                                                        <input name="SelectedPermissionGroups" type="checkbox" value="@permissionGroup.PermissionGroupId" data-group-name="@permissionGroup.Name"
+                                                               @(Model.SelectedPermissionGroups != null && Model.SelectedPermissionGroups.Contains(permissionGroup.PermissionGroupId) ? "checked" : "")> @permissionGroup.Name
+                                                            <span></span>
+                                                        </label>
+                                                        <ul class="list-unstyled">
+                                                            @foreach (var item in permissionGroup.Permissions)
+                                                            {
+                                                                <li>
+                                                                    <label class="mt-checkbox mt-checkbox-outline">
+                                                                        <input name="SelectedPermissions" type="checkbox" data-permissiongroupid="@permissionGroup.PermissionGroupId" value="@item.PermisssionId" data-permission-desc="@item.Description"
+                                                                               @(Model.SelectedPermissions != null && Model.SelectedPermissions.Contains(item.PermisssionId) ? "checked" : "")> @item.Description
+                                                                            <span></span>
+                                                                        </label>
+                                                                    </li>
+                                                                }
+                                                        </ul>
+                                                    </li>
+                                                }
+                                            }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-md-9">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                            @foreach (var permissionGroup in Model.PermissionGroupsLookUp)
+                            {
+                                if (permissionGroup.Permissions != null && permissionGroup.Permissions.Count > 0)
+                                {
+
+                                    <tr>
+                                        <td width="20%">
+                                            <label class="mt-checkbox mt-checkbox-outline">
+                                                <input name="SelectedPermissionGroups" type="checkbox" value="@permissionGroup.PermissionGroupId"
+                                                       @(permissionGroup.Permissions != null && permissionGroup.Permissions.Select(a => a.PermisssionId).Contains(0) ? "checked" : "")> @permissionGroup.Name
+                                                    <span></span>
+                                                </label>
+
+                                            </td>
+                                            <td>
+                                                <div class="mt-checkbox-list">
+                                                    @foreach (var item in permissionGroup.Permissions)
+                                                    {
+                                                        <label class="mt-checkbox mt-checkbox-outline">
+                                                            <input name="SelectedPermissions" type="checkbox" data-permissiongroupid="@permissionGroup.PermissionGroupId" value="@item.PermisssionId"
+                                                                   @(Model.SelectedPermissions != null && Model.SelectedPermissions.Contains(item.PermisssionId) ? "checked" : "")> @item.Description
+                                                                <span></span>
+                                                            </label>
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>*@
+                    </div>
+                </div>
+
+                    <div class="form-actions fluid">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn green">Submit</button>
+                                <a class="btn white cancelButtons" @*href="@Url.Action("Index")"*@>Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- END PORTLET -->
+    </div>
+</div>
+@section PageScripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $('input[name="SelectedPermissionGroups"]').change(function () {
+                var value = $(this).val();
+                var isChecked = $(this).is(":checked");
+
+                if (isChecked) {
+                    $('input[name="SelectedPermissions"][data-permissiongroupid="' + value + '"]').prop('checked', true);
+                }
+                else {
+                    $('input[name="SelectedPermissions"][data-permissiongroupid="' + value + '"]').prop('checked', false);
+                }
+            });
+
+            $('input[name="SelectedPermissions"]').change(function () {
+                var value = $(this).val();
+                var isChecked = $(this).is(":checked");
+                var permissionGroupId = $(this).data("permissiongroupid");
+
+                if (isChecked) {
+                    $('input[name="SelectedPermissionGroups"][value="' + permissionGroupId + '"]').prop('checked', true);
+                }
+                else {
+                    var permissionGroupHasCheck = $('input[name="SelectedPermissions"][data-permissiongroupid="' + permissionGroupId + '"]:checked');
+                    if (permissionGroupHasCheck && permissionGroupHasCheck.length > 0) {
+
+                    }
+                    else {
+                        $('input[name="SelectedPermissionGroups"][value="' + permissionGroupId + '"]').prop('checked', false);
+                    }
+                }
+            });
+
+            //$('#chkShowSelectedOnly').change(function () {
+            //    var value = $(this).val();
+            //    var isChecked = $(this).is(":checked");
+
+            //    if (isChecked) {
+            //        $('input[name="SelectedPermissionGroups"]:not(:checked)').parent().parent('li').hide();
+            //        $('input[name="SelectedPermissions"]:not(:checked)').parent().parent('li').hide();
+            //    }
+            //    else {
+            //        $('input[name="SelectedPermissionGroups"]:not(:checked)').parent().parent('li').show();
+            //        $('input[name="SelectedPermissions"]:not(:checked)').parent().parent('li').show();
+            //    }
+            //});
+         $("#createForm :input").change(function() {
+            $("#createForm").data("changed",true);
+            });
+            $("#createForm :checkbox ").change(function() {
+            $("#createForm").data("changed",true);
+            });
+            $('.cancelButtons').on('click', function () {
+                if ($("#createForm").data("changed")) {
+                             swal({
+                title: "Cancel Changes?",
+                text: "Any Unsaved changes will be lost.",
+                type: "warning",
+                confirmButtonText: "Yes!",
+                cancelButtonText: "No",
+                showCancelButton: true,
+                showConfirmButton: true,
+                confirmButtonClass: 'btn-danger',
+
+                             }, function () { window.location.href = document.UserGroup;},
+
+            );
+                } else {
+                    window.location.href = document.UserGroup;
+                }
+            });
+            var PermissionFilter = {
+                showAll: 1,
+                showSelected: 2,
+                showUnselected: 3
+            }
+
+            $('#permissionFilter').change(function () {
+                hideOrShowPermissions();
+            });
+
+
+            $('#txtSearchPermission').on('keyup', _.debounce(function () {
+                hideOrShowPermissions();
+            }, 500));
+
+            $('#btnSearchPermission').on('click', function () {
+                hideOrShowPermissions();
+            });
+
+            $('#btnResetPermission').on('click', function () {
+                $('#txtSearchPermission').val('');
+                hideOrShowPermissions();
+            });
+
+            function hideOrShowPermissions() {
+                var txtValue = $('#txtSearchPermission').val();
+                var filterVal = $('#permissionFilter').val();
+
+                $('input[name="SelectedPermissions"]').each(function (index) {
+                    var thisCheckbox = $(this);
+                    var desc = thisCheckbox.data("permission-desc");
+                    var isChecked = thisCheckbox.is(":checked")
+
+                    if (
+                            filterVal == PermissionFilter.showAll &&
+                            (desc.toLowerCase().indexOf(txtValue.toLowerCase()) != -1)
+                        ) {
+                        thisCheckbox.parent().parent('li').show().addClass("showing");
+                    }
+                    else if (
+                            filterVal == PermissionFilter.showSelected &&
+                            isChecked &&
+                            (desc.toLowerCase().indexOf(txtValue.toLowerCase()) != -1)
+                        ) {
+                        thisCheckbox.parent().parent('li').show().addClass("showing");
+                    }
+                    else if (
+                            filterVal == PermissionFilter.showUnselected &&
+                            !isChecked &&
+                            (desc.toLowerCase().indexOf(txtValue.toLowerCase()) != -1)
+                        ) {
+                        thisCheckbox.parent().parent('li').show().addClass("showing");
+                    }
+                    else {
+                        thisCheckbox.parent().parent('li').hide().removeClass("showing");
+                    }
+                });
+
+                $('input[name="SelectedPermissionGroups"]').each(function (index) {
+                    var parentList = $(this).parent().parent('li');
+                    var showingChildren = parentList.find('li.showing');
+
+                    if (showingChildren.length > 0) {
+                        parentList.show();
+                    }
+                    else {
+                        parentList.hide();
+                    }
+                });
+            }
+        });
+    </script>
+}

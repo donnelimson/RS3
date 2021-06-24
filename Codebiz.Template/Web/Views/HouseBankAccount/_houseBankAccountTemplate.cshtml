@@ -1,0 +1,484 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+<script type="text/ng-template" id="HouseBankAccountIndexTemplate.html">
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <span>Management</span>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Banking</span>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "HouseBankAccount")">House Bank accounts</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>List</span>
+            </li>
+        </ul>
+    </div>
+    <h1 class="page-title">
+        House Bank Accounts  <small>View, search, add, edit, delete house bank accounts</small>
+    </h1>
+    <div class="row" ng-controller="HouseBankAccountController">
+        <div class="col-md-12">
+            <!-- BEGIN PORTLET -->
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <h4 class="bold">Search</h4>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="expand"> </a>
+                    </div>
+                </div>
+                <!-- BEGIN FILTERS -->
+                <div class="portlet-body tabs-below" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Bank Code</label>
+                                <input type="text" name="bankCode" ng-model="bankCode" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Country</label>
+                                <input type="text" name="country" ng-model="country" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Branch</label>
+                                <input type="text" name="Branch" ng-model="branch" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Account No.</label>
+                                <input type="text" name="accountNo" ng-model="accountNo" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Bank Account NAme</label>
+                                <input type="text" name="bankAccountName" ng-model="bankAccountName" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Action By</label>
+                                <input type="text" name="actionBy" ng-model="actionBy" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Action On</label>
+                                <div class='input-group date'>
+                                    <input type="text" name="CreatedDate" id="createdDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                           is-open="createdOnDatePicker.opened" close-text="Close"
+                                           ng-model="createdDate" ng-click="openCreatedOnDatePicker()" ng-change="search()" readonly>
+                                    <span class="input-group-addon" ng-click="openCreatedOnDatePicker()" onclick="$('#createdDate').focus()">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="padding-top:22px">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-success" ng-click="search()">
+                                    <i class="fa fa-search"></i>
+                                    <span class=""> Search </span>
+                                </button> &nbsp;&nbsp;
+                                <button type="button" class="btn btn-white" ng-click="reset()">
+                                    <i class="fa fa-rotate-left"></i>
+                                    <span class=""> Reset </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        List
+                    </div>
+                    <div class="actions">
+                        <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportHouseBankAccount)>
+                            <i class="fa fa-share-square-o"></i>
+                            <span class="">Export</span>
+                        </a>
+                        <a href="" class="btn btn-info" ng-click="addOrUpdate(0)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddHouseBankAccount)>
+                            <i class="fa fa-plus"></i>
+                            <span class=""> New </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                            <table ng-table="houseBankAccountTableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover @Html.UserHasPermission(userPermission:new List<string>() {PermissionData.UserCanDeleteHouseBankAccount,PermissionData.UsercanEditHouseBankAccount})">
+                                <tr ng-repeat="item in $data">
+                                    <!--ACTION BUTTONS -->
+                                    <td width="1%" header-class="'text-center'" class="text-center">
+                                        <div class="btn-group">
+                                            <button id="bars" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-bars"></i>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li @Html.UserHasPermission(userPermission: PermissionData.UsercanEditHouseBankAccount)>
+                                                    <a ng-click="addOrUpdate(item.HouseBankAccountId)">
+                                                        <i class="fa fa-edit"></i> Edit
+                                                    </a>
+                                                </li>
+                                                <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeleteHouseBankAccount)>
+                                                    <a ng-click="delete(item.HouseBankAccountId,item.BankAccountName)">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td width="7%" data-title="'BANK CODE'" sortable="'BankCode'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.BankCode}}
+                                    </td>
+                                    <td width="8%" data-title="'COUNTRY'" sortable="'Country'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.Country}}
+                                    </td>
+                                    <td width="9%" data-title="'BRANCH'" sortable="'Branch'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.Branch}}
+                                    </td>
+                                    <td width="9%" data-title="'ACCOUNT NO.'" sortable="'AccountNo'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.AccountNo}}
+                                    </td>
+                                    <td width="7%" data-title="'BANK ACCOUNT NAME'" sortable="'BankAccountName'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.BankAccountName}}
+                                    </td>
+                                    <td width="5%" data-title="'ACTION BY'" sortable="'ActionBy'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.ActionBy}}
+                                    </td>
+                                    <td width="4%" data-title="'ACTION ON'" sortable="'ActionOn'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.ActionOn |  date : 'MM/dd/yyyy hh:mm a'}}
+                                    </td>
+
+                                </tr>
+                                <tr ng-show="$data.length == 0">
+                                    <td colspan="14" class="text-center" style="font-style:unset">
+                                        No data available
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END PORTLET -->
+    </div>
+</script>
+<script type="text/ng-template" id="HouseBankAccountAddOrUpdateTemplate.html">
+    <div ng-form="hbaForm" ng-controller="HouseBankAccountAddOrUpdateController">
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>Management</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Banking</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "HouseBankAccount")">House Bank Accounts</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>{{forUpdate? 'Edit':'Add'}}</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="backToList()">Back to List</a>
+            </div>
+        </div>
+        <h1 class="page-title">
+            House bank accounts  <small>{{forUpdate? 'Edit':'Add'}}  house bank account</small>
+        </h1>
+
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-body">
+                <!--Code-->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="(bankCodeExist || bankCodeNotExist  || hbaForm.BankCode.$error.required) && (hbaForm.BankCode.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Bank Code<span class="required">*</span></label>
+                            <div class="input-group" @*ng-class="(GLAccountNotExist || modalForm.AccountNo.$error.required) && (modalForm.AccountNo.$dirty || formSubmitted) ? 'has-error' : ''*@ ">
+                                <input type="text" name="BankCode" ng-required="true" class="form-control" id="bankCode" ng-model="BankCode" placeholder="Bank Code" ng-keydown="getBank(BankCode,false,$event)" />
+                                <span class="input-group-addon" style="cursor:pointer;background-color:#659BF4" ng-click="openBankModal()">
+                                    <span class="glyphicon glyphicon-search" style="color:White"></span>
+                                </span>
+                            </div>
+                            <span ng-show="hbaForm.BankCode.$error.required && (hbaForm.BankCode.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Bank Code is required!</small></span>
+                            <span ng-show="(bankCodeNotExist && !hbaForm.BankCode.$error.required) && (hbaForm.BankCode.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Bank Code doesn't exist!</small></span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Country</label>
+                            <input type="text" name="country" ng-model="country" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">BIC/SWIFT Code</label>
+                            <input type="text" name="BICSwiftCode" ng-model="BICSwiftCode" class="form-control" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="hbaForm.Branch.$error.required && (hbaForm.Branch.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Branch</label><span class="required">*</span>
+                            <input type="text" name="Branch" ng-model="model.Branch" class="form-control" ng-required="true" />
+                            <span ng-show="hbaForm.Branch.$error.required && (hbaForm.Branch.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Branch is required!</small></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="(accountExist || hbaForm.AccountNo.$error.required) && (hbaForm.AccountNo.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Account No.</label><span class="required">*</span>
+                            <input type="text" name="AccountNo" ng-model="model.AccountNo" id="accountNo" class="form-control" ng-required="true" />
+                            <span ng-show="hbaForm.AccountNo.$error.required && (hbaForm.AccountNo.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Account No. is required!</small></span>
+                            <span ng-show="(accountExist && !hbaForm.BankCode.$error.required) && (hbaForm.BankCode.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Account No. already exist!</small></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="hbaForm.BankAccountName.$error.required && (hbaForm.BankAccountName.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Bank Account Name</label><span class="required">*</span>
+                            <input type="text" name="BankAccountName" ng-model="model.BankAccountName" class="form-control" ng-required="true" />
+                            <span ng-show="hbaForm.BankAccountName.$error.required && (hbaForm.BankAccountName.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Bank Account Name is required!</small></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Next Check No.</label>
+                            <input type="text" name="NextCheckNo" ng-model="model.NextCheckNo" class="form-control" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="(GLAccountNotExist && GLAccountNo!='') || (GLAccountNotExist && formSubmitted) ? 'has-error' : '' ">
+                            <label class="control-label">G/L Account</label>
+
+                            <div class="input-group">
+                                <input type="text" name="GLAccountNo" class="form-control" ng-model="GLAccountNo" id="glAccountNo" ng-keydown="getGLAccount(GLAccountNo,false,false,$event)" />
+                                <span class="input-group-addon" style="cursor:pointer;background-color:#659BF4" ng-click="openGLAccountModal(false)">
+                                    <span class="glyphicon glyphicon-search" style="color:White"></span>
+                                </span>
+
+                            </div>
+                            <span ng-show="(GLAccountNotExist && GLAccountNo!='') || (GLAccountNotExist && formSubmitted)"
+                                  class="text-danger field-validation-error"><small>G/L Account doesn't exist!</small></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="(GLAccountInterimNotExist && GLInterimAccountNo!='') || (GLAccountInterimNotExist && formSubmitted) ? 'has-error' : ''">
+
+                            <label class="control-label">G/L Interim Account</label>
+
+                            <div class="input-group ">
+                                <input type="text" name="GLInterimAccountNo" class="form-control" id="glAccountIterimNo" ng-model="GLInterimAccountNo" ng-keydown="getGLAccount(GLInterimAccountNo,true,false,$event)" />
+                                <span class="input-group-addon" style="cursor:pointer;background-color:#659BF4" ng-click="openGLAccountModal(true)">
+                                    <span class="glyphicon glyphicon-search" style="color:White"></span>
+                                </span>
+                            </div>
+                            <span ng-show="(GLAccountInterimNotExist && GLInterimAccountNo!='') || (GLAccountInterimNotExist && formSubmitted)"
+                                  class="text-danger field-validation-error"><small>G/L Account Interim doesn't exist!</small></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="form-sub-title">Address</h4>
+
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Block</label>
+                            <input type="text" name="Block" ng-model="model.Block" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Street No.</label>
+                            <input type="text" name="StreetNo" ng-model="model.StreetNo" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Street</label>
+                            <input type="text" name="StreetNo" ng-model="model.Street" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">City</label>
+                            <input type="text" name="City" ng-model="model.City" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">IBAN</label>
+                            <input type="text" name="IBAN" ng-model="model.IBAN" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">County</label>
+                            <input type="text" name="County" ng-model="model.County" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">State</label>
+                            <input type="text" name="State" ng-model="model.State" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Zip Code</label>
+                            <input type="text" name="Zipcode" ng-model="model.Zipcode" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="form-sub-title">Other Information</h4>
+
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Control Key</label>
+                            <input type="text" name="ControlKey" ng-model="model.ControlKey" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">ABA Routing Number</label>
+                            <input type="text" name="ABARoutingNumber" ng-model="model.ABARoutingNumber" class="form-control" numbers-only />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Fractional Number</label>
+                            <input type="text" name="FractionNumber" ng-model="model.FractionalNumber" class="form-control" numbers-only />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">User No. 3</label>
+                            <input type="text" name="UserNo3" ng-model="model.UserNo3" class="form-control" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">User No. 4</label>
+                            <input type="text" name="UserNo4" ng-model="model.UserNo4" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Paper Type</label>
+                            <div id="PaperTypeIdDiv">
+                                <select select2 name="PaperType" class="form-control" ng-model="model.PaperTypeId"
+                                        ng-options="p.Id as (p.Name) for p in paperTypes"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Maximum Lines</label>
+                            <input type="text" name="MaximumLines" ng-model="model.MaximumLines" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Template Name</label>
+                            <div id="TemplateNameIdDiv">
+                                <select select2 name="TemplateName" class="form-control" ng-model="model.TemplateNameId"
+                                        ng-options="tn.Id as (tn.Name) for tn in templateNames"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+
+                            <div class="md-checkbox-inline">
+                                <div class="md-checkbox">
+                                    <input type="checkbox" class="md-check" ng-model="model.IsLockChecksPrinting"
+                                           id="postOfficeCb">
+                                    <label for="postOfficeCb">
+                                        <span class="inc"></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span>
+                                        Lock Checks Printing
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--Actions -->
+                <div class="row" style="padding-top:30px">
+                    <div class="col-md-4">
+                        <!--Actions -->
+                        <a href="" class="btn btn-success" style="width:90px;" ng-click="save()">
+                            <span class="glyphicon glyphicon-ok"></span> {{forUpdate ? 'Update':'Save'}}
+                        </a>
+                        <a href="" class="btn btn-default" style="width:90px;" ng-click="cancel()">
+                            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                        </a>
+                        <a href="#!/View" id="cancel"></a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</script>
+

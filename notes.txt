@@ -1,0 +1,22 @@
+ReconType
+
+0=Manual(MA), 
+1=Automatic(AU), 
+2=Semi-Automatic (SA), 
+3=Payment(PY), 
+4=Credit Memo(CR), 
+5=Reversal(RE), 
+6=Zero Value(ZE), 
+7=Cancellation(CA), 
+8=BoE(BE)
+9=Deposit(DE)
+10=Bank Statement Processing(BS), 
+11=Period Closing(PC), 
+12=Correction Invoice(CI), 
+13=Inventory/Expense Allocation(AL), 
+14=WIP(WIP), 
+15=Deferred Tax Interim Account(DI), 
+16=Down Payment Allocation(DP), 
+17=Auto. Conversion Difference(CD), 
+18=Interim Document(ID), 
+	

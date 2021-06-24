@@ -1,0 +1,190 @@
+Management
+	Company Setup 
+		General Settings
+		Company Details
+		Posting Period
+		Doc. Numbering
+
+Financials
+	Posting Period
+	Period Indicator
+	Chart of Account 
+	Journal Entries 
+	Journal Vouchers
+	Tax Groups
+	Reports>
+
+Inventory
+	Item Master
+	Item Group 
+	Warehouses
+	Price List
+	Manufacturer
+	Goods Issue 
+	Goods Receipt
+	Reports>
+
+Business Partner Accounts
+	Vendor 
+	Customer
+	Customer/Vendor Groups
+	Sales Person
+	Payment Terms
+	Ship Type
+
+Sales A/R
+	Sales Quotation 
+	Sales Orders
+	Sales Deliveries
+	Sales Returns
+	Sales Invoices
+	Sales Reserve Invoices
+	Sales Down Payments
+	Sales Credit Note
+	Reports>
+	
+Purchase A/P
+	Purchase Quotation 
+	Purchase Orders
+	Purchase Deliveries
+	Purchase Returns
+	Purchase Invoices
+	Purchase Reserve Invoices
+	Purchase Down Payments
+	Purchase Credit Note
+	Reports>
+
+	
+Payments
+	Outgoing Payments
+	Incoming Payments
+	Payment on Accounts
+
+
+	/**/
+	1.	ADM
+		a.	Initial Setup 
+			i.	Company Setup *
+			ii.	Document Numbering*
+			iii.	Document Settings
+		b.	General Setup
+			i.	Sales Employees
+			ii.	Commision Groups
+			iii.	Users
+		iv.	User Defaults
+	
+		c.	FIN
+			i.	Chart Of Account*
+			ii.	Currencies
+			iii.	GL Account Setup *
+			iv.	Projects
+			v.	Tax Groups *
+			vi.	Tax Code Determination 
+			vii.	Withholding Tax
+
+		d.	BP
+			i.	Countries
+			ii.	Address Format
+			iii.	Customer Groups 
+			iv.	Vendor Groups
+			v.	Dunning Terms 
+			vi.	Payment Terms*
+		e.	Banking 
+			i.	House Banks
+			ii.	Banks 
+			iii.	Credit Cards
+			iv.	Credit Card Payment 
+			v.	Payment Methods
+		f.	Invntry
+			i.	Item Groups *
+			ii.	Warehouse*
+			iii.	Length / Width UOM
+			iv.	Weight UOM
+			v.	Manufacturers
+			vi.	Shipping Types
+			vii.	Inventory Cycles
+			viii.	Package Types
+
+
+2.	Approvals			
+
+
+
+
+
+3.	FIN
+a.	Setup
+i.	Chart Of Account* 
+ii.	Tax Group*
+iii.	Posting Period*
+
+b.	Transactions
+i.	Journal Entry
+ii.	Journal Vouchers
+c.	Reports
+i.	
+
+
+4.	BP
+a.	Customer *
+b.	Vendor *
+c.	Payment Terms*
+d.	Internal Recon
+
+
+
+5.	INVNTRY
+a.	Setup
+i.	Item Master Data*
+ii.	Item Group *
+iii.	Warehouse *
+iv.	Price List 
+v.	Serial Number Management 
+vi.	Serial Number Details
+vii.	Batch Management 
+viii.	Batch Details
+ix.	Bill of Materials
+x.	Alternate Items
+xi.	BP Catalog Number
+
+b.	Price List
+i.	Price list *
+ii.	Period and Volume Discount
+c.	Transactions
+i.	Goods Issue 
+ii.	Goods Receipt 
+iii.	Stock Transfer
+iv.	Stock Transfer Request
+v.	Inventory Revaluation 
+vi.	Inventory Balances , Inventory Tracking , Inventory Posting
+vii.	Pick List
+d.	Reports
+i.	
+
+1.	A/P
+a.	Purchase Quotation 
+b.	Purchase Orders
+c.	Purchase Deliveries
+d.	Purchase Returns
+e.	Purchase Invoices
+f.	Purchase Reserve Invoices
+g.	Purchase Down Payments
+h.	Purchase Credit Note
+i.	Reports>
+
+6.	A/R
+a.	Sales Quotation 
+b.	Sales Orders
+c.	Sales Deliveries
+d.	Sales Returns
+e.	Sales Invoices
+f.	Sales Reserve Invoices
+g.	Sales Down Payments
+h.	Sales Credit Note
+i.	Reports>
+
+
+1.	PAYMNT
+a.	Outgoing Payments
+b.	Incoming Payments
+c.	Payment on Accounts

@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewBag.Title = "View - Office - Details";
+}
+
+
+<div class="row" ng-app="MetronicApp" ng-controller="OfficeAddUpdateController as controller">
+    <div class="col-md-12">
+
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>Management</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Office")">Office</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+
+                <li>
+                    <span>Details</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="backToList()">Back to List</a>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            Office  <small>View Office Details</small>
+        </h1>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12" ng-form="saveOfficeForm">
+                <div class="portlet light bordered">
+                    <div class="portlet-body">
+                        @Html.Hidden("OfficeId")
+                        <div class="form-body">
+                            <!--Modal Body Content -->
+                            <div class="row">
+                                <!--Code Textbox -->
+                                <div class="col-md-4">
+                                    <div>
+                                        <label class="control-label">Code</label>
+                                        <input type="text" class="form-control" name="Code" ng-model="office.Code" ng-required="true" tabindex="1" maxlength="100" alphanumeric-dash-only disabled/>
+                                    </div>
+                                </div>
+                                <!--Name Textbox -->
+                                <div class="col-md-8">
+                                    <div>
+                                        <label class="control-label">Name</label>
+                                        <input type="text" class="form-control" name="Name" ng-model="office.Name" ng-required="true" tabindex="2" maxlength="100" alphanumeric-dash-only disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 class="form-sub-title">Address</h5>
+                            <hr>
+                            <!--Block Lot Number Textbox -->
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div>
+                                        <label class="control-label">Blk & Lot Number</label>
+                                        <input type="text" class="form-control" name="BlkLotNo" ng-model="office.BlkLotNo" placeholder="If no value Input N/A" tabindex="3" maxlength="100" alpha-slash-dash-only disabled />
+                                      
+                                    </div>
+                                </div>
+                                <!--Street name Textbox -->
+                                <div class="col-md-3">
+                                    <div>
+                                        <label class="control-label">Street Name</label>
+                                        <input type="text" class="form-control" name="Street" ng-model="office.Street" placeholder="If no value Input N/A" tabindex="4" maxlength="100" alpha-slash-dash-only disabled />
+                                    </div>
+                                </div>
+                                <!--Province List -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Province</label>
+                                        <div id="ProvinceIdDiv">
+                                            <select select2 name="ProvinceId" class="form-control" ng-model="office.ProvinceId"
+                                                    ng-change="GetCityTown()" tabindex="5" disabled
+                                                    ng-options="province.ProvinceId as (province.Name) for province in provinces">
+                                                <option value="">---Please select---</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--City Town List -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Municipality</label>
+                                        <div id="CityTownIdDiv">
+                                            <select select2 name="CityTownId" class="form-control" ng-model="office.CityTownId"
+                                                    ng-change="GetBarangay()" tabindex="6" disabled
+                                                    ng-options="city.CityTownId as (city.Name) for city in cityTowns">
+                                                <option value="">---Please select---</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!--Barangay List -->
+                                <div class="col-md-3">
+                                    <div>
+                                        <label class="control-label">Barangay</label>
+                                        <div id="BarangayIdDiv">
+                                            <select select2 name="BarangayId" class="form-control" ng-model="office.BarangayId"
+                                                    ng-change="GetPurok(); GetSitio()" tabindex="7" disabled
+                                                    ng-options="barangay.BarangayId as (barangay.Name) for barangay in barangays">
+                                                <option value="">---Please select---</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Purok List -->
+                                <div class="col-md-3">
+                                    <label class="control-label">Purok</label>
+                                    <div id="PurokIdDiv">
+                                        <select select2 name="PurokId" class="form-control" ng-model="office.PurokId"
+                                               tabindex="8" disabled ng-options="purok.PurokId as (purok.Name) for purok in puroks">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--Sitio List -->
+                                <div class="col-md-3">
+                                    <label class="control-label">Sitio</label>
+                                    <div id="SitioIdDiv">
+                                        <select select2 name="SitioId" class="form-control"
+                                                ng-model="office.SitioId" tabindex="9" disabled
+                                                ng-options="sitio.SitioId as (sitio.Name) for sitio in sitios">
+                                            <option value="">---Please select---</option> 
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="form-sub-title">Departments</h5>
+                                    <hr />
+                                    <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" name="departments" id="departments">
+                                        <table ng-table="tableParams" class="table table-sm table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr ng-repeat="department in office.DepartmentData">
+                                                    <td>
+                                                        <span>{{department.Name}}</span>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section AngularJSPage {
+    @Scripts.Render("~/Scripts/App/Services/Office/OfficeService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Office/OfficeAddUpdateController.js")
+}
+

@@ -1,0 +1,42 @@
+﻿@model Web.Models.ViewModels.GoodsReceipt.GoodsReceiptViewModel.GoodsReceiptManualCreateModel
+
+<script type="text/ng-template" id="OrderingModalItem.html">
+    <div class="modal-body" id="modal-body">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr class="uppercase">
+                    <th width="2%"></th>
+                    <th>
+                        item Id
+                    </th>
+                    <th>
+                        item Code
+                    </th>
+                    <th>
+                        Long Description
+                    </th>
+                    <th>
+                        Cost
+                    </th>
+                </tr>
+            </thead>
+            <tr ng-repeat="row in mapItems">
+                <td><input type="checkbox" ng-model="row.selectedItem" ng-change="selectedItem(row)" name="rowName"  ng-disabled="row.checkedIn" ng-checked="row.selectedItem || selectAll" /></td>
+                <td ng-bind="row.Id"></td>
+                <td ng-bind="row.ItemCode"></td>
+                <td ng-bind="row.Description"></td>
+                <td ng-bind="row.Cost|number:2"></td>
+            </tr>
+
+            <tbody></tbody>
+
+        </table>
+        <label>Search product</label>
+        <input type="text" ng-model="searcher" ng-change="searchProduct(searcher)" /><br />
+        <button class="btn btn-green" ng-model="addItem" ng-click="getCost()">Add selected items</button>
+        <div class="modal-footer">
+            <button class="btn btn-white" type="button" ng-click="cancel()">Close</button>
+        </div>
+    </div>
+</script>
+

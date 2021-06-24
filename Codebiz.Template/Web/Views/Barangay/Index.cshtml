@@ -1,0 +1,186 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData;
+@{
+    ViewBag.Title = "Barangays";
+}
+<!-- BEGIN PAGE BAR -->
+    <div ng-app="MetronicApp" ng-controller="BarangayController">
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Barangay")">Barangays</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>List</span>
+                </li>
+            </ul>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            Barangay
+            <small>View barangays</small>
+        </h1>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET -->
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <h4 class="bold">Search</h4>
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="expand"> </a>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                    <div class="portlet-body tabs-below" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Barangay Name :</label>
+                                    <input type="text" ng-model="barangayName" ng-keypress="searchWhenEnter($event)" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="actions btn-set btn-filter">
+                                    <button type="button" class="btn btn-success" ng-click="search()">
+                                        <i class="fa fa-search"></i>
+                                        <span class=""> Search </span>
+                                    </button>
+                                    <button type="button" class="btn" ng-click="reset()">
+                                        <i class="fa fa-rotate-left"></i>
+                                        <span class=""> Reset </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET -->
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            @*<i class="fa fa-user"></i>*@List
+                        </div>
+                        <div class="actions">
+                            <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportBarangayViewList)>
+                                <i class="fa fa-share-square-o"></i>
+                                <span class="">Export</span>
+                            </a>
+                            <a ng-click="openAddOrUpdateModal()" class="btn btn-info" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddBarangayData)>
+                                <i class="fa fa-plus"></i>
+                                <span class=""> New </span>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <!-- END PORTLET -->
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="no-padding loading-container" loading-container="tableParams.settings().$loading">
+                                <table ng-table="tableForBarangay" ng-class="{'loading': isLoading}" class="table table-bordered table-striped  @Html.UserHasPermission(userPermission:new List<string>() {PermissionData.UserCanEditBarangayData, PermissionData.UserCanReactivateDeactivateBarangayData})">
+                                    <tr ng-repeat="item in $data">
+                                        <td width="1%">
+                                            <div class="btn-group">
+                                                <button id="actions" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-list"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li>
+                                                        <a ng-click="openAddOrUpdateModal(item.BarangayId)" @Html.UserHasPermission(userPermission: PermissionData.UserCanEditBarangayData)>
+                                                            <i class="fa fa-edit"></i> Edit
+                                                        </a>
+                                                    </li>
+                                                    <li ng-show="item.Status">
+                                                        <a ng-click="reactivateDeactivate(item.BarangayId,item.Status,item.BarangayName)" @Html.UserHasPermission(userPermission: PermissionData.UserCanReactivateDeactivateBarangayData)>
+                                                            <i class="fa fa-ban"></i> Deactivate
+                                                        </a>
+                                                    </li>
+                                                    <li ng-show="!item.Status">
+                                                        <a ng-click="reactivateDeactivate(item.BarangayId,item.Status,item.BarangayName)" @Html.UserHasPermission(userPermission: PermissionData.UserCanReactivateDeactivateBarangayData)>
+                                                            <i class="fa fa-check"></i> Reactivate
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td width="5%" data-title="'BRGY CODE'" sortable="'BarangayCode'" header-class="'table-header text-left'">
+                                                    {{item.BarangayCode}}
+                                        </td>
+                                        <td width="10%" data-title="'BARANGAY NAME'" sortable="'BarangayName'" header-class="'table-header text-left'">
+                                                    {{item.BarangayName}}
+                                        </td>
+                                        <td width="15%" data-title="'CITY TOWN'" sortable="'CityTown'" header-class="'table-header text-left'">
+                                            {{item.CityTown}}
+                                        </td>
+                                        <td width="10%" data-title="'PROVINCE'" sortable="'Province'" header-class="'table-header text-left'">
+                                            {{item.Province}}
+                                        </td>
+
+                                        <td width="7%" data-title="'CREATED BY'" sortable="'CreatedBy'" header-class="'table-header text-left'">
+                                            {{item.CreatedBy}}
+                                        </td>
+
+                                        <td width="7%" data-title="'CREATED DATE'" sortable="'CreatedOn'" header-class="'table-header text-left'">
+                                            {{item.CreatedOn | date: 'MM/dd/yyyy h:mm a'}}
+                                        </td>
+                                        <td width="5%" data-title="'STATUS'" sortable="'Status'" header-class="'table-header text-center'" class="text-center">
+                                            <span class="label label-sm" ng-class="item.Status ? 'label-success' : 'label-danger'">{{item.Status ? 'Yes': 'No'}}</span>
+                                        </td>
+
+                                    </tr>
+                                    <tr ng-show="$data.length == 0">
+                                        <td colspan="8" class="text-center" style="font-style:unset">
+                                            No data available
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        @Html.Partial("_barangayAddOrUpdateModal")
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        @section pagestyles {
+
+        }
+
+        @section PageScripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            <script>
+                $(document).ready(function () {
+                    $('#pageSizeDropDown').change(function () {
+                        var value = $(this).val();
+                        var tempUrl = $(this).data("url");
+                        var newUrl = tempUrl.replace("pageSizeHolder", value);
+
+                        window.location = newUrl;
+                    });
+                });
+            </script>
+
+        }
+
+        @section angularjspage {
+            @Scripts.Render("~/Scripts/App/Services/BarangayService.js")
+            @Scripts.Render("~/Scripts/App/Services/CityTownService.js")
+            @Scripts.Render("~/Scripts/App/Controllers/Barangay/BarangayController.js")
+            @Scripts.Render("~/Scripts/App/Controllers/Barangay/BarangayAddOrUpdateController.js")
+        }

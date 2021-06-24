@@ -1,0 +1,168 @@
+﻿
+@{
+    ViewBag.Title = "Add Or Update - Department";
+}
+
+<div class="row" ng-app="MetronicApp" ng-controller="DepartmentAddUpdateController as controller">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>
+                        Management
+                    </span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Department")">Department</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>{{addOrEdit}}</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            Department  <small>{{addOrEdit}} or delete Department</small>
+        </h1>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12" ng-form="saveDepartmentForm">
+                <div class="portlet light bordered">
+                    <div class="portlet-body form-horizontal">
+                        @Html.Hidden("DepartmentId")
+                        <!-- Body Content -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!--Code Textbox -->
+                                <div class="form-group" ng-class="saveDepartmentForm.Code.$invalid && (saveDepartmentForm.Code.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <div class="col-md-1"></div>
+                                    <label class="control-label col-md-1 text-left" style="min-width:110px;">Code<span class="required"> * </span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" name="Code" ng-model="department.Code" ng-required="true" tabindex="1" maxlength="100" alphanumeric-dash-only />
+                                        <span color="red" ng-show="saveDepartmentForm.Code.$error.required && ( saveDepartmentForm.Code.$dirty || formSubmitted)" class="text-danger
+                                        field-validation-error"><small>Code is required.</small><br /></span>
+                                    </div>
+                                </div>
+                                <!--Name Textbox -->
+                                <div class="form-group" ng-class="saveDepartmentForm.Name.$invalid && (saveDepartmentForm.Name.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <div class="col-md-1"></div>
+                                    <label class="control-label col-md-1 text-left" style="min-width:110px;">Name<span class="required"> * </span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" name="Name" ng-model="department.Name" ng-required="true" tabindex="2" maxlength="100" alphanumeric-dash-only />
+                                        <span color="red" ng-show="saveDepartmentForm.Name.$error.required && (saveDepartmentForm.Name.$dirty || formSubmitted)" class="text-danger
+                                         field-validation-error"><small>Name is required.</small></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:20px">
+                            <div class="col-md-1"></div>
+                            <label class="control-label col-md-1 text-left" style="min-width:110px;">Positions<span class="required"> * </span></label>
+                            <div class="col-md-8">
+                                <hr />
+                                <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" name="positions" id="positions">
+                                    <table ng-table="tableParams" ng-class="departmentHasError ? 'has-error' : ''"
+                                           class="table table-sm table-bordered table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="1%" class="table-header">
+                                                    <button class="btn btn-xs btn-info" ng-click="addRow()">
+                                                        <i class="glyphicon glyphicon-plus"></i>
+                                                    </button>
+                                                </th>
+                                                <th width="33%" class="table-header text-left">POSITION</th>
+                                                <th width="33%" class="table-header text-left">DIVISION</th>
+                                                <th width="33%" class="table-header text-left">CATEGORY</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="data in department.Details track by $index">
+                                                <td width="1%" header-class="'text-center'" class="text-center">
+                                                    <!-- DELETE BUTTON-->
+                                                    <button class="btn btn-xs btn-danger" ng-click="deleteRow($index)">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                                <td ng-class="data.IsExist || saveDepartmentForm.position{{$index}}.$invalid && (saveDepartmentForm.position{{$index}}.$dirty || formSubmitted) ?
+                                                    'has-error' : ''">
+                                                    <div id="PositionIdDiv">
+                                                        <select select2 class="form-control has-error"
+                                                                name="position{{$index}}"
+                                                                ng-required="true" ng-model="data.PositionId"
+                                                                ng-change="checkIfValid(data,$index)"
+                                                                ng-options="p.PositionId as p.PositionName for p in positions">
+                                                            <option value="">---Please select---</option>
+                                                        </select>
+                                                        <span ng-show="data.IsExist"
+                                                              class="text-danger field-validation-error"><small>Position already exist!</small></span>
+                                                        <span ng-show="saveDepartmentForm.position{{$index}}.$error.required && formSubmitted"
+                                                              class="text-danger field-validation-error"><small>Position is required!</small></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div id="DivisionIdDiv">
+                                                        <select select2 class="form-control has-error"
+                                                                name="division{{$index}}"
+                                                                ng-model="data.DivisionId"
+                                                                ng-change="checkIfValid(data,$index,true)"
+                                                                ng-options="p.Id as p.Name for p in divisions">
+                                                            <option value="">---Please select---</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div id="CategoryId{{$index}}Div">
+                                                        <select select2 class="form-control has-error"
+                                                                name="division{{$index}}"
+                                                                ng-model="data.CategoryId"
+                                                                ng-options="p.CategoryId as p.CategoryName for p in data.Categories">
+                                                            <option value="">---Please select---</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr ng-show="department.Details.length == 0">
+                                                <td colspan="4" class="text-center" style="font-style:unset; color:red">
+                                                    At least one is required!
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12" style="padding-left:4px">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-8">
+                                    <!--Actions -->
+                                    <button class="btn btn-success" ng-click="saveDepartment()">
+                                        <span class="glyphicon glyphicon-ok"></span> {{saveOrUpdate}}
+                                    </button>
+                                    <button class="btn btn-default" ng-click="cancel()">
+                                        <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section AngularJSPage {
+    @Scripts.Render("~/Scripts/App/Services/Department/DepartmentService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Department/DepartmentAddUpdateController.js")
+}
+
+

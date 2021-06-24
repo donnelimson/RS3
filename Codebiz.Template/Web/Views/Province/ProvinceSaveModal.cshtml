@@ -1,0 +1,63 @@
+﻿<script type="text/ng-template" id="ProvinceSaveModal.html">
+    <!--Modal Head-->
+    <div class="modal-header">
+        <h4 class="form-sub-title">{{addOrEdit}} Province</h4>
+    </div>
+    <!--Modal Body-->
+    <div id="modal-body" class="modal-body" ng-form="saveProvinceForm">
+        <!--Modal Body-->
+        <div class="form-body">
+            <!--Modal Body Content -->
+            <div class="row">
+                <!--Name Textbox -->
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="saveProvinceForm.Name.$invalid && (saveProvinceForm.Name.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label">Name</label><span class="required"> * </span>
+                        <input type="text" class="form-control" name="Name" ng-model="province.Name" ng-required="true" tabindex="1" maxlength="100" alphanumeric-dash-only />
+                        <span color="red" ng-show="saveProvinceForm.Name.$error.required &&(saveProvince.Name.$dirty || formSubmitted)" class="text-danger
+                                        field-validation-error"><small>Name is required.</small></span>
+                    </div>
+                </div>
+                <!--Abbreviation Textbox -->
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="saveProvinceForm.Abbreviation.$invalid && (saveProvinceForm.Abbreviation.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label">Abbreviation</label><span class="required"> * </span>
+                        <input type="text" class="form-control" name="Abbreviation" ng-model="province.Abbreviation" ng-required="true" tabindex="2" maxlength="100" alphanumeric-dash-only />
+                        <span color="red" ng-show="saveProvinceForm.Abbreviation.$error.required && (saveProvinceForm.Abbreviation.$dirty || formSubmitted)" class="text-danger
+                                         field-validation-error"><small>Abbreviation is required.</small></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--Region List -->
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="saveProvinceForm.RegionId.$invalid && (saveProvinceForm.RegionId.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label">Region</label><span class="required"> * </span>
+                        <select select2 name="RegionId" class="form-control" ng-required="true" 
+                                ng-model="province.RegionId" tabindex="3"
+                                ng-options="region.RegionId as (region.Name) for region in regions">
+                            <option value="">---Please select---</option>
+                        </select>
+                        <span color="red" ng-show="saveProvinceForm.RegionId.$error.required && (saveProvinceForm.RegionId.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                            <small>Region is required</small>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--End Modal Body -->
+        </div>
+    </div>
+    <!--Modal Footer-->
+    <div class="modal-footer pull-left">
+        <div class="form-actions">
+            <!--Actions -->
+            <button class="btn btn-success" style="width:90px;" ng-click="saveProvince()">
+                <span class="glyphicon glyphicon-ok"></span> {{isEditing ? 'Update' : 'Save'}}
+            </button>
+            <button class="btn btn-default" style="width:90px;" ng-click="cancel()">
+                <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+            </button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</script>

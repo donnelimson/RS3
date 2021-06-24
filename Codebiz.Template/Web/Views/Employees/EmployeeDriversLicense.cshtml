@@ -1,0 +1,200 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData;
+
+@{
+    ViewBag.Title = "Employee Drivers License";
+}
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>Vehicle</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="@Url.Action("EmployeeDriversLicense", "Employees")">Employee Drivers License</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Employee Drivers License  <small>View, search , add, edit</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="EmployeeDriversLicenseCtrl as controller">
+        <!-- BEGIN FILTERS-->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="bold">Search</h4>
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="expand"> </a>
+                </div>
+            </div>
+            <!-- BEGIN FILTERS -->
+            <div class="portlet-body tabs-below" style="display: none;">
+                <div class="row">
+                    <!-- Employee No Search Textbox -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Employee No.</label>
+                            <input type="text" name="EmployeeNo" class="form-control" autocomplete="off"
+                                   ng-model="employeeNo" ng-keypress="searchWhenEnter($event)" />
+                        </div>
+                    </div>
+                    <!-- Name Search Textbox -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Name</label>
+                            <input type="text" name="Name" class="form-control" autocomplete="off"
+                                   ng-model="name" ng-keypress="searchWhenEnter($event)" />
+                        </div>
+                    </div>
+                    <!--License No Search Textbox -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">License No.</label>
+                            <input type="text" name="LicenseNo" class="form-control" autocomplete="off"
+                                   ng-model="licenseNo" ng-keypress="searchWhenEnter($event)" />
+                        </div>
+                    </div>
+                    <!--Expiration Date Date Picker -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Expiration Date </label>
+                            @*<div class="input-group date" id="datepicker">
+                                    <input type="text" name="ExpirationDate" id="expDate" class="form-control white-input" placeholder="_ _/ _ _ / _ _ _ _" readonly
+                                           ng-model="expDate" ng-change="search()">
+                                    <div class="input-group-addon" onclick="$('#expDate').focus()">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </div>
+                                </div>*@
+                            <div class="input-group date">
+                                <input type="text"
+                                       name="ExpiryDate"
+                                       id="ExpiryDate"
+                                       class="form-control datepicker"
+                                       laceholder="_ _/ _ _ / _ _ _ _"
+                                       ng-change="search()"
+                                       ng-model="expDate"
+                                       ng-required="true"
+                                       masked format="99/99/9999"
+                                       date-picker-date-only>
+
+                                <div class="input-group-addon" onclick="$('#ExpiryDate').focus()">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Search / Reset Buttons -->
+                        <div class="actions btn-set btn-filter">
+                            <button type="button" class="btn btn-success" ng-click="search()">
+                                <i class="fa fa-search"></i>
+                                <span class=""> Search </span>
+                            </button>
+                            <button type="button" class="btn" ng-click="reset()">
+                                <i class="fa fa-rotate-left"></i>
+                                <span class=""> Reset </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END FILTERS-->
+        <!--START TABLE-->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    List
+                </div>
+                <div class="actions">
+                    <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()"
+                       @Html.UserHasPermission(userPermission: PermissionData.UserCanExportEmployeeWithLicenseNoList)>
+                        <i class="fa fa-share-square-o"></i>
+                        <span class="">Export</span>
+                    </a>
+                    <a href="" class="btn btn-info" ng-click="addOrUpdate(0)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddEmployeeWithLicenseNo)>
+                        <i class="fa fa-plus"></i>
+                        <span class=""> New </span>
+                    </a>
+                </div>
+            </div>
+            <!--DATA TABLE -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                        <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover">
+                            <tr ng-repeat="item in $data">
+                                <td width="1%" header-class="'text-center'" class="text-center">
+                                    <div class="btn-group" ng-show="@Html.UserHasPermissionIndex(userPermission: PermissionData.UserCanEditEmployeeWithLicenseNo)">
+                                        <button id="bars" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="EmployeeDriversLicenseId">
+
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditEmployeeWithLicenseNo)>
+                                                <a ng-click="addOrUpdate(item.EmployeeId)">
+                                                    <i class="fa fa-edit"></i> Edit
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="11%" data-title="'EMPLOYEE NO.'" sortable="'EmployeeNo'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.EmployeeNo}}
+                                </td>
+                                <td width="21%" data-title="'NAME'" sortable="'Name'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.Name}}
+                                </td>
+                                <td width="16%" data-title="'LICENSE NO.'" sortable="'LicenseNo'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.LicenseNo}}
+                                </td>
+                                <td width="10%" data-title="'EXPIRATION DATE'" sortable="'ExpirationDate'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.ExpirationDate | date : 'MM/dd/yyyy'}}
+                                </td>
+                                <td width="10%" data-title="'RESTRICTION/S'" sortable="'Restriction'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.Restriction}}
+                                </td>
+                                <td width="15%" data-title="'ACTION BY'" sortable="'ActionBy'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.ActionBy}}
+                                </td>
+                                <td width="15%" data-title="'ACTION ON'" sortable="'ActionOn'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.ActionOn | date : 'MM/dd/yyyy hh:mm a'}}
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length == 0">
+                                <td colspan="9" class="text-center" style="font-style:unset">
+                                    No data available
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @Html.Partial("_SaveForm")
+    </div>
+</div>
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/EmployeeService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Employee/EmployeeDriversLicenseCtrl.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Employee/SaveFormController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Employee/RestrictionController.js")
+    @Scripts.Render("~/Areas/Lookups/Scripts/Service/ChooseFromListDataService.js")
+    @Scripts.Render("~/Areas/Lookups/Scripts/Controller/ChooseFromListCtrl.js")
+}

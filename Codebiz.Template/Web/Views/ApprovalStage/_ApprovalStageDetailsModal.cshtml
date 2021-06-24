@@ -1,0 +1,57 @@
+﻿<script type="text/ng-template" id="ApprovalStageDetailsModal.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span><span class="sr-only">Close Modal</span></button>
+        <h4 class="modal-title" id="modal-title">Approval Stage - Details </h4>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="row padding-bottom-10" id="detail-padding">
+            <div style="display: inline-block; padding-left: 15px;">
+                <div>
+                    <b>Name:</b>&nbsp; {{approvalStageDetails.Name}}
+                </div>
+                <div>
+                    <b>Description:</b>&nbsp; {{approvalStageDetails.Description}}
+                </div>
+                <div>
+                    <b>Approver Label:</b>&nbsp; {{approvalStageDetails.Label}}
+                </div>
+            </div>
+            <div style="display: inline-block; padding-right: 15px; float: right;">
+                <div>
+                    <b>Required Approvals:</b>&nbsp; {{approvalStageDetails.RequiredApprovals}}
+                </div>
+                <div>
+                    <b>Required Rejections:</b>&nbsp; {{approvalStageDetails.RequiredRejections}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="form-sub-title">Approver(s)</h4>
+                <hr class="" />
+                <div class="table-responsive" id="approversTable" style="overflow:auto;" loading-container="tableParams.settings().$loading">
+                    <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped">
+                        <tr ng-repeat="item in $data">
+                            <td width="30%" data-title="'NAME'" sortable="'NAME'" header-class="'table-header text-left'" class="text-left">
+                                {{item.Name}}
+                            </td>
+                            <td width="20%" data-title="'POSITION'" sortable="'POSITION'" header-class="'table-header text-left'" class="text-left">
+                                {{item.Position}}
+                            </td>
+                            <td width="20%" data-title="'AREA'" sortable="'AREA'" header-class="'table-header text-left'" class="text-left">
+                                {{item.Area}}
+                            </td>
+                        </tr>
+                        <tr ng-show="$data.length == 0">
+                            <td colspan="4" class="text-center" style="font-style:unset">
+                                No data available
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- END APPROVAL STAGE TABLE -->
+            </div>
+        </div>
+    </div>
+</script>
+

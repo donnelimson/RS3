@@ -1,0 +1,176 @@
+﻿<!-- Consumer Type Modal -->
+    <script type="text/ng-template" id="_ModalPage.html">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-title">Consumer Type - {{ForDetails? 'Details': (forUpdate ? 'Edit' :'Add')}}</h4>
+        </div>
+        <div class="modal-body" id="modal-body" ng-form="modalForm">
+            <!-- BEGIN FORM-->
+            <div class="form-body">
+                <div class="row">
+                    <!--Code-->
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="modalForm.Code.$invalid && (modalForm.Code.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label" style="font-size:13px;"> Code: </label><span class="required"> * </span>
+                            <input type="text" name="Code" ng-model="Code" class="form-control" ng-required="true" ng-readonly="ForDetails" />
+                            <span ng-show="modalForm.Code.$error.required && (modalForm.Code.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Code is required!</small></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--Name-->
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="modalForm.Name.$invalid && (modalForm.Name.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label" style="font-size:13px;"> Name: </label><span class="required"> * </span>
+                            <input type="text" name="Name" ng-model="Name" class="form-control" ng-required="true" ng-readonly="ForDetails" />
+                            <span ng-show="modalForm.Name.$error.required && (modalForm.Name.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Name is required!</small></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--Name-->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="md-checkbox-inline">
+                                <div class="md-checkbox">
+                                    <input type="checkbox" class="md-check" ng-model="canBeTagAsSoleUse"
+                                           id="soleUseCheckbox"
+                                           ng-disabled="ForDetails" >
+                                    <label for="soleUseCheckbox">
+                                        <span class="inc"></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span>
+                                    </label>
+                                    Can be tag as "Sole Use" Applicant
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--Name-->
+                    <div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="md-checkbox-inline">
+                                    <div class="md-checkbox">
+                                        <input type="checkbox" class="md-check" ng-model="isMapa"
+                                               id="mapaCheckbox"
+                                               ng-disabled="isBapa || ForDetails">
+                                        <label for="mapaCheckbox">
+                                            <span class="inc"></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span>
+                                        </label>
+                                        MAPA
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="md-checkbox-inline">
+                                    <div class="md-checkbox">
+                                        <input type="checkbox" class="md-check" ng-model="isBapa"
+                                               id="bapaCheckbox"
+                                               ng-disabled="isMapa || ForDetails">
+                                        <label for="bapaCheckbox">
+                                            <span class="inc"></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span>
+                                        </label>
+                                        BAPA
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="form-sub-title">Membership</h5>
+
+                        <hr />
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <i class="fa fa-plus" id="toShow" ng-click="openTreeNatural()" ng-show="willOpenShowNatural" style="cursor:pointer"></i>
+                                    <i class="fa fa-minus" id="toHide" ng-click="closeTreeNatural()" ng-show="willCloseShowNatural" style="cursor:pointer"></i>
+                                    <label class="mt-checkbox mt-checkbox-outline">
+                                        <input name="natural" type="checkbox" ng-model="allNaturalIsSelected" ng-checked="allNaturalIsSelected" ng-click="selectAllNatural(allNaturalIsSelected)" ng-disabled="ForDetails">
+                                        <span></span>
+                                    </label>
+                                    <label class="control-label" style="font-size:13px;">Natural</label>
+                                    <ul class="list-unstyled">
+                                        <li ng-repeat="memTypeSubcategory in naturalMembershipTypeSubcategories">
+                                            <div class="childrenNaturalDiv">
+                                                <label class="mt-checkbox mt-checkbox-outline">
+                                                    <input name="MembershipTypeSubcategoryId" type="checkbox" ng-model="isSelectedNatural" ng-checked="memTypeSubcategory.IsSelected"
+                                                           ng-click="addRemoveNatural($index,isSelectedNatural,memTypeSubcategory.MembershipTypeSubcategoryId)" ng-disabled="ForDetails">
+                                                    <span></span>
+                                                </label>
+                                                <label class="control-label" style="font-size:13px;" ng-model="memTypeSubcategory.MembershipTypeSubcategoryId"> {{memTypeSubcategory.Description}} </label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <i class="fa fa-plus" id="toShow" ng-click="openTreeJuridical()" ng-show="willOpenShowJuridical" style="cursor:pointer"></i>
+                                    <i class="fa fa-minus" id="toHide" ng-click="closeTreeJuridical()" ng-show="willCloseShowJuridical" style="cursor:pointer"></i>
+                                    <label class="mt-checkbox mt-checkbox-outline">
+                                        <input name="juridical" type="checkbox" ng-model="allJuridicalIsSelected" ng-checked="allJuridicalIsSelected" ng-click="selectAllJuridical(allJuridicalIsSelected)" ng-disabled="ForDetails">
+                                        <span></span>
+                                    </label>
+                                    <label class="control-label" style="font-size:13px;">Juridical</label>
+                                    <ul class="list-unstyled">
+                                        <li ng-repeat="memTypeSubcategory in juridicalMembershipTypeSubcategories">
+                                            <div class="childrenJuridicalDiv">
+                                                <label class="mt-checkbox mt-checkbox-outline">
+                                                    <input name="MembershipTypeSubcategoryId" type="checkbox" ng-model="isSelectedJuridical" ng-checked="memTypeSubcategory.IsSelected"
+                                                           ng-click="addRemoveJuridical($index,isSelectedJuridical,memTypeSubcategory.MembershipTypeSubcategoryId)" ng-disabled="ForDetails">
+                                                    <span></span>
+                                                </label>
+                                                <label class="control-label" style="font-size:13px;"> {{memTypeSubcategory.Description}} </label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END FORM-->
+        <div class="modal-footer pull-left" ng-show="!ForDetails">
+            <!--Save-->
+            <button type="button" class="btn btn-success" ng-click="saveChanges()">
+                <span class="glyphicon glyphicon-ok"> </span>&nbsp; {{forUpdate? 'Update':'Save'}}
+            </button>
+            <!--Cancel-->
+            <button type="button" class="btn btn-default" ng-click="cancel()">
+                <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+            </button>
+        </div>
+        <div class="modal-footer pull-left" ng-show="ForDetails">
+           
+            <button type="button" class="btn btn-warning" ng-click="cancel()">
+                &nbsp; Close
+            </button>
+        </div>
+
+        <div class="clearfix"></div>
+
+    </script>
+@section AngularJSPlugins {
+
+}
+@section PageScripts{
+
+}

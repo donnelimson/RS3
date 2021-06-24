@@ -1,0 +1,814 @@
+﻿@Scripts.Render("~/bundles/core-plugins")
+@Scripts.Render("~/Scripts/lodash.min.js")
+@Scripts.Render("~/Scripts/moment.min.js")
+@Scripts.Render("~/bundles/datepicker")
+
+@Scripts.Render("~/bundles/jasny")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/mandatory-plugins")
+@Scripts.Render("~/bundles/angular-js")
+@Scripts.Render("~/Scripts/angular/angular-route.min.js")
+@Scripts.Render("~/Scripts/angular/angular.blockui.min.js")
+@Scripts.Render("~/Scripts/angular/angular-formatAsCurrency.js")
+<script src="~/assets/global/plugins/angularjs/angular-ui-validate.js"></script>
+
+@Scripts.Render("~/Scripts/App/app.js")
+
+<!--common angular service-->
+@Scripts.Render("~/Scripts/App/Services/CommonService.js")
+@Scripts.Render("~/Scripts/App/Services/CustomService.js")
+@Scripts.Render("~/Areas/CommercialServicesApplication/Scripts/App/Services/ShareDataService.js")
+
+<!--table-->
+@Scripts.Render("~/Scripts/ng-table.js")
+@Scripts.Render("~/Scripts/App/Directives/NgTableDirective.js")
+
+@Scripts.Render("~/assets/global/scripts/app.min.js")
+@Scripts.Render("~/assets/global/plugins/hotkeys/hotkeys.js")
+@Scripts.Render("~/Scripts/webcam.min.js")
+@Scripts.Render("~/Scripts/ng-map.min.js")
+@Scripts.Render("~/bundles/theme-layout")
+@Scripts.Render("~/bundles/daterangepicker")
+@Scripts.Render("~/Scripts/common.js")
+@Scripts.Render("~/Scripts/angular-ui/sortable.js")
+@Scripts.Render("~/assets/global/plugins/jquery-ui/jquery-ui.min.js")
+@Scripts.Render("~/Scripts/angular-idle.min.js")
+@Scripts.Render("~/assets/global/plugins/select2/js/select2.full.js")
+@Scripts.Render("~/assets/global/plugins/masked.js")
+
+<script src="~/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="~/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/accounting.js"></script>
+
+<script>
+    document.baseUrl = '@Url.Action("Index", "Home")';
+    document.baseUrlNoArea = '@Url.Action("Index", "Home", new { area = "" })';
+
+    //Approval
+    document.Approval = '@Url.Action("Index", "Approval", new { area = "" })' + '/';
+    document.Purpose = '@Url.Action("Index", "Purpose", new { area = "" })' + '/';
+    //Banking
+    document.APICreditCard = '@Url.Action("Index", "Home", new { area = "" })' + 'api/FIN/CreditCard/';
+    document.FINCreditCard = '@Url.Action("Index", "CreditCard", new { area = "" })' + '/';
+    document.FINBank = '@Url.Action("Index", "Bank", new { area = "" })' + '/';
+    document.APIBank = '@Url.Action("Index", "Home", new { area = "" })' + 'api/FIN/Banks/';
+    document.FINHouseBankAccount = '@Url.Action("Index", "HouseBankAccount", new { area = "" })' + '/';
+    document.APIHouseBankAccount = '@Url.Action("Index", "Home", new { area = "" })' + 'api/FIN/HouseBankAccount/';
+    // CSA
+    document.CSAFileUpload = '@Url.Action("Index", "FileUpload", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAApplicant = '@Url.Action("Index", "Applicant", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAConsumer = '@Url.Action("Index", "Consumer", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAMember = '@Url.Action("Index", "Member", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAMemberAccounts = '@Url.Action("Index", "MemberAccounts", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAIssueForConnection = '@Url.Action("Index", "IssueForConnection", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAForConnection = '@Url.Action("Index", "ForConnection", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAForDisconnection = '@Url.Action("Index", "AccountsForDisconnection", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAForCloseAndTransfer = '@Url.Action("Index", "ForCloseAndTransfer", new { area = "CommercialServicesApplication" })' + '/';
+
+    document.CSAHouseWiringInspection = '@Url.Action("Index", "HouseWiringInspection", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSASOA = '@Url.Action("Index", "StatementOfAccount", new { area = "CommercialServicesApplication" })' + '/';
+
+    document.CSABillingTransaction = '@Url.Action("Index", "BillingTransaction", new { area = "CommercialServicesApplication" })' + '/';
+    document.BillingAnnouncementForSOA = '@Url.Action("Index", "BillingAnnouncementForSOA", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSABillingPeriod = '@Url.Action("Index", "BillingPeriod", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAPreMembershipOrientation = '@Url.Action("Index", "PreMembershipOrientationSeminar", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAAccountPhase = '@Url.Action("Index", "AccountPhase", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSADiscountApplication = '@Url.Action("Index", "DiscountApplication", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAContestableApplication = '@Url.Action("Index", "ContestableApplication", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAChangeOfMeter = '@Url.Action("Index", "ChangeOfMeter", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSATransformerRental= '@Url.Action("Index", "TransformerRental", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAMeterReading = '@Url.Action("Index", "MeterReading", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAPayment = '@Url.Action("Index", "Payment", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAPaymentEntry = '@Url.Action("Index", "PaymentEntry", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSANetMetering = '@Url.Action("Index", "NetMetering", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAIncomingMeter = '@Url.Action("Index", "IncomingMeter", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAMeterWithdrawal = '@Url.Action("Index", "MeterWithdrawal", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAMeter = '@Url.Action("Index", "Meter", new { area = "CommercialServicesApplication" })' + '/';
+
+    //Request
+    document.CSAChangeOfName = '@Url.Action("Index", "ChangeOfName", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSABurialAssistance = '@Url.Action("Index", "BurialAssistance", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAReconnection = '@Url.Action("Index", "Reconnection", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSADisconnection = '@Url.Action("Index", "Disconnection", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSACloseAndTransfer = '@Url.Action("Index", "RequestCloseAndTransfer", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAOtherRequest = '@Url.Action("Index", "OtherRequest", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSABillingAdjustment = '@Url.Action("Index", "BillingAdjustment", new { area = "CommercialServicesApplication" })' + '/';
+
+    //Transformer
+    document.CSAIncomingDistributionTransformer = '@Url.Action("Index", "IncomingDistributionTransformer", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAOutgoingDistributionTransformer = '@Url.Action("Index", "OutgoingDistributionTransformer", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAForInventory = '@Url.Action("Index", "ForInventory", new { area = "CommercialServicesApplication" })' + '/';
+
+    //Management
+    document.AppUsers = '@Url.Action("Index", "AppUsers", new { area = "" })' + '/';
+    document.Employees = '@Url.Action("Index", "Employees", new { area = "" })' + '/';
+    document.Notification = '@Url.Action("Index", "Notification", new { area = "" })' + '/';
+    document.UserGroup = '@Url.Action("Index", "UserGroup", new { area = "" })' + '/';
+    document.Account = '@Url.Action("Index", "Account", new { area = "" })' + '/';
+    document.ConsumerType = '@Url.Action("Index", "ConsumerType", new { area = "" })' + '/';
+    document.ApprovalStage = '@Url.Action("Index", "ApprovalStage", new { area = "" })' + '/';
+    document.ApprovalTemplate = '@Url.Action("Index", "ApprovalTemplate", new { area = "" })' + '/';
+    document.CompliantType = '@Url.Action("Index", "CompliantType", new { area = "" })' + '/';
+    document.CompliantSubType = '@Url.Action("Index", "CompliantSubType", new { area = "" })' + '/';
+    document.Office = '@Url.Action("Index", "Office", new { area = "" })' + '/';
+    document.Position = '@Url.Action("Index", "Position", new { area = "" })' + '/';
+    document.Purok = '@Url.Action("Index", "Purok" ,new { area = ""})' + '/';
+    document.Sitio = '@Url.Action("Index", "Sitio", new { area = "" })' + '/';
+    document.Province = '@Url.Action("Index", "Province", new { area = "" })' + '/';
+    document.CityTown = '@Url.Action("Index", "CityTown", new { area = "" })' + '/';
+    document.Barangay = '@Url.Action("Index", "Barangay", new { area = "" })' + '/';
+    document.Region = '@Url.Action("Index", "Region", new { area = "" })' + '/';
+    document.Route = '@Url.Action("Index", "Route", new { area = "" })' + '/';
+    document.Department = '@Url.Action("Index", "Department")' + '/';
+    document.NoOfUnitsAndKvaRating = '@Url.Action("Index", "NoOfUnitsAndKvaRating")' + '/';
+    document.BillingUnbundledTransaction = '@Url.Action("Index", "BillingUnbundledTransaction", new { area = "" })' + '/';
+    document.BillingCategory = '@Url.Action("Index", "BillingCategory", new { area = "" })' + '/';
+    document.ConfigSetting = '@Url.Action("Index", "ConfigSetting", new { area = "" })' + '/';
+    document.NavLink = '@Url.Action("Index", "NavLink", new { area = "" })' + '/';
+    document.Permission = '@Url.Action("Index", "Permission", new { area = "" })' + '/';
+    document.AuditLogs = '@Url.Action("Index", "Log", new { area = "" })' + '/';
+
+    document.Department = '@Url.Action("Index", "Department", new { area = "" })' + '/';
+    document.Pole = '@Url.Action("Index", "Pole", new { area = "" })' + '/';
+    document.FileUpload = '@Url.Action("Index", "FileUpload", new { area = "" })' + '/';
+    document.MyProfile = '@Url.Action("MyProfile", "AppUsers", new { area = "" })' + '/';
+    document.BillingMonthlyRate = '@Url.Action("Index", "BillingMonthlyRate", new { area = "" })' + '/';
+    document.BillingUnit = '@Url.Action("Index", "BillingUnit", new { area = "" })' + '/';
+    document.SupportingDocuments = '@Url.Action("Index", "SupportingDocuments", new { area = "" })' + '/';
+    document.Surcharge = '@Url.Action("Index", "Surcharge", new { area = "" })' + '/';
+    document.CounterSetup = '@Url.Action("Index", "CounterSetup", new { area = "CommercialServicesApplication" })' + '/';
+    document.WorkOrder = '@Url.Action("Index", "WorkOrder", new { area = "" })' + '/';
+    document.SubStation = '@Url.Action("Index", "SubStation", new { area = "" })' + '/';
+    document.ComplaintType = '@Url.Action("Index", "ComplaintType", new { area = "" })' + '/';
+    document.DocumentNumbering = '@Url.Action("Index", "DocumentNumbering", new { area = "" })' + '/';
+    document.JobOrderCategory = '@Url.Action("Index", "JobOrderCategory", new { area = "" })' + '/';
+    document.PackagingType = '@Url.Action("Index", "PackagingType", new { area = "" })' + '/';
+    document.UnitOfMeasure = '@Url.Action("Index", "UnitOfMeasure", new { area = "" })' + '/';
+    document.Manufacturer = '@Url.Action("Index", "Manufacturer", new { area = "" })' + '/';
+    document.Division = '@Url.Action("Index", "Division", new { area = "" })' + '/';
+    document.MeterReadingRemarks = '@Url.Action("Index", "MeterReadingRemarks", new { area = "" })' + '/';
+    document.FinancialProjects = '@Url.Action("Index", "Project", new { area = "FIN" })' + '/';
+    document.JobOrderManagement = '@Url.Action("Index", "JobOrderManagement", new { area = "" })' + '/';
+    document.LifelineSubsidy = '@Url.Action("Index", "LifelineSubsidy", new { area = "" })' + '/';
+    document.CashierDashboard = '@Url.Action("Index", "CashierDashboard", new { area = "" })' + '/';
+    document.ApproverLabel = '@Url.Action("Index", "ApproverLabel", new { area = "" })' + '/';
+
+     document.ReportSignatory = '@Url.Action("Index", "ReportSignatory", new { area = "" })' + '/';
+
+    //Job Order
+    document.JobOrder = '@Url.Action("Index", "JobOrder", new { area = "CommercialServicesApplication" })' + '/';
+    document.JobOrderRequest = '@Url.Action("Index", "JobOrderRequest", new { area = "CommercialServicesApplication" })' + '/';
+    document.JobOrderComplaint = '@Url.Action("Index", "JobOrderComplaint", new { area = "CommercialServicesApplication" })' + '/';
+    document.AssignedJobOrderToEmployee = '@Url.Action("Index", "AssignedJobOrderToEmployee", new { area = "CommercialServicesApplication" })' + '/';
+    document.ProcessJobOrder = '@Url.Action("Index", "ProcessJobOrder", new { area = "CommercialServicesApplication" })' + '/';
+
+    //Material
+    document.MaterialRequest = '@Url.Action("Index", "MaterialRequest", new { area = "Inventory" })' + '/';
+    document.RequisitionVoucher = '@Url.Action("Index", "RequisitionVoucher", new { area = "Inventory" })' + '/';
+
+
+    //BP
+    document.Country = '@Url.Action("Index", "Country", new { area = "BP" })' + '/';
+    document.BPIndustry = '@Url.Action("Index", "Industry", new { area = "BP" })' + '/';
+    document.CashDiscount = '@Url.Action("Index", "CashDiscount", new { area = "BP" })' + '/';
+    document.BPVendorGroup = '@Url.Action("Index", "VendorGroup", new { area = "BP" })' + '/';
+    document.CustomerGroup = '@Url.Action("Index", "CustomerGroup", new { area = "BP" })' + '/';
+    document.BusinessPartnerAccount = '@Url.Action("Index", "BusinessPartnerAccount", new { area = "BP" })' + '/';
+
+    document.APIVendorGroup = '@Url.Action("Index", "Home", new { area = "" })' + 'api/BP/VendorGroup/';
+
+    // FAMMS
+    document.ItemMasterData = '@Url.Action("Index", "ItemMaster", new { area = "Inventory" })' + '/';
+
+    document.ItemMasterDataAPI = '@Url.Action("Index", "Home", new { area = "" })' + 'api/INVNTRY/ItemMaster/';
+    document.Brand = '@Url.Action("Index", "Brand", new { area = "BusinessPartners" })' + '/';
+
+    //Inventory
+    document.MasterItem = '@Url.Action("Index", "MasterItem", new { area = "Inventory" })' + '/';
+    document.INVManufacturer = '@Url.Action("Index", "Manufacturer", new { area = "Inventory" })' + '/';
+    document.PriceList = '@Url.Action("Index", "PriceList", new { area = "Inventory" })' + '/';
+    document.PriceListAPI = '@Url.Action("Index", "Home", new { area = "" })' + 'api/INVNTRY/PriceList/';
+    document.ItemGroup = '@Url.Action("Index", "ItemGroup", new { area = "Inventory" })' + '/';
+    document.CycleGroup = '@Url.Action("Index", "CycleGroup", new { area = "Inventory" })' + '/';
+    document.OrderInterval = '@Url.Action("Index", "OrderInterval", new { area = "Inventory" })' + '/';
+    document.Warehouse = '@Url.Action("Index", "Warehouse", new { area = "Inventory" })' + '/';
+    document.InventoryTransfer = '@Url.Action("Index", "InventoryTransfer", new { area = "Inventory" })' + '/';
+    document.InventoryReceiving = '@Url.Action("Index", "InventoryReceiving", new { area = "Inventory" })' + '/';
+    document.PackageType = '@Url.Action("Index", "PackageTypes", new { area = "Inventory" })' + '/';
+    document.InvUnitOfMeasure = '@Url.Action("Index", "UnitOfMeasure", new { area = "Inventory" })' + '/';
+    document.ShippingType = '@Url.Action("Index", "ShippingType", new { area = "Inventory" })' + '/';
+    document.ItemSerialNo = '@Url.Action("Index", "ItemSerialManagement", new { area = "Inventory" })' + '/';
+
+    //Currency
+    document.Currency = '@Url.Action("Index", "Currency", new { area = "" })' + '/';
+
+    //Shipping Types
+    document.ShippingTypes = '@Url.Action("Index", "ShippingTypes", new { area = "" })' + '/';
+
+    document.ConsumerDetails='@Url.Action("Details", "Member", new {area= "CommercialServicesApplication" })';
+
+    //Vehicles
+    document.VHCVihicleType = '@Url.Action("Index", "VehicleType", new { area = "Vehicles" })' + '/';
+    document.VHCGasStation = '@Url.Action("Index", "GasStation", new { area = "Vehicles" })' + '/';
+    document.VHCCoopVehicles = '@Url.Action("Index", "CoopVehicles", new { area = "Vehicles" })' + '/';
+    document.VHCCoopVehiclesAPI = '@Url.Action("Index", "Home", new { area = "" })' + 'api/Vehicles/CoopVehicles/';
+    document.VHCDriversAPI = '@Url.Action("Index", "Home", new { area = "" })' + 'api/Vehicles/Driver/';
+    document.VHCVehicleRequest = '@Url.Action("Index", "VehicleRequest", new { area = "Vehicles" })' + '/';
+    document.VHCRecordsOfTravel = '@Url.Action("Index", "RecordsOfTravel", new { area = "Vehicles" })' + '/';
+    document.VHCVehicleInspection = '@Url.Action("Index", "VehicleInspection", new { area = "Vehicles" })' + '/';
+    document.VHCMotorpolSection = '@Url.Action("Index", "MotorpolSection", new { area = "Vehicles" })' + '/';
+    document.VHCTravelOrder = '@Url.Action("Index", "TravelOrder", new { area = "Vehicles" })' + '/';
+
+      //Sales Employee
+    document.SalesEmployee = '@Url.Action("Index", "SalesEmployee", new { area = "" })' + '/';
+
+
+    //Production
+    document.BOM = '@Url.Action("Index","BillOfMaterials", new { area = "Production" })'+'/';
+    document.WithholdingTax = '@Url.Action("Index", "WithholdingTax", new { area = "FIN" })' + '/';
+
+    //AR
+    document.SIN = '@Url.Action("SIN","SalesDocument", new { area = "AR" })' + '/'
+    document.SDN = '@Url.Action("SDN","SalesDocument", new { area = "AR" })' + '/'
+
+    document.TransactionControlNumber = '@Url.Action("Index", "TransactionControlNumber", new { area = "FIN" })' + '/';
+
+    // Financial
+    document.GetTransactionJournalReport = '@Url.Action("Index", "FIN", new { area = "" })' + '/Finance/TransactionJournal#!/TrnJournalReportDetail';
+     window.onkeydown = function(e) {
+        if (e.keyCode == 8 && e.target == document.body)
+            e.preventDefault();
+    }
+</script>
+<script onload="checkUserSession()">
+    var leftSideCounter = 0;
+    $(window).bind('resize', function () {
+        if ($(window).width() - 215 > 700) {
+            $('#formDetails__').height($(window).width() - 215)
+        }
+
+        var contentHeight = $(window).innerHeight();
+        var paddingHeight = 280;
+
+        if (contentHeight > 280) {
+            $('#formDetails__').height(contentHeight - paddingHeight);
+
+        } else {
+            $('#formDetails__').height(400);
+        }
+    }).trigger('resize');
+
+    function getDateRangePickerValue(selection, createdDate, delimiter) {
+        if (createdDate != null && createdDate != "") {
+            let dateRangeSplit = createdDate.split("-");
+
+            if (selection === 1) {
+                return delimiter != undefined ? dateRangeSplit[0].trim().replace(/\//g, delimiter) : dateRangeSplit[0].trim();
+            }
+            else if (selection === 2) {
+                return delimiter != undefined ? dateRangeSplit[1].trim().replace(/\//g, delimiter) : dateRangeSplit[1].trim();
+            }
+        }
+        else {
+            return null;
+        }
+    }
+    function getSumOfCollection(arrayToSum, storage) {
+        for (var i = 0; i <= arrayToSum.length - 1; i++) {
+            storage += arrayToSum[i];
+        }
+        return storage;
+    }
+    function getDuplicateIndexes(array, keyProperty) {
+        var duplicateIndexes = [];
+        Array.prototype.multiIndexOf = function (el) {
+            var idxs = [];
+            for (var i = this.length - 1; i >= 0; i--) {
+                if (this[i] === el) {
+                    idxs.unshift(i);
+                }
+            }
+            return idxs;
+        }
+        var abc = array.map(r => r[keyProperty]);
+        for (var i = 0; i <= abc.length - 1; i++) {
+            var multiIndex = abc.multiIndexOf(abc[i]);
+            if (multiIndex.length > 1) {
+                duplicateIndexes.push(i);
+            }
+        }
+        return duplicateIndexes;
+    };
+
+    //format number to currency with comma
+
+    //UOM Convertion
+    function convertValueToLowestUoM(val, length) {
+        var product = val * length;
+        return product;
+    }
+    function computeVolume(sourceVolume, arrayOfValues, length, dupplicateArrayOfValues) {
+        for (var value in arrayOfValues) {
+            dupplicateArrayOfValues[value] = arrayOfValues[value] / length;
+            sourceVolume *= dupplicateArrayOfValues[value];
+        }
+        return sourceVolume;
+    }
+    function setStartDateDatePicker(addDay, orientation, element) {
+        var date = new Date();
+        date = moment(new Date(date.setDate(date.getDate() + addDay)));
+        element.datepicker({
+            autoclose: true,
+            orientation: orientation,
+        });
+        $('#cd').datepicker("setStartDate", new Date(date));
+    }
+
+    //select 2 with filter
+    function loadSelect2Filter(sourceArray, mainLookUpArray, targetId, index, selectionProperty, subKeyProperty, subId, hasPreReq = false) {
+        for (var x = 0; x <= sourceArray.length - 1; x++) {
+            if (x != index) {
+                var index = mainLookUpArray.findIndex(r => r.Id == targetId);
+                if (index == - 1 && (hasPreReq ? sourceArray[x][subKeyProperty] == subId : true)) {
+                    sourceArray[x][selectionProperty].push(mainLookUpArray[index]);
+                }
+            }
+        }
+    }
+    function filterSelect2Filter(filterdLookUPArray, sourceArray, keyProperty, subKeyProperty, subId, hasPreReq = false) {
+        for (var i = 0; i <= filterdLookUPArray.length - 1; i++) {
+            var index = sourceArray.findIndex(r => r[keyProperty] == filterdLookUPArray[i].Id && (hasPreReq ? r[subKeyProperty] == subId : true));
+            if (index != -1) {
+                filterdLookUPArray.splice(i, 1);
+            }
+        }
+        return filterdLookUPArray;
+    }
+    function deleteSelect2Filter(sourceArray, index, mainLookUpArray, prevKeyProperty, selectionProperty, subKeyProperty, subId, hasPreReq = false) {
+        for (var x = 0; x <= sourceArray.length - 1; x++) {
+            if (x != index) {
+                if (sourceArray[index][prevKeyProperty] != null) {
+                    var index1 = mainLookUpArray.findIndex(r => r.Id == sourceArray[index][prevKeyProperty]);
+                    var ifExist = sourceArray[x][selectionProperty].findIndex(r => r.Id == sourceArray[index][prevKeyProperty]);
+                    if (ifExist == - 1 && (hasPreReq ? sourceArray[x][subKeyProperty] == subId : true)) {
+                        sourceArray[x][selectionProperty].push(mainLookUpArray[index1]);
+                    }
+                }
+            }
+        }
+        sourceArray.splice(index, 1);
+    }
+    function filterSelect2FilterOnchange(sourceArray, index, id, prevKeyProperty, selectionProperty, mainLookUpArray, subKeyProperty, subId, hasPreReq = false) {
+        if (sourceArray[index][prevKeyProperty] != null) {
+            loadSelect2Filter(sourceArray, mainLookUpArray, sourceArray[index][prevKeyProperty], index, selectionProperty, subKeyProperty, subId, hasPreReq);
+        }
+        for (var i = 0; i <= sourceArray.length - 1; i++) {
+            if (i != index) {
+                for (var x = 0; x <= mainLookUpArray.length - 1; x++) {
+                    var index1 = mainLookUpArray.findIndex(r => r.Id == id);
+                    if (index1 != -1 && (hasPreReq ? sourceArray[i][subKeyProperty] == subId : true)) {
+                        mainLookUpArray.splice(index1, 1);
+                    }
+                }
+            }
+        }
+        sourceArray[index][prevKeyProperty] = id;
+    }
+    //
+    function decimalLimiter(element, limiter, decLimit) {
+        $(document).keypress(function (event) {
+            var keyCode = (event.which) ? event.which : (window.event.keyCode) ? window.event.keyCode : -1;
+            if (element.value.indexOf('.') != -1) {
+                limiter = limiter + (decLimit + 1);
+            }
+            if (element.value.length >= limiter) {
+                if (keyCode != 46) {
+                    return false;
+                }
+            }
+            return true;
+        });
+    }
+
+    function setDecimals(element) {
+        $(document).keypress(function (event) {
+            event = (event) ? event : window.event;
+            var charCode = (event.which) ? event.which : event.keyCode;
+            if (charCode == 8 || charCode == 37) {
+                return true;
+            }
+            else if (charCode == 46 && $(element).val().indexOf('.') != -1) {
+                return false;
+            }
+            else if (charCode > 31 && charCode != 46 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        });
+    }
+
+    function roundUp(element) {
+        var value = parseFloat($(element).val());
+        if (!isNaN(value)) {
+            $(element).val(parseFloat(value).toFixed(3));
+        }
+    }
+
+    function gridComparison(object1, object2) {
+        var keys = Object.keys(object1[0]);
+        for (var i = 0; i <= object1.length - 1; i++) {
+            for (var x = 0; x <= keys.length - 1; x++) {
+                var obj1Value = object1[i][keys[x]];
+                var obj2Value = object2[i][keys[x]];
+                if (!Array.isArray(obj1Value) && !Array.isArray(obj2Value)) {
+                    if (obj1Value != obj2Value) {
+                        return false;
+                    }
+                }
+                else {
+                    gridComparison(obj1Value, obj2Value);
+                }
+
+            }
+        }
+        return true;
+    }
+
+
+
+    function getUnique(arr, comp) {
+        const unique = arr
+            .map(e => e[comp])
+
+            // store the keys of the unique objects
+            .map((e, i, final) => final.indexOf(e) === i && i)
+
+            // eliminate the dead keys & store unique objects
+            .filter(e => arr[e]).map(e => arr[e]);
+
+        return unique;
+    }
+
+    function formatDate(date) {
+        if (date != null) {
+            var formattedDate = new Date(date);
+            var dd = String(formattedDate.getDate()).padStart(2, '0');
+            var mm = String(formattedDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = formattedDate.getFullYear();
+            formattedDate = mm + '/' + dd + '/' + yyyy;
+            return formattedDate;
+        }
+        return null;
+    }
+
+    function formatDateYYYYMMDD(date) {
+        if (date != null) {
+            var formattedDate = new Date(date);
+            var dd = String(formattedDate.getDate()).padStart(2, '0');
+            var mm = String(formattedDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = formattedDate.getFullYear();
+            formattedDate = yyyy + ''+ mm +'' +dd;
+            return formattedDate;
+        }
+        return null;
+    }
+    function showSpinnerWhileIFrameLoads() {
+        var iframe = $('iframe');
+        var $spinner = '<div id=\spinner\ style="top:50%;left:50%;position:absolute"><i id=\spinnerLogo\ class=\'fa fa-spinner fa-spin fa-3x fa-fw\'></i></div>';
+        if (document.contains(document.getElementById("spinner"))) {
+            $(iframe).on('load', function () {
+                if (document.contains(document.getElementById("spinner"))) {
+                    document.getElementById("spinner").remove();
+                }
+
+            });
+        }
+        else {
+            if (iframe.length) {
+                $(iframe).before($spinner);
+            }
+        }
+    }
+    function getGroupedDocuments(xs, key) {
+        return xs.reduce(function (rv, x) {
+            (rv[x[key]] = rv[x[key]] || []).push(x);
+            return rv;
+        }, {});
+    };
+    function generateDocNum(s, p, fn, nn, nod) {
+        if (p == null) {
+            p = '';
+        }
+        if (s == null) {
+            s = '';
+        }
+        var docNum = '' + p == null ? '' : p;
+        var i = 0;
+        while (i < nod) {
+            docNum = docNum + '0';
+            i++;
+        }
+        docNum = docNum + nn + s + '';
+        return docNum;
+    }
+    function getAllOccurences(array, val, prop1, prop2, index) {
+        var occurences = 0;
+        for (var i = 0; i <= array.length - 1; i++) {
+            if (index != i) {
+                if (array[i][prop1] == val || array[i][prop2] == val) {
+                    occurences++;
+
+                }
+            }
+
+        }
+        return occurences;
+    }
+
+    function searchNavLink() {
+        $(".page-sidebar-wrapper li.nav-item").hide();
+        if ($(".page-sidebar-wrapper span[link*='" + document.getElementById("searcherNavlink").value + "']").length > 0) {
+            $(".page-sidebar-wrapper span[link*='" + document.getElementById("searcherNavlink").value + "']").parents("li").show().find('ul').show();
+            if ($(".page-sidebar-wrapper li[parentLink*='" + document.getElementById("searcherNavlink").value.toLowerCase() + "']").length > 1) {
+                $(".page-sidebar-wrapper li[parentLink*='" + document.getElementById("searcherNavlink").value.toLowerCase() + "']").show();
+                if ($(".page-sidebar-wrapper li[rootLink*='" + document.getElementById("searcherNavlink").value.toLowerCase() + "']").length > 1) {
+                    $(".page-sidebar-wrapper li[rootLink*='" + document.getElementById("searcherNavlink").value.toLowerCase() + "']").show();
+                }
+            }
+        }
+        else {
+            $(".page-sidebar-wrapper span[link*='" + document.getElementById("searcherNavlink").value + "']").parents("li").show().addClass("open").find('ul').show();
+        }
+        if (document.getElementById("searcherNavlink").value == '') {
+            $(".page-sidebar-wrapper li.nav-item").show().removeClass("open").find('ul').hide();
+        }
+    }
+    function activaTab(tab) {
+        $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+    };
+</script>
+<script>
+    function checkUserSession() {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("IsUserLoggedOnElsewhere", "Account", new {area = ""})',
+            success: function (result) {
+                if (result == "True") {
+                    swal({
+                        title: "Notice!",
+                        text: "This account has been logged out.",
+                        type: "warning",
+                        confirmButtonColor: "#1ab394",
+                    }, function () {
+                        document.getElementById('logoutForm').submit();
+                    });
+                }
+                else {
+
+                }
+
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $(document).mousemove(function (event) {
+             $(document).off("mousemove");
+            checkUserSession();
+        });
+          $(document).mousedown(function (event) {
+             $(document).on("mousemove");
+              checkUserSession();
+          });
+    });
+
+    var timer;
+    $(document).on('onload', function (e) {
+        clearTimeout(timer);
+
+        timer = setTimeout(function () {
+            checkUserSession();
+        }, 0);
+    });
+
+    function formatAmount(val) {
+        while (/(\d+)(\d{3})/.test(val.toString())) {
+            val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+        }
+        return val;
+    }
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+
+        if (charCode === 46) return true;
+
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+       function preventParenthesisDash(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode < 47) {
+            evt.preventDefault();
+            return false;
+        }
+    }
+
+    function bindDynamicForm() {
+        $('.dynamicForm').submit(function (e) {
+            var formSelf = this;
+            if ($(this).attr("method") == "post" && !$(this).data("ajax")) {
+                e.preventDefault();
+
+                if ($(this).valid()) {
+                    swal({
+                        title: "Confirm action.",
+                        text: "Are you sure to proceed on this action?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#1ab394",
+                        confirmButtonText: "Yes proceed",
+                        closeOnConfirm: true
+                    }, function () {
+                        //$("#formLoadingScreen").modal("show");
+                        formSelf.submit();
+                    });
+                } else {
+                    //console.log("invalid");
+                }
+            }
+        });
+    }
+
+    function tagNavigationAsActive(element) {
+        element.removeClass("active");
+        element.removeClass("open");
+
+        element.addClass("active");
+        element.addClass("open");
+
+        var selector = $(element).find('a .selector');
+        if (selector && selector.length > 0) {
+            selector.removeClass("selected");
+            selector.addClass("selected");
+        }
+
+        var parent = $(element).parent().parent("li.nav-item");
+        if (parent && parent.length > 0) {
+            tagNavigationAsActive(parent);
+        }
+    }
+
+    $(document).ready(function () {
+
+        //#region Select2
+        function restrictCharacters() {
+            var e = event || window.event;  // get event object
+            var key = e.keyCode || e.which; // get key cross-browser
+            var inp = String.fromCharCode(key);
+            var regex = /[^0-9A-Za-z-ñÑ]/;
+
+            if (regex.test(inp)) {
+                if (e.preventDefault()) {
+                    e.preventDefault();
+                }
+                else {
+                    e.returnValue = false;
+                }
+            }
+        }
+
+        function restrictCharactersNoNumbers() {
+            var e = event || window.event;  // get event object
+            var key = e.keyCode || e.which; // get key cross-browser
+            var inp = String.fromCharCode(key);
+            var regex = /[^A-Za-z-ñÑ]/;
+
+            if (regex.test(inp)) {
+                if (e.preventDefault()) {
+                    e.preventDefault();
+                }
+                else {
+                    e.returnValue = false;
+                }
+            }
+        }
+
+        function preventPasting(e) {
+            e.preventDefault();
+        }
+       $(document).on("select2:close", '.select2-hidden-accessible', function () { $(this).focus(); });
+        $('select.allow-numbers').on('select2:open', function () {
+            setTimeout(function () {
+                var select2input = $('.select2-search__field');
+                select2input.on('keypress', restrictCharacters);
+                select2input.on('paste', preventPasting);
+            }, 50);
+        });
+
+        $('select.not-allow-numbers').on('select2:open', function () {
+            setTimeout(function () {
+                var select2input = $('.select2-search__field');
+                select2input.on('keypress', restrictCharactersNoNumbers);
+                select2input.on('paste', {}, preventPasting);
+            }, 50);
+        });
+
+        $('select').on('select2:closing', function () {
+            var select2input = $('.select2-search__field');
+            select2input.off('keypress');
+        });
+
+        //#endregion
+
+        $("form").submit(function (e) {
+            var formSelf = this;
+            var noconfirmation = $(this).attr("noconfirmation");
+            var confirmInputText = $(this).attr("confirm-input-text");
+            if ($(this).attr("method") == "post" && !$(this).data("ajax") && noconfirmation === undefined) {
+                e.preventDefault();
+
+                if ($(this).valid()) {
+
+                    if (confirmInputText) {
+                        swal({
+                            title: "Confirm action.",
+                            //text: "<textarea id='text' class='form-control' tabindex='3' placeholder='Reason'></textarea>",
+                            //html: true,
+                            text: "",
+                            type: "input",
+                            inputPlaceholder: "Reason",
+                            showCancelButton: true,
+                            confirmButtonColor: "#1ab394",
+                            confirmButtonText: "Yes proceed",
+                            closeOnConfirm: false
+                        }, function (inputValue) {
+                            if (inputValue === false) return false;
+                            if (inputValue === "") {
+                                swal.showInputError("You need to write something!");
+                                return false;
+                            }
+
+                            $(confirmInputText).val(inputValue);
+
+                            //$("#formLoadingScreen").modal("show");
+                            formSelf.submit();
+                        });
+                    } else {
+                        swal({
+                            title: "Confirm action.",
+                            text: "Are you sure to proceed on this action?",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#1ab394",
+                            confirmButtonText: "Yes proceed",
+                            closeOnConfirm: true
+                        }, function () {
+                            //$("#formLoadingScreen").modal("show");
+                            formSelf.submit();
+                        });
+                    }
+                } else {
+                    swal.showInputError("Invalid!");
+                }
+            }
+        });
+
+        if (window.toastr) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "positionClass": "toast-top-right",
+                "onclick": null,
+                "showDuration": "1000",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            @if (Session["SuccessMessage"] != null)
+            {
+                @Html.Raw("toastr[\"success\"](\"" + Session["SuccessMessage"].ToString() + "\", \"System Message\")");
+                Session["SuccessMessage"] = null;
+            }
+
+            @if (Session["ErrorMessage"] != null)
+            {
+                @Html.Raw("toastr[\"error\"](\"" + Session["ErrorMessage"].ToString() + "\", \"Error\")");
+                Session["ErrorMessage"] = null;
+            }
+        }
+    });
+
+    window.uuidv4 = function () {
+        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        )
+    }
+</script>

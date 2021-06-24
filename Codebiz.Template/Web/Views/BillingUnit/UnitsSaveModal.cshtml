@@ -1,0 +1,65 @@
+﻿<script type="text/ng-template" id="UnitsSaveModal.html">
+    <!-- MODAL HEADER -->
+    <div class="modal-header">
+        <h4 class="form-sub-title">Units - {{addOrEdit == 'Add' ? 'ADD' : 'EDIT'}}</h4>
+    </div>
+    <!-- MODAL BODY -->
+    <div id="modal-body" class="modal-body" ng-form="saveUnitsForm">
+        <div class="form-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- TEXTBOX FOR Unit -->
+                    <div class="form-group" style="margin-right:5px" ng-class="saveUnitsForm.Unit.$invalid && (saveUnitsForm.Unit.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label">Unit</label><span class="required"> * </span>
+                        <input type="text" class="form-control" name="Unit" ng-required="true" ng-model="units.Unit"  maxlength="20"/>
+                        <span color="red" ng-show="saveUnitsForm.Unit.$error.required && formSubmitted" class="text-danger
+                                  field-validation-error"><small>The Unit is required.</small></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- option FOR Office -->
+                    <div class="form-group" ng-class="saveUnitsForm.OfficeId.$invalid && (saveUnitsForm.OfficeId.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label">Area Office</label><span class="required"> * </span>
+                        <select select2 name="OfficeId" class="form-control" ng-required="true" ng-model="units.OfficeId"
+                                ng-options="office.OfficeId as (office.Name) for office in offices" ng-change="getMeterReader()">
+                            <option value="">---Please select---</option>
+                        </select>
+                        <span color="red" ng-show="saveUnitsForm.OfficeId.$error.required && formSubmitted" class="text-danger field-validation-error">
+                            <small>Area Office is required</small>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- option FOR MeterReader -->
+                    <div class="form-group" ng-class="saveUnitsForm.MeterReaderId.$invalid && (saveUnitsForm.MeterReaderId.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label">Meter Reader</label><span class="required"> * </span>
+                        <select select2 name="MeterReaderId" class="select select2 form-control" ng-required="true" ng-model="units.MeterReaderId"
+                                ng-options="position.AppUserId as (position.AppUser) for position in positions">
+                            <option value="">---Please select---</option>
+                        </select>
+                        <span color="red" ng-show="saveUnitsForm.MeterReaderId.$error.required && formSubmitted" class="text-danger field-validation-error">
+                            <small>The Meter Reader is required.</small>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+            </div>
+        </div>
+    </div>
+    <!--Modal Footer-->
+    <div class="modal-footer pull-left">
+        <!--Actions -->
+        <button class="btn btn-success" style="width:90px;" ng-click="saveUnit()">
+            <span class="glyphicon glyphicon-ok"></span> {{addOrEdit == 'Add'? 'Save':'Update'}}
+        </button>
+        <button class="btn btn-default" style="width:90px;" ng-click="cancel()">
+            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+        </button>
+    </div>
+    <div class="clearfix"></div>
+</script>

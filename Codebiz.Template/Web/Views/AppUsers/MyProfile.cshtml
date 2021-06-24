@@ -1,0 +1,470 @@
+﻿@model Web.Models.ChangePasswordViewModel
+@{
+    ViewBag.Title = "My Profile";
+}
+
+<div class="row" ng-app="MetronicApp"
+     ng-controller="AppUserController as c">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>Home</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "AppUsers")">Users</a>
+                </li>
+
+            </ul>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            User Profile | Account
+            <small>User account page</small>
+        </h1>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="profile-sidebar">
+                    @Html.HiddenFor(model => model.ForFrofile)
+                    @Html.HiddenFor(model => model.AppUserId)
+                    <div class="portlet light profile-sidebar-portlet">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="profile-userpic">
+                                    `
+                                    <img ng-src="{{photoUrl || '@Url.Content("~/assets/global/img/no-avatar.png")'}}" class="img-responsive thumbnail" alt="" style="width: 40% !important;">
+                                </div>
+                                <div class="profile-usertitle" id="AppUserId">
+                                    <div class="profile-usertitle-name text-capitalize"><b>{{Name}}</b></div>
+                                    <div class="profile-usertitle-job">{{Position}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mt-actions">
+                                    <div class="mt-action">
+                                        <div class="mt-action-body">
+                                            <div class="mt-action-row">
+                                                <div class="mt-action-info ">
+                                                    <div class="mt-action-icon">
+                                                        <i class="fa fa-envelope" data-toggle="tooltip" data-placement="right" title="Email"></i>
+                                                    </div>
+                                                    <div class="mt-action-details">
+                                                        <p class="mt-action-desc">
+                                                            {{Email}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-action-row" ng-hide="Office == null">
+                                                <div class="mt-action-info ">
+                                                    <div class="mt-action-icon">
+                                                        <i class="fa fa-home" data-toggle="tooltip" data-placement="right" title="Office"></i>
+                                                    </div>
+                                                    <div class="mt-action-details">
+                                                        <p class="mt-action-desc">
+                                                            {{Office}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-action-row">
+                                                <div class="mt-action-info ">
+                                                    <div class="mt-action-icon">
+                                                        <i class="fa fa-user" data-toggle="tooltip" data-placement="right" title="User Group"></i>
+                                                    </div>
+                                                    <div class="mt-action-details">
+                                                        <p class="mt-action-desc">
+                                                            {{UserGroup}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-content">
+                    <div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="portlet light" style="margin-bottom:unset">
+                                    <h4 class="col-md-6 form-sub-title">PROFILE ACCOUNT</h4>
+                                    <div class="portlet-title tabbable-line">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active">
+                                                <a href="#change-avatar" data-toggle="tab">CHANGE AVATAR</a>
+                                            </li>
+                                            <li>
+                                                <a href="#change-password" id="navtab1" data-toggle="tab">CHANGE PASSWORD</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade" id="change-password">
+                                        @using (Html.BeginForm("MyProfile", "AppUsers", FormMethod.Post, new { @class = "changepass-form" , novalidate = "", noconfirmation = ""}))
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="portlet light" style="margin-bottom:unset">
+                                                        <div class="portlet-body form">
+                                                            @Html.AntiForgeryToken()
+                                                            <div class="form-group">
+                                                                @Html.HiddenFor(model => model.AppUserId)
+                                                                @Html.HiddenFor(model => model.FirstName)
+                                                                @Html.HiddenFor(model => model.MiddleName)
+                                                                @Html.HiddenFor(model => model.LastName)
+                                                                @Html.HiddenFor(model => model.SelectedPositionId)
+                                                                @Html.HiddenFor(model => model.SelectedOfficeId)
+                                                                @Html.HiddenFor(model => model.Email)
+                                                                @Html.HiddenFor(model => model.Username)
+                                                                @Html.HiddenFor(model => model.AppUserPhoto)
+                                                                @Html.HiddenFor(model => model.SelectedDepartmentId)
+
+                                                                @Html.LabelFor(model => model.OldPassword, htmlAttributes: new { @class = "control-label" })
+                                                                @Html.EditorFor(model => model.OldPassword, new { htmlAttributes = new { @class = "form-control curPass" } })
+                                                                @Html.ValidationMessageFor(model => model.OldPassword, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.NewPassword, htmlAttributes: new { @class = "control-label" })
+                                                                @Html.EditorFor(model => model.NewPassword, new { htmlAttributes = new { @class = "form-control newpass" } })
+                                                                @Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label" })
+                                                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control newPass" } })
+                                                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="portlet light" style="border-top:solid thin #e7ecf1">
+                                                        <div>
+                                                            <input type="button" id="submitChangePass" class="btn green uppercase" onclick="checkIfCurrentPasswordIsCorrect()" 
+                                                                   value="Change Password" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div class="tab-pane active" id="change-avatar">
+                                        <div class="portlet light" style="margin-bottom:unset">
+                                            <div class="portlet-body form">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="pull-bottom">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="img-thumbnail photo-container" ng-class="appUser.AppUserPhotos.length === 0 && formSubmitted ? 'image-has-error' : ''"
+                                                                                 ng-mouseenter="photoHover = true" ng-mouseleave="photoHover = false" style="position: relative; width: 210px; height: 210px;">
+                                                                                <img ng-src="{{appUser.AppUserPhotos[1].thumbnailUrl || '@Url.Content("~/assets/global/img/no-avatar.png")'}}" alt="App User Photo" style="z-index: -100; width: 100%; height: 100%;">
+                                                                                <div class="row overlay-btn-container">
+                                                                                    <div class="col-md-12">
+                                                                                        <div ng-show="photoHover">
+                                                                                            <button class="btn blue" ng-click="uploadPhoto(1,1)" data-toggle="tooltip" title="Upload Photo">
+                                                                                                <i class="glyphicon glyphicon-upload"></i>
+                                                                                            </button>
+                                                                                            <button class="btn yellow" ng-click="openWebcam(1,1)" data-toggle="tooltip" title="Capture Photo from Webcam">
+                                                                                                <i class="glyphicon glyphicon-camera"></i>
+                                                                                            </button>
+                                                                                            <button class="btn red" ng-click="resetPhoto(1)" data-toggle="tooltip" title="Remove Photo"
+                                                                                                    ng-disabled="!appUser.AppUserPhotos.length">
+                                                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div ng-show="applicant.AppUserPhoto.length === 0 && formSubmitted ? 'image-has-error' : ''"
+                                                                                 class="text-danger field-validation-error"><small>AppUser photo is required!</small></div>
+                                                                        </div>
+                                                                        <div class="col-md-12"><br /></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="portlet light" style="border-top:solid thin #e7ecf1">
+                                                    <div class="form-actions">
+                                                        <button class="btn btn-success" style="width: 90px;" ng-click="savePhoto()" ng-disabled="appUser.AppUserPhotos.length == 0">
+                                                            <span class="glyphicon glyphicon-ok"></span>&nbsp; Save
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @Html.Partial("_AppUserPhotoUploadModal")
+        @Html.Partial("_AppUserWebCamUploadModal")
+    </div>
+</div>
+@section PageStyles {
+    <style>
+        table td.actions {
+            width: 1% !important;
+        }
+
+        .style {
+            width: 60px;
+            height: 60px;
+        }
+
+        .fa {
+            color: gray;
+        }
+
+        .font-info span {
+            font-size: 15px;
+        }
+
+        .applicant-add {
+            font-family: Open Sans;
+            font-size: 12px;
+        }
+
+        .modal-backdrop {
+            z-index: 100000 !important;
+        }
+
+        .modal {
+            z-index: 100001 !important;
+        }
+
+        .requiredInput {
+            color: #e02222;
+            font-size: 12px;
+        }
+
+        .overlay-wrapper {
+            z-index: 100;
+            position: absolute;
+            top: 0;
+            width: 200px;
+            height: 100%;
+            left: 120px;
+            display: inline-block;
+            margin: 7px 35px 0px -35px;
+            font-size: medium;
+        }
+
+            .overlay-wrapper button {
+                margin-right: 0;
+                background: rgba(255,255,255,0.3);
+            }
+
+        .overlay-wrapper-sign {
+            z-index: 100;
+            position: absolute;
+            top: 120px;
+            width: 200px;
+            height: 100%;
+            left: 198px;
+            display: inline-block;
+            margin: 7px 35px 0px -35px;
+            font-size: medium;
+        }
+
+            .overlay-wrapper-sign button {
+                margin-right: 0;
+                background: rgba(255,255,255,0.3);
+            }
+
+        .photo-crop-preview {
+            height: 190px;
+            width: 190px;
+        }
+
+        .signature-crop-preview {
+            height: 100px;
+            width: 267px;
+        }
+
+        .resizeThumb {
+            width: 90px;
+            height: 90px;
+        }
+
+        .image-has-error {
+            border: 1px solid red;
+        }
+
+        .photo-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .img-fit {
+            max-width: 95%;
+            max-height: 95%;
+        }
+
+        .overlay-btn-container {
+            float: right;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+
+        .pull-bottom {
+            display: inline-block;
+            vertical-align: bottom;
+            float: none;
+            margin-right: 3%;
+        }
+
+        .signature-div {
+            width: 24%;
+        }
+
+        .jcrop-centered {
+            display: inline-block;
+            margin: auto;
+        }
+
+        .crop-image-wrapper {
+            text-align: center;
+        }
+
+        .img-centered {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .whiteinput {
+            background-color: white !important;
+        }
+
+        #PoleIdDiv [class^='select2'] {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+
+        .tab-content {
+            border-top: 0 !important;
+        }
+    </style>
+
+    @Styles.Render("~/assets/global/plugins/fancybox/source/jquery.fancybox.css")
+    @Styles.Render("~/assets/global/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css")
+    @Styles.Render("~/css/datepicker")
+    @Styles.Render("~/css/fileupload")
+    @Styles.Render("~/assets/global/plugins/jcrop/css/jquery.Jcrop.min.css")
+    @Styles.Render("~/assets/pages/css/image-crop.min.css")
+    @Styles.Render("~/Content/ng-table.min.css")
+    @Styles.Render("~/Content/jquery.mloading.css")
+    @Styles.Render("~/assets/global/css/consumer-account-details.css")
+}
+
+@section PageScripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/fileupload")
+    @Scripts.Render("~/assets/global/plugins/jcrop/js/jquery.Jcrop.min.js")
+    @Scripts.Render("~/Content/jquery.mloading.js")
+
+    <script>
+         $(window).on("load", function () {
+            var model = @Html.Raw(Json.Encode(Model));
+            if (model != null) {
+                if (model.OldPassword != null && model.NewPassword != null) {
+                    $('#navtab1')[0].click();
+                }
+            }
+        });
+    </script>
+    <script>
+
+    function keypressHandler(e) {
+        if (e.which == 13) {
+            e.preventDefault(); //stops default action: submitting form
+            $(this).blur();
+            $('#submitChangePass').click();//give your submit an ID
+        }
+    }
+
+    function checkIfCurrentPasswordIsCorrect() {
+        var curPass = $(".curPass").val();
+        var newpass = $(".newpass").val();
+        var confirmPass = $(".newPass").val();
+
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("CheckIfCurrentPassIsCorrect", "AppUsers", new {area = ""})',
+            data : {
+                currentPassword: curPass,
+                newPassword: newpass,
+                confirmPass: confirmPass
+            },
+            success: function (result) {
+                if (result.proceed) {
+                    swal({
+                        title: "Change Password?",
+                        text: "Password will be change. Procced?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#1ab394",
+                        confirmButtonText: "Yes proceed",
+                        closeOnConfirm: true
+                    }, function () {
+                            $('.changepass-form').submit();
+                    });
+                }
+                else {
+                     $('.changepass-form').submit();
+                }
+            }
+        });
+        return false;
+    }
+
+    </script>
+}
+
+@section AngularJSPlugins {
+    @Scripts.Render("~/Scripts/ng-table.js")
+}
+
+@section AngularJSPage {
+    @Scripts.Render("~/Scripts/App/Services/CustomService.js")
+    @Scripts.Render("~/Scripts/App/Services/AppUserService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/AppUser/AppUserController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/AppUser/AppUserImageCropController.js")
+}
+

@@ -1,0 +1,62 @@
+﻿@using Web.Models
+@model UnlockingViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutBasic.cshtml";
+    ViewBag.Title = "Unlock Account";
+}
+<!-- BEGIN LOGO -->
+<div class="logo" style="margin-bottom: -40px;">
+    <div style="display: inline-block; height: 150px; vertical-align: top;">
+        <img src="@Url.Content("~/Content/Image/Tarelco.png")" alt="" height="150" />
+    </div>
+    <div class="logo-container">
+        <img src="@Url.Content("~/Content/Image/tarelco1logo.png")" alt="" />
+    </div>
+</div>
+<!-- END LOGO -->
+<!-- BEGIN UNLOCKING ACCOUNT -->
+<div class="content">
+    <!-- BEGIN UNLOCKING ACCOUNT FORM -->
+    @using (Html.BeginForm("Unlock", "Account", FormMethod.Post, new {@class = "", role = "form", novalidate = "", style = " display: block;"}))
+    {
+        @Html.AntiForgeryToken()
+        <h3 class="form-title font-green">Unlock Account</h3>
+        <div class="alert alert-danger display-hide">
+            @*<button class="close" data-close="alert"></button>*@
+            <span> Enter Your Username and Verification Code. </span>
+        </div>
+        <div class="form-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">Username</label>
+            @Html.TextBoxFor(m => m.Username, new {@class = "form-control form-control-solid placeholder-no-fix", placeholder = "Username", autocomplete = "off"})
+            @Html.ValidationMessageFor(m => m.Username, "", new {@class = "text-danger",})
+        </div>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">Password</label>
+            @Html.TextBoxFor(m => m.VerificationCode, new {@class = "form-control form-control-solid placeholder-no-fix", placeholder = "Verification Code"})
+            @Html.ValidationMessageFor(m => m.VerificationCode, "", new {@class = "text-danger"})
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn green uppercase">Unlock</button>
+        </div>
+    }
+    <!-- END UNLOCKING ACCOUNT FORM -->
+</div>
+<style>
+    .logo-container {
+        display: inline-block;
+        width: 400px;
+        height: 150px;
+        overflow: hidden;
+    }
+
+        .logo-container img {
+            position: relative;
+            top: 10%;
+            transform: translateX(-25%);
+        }
+</style>
+    <div class="copyright"> @DateTime.Now.Year © TARELCO 1</div>
+    @section PageScripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

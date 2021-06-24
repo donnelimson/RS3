@@ -1,0 +1,38 @@
+﻿<style>
+    .select2-container--bootstrap .select2-selection{
+        border-radius:unset;
+    }
+</style>
+<div class="form-group" ng-class="ngMessage != undefined && ngMessage != '' && ngMessage != null ? 'has-error' : ''">
+    <label id="{{cbLabelItemId}}" for="" class="control-label {{cbLabelClass}}" ng-show="cbLabelText">{{cbLabelText}}<span class="required" ng-show="ngRequired"> * </span></label>
+    <div class="{{cbSelectClass}}">
+        <div class="input-group">
+            <!--<i class="fa-view glyphicon glyphicon-circle-arrow-right" width="10px" ng-click="onLinkIconClick($event)" style="color: #e0bc0f; margin-top: 1px !important; margin-left: 1px !important;" ng-show="IsSelectChange || ngModel !== '' || ngModel !== null"></i>-->
+            <span class="input-group-btn" ng-show="(cbSelectViewData == undefined || (cbSelectViewData != undefined && cbSelectViewData == 'true')) && (ngModel != undefined && ngModel !== '' && ngModel !== null)">
+                <button class="btn yellow" type="button" ng-click="onLinkIconClick($event)" style="padding: 5.5px 6px;">
+                    <i class="fa fa-arrow-right fa-fw" style="margin:unset"></i>
+                </button>
+            </span>
+            <select select2
+                    id="{{cbSelectItemId}}"
+                    name="{{cbSelectItemId}}"
+                    ng-model="ngModel"
+                    ng-options="l.LookupID  as l.LookupName for l in SelectList"
+                    ng-required="ngRequired"
+                    ng-change="onSelectChange($event)"
+                    ng-disabled="ngDisabled">
+                <!--ng-class="(ngMessage != undefined && ngMessage != '' && ngMessage != null) ? 'hasErrorData' : ''"-->
+                <option value="">---Please select---</option>
+            </select>
+            <span class="input-group-btn" ng-show="cbSelectAllowedAdd == 'true'">
+                <button class="btn blue" type="button" style="padding: 5.5px 6px;">
+                    <i class="fa fa-plus fa-fw" style="margin:unset"></i>
+                </button>
+            </span>
+        </div>
+
+        <span color="red" ng-show="ngMessage != undefined && ngMessage != '' && ngMessage != null" class="text-danger field-validation-error">
+            <small>{{ngMessage}}</small>
+        </span>
+    </div>
+</div>

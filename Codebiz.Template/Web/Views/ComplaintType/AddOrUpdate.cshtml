@@ -1,0 +1,166 @@
+﻿@{
+    ViewBag.Title = "Complaint Type - Add or Update";
+}
+
+<div class="row" ng-app="MetronicApp" ng-controller="ComplaintTypeAddOrUpdateController as cpac">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>Job Order</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "ComplaintType")">Complaint Type </a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>{{isUpdate ? 'Edit' : 'Add'}}</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            Complaint Type
+            <small>Add complaint type</small>
+        </h1>
+        @Html.Hidden("ComplaintTypeId")
+        <div class="row">
+            <div class="col-md-12" ng-form="cpac.complaintTypeForm">
+                <div class="portlet light bordered" style="margin-bottom:unset">
+                    <div class="portlet-body">
+                        <div class="row padding-bottom-15">
+                            <div class="col-md-5">
+                                <div class="form-group"
+                                     ng-class="cpac.complaintTypeForm.NatureTypeId.$invalid && (cpac.complaintTypeForm.NatureTypeId.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Nature Type</label><span class="required"> * </span>
+                                    <div id="SerialNoIdDiv">
+                                        <select select2 class="form-control" name="NatureTypeId" id="NatureTypeId"
+                                                ng-model="data.NatureTypeId"
+                                                ng-options="ct.Id as (ct.Description) for ct in natureTypes | orderBy: 'Description'"
+                                                ng-disabled="isUpdate"
+                                                ng-required="true">
+                                        </select>
+                                    </div>
+                                    <span color="red" ng-show="cpac.complaintTypeForm.NatureTypeId.$error.required && formSubmitted" class="text-danger field-validation-error"><small>Nature type is required.</small></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="form-sub-title">COMPLAINT(S) <span class="required"> * </span></h5>
+                                <hr style="margin: 10px 0;" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div ng-show="hasError" style="padding-bottom:10px">
+                                    <span class="text-danger field-validation-error"><small>{{message}}</small></span>
+                                </div>
+                                <div>
+                                    <table id="complaintTypeTable" class="table table-bordered table-striped ng-cloak">
+                                        <thead>
+                                            <tr>
+                                                <th width="1%" class="table-header text-center">
+                                                    <button class="btn btn-xs btn-info" ng-click="addRow($index)">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </button>
+                                                </th>
+                                                <th width="90%" class="table-header">NAME</th>
+                                                <th width="10%" class="table-header text-center">ACTIVE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="data in data.ComplaintSubTypes track by $index">
+                                                <td class="text-center">
+                                                    <button class="btn btn-xs btn-danger" ng-click="deleteRow($index)">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group" style="margin-bottom:unset" ng-class="cpac.complaintTypeForm.Complaint{{$index}}.$error.required && formSubmitted || data.IsExist ? 'has-error' : ''">
+                                                        <input type="text" class="form-control"
+                                                               name="Complaint{{$index}}"
+                                                               ng-model="data.Complaint"
+                                                               ng-change="checkIfExist()"
+                                                               ng-required="true"
+                                                               maxlength="300" alpha-slash-dash-only />
+
+                                                        <span color="red" ng-show="cpac.complaintTypeForm.Complaint{{$index}}.$error.required && formSubmitted" class="text-danger field-validation-error">
+                                                            <small>Complaint is required</small>
+                                                        </span>
+                                                        <span ng-show="data.IsExist" class="text-danger field-validation-error">
+                                                            <small>Complaint already exist!</small>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-center">
+                                                            <input type="checkbox" name="isActive{{$index}}"
+                                                                   ng-checked="data.IsActive"
+                                                                   ng-model="data.IsActive" style="width: 20px; height: 20px" />
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr ng-show="data.ComplaintSubTypes == 0">
+                                                <td colspan="8" class="text-center" style="font-style:unset">
+                                                    No data available
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- BEGIN FORM SAVE/CANCEL -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="portlet light bordered" style="border-top:solid thin #e7ecf1">
+                    <div class="form-action">
+                        <button class="btn btn-success" style="width: 90px;" ng-click="save()">
+                            <span class="glyphicon glyphicon-ok"></span>&nbsp; {{isUpdate ? 'Update' : 'Save'}}
+                        </button>
+                        <button class="btn btn-default" style="width: 90px;" ng-click="cancel()">
+                            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END FORM SAVE/CANCEL -->
+    </div>
+</div>
+
+@section PageStyles {
+    <style>
+        .cursorText:hover {
+            cursor: text;
+        }
+    </style>
+
+    @Styles.Render("~/assets/global/scripts/datatables.min.css")
+    @Styles.Render("~/assets/global/scripts/select.dataTables.min.css")
+}
+
+@section PageScripts {
+    @Scripts.Render("~/assets/global/scripts/datatables.min.js")
+    @Scripts.Render("~/assets/global/scripts/dataTables.select.min.js")
+    @*@Scripts.Render("~/Scripts/App/SupportingDocumentsPageScript.js")*@
+}
+
+@section AngularJSPage {
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Scripts/App/Services/ComplaintTypeService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/ComplaintType/ComplaintTypeAddOrUpdateController.js")
+}

@@ -1,0 +1,66 @@
+﻿
+<script type="text/ng-template" id="SurchargeSaveModal.html">
+    <!-- MODAL HEADER -->
+    <div class="modal-header">
+        <h4 class="form-sub-title">Surcharge</h4>
+    </div>
+    <!-- MODAL BODY -->
+    <div id="modal-body" class="modal-body" ng-form="saveSurchargeForm">
+        <div class="form-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="surcharge.ConsumerClassId == null && formSubmitted ? 'has-error' : '' ">
+                        <label class="control-label">Consumer Class</label><span class="required"> * </span>
+                        <select select2 name="ConsumerClass" id="ConsumerClass" class="form-control ng-required=" true""
+                                ng-model="surcharge.ConsumerClassId" ng-options="c.Id as (c.Description) for c in consumerClasses">
+                            <option value="">---Please select---</option>
+                        </select>
+                        <span color="red" ng-show="surcharge.ConsumerClassId == null  && formSubmitted" class="text-danger field-validation-error">
+                            <small>Consumer Class is required</small>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- TEXTBOX FOR YEAR OF DELINQUENCY -->
+                    <div class="form-group" style="margin-right:5px" ng-class="saveSurchargeForm.YearOfDeliquency.$invalid && (saveSurchargeForm.YearOfDeliquency.$dirty || formSubmitted) ? 'has-error' : 'myForm.myDecimal.$invalid'">
+                        <label class="control-label">Year of Delinquency</label><span class="required"> * </span>
+                        <input type="number" style="text-align:right;" class="form-control" name="YearOfDeliquency" ng-required="true" ng-model="surcharge.YearOfDelinquency" ng-pattern="/^([1-9]\d*)$/" />
+                        <span color="red" ng-show="saveSurchargeForm.YearOfDeliquency.$error.required && formSubmitted" class="text-danger
+                                  field-validation-error"><small>Year of Delinquency is required.</small></span>
+                        <span color="red" ng-show="saveSurchargeForm.YearOfDeliquency.$error.pattern" class="text-danger
+                                  field-validation-error"><small>Year of Delinquency accepts positive integers only </small></span>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <!-- TEXTBOX FOR RATE PER MONTH -->
+                    <div class="form-group" style="margin-right:5px" ng-class="saveSurchargeForm.RatePerMonth.$invalid && (saveSurchargeForm.RatePerMonth.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label">Rate Per Month</label><span class="required"> * </span>
+                        <input type="number" style="text-align:right;" class="form-control" name="RatePerMonth" ng-model="surcharge.RatePerMonth" ng-pattern="/^([1-9][0-9]{0,1}|100)(\.[0-9]{1,2})?$/" step="0.01" ng-required="true" required />
+                        <span color="red" ng-show="saveSurchargeForm.RatePerMonth.$error.required && formSubmitted" class="text-danger
+                                  field-validation-error"><small>Rate Per Month is required.</small></span>
+                        <span color="red" ng-show="saveSurchargeForm.RatePerMonth.$error.pattern" class="text-danger
+                                  field-validation-error"><small>Rate Per Month must be 1-100 only and 2 decimal places only </small></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+            </div>
+        </div>
+    </div>
+    <!--Modal Footer-->
+    <div class="modal-footer pull-left">
+        <!--Actions -->
+        <button class="btn btn-success" style="width:90px;" ng-click="saveSurcharge()">
+            <span class="glyphicon glyphicon-ok"></span> Save
+        </button>
+        <button class="btn btn-default" style="width:90px;" ng-click="cancel()">
+            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+        </button>
+    </div>
+    <div class="clearfix"></div>
+
+
+</script>

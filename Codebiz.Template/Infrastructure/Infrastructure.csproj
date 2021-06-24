@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DDC41D1D-6CAE-40EB-A46D-E00B17FEE258}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Infrastructure</RootNamespace>
+    <AssemblyName>Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac, Version=4.0.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Autofac.4.0.1\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit, Version=1.1.15.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LinqKit.1.1.15\lib\net45\LinqKit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.28\lib\net40\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Logging.1.1.2\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Tokens.5.1.2\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OfficeOpenXml.Extends, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\OfficeOpenXml.Extends.1.0.6.0\lib\net40\OfficeOpenXml.Extends.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="RabbitMQ.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RabbitMQ.Client.5.2.0\lib\net451\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.5.4.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RestSharp.106.5.4\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IdentityModel.Tokens.Jwt.5.1.2\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.3.0.20105.1\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.1.0.20105.408\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Twilio, Version=5.37.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Twilio.5.37.6\lib\net451\Twilio.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.AspNet.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Twilio.AspNet.Common.5.33.1\lib\net45\Twilio.AspNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.AspNet.Mvc, Version=5.33.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Twilio.AspNet.Mvc.5.33.1\lib\net451\Twilio.AspNet.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="zxing, Version=0.16.2.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ZXing.Net.0.16.2\lib\net45\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.2.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ZXing.Net.0.16.2\lib\net45\zxing.presentation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\ViewModels\CSA\InvoiceViewModel.cs" />
+    <Compile Include="Models\ViewModels\CSA\PaymentViewModel.cs" />
+    <Compile Include="Models\ViewModels\ApprovalStageAddOrUpdateViewModel.cs" />
+    <Compile Include="Models\ViewModels\AppUserAddOrUpdateViewModel.cs" />
+    <Compile Include="Models\ViewModels\ManufacturerViewModel.cs" />
+    <Compile Include="Models\ViewModels\PackagingTypeViewModel.cs" />
+    <Compile Include="Models\ViewModels\ShippingTypeViewModel.cs" />
+    <Compile Include="Models\ViewModels\SubStationViewModel.cs" />
+    <Compile Include="Models\ViewModels\SupportingDocumentViewModel.cs" />
+    <Compile Include="Models\ViewModels\UnitOfMeasureViewModel.cs" />
+    <Compile Include="Repository\Common\Employee\EmployeeRepository.cs" />
+    <Compile Include="Repository\Common\Permission\PermissionRepository.cs" />
+    <Compile Include="Repository\Common\AppUser\EmployeePhotoRepository.cs" />
+    <Compile Include="Repository\ERepositoryBase.cs" />
+    <Compile Include="Models\CustomPostedFileBase\MemoryPostedFile.cs" />
+    <Compile Include="InfrastructureModule.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Models\DataTableData.cs" />
+    <Compile Include="Models\ComplaintSearchParam.cs" />
+    <Compile Include="Models\ColumnFilter.cs" />
+    <Compile Include="Models\DataTableParameters.cs" />
+    <Compile Include="Models\DataTablesResponse.cs" />
+    <Compile Include="Models\GetUserNavLinksResult.cs" />
+    <Compile Include="Models\NgTablePagingBaseParam.cs" />
+    <Compile Include="Models\PagingBaseParam.cs" />
+    <Compile Include="Models\DataFilter.cs" />
+    <Compile Include="Models\TokenModel.cs" />
+    <Compile Include="Models\UserNavLinkAccessResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reporting\SearchOrderResult.cs" />
+    <Compile Include="Repository\Common\LoginHistoryRepository.cs" />
+    <Compile Include="Repository\Common\Address\BarangayRepository.cs" />
+    <Compile Include="Repository\Common\File\ContentFileRepository.cs" />
+    <Compile Include="Repository\Common\File\FileTypeRepository.cs" />
+    <Compile Include="Repository\Common\Log\LogEventTitleRepository.cs" />
+    <Compile Include="Repository\Common\ConfigurationSetting\ConfigSettingDataTypeRepository.cs" />
+    <Compile Include="Repository\Common\ConfigurationSetting\ConfigSettingGroupRepository.cs" />
+    <Compile Include="Repository\Common\ConfigurationSetting\ConfigSettingRepository.cs" />
+    <Compile Include="Repository\Common\AccessLevelRepository.cs" />
+    <Compile Include="Repository\Common\Permission\PermissionGroupRepository.cs" />
+    <Compile Include="Repository\Common\Address\CityTownRepository.cs" />
+    <Compile Include="Repository\Common\Address\ProvinceRepository.cs" />
+    <Compile Include="Repository\Common\Log\LogRepository.cs" />
+    <Compile Include="Repository\Common\Address\PurokRepository.cs" />
+    <Compile Include="Repository\Common\Address\RegionRepository.cs" />
+    <Compile Include="Repository\Common\Navigation\NavLinkRepository.cs" />
+    <Compile Include="Repository\Common\Address\SitioRepository.cs" />
+    <Compile Include="Repository\Common\UserGroup\UserGroupRepository.cs" />
+    <Compile Include="Repository\Common\AppUser\AppUserRepository.cs" />
+    <Compile Include="Repository\base\RepositoryBase.cs" />
+    <Compile Include="Services\Common\Employee\IEmployeeService.cs" />
+    <Compile Include="Services\Common\JobOrder\NatureType\INatureTypeService.cs" />
+    <Compile Include="Services\Common\Employee\IEmployeePhotoService.cs" />
+    <Compile Include="Services\Common\Address\IBarangayService.cs" />
+    <Compile Include="Services\IExportToExcelFileService.cs" />
+    <Compile Include="Services\Common\File\IContentFileService.cs" />
+    <Compile Include="Services\Common\File\IFileServices.cs" />
+    <Compile Include="Services\Common\File\IFileTypeService.cs" />
+    <Compile Include="Services\Common\Log\ILogEventTitleService.cs" />
+    <Compile Include="Services\Common\Log\ILogService.cs" />
+    <Compile Include="Services\Common\ConfigurationSetting\IConfigSettingDataTypeService.cs" />
+    <Compile Include="Services\Common\ConfigurationSetting\IConfigSettingGroupService.cs" />
+    <Compile Include="Services\Common\ConfigurationSetting\IConfigSettingService.cs" />
+    <Compile Include="Services\Common\Address\IPurokServices.cs" />
+    <Compile Include="Services\Common\Address\ISitioServices.cs" />
+    <Compile Include="Services\Common\Permission\IPermissionGroupServices.cs" />
+    <Compile Include="Services\Common\Address\ICityTownService.cs" />
+    <Compile Include="Services\Common\Address\IProvinceService.cs" />
+    <Compile Include="Services\Common\Address\IRegionService.cs" />
+    <Compile Include="Services\Common\Navigation\INavLinkServices.cs" />
+    <Compile Include="Services\Common\UserGroup\IUserGroupServices.cs" />
+    <Compile Include="Services\Common\Permission\IPermissionServices.cs" />
+    <Compile Include="Services\Common\AppUser\IAppUserServices.cs" />
+    <Compile Include="Services\Common\AppUser\IUserProfileService.cs" />
+    <Compile Include="Services\ILoginHistoryServices.cs" />
+    <Compile Include="Utilities\ExportToExcelFileHelper.cs" />
+    <Compile Include="Utilities\LookUpHelper.cs" />
+    <Compile Include="Utilities\IEmailHelper.cs" />
+    <Compile Include="Utilities\IHashHelper.cs" />
+    <Compile Include="Utilities\IPasswordHelper.cs" />
+    <Compile Include="Utilities\QueryHelper.cs" />
+    <Compile Include="Utilities\Logger.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Constants\" />
+    <Folder Include="Repository\Common\Country\" />
+    <Folder Include="Services\base\" />
+    <Folder Include="Services\Common\DocumentNumbering\" />
+    <Folder Include="Services\Common\Notification\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Codebiz.Domain.ERP.Context\ERP.Context.csproj">
+      <Project>{f66bfcab-6543-46d5-ac8d-2287639d04c3}</Project>
+      <Name>ERP.Context</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Codebiz.Domain.ERP.Repository\ERP.Repository.csproj">
+      <Project>{348b58a7-9fd3-4825-9cea-7b100efcb696}</Project>
+      <Name>ERP.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\darkstar.core.ERP\ERP.Model.csproj">
+      <Project>{65b43f3f-1492-44ff-95d7-48fced4cceb4}</Project>
+      <Name>ERP.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.Context\Context.csproj">
+      <Project>{32ad6f7c-a4d7-4e48-a53c-226e6932d3d1}</Project>
+      <Name>Context</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.Model\Model.csproj">
+      <Project>{eacd2dbb-02c3-436b-abb0-0ea75356d6d3}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.Repository\Repository.csproj">
+      <Project>{62dbfb40-2321-4e80-871b-cd4c66883141}</Project>
+      <Name>Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,12 @@
+﻿<style>
+    .modal-preview {
+        position: fixed;
+        z-index: 100001 !important;
+        overflow: auto;
+        background-color: white
+    }
+</style>
+@Html.Partial("_SupportingDocumentDetails")
+<div class="modal-preview">
+    @Html.Partial("_SupportingDocumentsPreviewModal")
+</div>

@@ -1,0 +1,349 @@
+﻿@model Web.Models.ViewModels.Ordering.OrderingDetailsViewModel
+
+@{
+    ViewBag.Title = "Order Details";
+}
+@{ 
+    Layout = "_DraftLayout.cshtml";
+}
+<div  ng-app="MetronicApp" ng-controller="OrderingController">
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="@Url.Action("Index", "Ordering")">Orders</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Order Details
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    @*<i class="fa fa-search"></i>*@
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Order Code</label>
+                            <label class="form-control"><b>@Model.OrderCode</b></label>
+                            <label class="control-label">Status</label>
+                            <label class="form-control">@if (Model.Status == "CANCELLED")
+                            {
+                                <font color="red"><b>@Model.Status</b></font>
+                            }
+                            else if (Model.Status == "COMPLETED")
+                            {
+                                <font color="green"><b>@Model.Status</b></font>
+                            }
+                            else
+                            {
+                                <b>@Model.Status</b>
+                            }
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Created by</label>
+                            <label class="form-control"><b>@Model.CreatedBy</b></label>
+                            <label class="control-label">Updated by</label>
+                            <label class="form-control"><b>@Model.UpdatedBy</b></label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Created On</label>
+                            <label class="form-control"><b>@Model.CreatedOn</b></label>
+                            <label class="control-label">Updated On</label>
+                            <label class="form-control"><b>@Model.UpdatedOn</b></label>
+                        </div>
+
+
+                    </div>
+                </div>
+            <div>
+                Total number of items: <b>@Model.TotalQuantity</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Total amount: <b>{{@Model.TotalCost|number:2}}</b></div>
+                </div>
+        </div>
+        <!-- END PORTLET -->
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#ordersTab" data-toggle="tab">Order</a></li>
+                <li><a href="#purchaseOrdersTab" data-toggle="tab">Purchase Order</a></li>
+                <li><a href="#goodsReceiptTab" data-toggle="tab">Goods Receipt</a></li>
+                <li><a href="#historyTab" data-toggle="tab">Order Logs</a></li>
+                    @*<li><a  data-toggle="tab">Promo</a></li>
+                    <li><a  data-toggle="tab">Package involve</a></li>*@
+            </ul>
+            <!--Body ng tabs-->
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="ordersTab">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr class="uppercase">
+                                    <th>
+                                        Supplier
+                                    </th>
+                                    <th>
+                                        Item
+                                    </th>
+                                    <th>
+                                        Quantity
+                                    </th>
+                                    <th>Cost</th>
+                                    <th>Total Cost</th>
+                                </tr>
+                            </thead>
+
+                            @foreach (var item in Model.OrderLookUps)
+                            {
+
+                                    <tr>
+                                        <td>
+                                           @item.Supplier.SupplierDescription
+                                        </td>
+                                        <td>
+                                            @item.ItemDescription
+                                        </td>
+                                        <td>@item.Quantity</td>
+                                        <td>{{@item.Cost|number:2}}</td>
+                                        <td>{{@item.TotalCost|number:2}}</td>
+                                    </tr>
+                                
+                            }
+                            <tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="purchaseOrdersTab">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr class="uppercase">
+                                    <th>
+                                        P.O. Code
+                                    </th>
+                                    <th>
+                                        Supplier
+                                    </th>
+                                    <th width="10%" class="text-center">
+                                        Total Quantity 
+                                    </th>
+                                    <th>
+                                        Total Cost
+                                    </th>
+                                    <th width="5%" class="text-center">
+                                        Status
+                                    </th>
+                                    <th>
+
+                                    </th>
+
+                                </tr>
+                            </thead>
+
+                            @foreach (var item in Model.PurchaseOrders)
+                            {
+
+                            <tr>
+                                <td width="10%">
+                                    <a ng-click="printPurchaseOrder('@item.PurchaseOrderCode','@item.SupplierId','@item.OrderId')">@item.PurchaseOrderCode</a>
+                                </td>
+                                <td width="30%">
+                                    @item.Supplier.SupplierDescription
+                                </td>
+                                     
+                                <td class="text-center">
+                                    @item.Quantity
+                                </td>
+                                <td>
+                                {{@item.TotalCost|number:2}}
+                                </td>
+                                
+                                <td class="text-center">
+                                    @if (@item.Status == "CREATED" || @item.Status == "CREATED")
+                                    {
+                                        <span class="label label-sm @(item.Status == "APPROVED" ? "label-success" : "label-warning")"> @item.Status </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="label label-sm @(item.Status == "APPROVED" ? "label-success" : "label-danger")"> @item.Status </span>
+                                    }
+                                </td>
+                                <td width="5%">
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                            Actions
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                @if (item.Status == "APPROVED")
+                                                {
+                                                    <a href="@Url.Action("ViewGoodsReceipt", new {purchaseOrderId=item.PurchaseOrderId})">
+                                                        <i class="fa fa-copy"></i> View Goods Receipt
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("ExportToGoodsReceipt","GoodsReceipt", new { OrderId=item.OrderId, PurchaseOrderCode=item.PurchaseOrderCode, SupplierId=item.SupplierId, PurchaseOrderId=item.PurchaseOrderId})">
+                                                        <i class="fa fa-copy"></i> Copy to Goods Receipt
+                                                    </a>
+                                                }
+                                             
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </td>
+
+                                @*<td>
+            @item.Ordering.TotalQuantity
+        </td>
+        <td>
+            @item.Ordering.TotalCost
+        </td>*@
+                            </tr>
+
+                            }
+                            <tbody>
+                        </table>
+
+                    </div>
+                    <div class="tab-pane fade" id="historyTab">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr class="uppercase">
+                                    <th>
+                                       User
+                                    </th>
+                                    <th>
+                                        Date and Time of Action
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            @foreach (var item in Model.OrderingHistories)
+                            {
+
+                                <tr>
+                                    <td>
+                                     @item.CreatedByAppUser.FullName
+                                    </td>
+                                    <td>@item.CreatedOn</td>
+                                    <td>@item.ActionMade</td>
+                                </tr>
+
+                            }
+                            <tbody>
+                        </table>
+                        <div class="pull-left form-inline">
+                            <label>
+                                Show <select id="pageSizeDropDown" class="form-control" data-url="@Url.Action("Draft", new { pageSize = "pageSizeHolder" ,orderId=Model.OrderId,orderCode=Model.OrderCode, page=Model.Page})">
+                                    <option value="10" @(Model.PageSize == 10 ? "selected" : "")>10</option>
+                                    <option value="25" @(Model.PageSize == 25 ? "selected" : "")>25</option>
+                                    <option value="50" @(Model.PageSize == 50 ? "selected" : "")>50</option>
+                                    <option value="100" @(Model.PageSize == 100 ? "selected" : "")>100</option>
+                                </select> entries
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+    @Html.Partial("PurchaseOrderViewerModal")
+    </div>
+
+@section PageScripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(document).ready(function () {
+        $('#pageSizeDropDown').change(function () {
+            var value = $(this).val();
+            var tempUrl = $(this).data("url");
+            var newUrl = tempUrl.replace("pageSizeHolder", value);
+
+            window.location = newUrl;
+        });
+    });
+</script>
+    @Scripts.Render("~/assets/global/plugins/select2/js/select2.full.min.js")
+    @Scripts.Render("~/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js")
+    @Scripts.Render("~/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js")
+    @Scripts.Render("~/assets/pages/scripts/ui-extended-modals.min.js")
+    @Scripts.Render("~/assets/global/scripts/datatable.js")
+    @Scripts.Render("~/assets/global/plugins/datatables/datatables.min.js")
+    @Scripts.Render("~/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js")
+    @Scripts.Render("~/Scripts/PersonnelSearchModal.js")
+    @Styles.Render("~/assets/global/plugins/select2/css/select2.min.css")
+    @Styles.Render("~/assets/global/plugins/select2/css/select2-bootstrap.min.css")
+
+    @Styles.Render("~/assets/global/plugins/fancybox/source/jquery.fancybox.css")
+    @Styles.Render("~/assets/global/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css")
+    @Styles.Render("~/assets/global/plugins/jquery-file-upload/css/jquery.fileupload.css")
+    @Styles.Render("~/assets/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css")
+    @Styles.Render("~/assets/global/plugins/icheck/skins/all.css")
+    @Styles.Render("~/Content/ng-table.min.css")
+}
+
+
+@section AngularJSPlugins {
+    @Scripts.Render("~/assets/global/plugins/angularjs/angular.min.js")
+    @Scripts.Render("~/assets/global/plugins/angularjs/angular-sanitize.min.js")
+    @Scripts.Render("~/assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js")
+    @Scripts.Render("~/Scripts/angular-ui-validate.min.js")
+    @Scripts.Render("~/Scripts/ng-table.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js")
+    @*@Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/tmpl.min.js")*@
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/load-image.min.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/blueimp-gallery/jquery.blueimp-gallery.min.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.iframe-transport.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-process.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-image.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-audio.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-video.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-validate.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-ui.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-angular.js")
+@Scripts.Render("~/assets/global/plugins/hotkeys/hotkeys.js")
+}
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/app.js")
+    @*@Scripts.Render("~/assets/global/plugins/select2/js/select2.full.min.js");*@
+    @*@Scripts.Render("~/Scripts/App/app.js")*@
+    @Scripts.Render("~/Scripts/App/Directives/NgTableDirective.js")
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Scripts/App/Services/OrderingService.js")
+    @*@Scripts.Render("~/Scripts/App/Services/HttpServices.js")*@
+    @Scripts.Render("~/Scripts/App/Controllers/OrderingController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/ItemDetailsController.js")
+}

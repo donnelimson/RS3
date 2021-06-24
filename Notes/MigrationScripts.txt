@@ -1,0 +1,75 @@
+
+
+
+enable-migrations -migrationsdirectory "migrations\FinanceContext"  -ContextTypeName FinanceDataContext
+add-migration initial_migiration -ConfigurationTypeName Codebiz.Domain.ERP.Context.migrations.FinanceContext.Configuration
+update-database -ConfigurationTypeName "Codebiz.Domain.ERP.Context.migrations.FinanceContext.Configuration" -force -verbose
+
+
+enable-migrations -migrationsdirectory "migrations\DocumentContext"  -ContextTypeName DocumentDataContext
+add-migration initial_migiration -ConfigurationTypeName Codebiz.Domain.ERP.Context.migrations.DocumentContext.Configuration
+update-database -ConfigurationTypeName "Codebiz.Domain.ERP.Context.migrations.DocumentContext.Configuration" -force -verbose
+
+
+enable-migrations -migrationsdirectory "migrations\AccountContext"  -ContextTypeName AccountDataContext
+add-migration initial_migiration -ConfigurationTypeName Codebiz.Domain.ERP.Context.migrations.AccountContext.Configuration
+update-database -ConfigurationTypeName "Codebiz.Domain.ERP.Context.migrations.AccountContext.Configuration" -force -verbose
+
+enable-migrations -migrationsdirectory "migrations\ItemContext"  -ContextTypeName ItemDataContext
+add-migration initial_migiration -ConfigurationTypeName Codebiz.Domain.ERP.Context.migrations.ItemContext.Configuration
+update-database -ConfigurationTypeName "Codebiz.Domain.ERP.Context.migrations.ItemContext.Configuration" -force -verbose
+
+
+add-migration dbtracker_20200xxx_updates  -ConfigurationTypeName Codebiz.Domain.ERP.Context.DbTrackerMigrations.DbTrackerConfiguration -Force
+add-migration dbtracker_2021xxxx_updates  -ConfigurationTypeName Codebiz.Domain.ERP.Context.DbTrackerMigrations.DbTrackerConfiguration -Force
+update-database -ConfigurationTypeName "Codebiz.Domain.ERP.Context.DbTrackerMigrations.DbTrackerConfiguration" -force -verbose
+
+<add name="CodebizERP" providerName="System.Data.SqlClient" connectionString="Data Source=.\SQLDEV01;Initial Catalog=CodebizERP;Persist Security Info=True;Integrated Security=false;Connection Timeout=120;MultipleActiveResultSets=True;User ID=sa;Password=sa@1234" />
+/*not used*/
+
+
+
+PM> Enable-Migrations -MigrationsDirectory "Migrations\ContextA" -ContextTypeName MyProject.Models.ContextA
+PM> Enable-Migrations -MigrationsDirectory "Migrations\ContextB" -ContextTypeName MyProject.Models.ContextB
+
+enable-migrations -migrationsdirectory "migrations\PurchaseContext"  -ContextTypeName PurchaseDataContext
+add-migration initial_migration
+
+
+enable-migrations -migrationsdirectory "migrations\SalesContext"  -ContextTypeName SalesDataContext
+add-migration initial_migration
+
+
+enable-migrations -migrationsdirectory "migrations\ItemContext"  -ContextTypeName ItemContext
+add-migration initial_create
+
+
+enable-migrations -migrationsdirectory "migrations\GeneralContext"  -ContextTypeName GeneralDataContext
+add-migration initial_migiration -ConfigurationTypeName Codebiz.Domain.ERP.Context.migrations.GeneralContext.Configuration
+
+
+
+Update-Database [-SourceMigration <String>] [-TargetMigration <String>] [-Script] [-Force] [-ProjectName <String>] [-StartUpProjectName <String>] 
+    [-ConfigurationTypeName <String>] [-ConnectionStringName <String>] [-AppDomainBaseDirectory <String>] [<CommonParameters>]
+    
+Update-Database [-SourceMigration <String>] [-TargetMigration <String>] [-Script] [-Force] [-ProjectName <String>] [-StartUpProjectName <String>] 
+    [-ConfigurationTypeName <String>] -ConnectionString <String> -ConnectionProviderName <String> [-AppDomainBaseDirectory <String>] [<CommonParameters>]
+
+
+
+update-database -ConfigurationTypeName "Codebiz.Domain.ERP.Context.DbTrackerMigrations.DbTrackerConfiguration" -force -verbose
+
+
+delete from GLAccount 
+delete from FinancialPeriodDetail 
+delete from FinancialPeriod
+delete from TaxGroup 
+delete from AdminSetting 
+delete from DocNumberingDetail 
+delete from DocNumbering
+
+
+delete from UserGroupPermission 
+delete from Permission 
+delete from PermissionGroup 
+delete from NavLink 

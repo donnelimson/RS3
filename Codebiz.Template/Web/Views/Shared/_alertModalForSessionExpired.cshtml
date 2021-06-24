@@ -1,0 +1,22 @@
+﻿
+<script type="text/ng-template" id="warning-dialog.html">
+    <div class="modal-header">
+        <h3>Session Expired</h3>
+    </div>
+    <div idle-countdown="countdown" class="modal-body">
+       <h4><span class="glyphicon glyphicon-warning-sign" style="font-size:30px;color:orange"></span> &nbsp; &nbsp;Your session will expire in {{time}} seconds. Stay connected?</h4>
+        <uib-progressbar class="progress-striped active" animate="true" value="timer" max="max" type="warning"></uib-progressbar>        
+            <!--logout-->
+            <button type="button" class="btn btn-default" ng-click="logout()" style="float:left; margin-right:5px;" >
+                <span class="glyphicon glyphicon"> </span>&nbsp; Log out
+            </button>
+            <!--Stay Connected-->
+            <button type="button" class="btn btn-success" ng-click="stayConnected()"  style="float:left;">
+                <span class="glyphicon glyphicon"></span>&nbsp; Stay Connected
+            </button>
+        </div>
+    <div class="modal-footer">
+    </div>
+</script>
+
+

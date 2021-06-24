@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "Discount Application - Details";
+}
+
+    <div class="row" ng-app="MetronicApp" ng-controller="SupportingDocumentsDetailsController as sddc">
+        <div class="col-md-12">
+            <!-- BEGIN PAGE BAR -->
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <span>Management</span>
+                        <i class="fa fa-circle"></i>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "SupportingDocuments")">Supporting Documents</a>
+                        <i class="fa fa-circle"></i>
+                    </li>
+                    <li>
+                        <span>Details</span>
+                    </li>
+                </ul>
+                <div class="page-toolbar">
+                    <a class="btn btn-sm btn-default" ng-click="backToList()">Back to List</a>
+                </div>
+            </div>
+            <!-- END PAGE BAR -->
+            <!-- BEGIN PAGE TITLE-->
+            <h1 class="page-title">
+                Supporting Documents
+                <small>view details</small>
+            </h1>
+            <div class="row">
+                <div class="col-md-12" ng-form="sdac.supportingDocumentsForm">
+                    @Html.Hidden("SupportingDocumentId")
+                    <div class="portlet light">
+                        <div class="row padding-bottom-15">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Transaction Type</label>
+                                    <input type="text" class="form-control" style="display: inline-block;" readonly ng-model="supportingDocumentsDetails.TransactionType">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6" ng-show="supportingDocumentsDetails.TransactionSubType !== ''">
+                                <div class="form-group">
+                                    <label class="control-label">Type</label>
+                                    <input type="text" class="form-control" style="display: inline-block;" readonly ng-model="supportingDocumentsDetails.TransactionSubType">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="form-sub-title">SUPPORTING DOCUMENTS</h5>
+                                <hr class="hr-black" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table id="supportingDocumentsTable" class="table table-bordered table-striped ng-cloak">
+                                    <thead>
+                                        <tr>
+                                            <th width="60%" class="table-header">NAME</th>
+                                            <th width="20%" class="table-header text-center">IS REQUIRED</th>
+                                            <th width="20%" class="table-header text-center">GROUP</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="document in supportingDocumentsDetails.Documents">
+                                            <td>
+                                                <span>{{document.DocumentName}}</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="label label-sm" ng-class="document.IsRequired ? 'label-success' : 'label-danger'">{{document.IsRequired ? 'Yes': 'No'}}</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span>{{document.Group}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="supportingDocumentsDetails.Documents.length == 0">
+                                            <td colspan="5" class="text-center" style="font-style:unset">
+                                                No data available
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@section PageStyles {
+    <style>
+        .success {
+            background-color: #4CAF50;
+        }
+
+        .style {
+            width: 60px;
+            height: 60px;
+        }
+
+        .scrollBar {
+            overflow-y: auto;
+            max-height: 650px;
+        }
+
+        .fa {
+            color: gray;
+        }
+    </style>
+}
+
+@section AngularJSPage {
+
+    @Scripts.Render("~/Scripts/App/Services/SupportingDocumentsService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/SupportingDocumentsDetailsController.js")
+}

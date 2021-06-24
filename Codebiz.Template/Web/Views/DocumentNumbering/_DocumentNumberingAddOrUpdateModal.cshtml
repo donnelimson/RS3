@@ -1,0 +1,126 @@
+﻿<script type="text/ng-template" id="documentnumberingmodal.html">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Document Numbering - Transaction Type</h4>
+    </div>
+    <div class="modal-body" id="modal-body" ng-form="modalForm">
+        <!-- BEGIN FORM-->
+        <div class="form-body">
+            <div class="row">
+                <!--Code-->
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="(modalForm.Name.$error.required || hasDuplicateName)  && (modalForm.Name.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label" style="font-size:13px;"> Name: </label><span class="required"> * </span>
+                        <input type="text" name="Name" ng-model="documentNumbering.Name" class="form-control" ng-required="true" ng-change="validateName(documentNumbering.Name)" />
+                        <span ng-show="modalForm.Name.$error.required && (modalForm.Name.$dirty || formSubmitted)"
+                              class="text-danger field-validation-error"><small>Name is required!</small></span>
+                        <span ng-show="hasDuplicateName || (hasDuplicateName&& formSubmitted)"
+                              class="text-danger field-validation-error"><small>Duplicate name is not allowed!</small></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="(invalidFirstNo || modalForm.FirstNo.$invalid) && (modalForm.FirstNo.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label" style="font-size:13px;"> First No. </label><span class="required"> * </span>
+                        <input type="text" name="FirstNo" ng-model="documentNumbering.FirstNo" class="form-control" ng-required="true" numbers-only
+                               ng-disabled="documentNumbering.NextNo > documentNumbering.FirstNo" ng-change="validatefirstNo(documentNumbering.FirstNo)" />
+                        <span ng-show="modalForm.FirstNo.$error.required && (modalForm.FirstNo.$dirty || formSubmitted)"
+                              class="text-danger field-validation-error"><small>First No. is required!</small></span>
+                        <span ng-show="invalidFirstNo&& (modalForm.FirstNo.$dirty || formSubmitted)"
+                              class="text-danger field-validation-error"><small>First No. is invalid!</small></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="modalForm.NextNo.$invalid && (modalForm.NextNo.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label" style="font-size:13px;"> Next No. </label>
+                        <input type="text" name="NextNo" ng-model="documentNumbering.NextNo" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="invalidLastNo && (modalForm.LastNo.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label" style="font-size:13px;"> Last No. </label>
+                        <input type="text" name="LastNo" ng-model="documentNumbering.LastNo" class="form-control" ng-change="validateFirstNoNextNoAndLastNo( documentNumbering.FirstNo,
+                                documentNumbering.NextNo, documentNumbering.LastNo)" numbers-only />
+                        <span ng-show="invalidLastNo || (invalidLastNo && formSubmitted)"
+                              class="text-danger field-validation-error"><small>Last No. is invalid!</small></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="hasDuplicatePrefix || (hasDuplicateSuffix  &&formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label" style="font-size:13px;"> Prefix </label>
+                        <input type="text" name="Prefix" ng-model="documentNumbering.Prefix" class="form-control" ng-change="validatePrefix(documentNumbering.Prefix)" 
+                               ng-disabled="documentNumbering.IsYearPrefix" alpha-dash-only />
+                        <span ng-show="hasDuplicatePrefix&& (hasDuplicatePrefix || formSubmitted)"
+                              class="text-danger field-validation-error"><small>Duplicate prefix is not allowed!</small></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="hasDuplicateSuffix || (hasDuplicateSuffix  && formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label" style="font-size:13px;"> Suffix </label>
+                        <input type="text" name="Suffix" ng-model="documentNumbering.Suffix" class="form-control" ng-change="validateSuffix(documentNumbering.Suffix)"  alpha-dash-only/>
+                        <span ng-show="hasDuplicateSuffix&& (hasDuplicateSuffix || formSubmitted)"
+                              class="text-danger field-validation-error"><small>Duplicate suffix is not allowed!</small></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="(modalForm.NoOfDigits.$error.required || invalidNoOfDigits)  && (modalForm.NoOfDigits.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label" style="font-size:13px;"> No. of digits </label><span class="required">*</span>
+                        <input type="text" name="NoOfDigits" ng-model="documentNumbering.NoOfDigits" class="form-control" ng-required="true" ng-change="validateNoOfDigits(documentNumbering.NoOfDigits)" numbers-only />
+                        <span ng-show="modalForm.NoOfDigits.$error.required && (modalForm.NoOfDigits.$dirty || formSubmitted)"
+                              class="text-danger field-validation-error"><small>No. of digits is required!</small></span>
+                        <span ng-show="invalidNoOfDigits&& (invalidNoOfDigits || formSubmitted)"
+                              class="text-danger field-validation-error"><small>No. of digits must range 1-15 only!</small></span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <!--Name-->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="md-checkbox-inline">
+                            <div class="md-checkbox">
+                                <input type="checkbox" class="md-check" ng-model="documentNumbering.IsYearPrefix" ng-click="setPrefixData(documentNumbering.IsYearPrefix)"
+                                       id="IsYearPrefix">
+                                <label for="IsYearPrefix">
+                                    <span class="inc"></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                </label>
+                                Year Perfix
+                            </div>
+                            <div class="md-checkbox">
+                                <input type="checkbox" class="md-check" ng-model="documentNumbering.IsLocked"
+                                       id="isLocked">
+                                <label for="isLocked">
+                                    <span class="inc"></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                </label>
+                                Locked
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END FORM-->
+    <div class="modal-footer pull-left">
+        <!--Save-->
+        <button type="button" class="btn btn-success" style="width: 90px;" ng-click="addDocumentNumbering()">
+            <span class="glyphicon glyphicon-ok"> </span>&nbsp;{{forUpdate ? 'Update':'Add'}}
+        </button>
+        <!--Cancel-->
+        <button type="button" class="btn btn-default" style="width: 90px;" ng-click="cancel()">
+            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+        </button>
+    </div>
+
+
+    <div class="clearfix"></div>
+
+</script>

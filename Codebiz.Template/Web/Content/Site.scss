@@ -1,0 +1,11 @@
+﻿.select-group {
+    .input-group-addon {
+        background: none;
+    }
+
+    select {
+        border-left: 0;
+        padding-left: 0;
+        box-shadow: none;
+    }
+}

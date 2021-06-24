@@ -1,0 +1,165 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+@model Web.Models.ViewModels.UserProfile.UserProfileIndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1 class="page-title">
+    User Profile | Account
+    <small> user account page </small>
+</h1>
+
+<div class="row">
+    <div class="row animated fadeInRight">
+        <div class="col-md-4 text-center">
+            <div class="portlet light bordered">
+                <div>
+                    <div class="profile-content no-padding">
+                        <img src="@Url.Action("UserPhotos", "UserProfile")" width="190" height="180" alt="" class="img-circle" />
+                    </div>
+                    <div class="profile-content profile-content">
+                        <h4>
+                            <strong>
+                                @Html.DisplayFor(model => model.Username)
+                            </strong>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="portlet light bordered">
+
+                <div class="portlet-title tabbable-line">
+                    <div class="caption caption-md">
+                        <i class="icon-globe theme-font hide"></i>
+                        <span class="caption-subject font-blue-madison bold uppercase">Profile Account</span>
+                    </div>
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#tab_1_1" data-toggle="tab">Account Details</a>
+                        </li>
+                        @*<li>
+                                <a href="#tab_1_2" data-toggle="tab">Change Avatar</a>
+                            </li>*@
+                    </ul>
+                </div>
+
+                <div>
+                    <div>
+
+
+
+                        <div class="portlet-body">
+                            @using (Html.BeginForm("Index", "UserProfile", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="tab-content">
+
+                                    <div class="tab-pane active" id="tab_1_1">
+                                        <div class="portlet-body form">
+                                            <div class="tab-pane active" id="tab_1_1">
+
+                                                <div class="form-body">
+
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">First Name</label>
+                                                        @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control", @readonly = "readonly" })
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">Middle Name</label>
+                                                        @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", @readonly = "readonly" })
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">Last Name</label>
+                                                        @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control", @readonly = "readonly" })
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">Email Address</label>
+                                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" })
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">User Group</label>
+                                                        @Html.TextBoxFor(m => m.UserGroup, new { @class = "form-control", @readonly = "readonly" })
+                                                    </div>
+
+                                                    @*<div class="form-group">
+                                                            <label class="control-label">Access Level</label>
+                                                            @Html.TextBoxFor(m => m.AccessLevel, new { @class = "form-control", @readonly = "readonly" })
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label">Region</label>
+                                                            @Html.TextBoxFor(m => m.Region, new { @class = "form-control", @readonly = "readonly" })
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label">Unit</label>
+                                                            @Html.TextBoxFor(m => m.Unit, new { @class = "form-control", @readonly = "readonly" })
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label">Sub Unit</label>
+                                                            @Html.TextBoxFor(m => m.SubUnit, new { @class = "form-control", @readonly = "readonly" })
+                                                        </div>*@
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    @*<div class="tab-pane" id="tab_1_2">
+                                            <div class="fileupload fileupload-new" data-provides="fileupload" >
+                                                <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;">
+                                                    <img alt="" src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image">
+                                                </div>
+                                                <div>
+                                                    <span class="btn btn-default btn-file">
+                                                        <span class="fileupload-new">Select image</span>
+                                                        <span class="fileupload-exists">Change</span>
+                                                        @Html.TextBoxFor(model => model.ContentFile.FileName,
+                                                            new { @type = "file", @class = "fileupload-new", @accept= ".png,.jpg,.jpeg" })
+                                                    </span>
+                                                    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            <div class="form-actions fluid">
+                                                <div class="row">
+                                                    <div class="col-md-offset-3 col-md-9">
+                                                        <button type="submit" class="btn green">Submit</button>
+                                                        <a class="btn white" href="@Url.Action("Index")">Cancel</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>*@
+
+
+                                </div>
+
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section PageScripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/assets/global/plugins/bootstrap-fileinput/bootstrap2-fileinput.js")
+}
+@section PageStyles {
+    @Styles.Render("~/assets/global/plugins/bootstrap-fileinput/bootstrap2-fileinput.css")
+}

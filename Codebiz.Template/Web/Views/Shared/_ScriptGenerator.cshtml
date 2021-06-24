@@ -1,0 +1,255 @@
+﻿@Scripts.Render("~/bundles/core-plugins")
+@Scripts.Render("~/Scripts/lodash.min.js")
+@Scripts.Render("~/Scripts/moment.min.js")
+@Scripts.Render("~/bundles/datepicker")
+
+@Scripts.Render("~/bundles/jasny")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/mandatory-plugins")
+@Scripts.Render("~/bundles/angular-js")
+
+@Scripts.Render("~/Scripts/angular/angular-route.min.js")
+@Scripts.Render("~/Scripts/App/app.js")
+@Scripts.Render("~/assets/global/scripts/app.min.js")
+@Scripts.Render("~/assets/global/plugins/hotkeys/hotkeys.js")
+@Scripts.Render("~/bundles/theme-layout")
+@Scripts.Render("~/bundles/daterangepicker")
+
+<script>
+    // CSA
+    document.CSAFileUpload = '@Url.Action("Index", "FileUpload", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAApplicant = '@Url.Action("Index", "Applicant", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAConsumer = '@Url.Action("Index", "Consumer", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAConsumerType = '@Url.Action("Index", "ConsumerType", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAMember = '@Url.Action("Index", "Member", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAMember = '@Url.Action("Index", "Member", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAMemberAccounts = '@Url.Action("Index", "MemberAccounts", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAMemberAccounts = '@Url.Action("Index", "MemberAccounts", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAHouseWiringInspection = '@Url.Action("Index", "HouseWiringInspection", new { area = "CommercialServicesApplication" })' + '/';
+    document.CSAComSectionHead = '@Url.Action("Index", "ComSectionHead", new { area = "CommercialServicesApplication" })' + '/';
+
+    // AIS
+
+    // FAMMS
+</script>
+
+<script>
+    function checkUserSession() {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("IsUserLoggedOnElsewhere", "Account", new {area = ""})',
+            success: function (result) {
+                if (result == "True") {
+                    swal({
+                        title: "Notice!",
+                        text: "This account has been logged out.",
+                        type: "warning",
+                        confirmButtonColor: "#1ab394",
+                        confirmButtonText: "OK",
+                        closeOnConfirm: true
+                    })
+                        document.getElementById('logoutForm').submit();
+                    }
+
+                }
+            });
+    }
+
+
+    $('a, button').on('click', function (event) {
+        checkUserSession();
+    });
+
+    //var scrollValue = 0;
+    //var scrollTimeout = false
+
+    //$(window).scroll(function (event) {
+    //    /* Clear it so the function only triggers when scroll events have stopped firing*/
+    //    clearTimeout(scrollTimeout);
+    //    /* Set it so it fires after a second, but gets cleared after a new triggered event*/
+    //    scrollTimeout = setTimeout(function () {
+    //        var scrolled = $(document).scrollTop() - scrollValue;
+    //        scrollValue = $(document).scrollTop();
+    //        checkUserSession();
+    //    }, 200);
+    //});
+
+    var timer;
+    $(document).on('onload', function (e) {
+        clearTimeout(timer);
+
+        timer = setTimeout(function () {
+            checkUserSession();
+        }, 0);
+    });
+
+    function formatAmount(val) {
+        while (/(\d+)(\d{3})/.test(val.toString())) {
+            val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+        }
+        return val;
+    }
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+
+        if (charCode === 46) return true;
+
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function bindDynamicForm() {
+        $('.dynamicForm').submit(function (e) {
+            var formSelf = this;
+            if ($(this).attr("method") == "post" && !$(this).data("ajax")) {
+                e.preventDefault();
+
+                if ($(this).valid()) {
+                    swal({
+                        title: "Confirm action.",
+                        text: "Are you sure to proceed on this action?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#1ab394",
+                        confirmButtonText: "Yes proceed",
+                        closeOnConfirm: true
+                    }, function () {
+                        $("#formLoadingScreen").modal("show");
+                        formSelf.submit();
+                    });
+                } else {
+                    //console.log("invalid");
+                }
+            }
+        });
+    }
+
+    function tagNavigationAsActive(element) {
+        element.removeClass("active");
+        element.removeClass("open");
+
+        element.addClass("active");
+        element.addClass("open");
+
+        var selector = $(element).find('a .selector');
+        if (selector && selector.length > 0) {
+            selector.removeClass("selected");
+            selector.addClass("selected");
+        }
+
+        var parent = $(element).parent().parent("li.nav-item");
+        if (parent && parent.length > 0) {
+            tagNavigationAsActive(parent);
+        }
+    }
+
+    $(document).ready(function () {
+        $('#clickmewow').click(function () {
+            $('#radio1003').attr('checked', 'checked');
+        });
+
+        $("input.only-numbers").keypress(function () {
+            return isNumberKey(event);
+        });
+
+        $('.page-sidebar-menu a.nav-link.active').each(function (i, e) {
+            var navItem = $(e).parent('li.nav-item');
+            if (navItem && navItem.length > 0) {
+                tagNavigationAsActive(navItem);
+            }
+        });
+
+
+ 
+
+        $("form").submit(function (e) {
+            var formSelf = this;
+            var noconfirmation = $(this).attr("noconfirmation");
+            var confirmInputText = $(this).attr("confirm-input-text");
+            if ($(this).attr("method") == "post" && !$(this).data("ajax") && noconfirmation === undefined) {
+                e.preventDefault();
+
+                if ($(this).valid()) {
+
+                    if (confirmInputText) {
+                        swal({
+                            title: "Confirm action.",
+                            //text: "<textarea id='text' class='form-control' tabindex='3' placeholder='Reason'></textarea>",
+                            //html: true,
+                            text: "",
+                            type: "input",
+                            inputPlaceholder: "Reason",
+                            showCancelButton: true,
+                            confirmButtonColor: "#1ab394",
+                            confirmButtonText: "Yes proceed",
+                            closeOnConfirm: false
+                        }, function (inputValue) {
+                            if (inputValue === false) return false;
+                            if (inputValue === "") {
+                                swal.showInputError("You need to write something!");
+                                return false;
+                            }
+
+                            $(confirmInputText).val(inputValue);
+
+                            $("#formLoadingScreen").modal("show");
+                            formSelf.submit();
+                        });
+                    } else {
+                        swal({
+                            title: "Confirm action.",
+                            text: "Are you sure to proceed on this action?",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#1ab394",
+                            confirmButtonText: "Yes proceed",
+                            closeOnConfirm: true
+                        }, function () {
+                            $("#formLoadingScreen").modal("show");
+                            formSelf.submit();
+                        });
+                    }
+                } else {
+                    swal.showInputError("Invalid!");
+                }
+            }
+        });
+
+        if (window.toastr) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "positionClass": "toast-top-right",
+                "onclick": null,
+                "showDuration": "1000",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            @if (Session["SuccessMessage"] != null)
+            {
+                @Html.Raw("toastr[\"success\"](\"" + Session["SuccessMessage"].ToString() + "\", \"System Message\")");
+                Session["SuccessMessage"] = null;
+            }
+
+            @if (Session["ErrorMessage"] != null)
+            {
+                @Html.Raw("toastr[\"error\"](\"" + Session["ErrorMessage"].ToString() + "\", \"Error\")");
+                Session["ErrorMessage"] = null;
+            }
+        }
+    });
+
+    window.uuidv4 = function () {
+        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        )
+    }
+</script>

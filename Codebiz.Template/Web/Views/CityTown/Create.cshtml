@@ -1,0 +1,136 @@
+﻿@model Web.Models.ViewModels.CityTown.CityTownViewModel
+@{
+    ViewBag.Title = "Add City/Town";
+}
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="@Url.Action("Index", "CityTown")">Cities/Towns</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Add</span>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <a class="btn btn-sm btn-default" href="@Url.Action("Index", "CityTown")">Back to List</a>
+    </div>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Cities/Towns
+    <small>View, add, edit cities/towns</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    @*<i class="fa fa-search"></i>*@Add
+                </div>
+            </div>
+            <div class="portlet-body form">
+                @using (Html.BeginForm("Create", "CityTown", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.RegionId, htmlAttributes: new {@class = "control-label col-md-3" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.RegionId, Model.RegionLookup, "Select region", new { @class = "form-control", placeholder = "Region" })
+                                @Html.ValidationMessageFor(model => model.RegionId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ProvinceId, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.ProvinceId, Model.ProvinceLookup, "Select province", new { @class = "form-control", placeholder = "Province" })
+                                @Html.ValidationMessageFor(model => model.ProvinceId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @maxlength = "250", @class = "form-control", placeholder = "Name" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Abbreviation, htmlAttributes: new {@class = "control-label col-md-3"})
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Abbreviation, new {htmlAttributes = new { @maxlength = "100", @class = "form-control", placeholder = "Abbreviation"}})
+                                @Html.ValidationMessageFor(model => model.Abbreviation, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ZipCode, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @maxlength = "6", @class = "form-control", placeholder = "Zip Code" } })
+                                @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control", placeholder = "Latitude" } })
+                                @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Longitude, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control", placeholder = "Longitude" } })
+                                @Html.ValidationMessageFor(model => model.Longitude, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions fluid">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn green">Submit</button>
+                                <a class="btn white" href="@Url.Action("Index")">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- END PORTLET -->
+    </div>
+</div>
+@section PageScripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+<script type="text/javascript">
+    $(function() {
+        $("#RegionId").change(function() {
+            var selectedItem = $(this).val();
+            var ddlProvince = $("#ProvinceId");
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "/CityTown/GetProvince",
+                data: { "regionId": selectedItem },
+                success: function(data) {
+                    ddlProvince.html('');
+                    $.each(data, function(id, option) {
+                        ddlProvince.append($('<option></option>').val(option.Value).html(option.Text));
+                    });
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve province.');
+                }
+            });
+        });
+    });
+</script> 
+
+}
+

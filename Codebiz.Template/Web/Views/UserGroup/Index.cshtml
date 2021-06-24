@@ -1,0 +1,195 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+@{
+    ViewBag.Title = "User Groups";
+}
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>Admin</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "UserGroup")">User Groups</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    User Groups
+    <small>View, search , add, edit, delete, deactivate or reactivate user groups</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="UserGroupController as controller">
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="bold">Search</h4>
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="expand"> </a>
+                </div>
+            </div>
+            <!-- BEGIN FILTERS -->
+            <div class="portlet-body tabs-below" style="display: none;">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Name</label>
+                            <input type="text" name="Name" class="form-control" autocomplete="off"
+                                   ng-model="name" ng-keypress="searchWhenEnter($event)">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Description</label>
+                            <input type="text" name="Description" class="form-control" autocomplete="off"
+                                   ng-model="description" ng-keypress="searchWhenEnter($event)">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Created by</label>
+                            <input type="text" name="Createdby" class="form-control" autocomplete="off"
+                                   ng-model="createdBy" ng-keypress="searchWhenEnter($event)">
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-left">
+                        <div class="form-group">
+                            <label>&nbsp;</label>
+                            <div>
+                                <button type="submit" class="btn btn-success" ng-click="search(false)">
+                                    <i class="fa fa-search"></i>
+                                    <span class=""> Search </span>
+                                </button>
+                                <button type="button" class="btn btn-white" ng-click="reset()">
+                                    <i class="fa fa-rotate-left"></i>
+                                    <span class=""> Reset </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET -->
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            @*<i class="fa fa-user"></i>*@List
+                        </div>
+                        <div class="actions">
+                            <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportUserGroupViewList)>
+                                <i class="fa fa-share-square-o"></i>
+                                <span class="">Export</span>
+                            </a>
+                            <a href="@Url.Action("Create")" class="btn btn-info" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddUserGroup)>
+                                <i class="fa fa-plus"></i>
+                                <span class=""> New </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                                    <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover
+                                   @Html.UserHasPermission(userPermission: new List<string>() {
+                                                        PermissionData.UserCanEditUserGroup,
+                                                        PermissionData.UserCanDeleteUserGroup,
+                                                        PermissionData.UserCanDeactivateReactivateUserGroup })">
+                                        <tr ng-repeat="item in $data">
+                                            <td width="1%" header-class="'text-center'" class="text-center">
+                                                <div class="btn-group">
+                                                    <button id="usergroup" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa fa-list"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="usergroup">
+                                                        <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditUserGroup)>
+                                                            <a ng-click="goToEdit(item.UserGroupId)">
+                                                                <i class="fa fa-edit"></i> Edit
+                                                            </a>
+                                                        </li>
+                                                        <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeleteUserGroup)>
+                                                            <a ng-click="delete(item.UserGroupId,item.Name)">
+                                                                <i class="fa fa-trash"></i> Delete
+                                                            </a>
+                                                        </li>
+                                                        <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeactivateReactivateUserGroup)>
+                                                            <a ng-click="deactivate(item.UserGroupId, item.Name)" ng-hide="!item.IsActive">
+                                                                <i class="glyphicon glyphicon-remove"></i>Deactivate
+                                                            </a>
+                                                        </li>
+                                                        <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeactivateReactivateUserGroup)>
+                                                            <a ng-click="reactivate(item.UserGroupId, item.Name)" ng-hide="item.IsActive">
+                                                                <i class="glyphicon glyphicon-ok"></i>Reactivate
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td width="15%" data-title="'NAME'" sortable="'Name'" header-class="'table-header text-left'" class="text-left">
+                                                {{item.Name}}
+                                            </td>
+                                            <td width="10%" data-title="'DESCRIPTION'" sortable="'Description'" header-class="'table-header text-left'" class="text-left">
+                                                {{item.Description}}
+                                            </td>
+                                            <td width="5%" data-title="'ACTIVE'" sortable="'IsActive'" header-class="'table-header text-center'" class="text-center">
+                                                <span class="label label-sm" ng-class="item.IsActive ? 'label-success' : 'label-danger'">{{item.IsActive ? 'Yes': 'No'}}</span>
+                                            </td>
+                                            <td width="13%" data-title="'CREATED BY'" sortable="'CreatedBy'" header-class="'table-header text-left'" class="text-left">
+                                                {{item.CreatedBy}}
+                                            </td>
+                                            <td width="10%" data-title="'DATE CREATED'" sortable="'CreatedOn'" header-class="'table-header text-left'" class="text-left">
+                                                {{item.CreatedOn | date : 'MM/dd/yyyy hh:mm a'}}
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="$data.length == 0">
+                                            <td colspan="8" class="text-center" style="font-style:unset">
+                                                No data available
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET -->
+    </div>
+</div>
+@section PageScripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('#pageSizeDropDown').change(function () {
+                var value = $(this).val();
+                var tempUrl = $(this).data("url");
+                var newUrl = tempUrl.replace("pageSizeHolder", value);
+
+                window.location = newUrl;
+            });
+        });
+    </script>
+}
+@section AngularJSPlugins {
+}
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Scripts/App/Services/UserGroupService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/UserGroupController.js")
+}

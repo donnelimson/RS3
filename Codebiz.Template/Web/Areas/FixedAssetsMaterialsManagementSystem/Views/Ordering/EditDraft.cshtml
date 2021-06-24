@@ -1,0 +1,273 @@
+﻿@model Web.Areas.FixedAssetsMaterialsManagementSystem.Models.ViewModels.Ordering.OrderingLookUpViewModel
+@{
+    ViewBag.Title = "Order Draft";
+}
+@{
+    Layout = "_EditDraftLayout.cshtml";
+}
+
+
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="@Url.Action("EditDraft", "Ordering")">Orders</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<h1 class="page-title">
+    Order Draft
+</h1>
+
+
+<div ng-app="MetronicApp" ng-controller="OrderingCreateController ">
+    <div class="portlet light bordered">
+
+        <div class="portlet-body">
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Order Code</label>
+                        <label class="form-control"><b>@Model.OrderCode</b></label>
+                        <label class="control-label">Status</label>
+                        <label class="form-control"><b>@Model.Status</b></label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Created by</label>
+                        <label class="form-control"><b>@Model.CreatedBy</b></label>
+                        <label class="control-label">Updated by</label>
+                        <label class="form-control"><b>@Model.UpdatedBy </b></label>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Created On</label>
+                        <label class="form-control"><b>@Model.CreatedOn</b></label>
+                        <label class="control-label">Updated On</label>
+                        <label class="form-control"><b>@Model.UpdatedOn</b></label>
+                        @Html.HiddenFor(x => x.OrderId)
+                    </div>
+
+
+                </div>
+                <div class="col-md-12 text-right" >
+                    <a class="btn btn-danger" ng-model="cancelButton" ng-click="cancelOrder(@Model.OrderId)">Cancel</a>
+                    <a class="btn btn-warning" id="saveButton" ng-model="saveButton" ng-click="savetoDB(orderId)" >Save</a>
+                    <a class="btn btn-success" id="completeButton" ng-model="completeButton" ng-click="CompleteOrder(orderId)"> Save and Complete</a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="tabbalble-custom">
+        <div class="tab-pane active bold" id="Material" style="padding-bottom:80px; padding-top: 40px;">
+            <div class="portlet box blue-hoki">
+                <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
+                    <div class="caption col-md-3">
+                        Total item count: &nbsp;&nbsp;{{grandQuantity}} &nbsp;&nbsp;&nbsp;&nbsp;Total Cost:&nbsp;&nbsp;{{grandTotal|number:2}}
+                    </div>
+                    <div class="actions">
+
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <table ng-table="supplierTable" class="table table-bordered table-striped table-hover table-condensed editable-table"
+                           ng-form="ctrl.tableform" demo-tracked-table="ctrl.tableTracker">
+                        <colgroup>
+                            <col width="15%" />
+                            <col width="15%" />
+                            <col width="5%" />
+                            <col width="10%" />
+                            <col width="10%" />
+                            <col width="2%" />
+                        </colgroup>
+                        <tr ng-repeat="row in dataToInsert track by $index" ng-form="rowForm" demo-tracked-table-row="row">
+
+                            <td title="'Supplier'" 
+                                header-class="'text-left'" demo-tracked-table-cell>
+                                <div class="form-group" ng-class="SupplierId.$invalid &&
+                                        (SupplierId.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <select select2 name="SupplierId" class="form-control" ng-model="row.SupplierId"
+                                            ui-validate="{minimum : '$value>0'}"
+                                            ng-required="true"
+                                            ng-change="getSupplier()" 
+                                            ng-disabled="row.MasterItemDescription.length>=1"
+                                            ng-options="map.Id as (map.Description) for map in mapSupplier"
+                                            >
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td title="'Product'" 
+                                header-class="'text-left'" demo-tracked-table-cell>
+                                <div>
+                                    <input type="hidden" name="idTxtBox" ng-model="row.MasterItemId" class="editable-input form-control input-sm" />
+                                    <input type="text" name="itemTxtbox" ng-model="row.MasterItemDescription" class="editable-input form-control input-sm" ng-click="getItems(row,$index)" readonly />
+                                </div>
+                            </td>
+                            <td title="'Quantity'" 
+                                header-class="'text-left'" demo-tracked-table-cell>
+                                <div>
+                                    <div ng-form="Quantity" class="controls" ng-class="Quantity.$invalid && (Quantity.$dirty || formSubmitted) ? 'has-error' : ''">
+                                        <div class="row static-info">
+
+                                            <div class="col-md-9 value">
+                                                <input type="number" name="quantityTextbox" id="quantity" ng-model="row.Quantity" class="editable-input form-control input-sm" ng-change="getTotalCost(row)" ng-click="getIndexOfRow($index)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td title="'Cost'" 
+                                header-class="'text-left'" demo-tracked-table-cell>
+                                <div>
+                                    <div ng-form="Cost" class="controls" ng-class="Cost.$invalid && (Cost.$dirty || formSubmitted) ? 'has-error' : ''">
+                                        <div class="row static-info">
+
+                                            <div class="col-md-9 value">
+                                                <label ng-model="row.Cost" class="editable-input form-control input-sm" value="{{row.Cost}}">{{row.Cost|number:2}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td title="'TotalCost'" 
+                                header-class="'text-left'" demo-tracked-table-cell>
+                                <div>
+                                    <div ng-form="TotalCost" class="controls" ng-class="TotalCost.$invalid && (TotalCost.$dirty || formSubmitted) ? 'has-error' : ''">
+                                        <div class="row static-info">
+
+                                            <div class="col-md-9 value">
+                                              
+                                                <label ng-model="row.TotalCost" id="totalCost" class="editable-input form-control input-sm">{{row.TotalCost|number:2}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td header-class="'text-center'" class="text-center actions">
+                                <button class="btn btn-danger btn-sm" ng-click="delMaterial(row,$index)">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                   REMOVE
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+            @Html.Partial("_OrderingModalItem")
+
+        </div>
+    </div>
+</div>
+
+@section pagestyles {
+    <link href="~/Content/ng-table.min.css" rel="stylesheet" />
+    <link href="~/assets/global/css/plugins.css" rel="stylesheet" />
+    <link href="~/assets/global/css/plugins.min.css" rel="stylesheet" />
+
+    <style>
+        .modal_style {
+            z-index: 99000 !important;
+        }
+        /*.memberApplicationPhaseModal_style {
+            margin-top: 21px;
+        }*/
+        .pagination {
+            margin-top: 0 !important;
+        }
+
+        .supportingDocuments_img {
+            width: 80px;
+            height: 70px;
+        }
+
+        .ng-table-counts > .btn {
+            padding: 6px 12px !important;
+            font-weight: 400 !important;
+            font-size: 14px !important;
+            line-height: 1.42857143 !important;
+            user-select: none !important;
+            border: 1px solid transparent !important;
+        }
+
+        .select2 > .select2-choice.ui-select-match {
+            /* Because of the inclusion of Bootstrap */
+            height: 29px;
+        }
+
+        .select2-container--bootstrap .select2-selection--multiple .select2-selection__rendered {
+            display: inline-flex !important;
+            overflow: auto !important;
+        }
+    </style>
+}
+
+@section PageScripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/assets/global/plugins/select2/js/select2.full.min.js")
+    @Scripts.Render("~/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js")
+    @Scripts.Render("~/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js")
+    @Scripts.Render("~/assets/pages/scripts/ui-extended-modals.min.js")
+    @Scripts.Render("~/assets/global/scripts/datatable.js")
+    @Scripts.Render("~/assets/global/plugins/datatables/datatables.min.js")
+    @Scripts.Render("~/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js")
+    @Scripts.Render("~/Scripts/PersonnelSearchModal.js")
+    @Styles.Render("~/assets/global/plugins/select2/css/select2.min.css")
+    @Styles.Render("~/assets/global/plugins/select2/css/select2-bootstrap.min.css")
+    @Styles.Render("~/assets/global/plugins/select2/css/select2.min.css")
+    @Styles.Render("~/assets/global/plugins/fancybox/source/jquery.fancybox.css")
+    @Styles.Render("~/assets/global/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css")
+    @Styles.Render("~/assets/global/plugins/jquery-file-upload/css/jquery.fileupload.css")
+    @Styles.Render("~/assets/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css")
+    @Styles.Render("~/assets/global/plugins/icheck/skins/all.css")
+    @Styles.Render("~/Content/ng-table.min.css")
+}
+
+
+@section AngularJSPlugins {
+    @Scripts.Render("~/assets/global/plugins/angularjs/angular.min.js")
+    @Scripts.Render("~/assets/global/plugins/angularjs/angular-sanitize.min.js")
+    @Scripts.Render("~/assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js")
+    @Scripts.Render("~/Scripts/angular-ui-validate.min.js")
+    @Scripts.Render("~/Scripts/ng-table.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js")
+    @*@Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/tmpl.min.js")*@
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/load-image.min.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/blueimp-gallery/jquery.blueimp-gallery.min.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.iframe-transport.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-process.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-image.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-audio.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-video.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-validate.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-ui.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-angular.js")
+    @Scripts.Render("~/assets/global/plugins/hotkeys/hotkeys.js")
+}
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/app.js")
+    @*@Scripts.Render("~/assets/global/plugins/select2/js/select2.full.min.js");*@
+    @*@Scripts.Render("~/Scripts/App/app.js")*@
+    @Scripts.Render("~/Scripts/App/Directives/NgTableDirective.js")
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Areas/FixedAssetsMaterialsManagementSystem/Scripts/App/Services/OrderingService.js")
+    @*@Scripts.Render("~/Scripts/App/Services/HttpServices.js")*@
+    @Scripts.Render("~/Areas/FixedAssetsMaterialsManagementSystem/Scripts/App/Controllers/OrderingCreateController.js")
+    @Scripts.Render("~/Areas/FixedAssetsMaterialsManagementSystem/Scripts/App/Controllers/ItemDetailsController.js")
+}

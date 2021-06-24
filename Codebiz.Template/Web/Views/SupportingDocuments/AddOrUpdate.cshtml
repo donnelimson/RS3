@@ -1,0 +1,206 @@
+﻿@{
+    ViewBag.Title = "Supporting Documents - Add or Update";
+}
+
+<div class="row" ng-app="MetronicApp" ng-controller="SupportingDocumentsAddOrUpdateController as sdac">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>Management</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "SupportingDocuments")">Supporting Documents</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>{{isUpdate ? 'Edit' : 'Add'}}</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            Supporting Documents
+            <small>Add supporting documents</small>
+        </h1>
+        <div class="row">
+            <div class="col-md-12" ng-form="sdac.supportingDocumentsForm">
+                @Html.Hidden("SupportingDocumentId")
+                <div class="portlet light">
+                    <div class="row padding-bottom-15">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group" ng-class="sdac.supportingDocumentsForm.TransactionTypeId.$invalid && (sdac.supportingDocumentsForm.TransactionTypeId.$dirty || formSubmitted) ? 'has-error' : ''">
+                                <label class="control-label">Transaction Type</label><span class="required"> *</span>
+                                <select select2 name="TransactionTypeId" class="form-control not-allow-numbers" tabindex="1"
+                                        ng-model="supportingDocument.TransactionTypeId"
+                                        ng-required="true"
+                                        ng-options="t.TransactionTypeId as (t.Description) for t in transactionTypes"
+                                        ng-change="transactionSubTypeLookUp()"
+                                        ng-disabled="isUpdate"
+                                        style="display: inline-block">
+                                    <option value="">---Please select---</option>
+                                </select>
+                                <span ng-show="sdac.supportingDocumentsForm.TransactionTypeId.$invalid && (sdac.supportingDocumentsForm.TransactionTypeId.$dirty || formSubmitted)"
+                                      class="text-danger field-validation-error"><small>Transaction type is required!</small></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6" ng-show="transactionSubTypes.length && supportingDocument.TransactionTypeId !== undefined">
+                            <div class="form-group" ng-class="sdac.supportingDocumentsForm.TransactionSubTypeId.$invalid && (sdac.supportingDocumentsForm.TransactionSubTypeId.$dirty || formSubmitted) ? 'has-error' : ''">
+                                <label class="control-label">Type</label><span class="required"> *</span>
+                                <select select2 name="TransactionSubTypeId" class="form-control not-allow-numbers" tabindex="2"
+                                        ng-model="supportingDocument.TransactionSubTypeId"
+                                        ng-required="transactionSubTypes.length && supportingDocument.TransactionTypeId !== undefined"
+                                        ng-options="t.TransactionTypeId as (t.Description) for t in transactionSubTypes"
+                                        ng-disabled="isUpdate">
+                                    <option value="">---Please select---</option>
+                                </select>
+                                <span ng-show="sdac.supportingDocumentsForm.TransactionSubTypeId.$invalid && (sdac.supportingDocumentsForm.TransactionSubTypeId.$dirty || formSubmitted)"
+                                      class="text-danger field-validation-error"><small>Type is required!</small></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="form-sub-title">SUPPORTING DOCUMENTS</h5>
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row padding-bottom-10">
+                                <div class="col-md-12">
+                                    <span ng-show="!supportingDocument.Documents.length && formSubmitted"
+                                          class="text-danger field-validation-error">Please add at least one supporting document.</span>
+                                </div>
+                            </div>
+                            <div class="table-responsive padding-bottom-20" style="overflow-x: auto;">
+                                <table id="supportingDocumentsTable" class="table table-bordered table-striped ng-cloak">
+                                    <thead>
+                                        <tr>
+                                            <th width="3%" class="table-header"></th>
+                                            <th width="50%" class="table-header">NAME</th>
+                                            <th width="11%" class="table-header text-center">IS REQUIRED</th>
+                                            <th width="10%" class="table-header text-center">GROUP</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="document in supportingDocument.Documents track by $index">
+                                            <td class="text-center">
+                                                <button class="btn btn-xs btn-danger" ng-click="deleteRow($index)">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                            </td>
+                                            <td class="cursorText" ng-click="editRow($index)">
+                                                <span ng-hide="document.IsEditing">{{document.DocumentName}}</span>
+                                                <div ng-class="alreadyExists  && currentIndex === $index ? 'has-error' : ''">
+                                                    <input id="documentInput{{$index}}" focus-on="!!document.IsEditing" ng-show="document.IsEditing" type="text"
+                                                           ng-model="document.DocumentName"
+                                                           ng-blur="addOrEditSupportingDocument(document, $index)"
+                                                           ng-change="checkIfNameIsEmpty(document, $index)"
+                                                           ng-keypress="addOrEditSupportingDocumentOnEnter($event, document, $index)"
+                                                           class="form-control" maxlength="100" alphanumeric-dash-only />
+                                                    <span ng-show="alreadyExists && currentIndex === $index"
+                                                          class="text-danger field-validation-error"><small>Name already exists!</small></span>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <label class="mt-checkbox mt-checkbox-outline" style="margin-top: 5px;">
+                                                    <input type="checkbox" 
+                                                           ng-model="document.IsRequired"
+                                                           ng-click="document.Group = null">
+                                                    <span></span>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control text-right"
+                                                       ng-model="document.Group"
+                                                       ng-disabled="document.IsRequired"
+                                                       numbers-only />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <div ng-class="alreadyExists  && currentIndex === -1 ? 'has-error' : ''">
+                                                    <input type="text"
+                                                           id="emptyRow"
+                                                           ng-model="emptyRow.DocumentName"
+                                                           ng-blur="addOrEditSupportingDocument(emptyRow, -1)"
+                                                           ng-keypress="addOrEditSupportingDocumentOnEnter($event, emptyRow, -1)"
+                                                           ng-change="checkIfNameExists()"
+                                                           class="form-control has-error"
+                                                           maxlength="50" alphanumeric-dash-only />
+                                                    <span ng-show="alreadyExists && currentIndex === -1"
+                                                          class="text-danger field-validation-error"><small>Name already exists!</small></span>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <label class="mt-checkbox mt-checkbox-outline" style="margin-top: 5px;">
+                                                    <input type="checkbox" name="id[]" value=""
+                                                           ng-model="emptyRow.IsRequired"
+                                                           ng-click="emptyRow.Group = null" />
+                                                    <span></span>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control text-right" 
+                                                       ng-model="emptyRow.Group" 
+                                                       ng-disabled="emptyRow.IsRequired"
+                                                       numbers-only/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- BEGIN FORM SAVE/CANCEL -->
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4">
+                            <div class="form-action">
+                                <div class="actions btn-set">
+                                    <button class="btn btn-success" style="width: 90px;" ng-click="save()">
+                                        <span class="glyphicon glyphicon-ok"></span>&nbsp; {{isUpdate ? 'Update' : 'Save'}}
+                                    </button>
+                                    <button class="btn btn-default" style="width: 90px;" ng-click="cancel()">
+                                        <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END FORM SAVE/CANCEL -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section PageStyles {
+    <style>
+        .cursorText:hover {
+            cursor: text;
+        }
+    </style>
+
+    @Styles.Render("~/assets/global/scripts/datatables.min.css")
+    @Styles.Render("~/assets/global/scripts/select.dataTables.min.css")
+}
+
+@section PageScripts {
+    @Scripts.Render("~/assets/global/scripts/datatables.min.js")
+    @Scripts.Render("~/assets/global/scripts/dataTables.select.min.js")
+    @*@Scripts.Render("~/Scripts/App/SupportingDocumentsPageScript.js")*@
+}
+
+@section AngularJSPage {
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Scripts/App/Services/SupportingDocumentsService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/SupportingDocumentsAddOrUpdateController.js")
+}

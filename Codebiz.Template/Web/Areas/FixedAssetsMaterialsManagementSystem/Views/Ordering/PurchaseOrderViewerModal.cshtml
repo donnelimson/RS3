@@ -1,0 +1,41 @@
+﻿<style>
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal::before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+    .app-modal-window .modal-dialog {
+  width: 75%;
+}
+</style>
+<script type="text/ng-template" id="PurchaseOrderViewerModal.html">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Purchase Order</h4>
+    </div>
+        <div class="modal-body" id="modal-body">
+            <div class="portlet-body">
+                <div class="embed-responsive embed-responsive-16by9" id="modal-embed">
+                    @*<iframe class="embed-responsive-item" id="pathDoc" name="pathDoc" ng-src="{{getSrc()}}" typeof="application/pdf"></iframe>*@
+                    <embed ng-src="{{getSrc()}}"/>
+               
+                </div>
+            </div>
+         
+ </div>
+</script>
+
+    

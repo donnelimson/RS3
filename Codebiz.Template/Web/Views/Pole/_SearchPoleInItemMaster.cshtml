@@ -1,0 +1,33 @@
+﻿<script type="text/ng-template" id="SearchItems.html">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title"><b>Search {{title}}</b></h4>
+    </div>
+    <div class="modal-body" id="modal-body" style="padding-bottom:unset">
+        <div class="table-responsive" style="overflow-x:auto;" loading-container="appUserTableParams.settings().$loading">
+            <table ng-table="itemsTable" ng-class="{'loading': isLoading}" class="table table-bordered">
+                <tr ng-repeat="item in $data" ng-class="{'selected':item.ItemCode == items.ItemCode}" ng-dblclick="selectItem(item)" ng-click="higlightRow(item)">
+                    <td width="40%" data-title="'CODE'" sortable="''" filter="{ItemCode: 'text'}" header-class="'table-header text-left'" class="text-left" style="padding:6px">
+                        {{item.ItemCode}}
+                    </td>
+                    <td width="30%" data-title="'NAME'" sortable="'ItemName'" filter="{ItemName: 'text'}" header-class="'table-header text-left'" class="text-left" style="padding:6px">
+                        {{item.ItemName}}
+                    </td>
+                </tr>
+                <tr ng-show="$data.length == 0">
+                    <td colspan="3" class="text-center" style="font-style:unset">
+                        No data available
+                    </td>
+                </tr>
+            </table>
+
+            Showing {{currentPage * tableCount-9}} to {{(currentPage * tableCount)-(tableCount-offSetCount)}} of {{totalRecordCount | number}} entries
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div style="float: left;">
+            <button class="btn btn-info" type="button" ng-click="goSelect()">Select</button>
+            <button class="btn grey-cascade" type="button" ng-click="clear()">Clear</button>
+            <button class="btn btn-warning" type="button" ng-click="close()">Close</button>
+        </div>
+    </div>
+</script>

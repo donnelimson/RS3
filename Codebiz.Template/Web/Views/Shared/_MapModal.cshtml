@@ -1,0 +1,45 @@
+﻿<script type="text/ng-template" id="MapModal.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span><span class="sr-only">Close Modal</span></button>
+        <h4 class="modal-title" id="modal-title">View from Map</h4>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div ng-show="showLatLng">
+                    <h5>
+                        <b>
+                            Longitude,Latitude: <a href="" ng-click="goLocation(geopos.lat,geopos.lng)">{{geopos.lat}},{{geopos.lng}}</a>
+                        </b>
+                    </h5>
+                </div>
+                <map name="map" id="map" center="{{lat}}, {{lng}}" zoom="17"> </map>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer pull-left" ng-hide="forView">
+        <div class="form-actions">
+            <button class="btn btn-success" style="width: 90px;" ng-click="selectLocation()">
+                <span class="glyphicon glyphicon-ok"></span>&nbsp; Ok
+            </button>
+            <button class="btn btn-default" style="width: 90px;" ng-click="close()">
+                <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+            </button>
+        </div>
+    </div>
+    <div class="clearfix" ng-hide="forView"></div>
+
+</script>
+
+<style>
+    div.info {
+        position: absolute;
+        z-index: 999;
+        width: 200px;
+        height: 100px;
+        display: none;
+        background-color: #fff;
+        border: 3px solid #ebebeb;
+        padding: 10px;
+    }
+</style>

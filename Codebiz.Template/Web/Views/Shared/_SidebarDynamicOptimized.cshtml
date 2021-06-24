@@ -1,0 +1,108 @@
+@{
+    //var userAccessResult = Html.GetUserNavLinkAccess();
+}
+<div class="page-sidebar-wrapper" ng-controller="EventsController">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar navbar-collapse collapse">
+        <!-- BEGIN SIDEBAR MENU -->
+        <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+            <li class="sidebar-toggler-wrapper hide">
+                <div class="sidebar-toggler">
+                    <span></span>
+                </div>
+            </li>
+            <!-- END SIDEBAR TOGGLER BUTTON -->
+
+            <li class="sidebar-search-wrapper">
+                <form class="sidebar-search">
+                    <div class="input-group" style="right:6px;">
+                        <span class="title">  <input type="text" class="form-control" id="searcherNavlink" onkeyup="searchNavLink()" placeholder="Search..." /></span>
+                        <span class="input-group-btn">
+                            <a href="javascript:;" class="btn nav-link nav-toggle">
+                                <i class="icon-magnifier"></i>
+                            </a>
+                        </span>
+                    </div>
+                </form>
+            </li>
+            <li class="heading">
+                <h3 class="uppercase">Navigations</h3>
+            </li>
+
+            @foreach (var item in Html.GetUserNavLink().NavLinks.OrderBy(p => p.Ordinal).ToList())
+            {
+                @RenderLink(item, item.Name, item.Name);
+            }
+        </ul>
+        <!-- END SIDEBAR MENU -->
+    </div>
+    @Html.Partial("_alertModalForSessionExpired")
+    <!-- END SIDEBAR -->
+
+    @helper RenderLink(Infrastructure.Models.NavLinkModel navlink, string parentName, string rootName)
+    {
+        if (navlink.IsParent)
+        {
+            <li class="nav-item" @Html.UserHasPermission(childNavLinks: navlink.ChildNavLinks, userPermission: navlink.Permission) parentLink="@parentName.ToLower()" rootLink="@rootName.ToLower()">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="@navlink.IconClass"></i>
+                    <span class="title" link="@navlink.Name">@navlink.Name</span>
+                    <span class="arrow @Html.IsSubMenuSelected(childNavLinks: navlink.ChildNavLinks, cssClass: "open")"></span>
+                </a>
+                <ul class="sub-menu">
+                    @if (navlink.ChildNavLinks != null && navlink.ChildNavLinks.Count(p => !p.Permission.ToUpper().Contains("DETAIL")) > 0)
+                    {
+                        foreach (var item in navlink.ChildNavLinks.Where(p => !p.Permission.ToUpper().Contains("DETAIL")).OrderBy(p => p.Ordinal).ToList())
+                        {
+                            @RenderLink(item, navlink.Name, rootName.ToLower())
+                        }
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+<li class="nav-item" @Html.UserHasPermission(childNavLinks: navlink.ChildNavLinks, userPermission: navlink.Permission) parentLink="@parentName.ToLower()" rootLink="@rootName.ToLower()">
+
+    <a href="@Url.Action(navlink.Action, navlink.Controller, new { area = navlink.Area })"
+       class="nav-link @Html.IsSelected(action: navlink.Action, controller:navlink.Controller, area: navlink.Area)">
+
+        <i class="@navlink.IconClass"></i>
+        @if (navlink.Name == "Approval")
+        {
+            <span class="badge badge-warning" id="Count_@navlink.Name" value=""></span>
+        }
+        @if (navlink.Name == "House Wiring Inspections")
+        {
+            <span class="badge badge-warning" id="Count_Hwi" value="" style="right:10px"></span>
+        }
+        @if (navlink.Name == "For Connections")
+        {
+            <span class="badge badge-warning" id="Count_ForConnections" value=""></span>
+        }
+        @if (navlink.Name == "Issue For Connections")
+        {
+            <span class="badge badge-warning" id="Count_IssueForConnections" value=""></span>
+        }
+        @if (navlink.Name == "For Disconnections")
+        {
+            <span class="badge badge-warning" id="Count_ForDisconnections" value=""></span>
+        }
+
+        @if (navlink.Name == "Process Job Order")
+        {
+            <span class="badge badge-warning" id="Count_ProcessJobOrders" value=""></span>
+        }
+
+        @if (navlink.Name == "For Assigned Job Order To Employee(s)")
+        {
+            <span class="badge badge-warning" id="Count_ForAssignedJobOrders" value=""></span>
+        }
+
+        <span class="title" link="@navlink.Name">@navlink.Name </span>
+    </a>
+</li>
+        }
+    }
+</div>

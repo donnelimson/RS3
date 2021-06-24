@@ -1,0 +1,100 @@
+﻿<script type="text/ng-template" id="PurokModalPage.html">
+    <!--Modal Head-->
+    <div class="modal-header">
+        <h4 class="form-sub-title">{{addOrEdit}} Purok</h4>
+    </div>
+    <!--Modal Body-->
+    <div id="modal-body" class="modal-body" ng-form="savePurokForm">
+        <!--Modal Body-->
+        <div class="form-body">
+            <!--Modal Body Content -->
+            <div class="row">
+                <!--Code Textbox -->
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="savePurokForm.Code.$invalid && (savePurokForm.Code.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label">Code</label><span class="required"> * </span>
+                        <input type="text" class="form-control" name="Code" ng-model="purok.Code" ng-required="true" tabindex="1" maxlength="100" alphanumeric-dash-only />
+                        <span color="red" ng-show="savePurokForm.Code.$error.required && (savePurokForm.Code.$dirty || formSubmitted)" class="text-danger
+                                        field-validation-error"><small>Code is required.</small></span>
+                    </div>
+                </div>
+                <!--Name Textbox -->
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="savePurokForm.Name.$invalid && (savePurokForm.Name.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label">Name</label><span class="required"> * </span>
+                        <input type="text" class="form-control" name="Name" ng-model="purok.Name" ng-required="true" tabindex="1" maxlength="100" alphanumeric-dash-only />
+                        <span color="red" ng-show="savePurokForm.Name.$error.required && (savePurokForm.Name.$dirty || formSubmitted)" class="text-danger
+                                         field-validation-error"><small>Name is required.</small></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--Province List -->
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="savePurokForm.ProvinceId.$invalid && (savePurokForm.ProvinceId.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label">Province</label><span class="required"> * </span>
+                        <div id="ProvinceIdDiv">
+                             <select select2 name="ProvinceId" class="form-control" ng-required="true" ng-model="purok.ProvinceId"
+                                    ng-change="GetCityTown()" tabindex="1"
+                                    ng-options="province.ProvinceId as (province.Name) for province in provinces">
+                                <option value="">---Please select---</option>
+                            </select>
+                        </div>
+                            <span color="red" ng-show="savePurokForm.ProvinceId.$error.required && (savePurokForm.ProvinceId.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                                <small>Province is required</small>
+                            </span>
+                        </div>
+                    </div>
+                <!--City Town List -->
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="savePurokForm.CityTownId.$invalid && (savePurokForm.CityTownId.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label">Municipality</label><span class="required"> * </span>
+                        <div id="CityTownIdDiv">
+                            <select select2 name="CityTownId" class="form-control" ng-required="true" ng-model="purok.CityTownId"
+                                    ng-change="GetBarangay()" tabindex="1"
+                                    ng-options="city.CityTownId as (city.Name) for city in cityTowns">
+                                <option value="">---Please select---</option>
+                            </select>
+                        </div>
+
+                        <span color="red" ng-show="savePurokForm.CityTownId.$error.required && (savePurokForm.CityTownId.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                            <small>City is required</small>
+                        </span>
+                    </div>
+                    </div>
+            </div>
+            <div class="row">
+                <!--Barangay List -->
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="savePurokForm.BarangayId.$invalid && (savePurokForm.BarangayId.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label">Barangay</label><span class="required"> * </span>
+                        <div id="BarangayIdDiv">
+                             <select select2 name="BarangayId" class="form-control" ng-required="true" ng-model="purok.BarangayId"
+                                    tabindex="1"
+                                    ng-options="barangay.BarangayId as (barangay.Name) for barangay in barangays">
+                                <option value="">---Please select---</option>
+                            </select>
+                        </div>
+                        <span color="red" ng-show="savePurokForm.BarangayId.$error.required && (savePurokForm.BarangayId.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                            <small>Barangay is required</small>
+                        </span>
+                        </div>
+                    </div>
+            </div>
+            <!--End Modal Body -->
+        </div>
+    </div>
+    <!--Modal Footer-->
+    <div class="modal-footer pull-left">
+        <div class="form-actions">
+            <!--Actions -->
+            <button class="btn btn-success" style="width:90px;" ng-click="savePurok()"  tabindex="1">
+                <span class="glyphicon glyphicon-ok"></span> {{saveOrUpdate}}
+            </button>
+            <button class="btn btn-default" style="width:90px;" ng-click="cancel()"  tabindex="1">
+                <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+            </button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</script>

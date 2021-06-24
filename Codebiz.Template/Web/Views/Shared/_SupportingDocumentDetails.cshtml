@@ -1,0 +1,61 @@
+﻿<div class="table-responsive" style="overflow-x:auto;">
+    <table class="table table-bordered table-striped files ng-cloak">
+        <tr>
+            <th width="10%" class="table-header">PREVIEW</th>
+            <th width="30%" class="table-header">FILE NAME</th>
+            <th width="15%" class="table-header">FILE SIZE</th>
+            <th width="30%" class="table-header">DOCUMENT TYPE</th>
+            <th width="10%" class="table-header"></th>
+        </tr>
+        <tr ng-repeat="item in attachments" ng-class="{'processing': item.$processing()}" ng-if="!isForSPL">
+            <td width="10%" class="text-center">
+                <a ng-hide="item.IsWord">
+                    <img class="style" ng-src="{{item.PreviewThumbnailUrl}}" ng-click="openSupportingDocumentPreview(item.PreviewThumbnailUrl, item.FileName, item.PreviewUrl, item.IsPdf)">
+                </a>
+                <span ng-hide="!item.IsWord"><img class="style" ng-src="{{item.PreviewThumbnailUrl}}" /></span>
+            </td>
+            <td width="30%">
+                {{item.FileName}}
+            </td>
+            <td width="15%">
+                {{item.FileSize | formatFileSize}}
+            </td>
+            <td width="30%">
+                {{item.DocumentType}}
+            </td>
+            <td width="10%" class="text-center">
+                <a href="{{item.DownloadUrl}}" target="_blank">Download</a>
+            </td>
+        </tr>
+        <tr ng-repeat="item in attachmentsSPL" ng-class="{'processing': item.$processing()}" ng-if="isForSPL">
+            <td width="10%" class="text-center">
+                <a ng-hide="item.IsWord">
+                    <img class="style" ng-src="{{item.PreviewThumbnailUrl}}" ng-click="openSupportingDocumentPreview(item.PreviewThumbnailUrl, item.FileName, item.PreviewUrl, item.IsPdf)">
+                </a>
+                <span ng-hide="!item.IsWord"><img class="style" ng-src="{{item.PreviewThumbnailUrl}}" /></span>
+            </td>
+            <td width="30%">
+                {{item.FileName}}
+            </td>
+            <td width="15%">
+                {{item.FileSize | formatFileSize}}
+            </td>
+            <td width="30%">
+                {{item.DocumentType}}
+            </td>
+            <td width="10%" class="text-center">
+                <a href="{{item.DownloadUrl}}" target="_blank">Download</a>
+            </td>
+        </tr>
+        <tr ng-show="attachments.length == 0" ng-if="!isForSPL">
+            <td colspan="5" class="text-center">
+                No data available
+            </td>
+        </tr>
+        <tr ng-show="attachmentsSPL.length == 0" ng-if="isForSPL">
+            <td colspan="5" class="text-center">
+                No data available
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,374 @@
+﻿<!DOCTYPE html>
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.7
+Version: 4.7.5
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - PSSLAI AML-ARS</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link rel="shortcut icon" href="~/Content/Image/Tarelconew.ico" type="image/x-icon" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    @*<script src="~/assets/global/plugins/hotkeys/hotkeys.js"></script>
+        <script src="~/assets/global/plugins/hotkeys/hotkeys.min.js"></script>*@
+    @Styles.Render("~/css/mandatory")
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    @Styles.Render("~/assets/pages/css/error.min.css")
+    @Styles.Render("~/css/toastr")
+    @Styles.Render("~/css/sweetalert")
+    @Styles.Render("~/css/datepicker")
+    @Styles.Render("~/css/jasny")
+    @RenderSection("pagestyles", required: false)
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    @Styles.Render("~/css/theme-global")
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    @Styles.Render("~/css/theme-layout")
+    @*@Styles.Render("~/css/select2")*@
+    <!-- END THEME LAYOUT STYLES -->
+    <!--link rel="shortcut icon" href="favicon.ico" /-->
+    @*<script type = 'text/javascript' >
+            var appInsights=window.appInsights||function(config)
+            {
+                function r(config){ t[config] = function(){ var i = arguments; t.queue.push(function(){ t[config].apply(t, i)})} }
+                var t = { config:config},u=document,e=window,o='script',s=u.createElement(o),i,f;for(s.src=config.url||'//az416426.vo.msecnd.net/scripts/a/ai.0.js',u.getElementsByTagName(o)[0].parentNode.appendChild(s),t.cookie=u.cookie,t.queue=[],i=['Event','Exception','Metric','PageView','Trace','Ajax'];i.length;)r('track'+i.pop());return r('setAuthenticatedUserContext'),r('clearAuthenticatedUserContext'),config.disableExceptionTracking||(i='onerror',r('_'+i),f=e[i],e[i]=function(config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t['_' + i](config, r, u, e, o),s}),t
+            }({
+                instrumentationKey:'ef7e3613-af54-4011-82d4-eaad38c430a4'
+            });
+
+            window.appInsights=appInsights;
+            appInsights.trackPageView();
+
+        </script>*@
+</head>
+<!-- END HEAD -->
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
+    <div class="page-wrapper">
+        <!-- BEGIN HEADER -->
+        @Html.Partial("_PageHeader")
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            @*@{Html.RenderAction(" SidebarDynamic", "Home" , new { username=User.Identity.Name});}*@
+            @*@Html.Partial("_SidebarDynamic")*@
+            @Html.Partial("_SidebarDynamicOptimized")
+            @*@Html.Partial("_Sidebar")*@
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper" style="">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content" style="background-color: #eef1f5">
+                    @RenderBody()
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+            <!-- BEGIN QUICK SIDEBAR -->
+            <!-- /*Html.Partial("_QuickSidebar")*/-->
+            <!-- END QUICK SIDEBAR -->
+        </div>
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        @Html.Partial("_Footer")
+        <!-- END FOOTER -->
+    </div>
+    <!-- Modal -->
+    <div id="formLoadingScreen" class="modal fade" role="dialog" data-backdrop="static"
+         data-keyboard="false" style="margin-top: 20%; background-color:transparent; box-shadow:unset;">
+        <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Please wait ...</p>
+                            <div class="progress progress-striped active" style="margin-bottom: 0;">
+                                <div class="progress-bar" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="NavigatingScreen" class="modal fade" role="dialog" data-backdrop="static" style="margin-top: 20%;">
+        <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Navigating ...</p>
+                            <div class="progress progress-striped active" style="margin-bottom: 0;">
+                                <div class="progress-bar" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("_SearchSchool")
+    <!-- BEGIN QUICK NAV -->
+    @*@Html.Partial("_QuickNav")*@
+    <!-- END QUICK NAV -->
+    <!--[if lt IE 9]>
+    <script src="@Url.Action("~/assets/global/plugins/respond.min.js")"></script>
+    <script src="@Url.Action("~/assets/global/plugins/excanvas.min.js")"></script>
+    <script src="@Url.Action("~/assets/global/plugins/ie8.fix.min.js")"></script>
+    <![endif]-->
+    <!-- BEGIN CORE PLUGINS -->
+    @Scripts.Render("~/bundles/core-plugins")
+    @Scripts.Render("~/Scripts/lodash.min.js")
+    @Scripts.Render("~/Scripts/moment.min.js")
+
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    @Scripts.Render("~/bundles/toastr")
+    @Scripts.Render("~/bundles/sweetalert")
+    @Scripts.Render("~/bundles/datepicker")
+    @Scripts.Render("~/bundles/jasny")
+    @RenderSection("pagepluginscripts", required: false)
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    @RenderSection("pagescripts", required: false)
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN CORE ANGULARJS PLUGINS -->
+    @RenderSection("angularjsplugins", required: false)
+    <!-- END CORE ANGULARJS PLUGINS -->
+    <!-- BEGIN PAGE LEVEL ANGULARJS SCRIPTS -->
+    @RenderSection("angularjspage", required: false)
+    <!-- END PAGE LEVEL ANGULARJS SCRIPTS -->
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    @Scripts.Render("~/assets/global/scripts/app.min.js")
+    <!-- END THEME GLOBAL SCRIPTS -->
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    @Scripts.Render("~/bundles/theme-layout")
+    <!-- END THEME LAYOUT SCRIPTS -->
+    <script>
+        var baseUrl = '@Url.Action("Index", "Home")';
+        document.baseUrl = baseUrl;
+
+        function formatAmount(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+            }
+            return val;
+        }
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+
+            if (charCode === 46) return true;
+
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function bindDynamicForm() {
+            $('.dynamicForm').submit(function (e) {
+                var formSelf = this;
+                if ($(this).attr("method") == "post" && !$(this).data("ajax")) {
+                    e.preventDefault();
+
+                    if ($(this).valid()) {
+                        swal({
+                            title: "Confirm action.",
+                            text: "Are you sure to proceed on this action?",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#1ab394",
+                            confirmButtonText: "Yes proceed",
+                            closeOnConfirm: true
+                        }, function () {
+                            $("#formLoadingScreen").modal("show");
+                            formSelf.submit();
+                        });
+                    } else {
+                        //console.log("invalid");
+                    }
+                }
+            });
+        }
+
+        function tagNavigationAsActive(element) {
+            element.removeClass("active");
+            element.removeClass("open");
+
+            element.addClass("active");
+            element.addClass("open");
+
+            var selector = $(element).find('a .selector');
+            if (selector && selector.length > 0) {
+                selector.removeClass("selected");
+                selector.addClass("selected");
+            }
+
+            var parent = $(element).parent().parent("li.nav-item");
+            if (parent && parent.length > 0) {
+                tagNavigationAsActive(parent);
+            }
+        }
+
+        $(document).ready(function () {
+            $('#clickmewow').click(function () {
+                $('#radio1003').attr('checked', 'checked');
+            });
+
+            $("input.only-numbers").keypress(function () {
+                return isNumberKey(event);
+            });
+
+            $('.page-sidebar-menu a.nav-link.active').each(function (i, e) {
+                var navItem = $(e).parent('li.nav-item');
+                if (navItem && navItem.length > 0) {
+                    tagNavigationAsActive(navItem);
+                }
+            });
+
+
+            $("body").on("click", "a", function () {
+                var href = $(this).attr("href");
+
+                var nomodal = $(this).attr("nomodal");
+                if (nomodal !== undefined) return;
+
+                if (href && href !== "#" && !href.startsWith("#") && href.indexOf("javascript:") == -1 && href.indexOf("#tab") == -1 && !$(this).attr("download") && $(this).attr("target") !== "_blank") {
+                    $("#NavigatingScreen").modal("show");
+                    window.location.replace(href);
+                }
+            });
+
+            //$("a").click(function () {
+            //    var href = $(this).attr("href");
+
+            //    var nomodal = $(this).attr("nomodal");
+            //    if (nomodal !== undefined) return;
+
+            //    if (href && href !== "#" && href.indexOf("javascript:") == -1 && href.indexOf("#tab") == -1 && !$(this).attr("download") && $(this).attr("target") !== "_blank") {
+            //        $("#NavigatingScreen").modal("show");
+            //    }
+            //});
+
+            $("form").submit(function (e) {
+                var formSelf = this;
+                var noconfirmation = $(this).attr("noconfirmation");
+                var confirmInputText = $(this).attr("confirm-input-text");
+                if ($(this).attr("method") == "post" && !$(this).data("ajax") && noconfirmation === undefined) {
+                    e.preventDefault();
+
+                    if ($(this).valid()) {
+
+                        if (confirmInputText) {
+                            swal({
+                                title: "Confirm action.",
+                                //text: "<textarea id='text' class='form-control' tabindex='3' placeholder='Reason'></textarea>",
+                                //html: true,
+                                text: "",
+                                type: "input",
+                                inputPlaceholder: "Reason",
+                                showCancelButton: true,
+                                confirmButtonColor: "#1ab394",
+                                confirmButtonText: "Yes proceed",
+                                closeOnConfirm: false
+                            }, function (inputValue) {
+                                if (inputValue === false) return false;
+                                if (inputValue === "") {
+                                    swal.showInputError("You need to write something!");
+                                    return false;
+                                }
+
+                                $(confirmInputText).val(inputValue);
+
+                                $("#formLoadingScreen").modal("show");
+                                formSelf.submit();
+                            });
+                        } else {
+                            swal({
+                                title: "Confirm action.",
+                                text: "Are you sure to proceed on this action?",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#1ab394",
+                                confirmButtonText: "Yes proceed",
+                                closeOnConfirm: true
+                            }, function () {
+                                $("#formLoadingScreen").modal("show");
+                                formSelf.submit();
+                            });
+                        }
+                    } else {
+                        //console.log("invalid");
+                    }
+                }
+                //$("#formLoadingScreen").modal("show");
+                //return false; //is superfluous, but I put it here as a fallback
+            });
+
+            if (window.toastr) {
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "positionClass": "toast-top-right",
+                    "onclick": null,
+                    "showDuration": "1000",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+                @if (Session["SuccessMessage"] != null)
+                    {
+                         @Html.Raw("toastr[\"success\"](\"" + Session["SuccessMessage"].ToString() + "\", \"System Message\")")
+                        ;
+                        Session["SuccessMessage"] = null;
+                    }
+
+                @if (Session["ErrorMessage"] != null)
+                    {
+                         @Html.Raw("toastr[\"error\"](\"" + Session["ErrorMessage"].ToString() + "\", \"Error\")")
+                        ;
+                        Session["ErrorMessage"] = null;
+                    }
+            }
+        });
+
+        window.uuidv4 = function () {
+            return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+            )
+        }
+    </script>
+</body>
+</html>

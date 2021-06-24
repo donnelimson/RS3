@@ -1,0 +1,344 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+<script type="text/ng-template" id="BankIndexTemplate.html">
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <span>Management</span>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Banking</span>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Bank")">Banks</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>List</span>
+            </li>
+        </ul>
+    </div>
+    <h1 class="page-title">
+        Banks  <small>View, search, add, edit, delete banks</small>
+    </h1>
+    <div class="row" ng-controller="BankController">
+        <div class="col-md-12">
+            <!-- BEGIN PORTLET -->
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <h4 class="bold">Search</h4>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="expand"> </a>
+                    </div>
+                </div>
+                <!-- BEGIN FILTERS -->
+                <div class="portlet-body tabs-below" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Country Code</label>
+                                <input type="text" name="countryCode" ng-model="countryCode" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Bank Code</label>
+                                <input type="text" name="bankCode" ng-model="bankCode" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Bank Name</label>
+                                <input type="text" name="bankName" ng-model="bankName" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">BIC/SWIFT Code</label>
+                                <input type="text" name="bicSwiftCode" ng-model="bicSwiftCode" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Account No.</label>
+                                <input type="text" name="accountNo" ng-model="accountNo" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Branch</label>
+                                <input type="text" name="branch" ng-model="branch" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Next Check No.</label>
+                                <input type="text" name="nextCheckNo" ng-model="nextCheckNo" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="padding-top:22px">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-success" ng-click="search()">
+                                    <i class="fa fa-search"></i>
+                                    <span class=""> Search </span>
+                                </button> &nbsp;&nbsp;
+                                <button type="button" class="btn btn-white" ng-click="reset()">
+                                    <i class="fa fa-rotate-left"></i>
+                                    <span class=""> Reset </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        List
+                    </div>
+                    <div class="actions">
+                        <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 " ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportBank)>
+                            <i class="fa fa-share-square-o"></i>
+                            <span class="">Export</span>
+                        </a>
+                        <a href="" class="btn btn-info" ng-click="addOrUpdate(0)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddBank)>
+                            <i class="fa fa-plus"></i>
+                            <span class=""> New </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                            <table ng-table="bankTableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover @Html.UserHasPermission(userPermission:new List<string>() {PermissionData.UserCanDeleteBank,PermissionData.UsercanEditBank})">
+                                <tr ng-repeat="item in $data">
+                                    <!--ACTION BUTTONS -->
+                                    <td width="1%" header-class="'text-center'" class="text-center">
+                                        <div class="btn-group">
+                                            <button id="bars" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-bars"></i>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li @Html.UserHasPermission(userPermission: PermissionData.UsercanEditBank)>
+                                                    <a ng-click="addOrUpdate(item.BankId)">
+                                                        <i class="fa fa-edit"></i> Edit
+                                                    </a>
+                                                </li>
+                                                <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeleteBank)>
+                                                    <a ng-click="delete(item.BankId,item.BankName)">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td width="8%" data-title="'COUNTRY CODE'" sortable="'CountryCode'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.CountryCode}}
+                                    </td>
+                                    <td width="7%" data-title="'BANK CODE'" sortable="'BankCode'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.BankCode}}
+                                    </td>
+                                    <td width="7%" data-title="'BANK NAME'" sortable="'BankName'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.BankName}}
+                                    </td>
+                                    <td width="7%" data-title="'BIC/SWIFT CODE'" sortable="'BICSwiftCode'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.BICSwiftCode}}
+                                    </td>
+
+                                    <td width="2%" data-title="'POST OFFICE'" sortable="'IsPostOffice'" header-class="'table-header text-center'" class="text-center">
+                                        <span class="label label-sm" ng-class="item.IsPostOffice ? 'label-success' : 'label-danger'">{{item.IsPostOffice ? 'Yes': 'No'}}</span>
+                                    </td>
+                                    <td width="9%" data-title="'ACCOUNT NO.'" sortable="'AccountNo'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.AccountNo}}
+                                    </td>
+                                    <td width="9%" data-title="'BRANCH'" sortable="'Branch'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.Branch}}
+                                    </td>
+                                    <td width="9%" data-title="'NEXT CHECK NO.'" sortable="'NextCheckNo'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.NextCheckNo}}
+                                    </td>
+
+                                </tr>
+                                <tr ng-show="$data.length == 0">
+                                    <td colspan="14" class="text-center" style="font-style:unset">
+                                        No data available
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END PORTLET -->
+    </div>
+</script>
+<script type="text/ng-template" id="BankAddOrUpdateTemplate.html">
+    <div ng-form="bankForm" ng-controller="BankAddOrUpdateController">
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>Management</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Banking</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Bank")">Banks</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>{{forUpdate? 'Edit':'Add'}}</span>
+                </li>
+
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+            </div>
+        </div>
+        <h1 class="page-title">
+            Bank  <small>{{forUpdate? 'Edit':'Add'}} bank</small>
+        </h1>
+
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-body form-horizontal">
+                <!--Code-->
+                <div class="row">
+                    <div class="form-group" ng-class="bankForm.CountryCode.$error.required && (bankForm.CountryCode.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label col-md-4" style="padding-left: 0px;">Country Code<span class="required">*</span></label>
+                        <div class="col-md-4">
+                            <div id="CountryCodeIdDiv">
+                                <select select2 name="CountryCode" class="form-control" ng-required="true" id="countryCode" ng-model="model.CountryCodeId"
+                                        ng-options="cc.Id as (cc.Name) for cc in countryCodes"></select>
+                            </div>
+                            <span ng-show="bankForm.CountryCode.$error.required && (bankForm.CountryCode.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Country Code is required!</small></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" ng-class="(bankCodeInvalid||bankForm.BankCode.$error.required)&& (bankForm.BankCode.$dirty || formSubmitted) ? 'has-error' : ''">
+
+                        <label class="control-label col-md-4" style="padding-left: 0px;">Bank Code<span class="required">*</span></label>
+                        <div class="col-md-4">
+                            <input type="text" ng-required="true" ng-model="model.BankCode" class="form-control" name="BankCode" id="bankCode" ng-change="bankCodeInvalid=false" />
+                            <span ng-show="bankForm.BankCode.$error.required && (bankForm.BankCode.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Bank Code is required!</small></span>
+                            <span ng-show="(bankCodeInvalid && !bankForm.BankCode.$error.required)  && (bankCodeInvalid || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Bank Code already exist!</small></span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" ng-class="(bankNameInvalid|| bankForm.BankName.$error.required)&& (bankForm.BankName.$dirty || formSubmitted) ? 'has-error' : ''">
+
+                        <label class="control-label col-md-4" style="padding-left: 0px;">Bank Name<span class="required">*</span></label>
+                        <div class="col-md-4">
+                            <input type="text" ng-required="true" ng-model="model.BankName" class="form-control" id="bankName" name="BankName" />
+                            <span ng-show="bankForm.BankName.$error.required && (bankForm.BankName.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Bank Name is required!</small></span>
+                            <span ng-show="bankNameInvalid && (bankNameInvalid || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Bank Name already exist!</small></span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" ng-class="swiftCodeInvalid&& (swiftCodeInvalid || formSubmitted) ? 'has-error' : ''">
+
+                        <label class="control-label col-md-4" style="padding-left: 0px;">BICSwift Code</label>
+                        <div class="col-md-4">
+                            <input type="text" ng-model="model.BICSwiftCode" id="swiftCode" class="form-control" name="BICSwiftCode" ng-change="swiftCodeInvalid=false" />
+                            <span ng-show="swiftCodeInvalid&& (swiftCodeInvalid|| formSubmitted)"
+                                  class="text-danger field-validation-error"><small>BICSwift Code already exist!</small></span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-md-4" style="padding-left: 0px;">Post Office</label>
+                        <div class="col-md-4">
+                            <div class="md-checkbox-inline">
+                                <div class="md-checkbox">
+                                    <input type="checkbox" class="md-check" ng-model="model.IsPostOffice"
+                                           id="postOfficeCb">
+                                    <label for="postOfficeCb">
+                                        <span class="inc"></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" ng-class="houseBankAccountNotExist&& (houseBankAccountNotExist || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label col-md-4" style="padding-left: 0px;">House Bank Account No</label>
+                        <div class="col-md-4">
+                            <div class="input-group" @*ng-class="(GLAccountNotExist || modalForm.AccountNo.$error.required) && (modalForm.AccountNo.$dirty || formSubmitted) ? 'has-error' : '' "*@>
+                                <input type="text" name="AccountNo" class="form-control" id="hbAccountNo" ng-model="accountNo" placeholder="Account No" ng-keydown="getHouseBankAccount(accountNo,false,$event)" />
+                                <span class="input-group-addon" style="cursor:pointer;background-color:#659BF4" ng-click="openHouseBankAccountModal()">
+                                    <span class="glyphicon glyphicon-search" style="color:White"></span>
+                                </span>
+                            </div>
+                            <span ng-show="houseBankAccountNotExist&& (houseBankAccountNotExist|| formSubmitted)"
+                                  class="text-danger field-validation-error"><small>House Bank Account doesn't exist!</small></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+
+                        <label class="control-label col-md-4" style="padding-left: 0px;">Branch</label>
+                        <div class="col-md-4">
+                            <input type="text" ng-model="branch" class="form-control" placeholder="Branch" readonly />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+
+                        <label class="control-label col-md-4" style="padding-left: 0px;">Next Check No.</label>
+                        <div class="col-md-4">
+                            <input type="text" ng-model="nextCheckNo" class="form-control" placeholder="Next Check No." readonly />
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--Actions -->
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <!--Actions -->
+                        <a href="" class="btn btn-success" style="width:90px;" ng-click="save()">
+                            <span class="glyphicon glyphicon-ok"></span> {{forUpdate ? 'Update':'Save'}}
+                        </a>
+                        <a href="" class="btn btn-default" style="width:90px;" ng-click="cancel()">
+                            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                        </a>
+                        <a href="#!/View" id="cancel"></a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</script>

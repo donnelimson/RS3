@@ -1,0 +1,55 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+<div class="table-responsive padding-bottom-20" style="overflow-x:auto;">
+    <table class="table table-bordered table-striped files ng-cloak">
+        <tr>
+            <th width="10%" class="table-header">TRANSACTION</th>
+            <th width="20%" class="table-header">REFERENCE NO.</th>
+            <th width="15%" class="table-header">DETAILS</th>
+
+            <th width="30%" class="table-header">REMARKS</th>
+            <th width="10%" class="table-header text-center">STATUS</th>
+            <th width="15%" class="table-header">DATE</th>
+        </tr>
+        <tr ng-repeat="item in d.DocumentHistories">
+            <td width="10%" class="text-left">
+                {{item.DocumentDescription}}
+            </td>
+            <td width="20%">
+                <span ng-show="item.CanView">
+                    <a ng-click="showDetails(item.Id,item.TransactionTypeId)">{{item.ReferenceNo}}</a>
+                </span>
+                <span ng-show="!item.CanView">
+                    {{item.ReferenceNo}}
+                </span>
+            </td>
+            <td width="15%">
+                {{item.Details}}
+            </td>
+            <td width="30%">
+                {{item.Remarks}}
+            </td>
+            <td width="10%" class="text-center">
+                <span class="label label-sm label-info ng-binding" ng-show="item.Status=='For Approval'">{{item.Status}}</span>
+                <span class="label label-sm label-info ng-binding" ng-show="item.Status=='Processing'">{{item.Status}}</span>
+                <span class="label label-sm label-info ng-binding" ng-show="item.Status=='Pending'">{{item.Status}}</span>
+                <span class="label label-sm label-danger ng-binding" ng-show="item.Status=='Rejected'">{{item.Status}}</span>
+                <span class="label success" ng-show="item.Status=='Approved'">{{item.Status}}</span>
+                <span class="label success" ng-show="item.Status=='In-Progress'">{{item.Status}}</span>
+                <span class="label success" ng-show="item.Status=='Processed'">{{item.Status}}</span>
+                <span class="label success" ng-show="item.Status=='Active'">{{item.Status}}</span>
+                <span class="label success" ng-show="item.Status=='Accomplished'">{{item.Status}}</span>
+                <span class="label label-sm label-warning ng-binding" ng-show="item.Status=='Disapproved'">{{item.Status}}</span>
+            </td>
+            <td width="15%" class="text-left">
+                {{item.CreatedOn | date : 'MM/dd/yyyy hh:mm a'}}
+            </td>
+        </tr>
+        <tr ng-show="d.DocumentHistories.length == 0">
+            <td colspan="10" class="text-center">
+                No data available
+            </td>
+        </tr>
+    </table>
+    @Html.Partial("~/Views/Shared/_ApprovalResultModal.cshtml")
+
+</div>

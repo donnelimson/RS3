@@ -1,0 +1,63 @@
+﻿<script type="text/ng-template" id="DetailsModal.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">×</span><span class="sr-only">Close Modal</span></button>
+
+        <h4 class="modal-title" id="modal-title" style="color:#67809f">Log Details</h4>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="row padding-bottom-10">
+            <div class="col-md-12">
+                <div class="col-md-7">
+                    <h6><b><span style="display: inline-block; width: 70px;">ID:</span></b>{{auditDetails.Id}}</h6>
+                </div>
+                <div class="col-md-2">
+                    <h6><b><span style="display: inline-block; width: 60px;">Thread: </span></b>{{auditDetails.Thread}}</h6>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-7">
+                    <h6><b><span style="display: inline-block; width: 70px;">Date: </span></b>{{auditDetails.Date | date : 'MM/dd/yyyy hh:mm a'}}</h6>
+                </div>
+                <div class="col-md-2">
+                    <h6 ng-show="auditDetails.Level=='DEBUG'">
+                        <b><span style="display: inline-block; width: 55px;">Level: </span></b>
+                        <span class="label label-sm label-default ng-binding">{{auditDetails.Level}}</span>
+                    </h6>
+                    <h6 ng-show="auditDetails.Level=='INFO'">
+                        <b><span style="display: inline-block; width: 55px;">Level: </span></b>
+                        <span class="label label-sm label-info ng-binding">{{auditDetails.Level}}</span>
+                    </h6>
+                    <h6 ng-show="auditDetails.Level=='ERROR'">
+                        <b><span style="display: inline-block; width: 55px;">Level: </span></b>
+                        <span class="label label-sm label-danger ng-binding">{{auditDetails.Level}}</span>
+                    </h6>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-7">
+                    <h6><b><span style="display: inline-block; width: 70px;">Activity Id: </span></b>{{auditDetails.ActivityId}}</h6>
+                </div>
+                <div class="col-md-5">
+                    <h6><b><span style="display: inline-block; width: 60px;">Logger: </span></b>{{auditDetails.Logger}}</h6>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-7">
+                    <h6><b><span style="display: inline-block; width: 70px;">User:</span></b>{{auditDetails.User}}</h6>
+                </div>
+                <div class="col-md-5" ng-hide="auditDetails.LogEventTitle == null || auditDetails.LogEventTitle == ''">
+                    <h6><b><span style="display: inline-block; width: 60px;">Event Title: </span></b>{{auditDetails.LogEventTitle}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="form-sub-title">Exception</h5>
+                <hr />
+            </div>
+        </div>
+        <div class="table-responsive padding-bottom-20" style="overflow-x:auto;">
+            <label>{{auditDetails.Exception}}</label>
+        </div>
+    </div>
+</script>

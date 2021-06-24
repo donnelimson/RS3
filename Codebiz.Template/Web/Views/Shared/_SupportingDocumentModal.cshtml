@@ -1,0 +1,21 @@
+﻿<script type="text/ng-template" id="_SupportingDocumentModal.html">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Edit Supporting Document(s)</h4>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div id="supportingDocuments" file-upload="options">
+            @Html.Partial("_SupportingDocumentForm")
+        </div>
+    </div>
+    <div class="modal-footer pull-left">
+        <div class="actions btn-set">
+            <button class="btn btn-success" ng-click="saveAttachments()">
+                <span class="glyphicon glyphicon-ok"></span>&nbsp;Update
+            </button>
+            <button class="btn btn-default" ng-click="cancelUpdateAttachments()">
+                <span class="glyphicon glyphicon-warning-sign"></span>&nbsp;Cancel
+            </button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</script>

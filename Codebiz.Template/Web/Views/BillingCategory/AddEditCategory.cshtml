@@ -1,0 +1,207 @@
+﻿
+@{
+    ViewBag.Title = "Categories";
+}
+
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="AddOrEditCategoryController as controller" ng-form="saveCategoryForm">
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>Management</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Billing</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Category")">Category</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+
+                <li>
+                    <span>Add, Edit, or Delete</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            Category  <small>Add, edit, delete billing category</small>
+        </h1>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="portlet light bordered">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 style="color:darkslateblue">Note: Drag and drop to rearrange the items.</h5>
+                </div>
+            </div>
+            <!--DATA TABLE -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive padding-bottom-50" style="overflow-x:hidden;">
+                        <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-left" style="color:#337AB7;"></th>
+                                    <th class="text-left" style="color:#337AB7;">CODE</th>
+                                    <th class="text-left" style="color:#337AB7;">NAME</th>
+                                    <th class="text-left" style="color:#337AB7;">DISPLAYED NAME</th>
+                                    <th class="text-left" style="color:#337AB7;">BILL</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-model="categories" ui-sortable style="cursor: move;">
+                                <tr ng-repeat="category in categories track by $index">
+                                    <td width="1%" header-class="'text-center'" class="text-center">
+                                        <!-- DELETE BUTTON-->
+                                        <button class="btn btn-xs btn-danger" ng-hide="category.IsEditing" ng-click="deleteRow($index)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                        <!-- CANCEL BUTTON-->
+                                        <button class="btn btn-xs btn-warning" ng-hide="!category.IsEditing" ng-click="cancelEditRow(category)">
+                                            <i class="fa fa-ban" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                    <td width="10%" ng-class="codeHasErrorInEdit ? 'has-error' : ''" ng-click="editRow($index)">
+                                        <span ng-hide="category.IsEditing">{{category.Code}}</span>
+
+                                        <input type="text" class="form-control"
+                                               focus-on="!!category.IsEditing " ng-show="category.IsEditing"
+                                               name="Code" ng-model="category.Code" ng-required="true"
+                                               ng-keypress="addWhenEnter($event, category)" maxlength="20" />
+
+                                        <span ng-show="codeHasErrorInEdit && category.IsEditing" class="text-danger field-validation-error">
+                                            <small ng-bind-html="codeMessageInEdit"></small>
+                                        </span>
+                                    </td>
+                                    <td width="25%" ng-class="nameHasErrorInEdit ? 'has-error' : ''" ng-click="editRow($index)">
+                                        <span ng-hide="category.IsEditing"> {{category.Name}}</span>
+
+                                        <input type="text" class="form-control"
+                                               ng-show="category.IsEditing" maxlength="300"
+                                               name="Name" ng-model="category.Name" ng-required="true"
+                                               ng-keypress="addWhenEnter($event, category)" />
+                                        <span ng-show="nameHasErrorInEdit && category.IsEditing" class="text-danger field-validation-error">
+                                            <small ng-bind-html="nameMessageInEdit"></small>
+                                        </span>
+                                    </td>
+
+                                    <td width="25%" ng-click="editRow($index)">
+                                        <span ng-hide="category.IsEditing">{{category.DisplayedName}}</span>
+
+                                        <input type="text" class="form-control"
+                                               ng-show="category.IsEditing" maxlength="300"
+                                               name="DisplayedName" ng-model="category.DisplayedName"
+                                               ng-keypress="addWhenEnter($event, category)" />
+                                    </td>
+                                    <td width="1%" header-class="'text-center'" class="text-center" ng-click="editRow($index)">
+                                        <span class="label label-sm" ng-class="category.IsBill ? 'label-success' : 'label-danger'" ng-hide="category.IsEditing">
+                                            {{category.IsBill ? 'Yes': 'No'}}
+                                        </span>
+
+                                        <div class="form-group form-mt-checkboxes" ng-show="category.IsEditing">
+                                            <label class="mt-checkbox mt-checkbox-outline" >
+                                                <input type="checkbox" name="name" ng-true-value="true"
+                                                       ng-false-value="false" ng-model="category.IsBill" />
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- CREATE NEW CATEGORY-->
+                            </tbody>
+                            <tfoot ng-hide="hideAddRows">
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <div ng-class="codeHasError ? 'has-error' : ''">
+                                            <input type="text"
+                                                   ng-model="emptyRow.Code"
+                                                   ng-keypress="addWhenEnter($event, emptyRow)"
+                                                   ng-required="true"
+                                                   class="form-control has-error"
+                                                   maxlength="20" placeholder="Code" alphanumeric-dash-only />
+                                            <span ng-show="codeHasError" class="text-danger field-validation-error">
+                                                <small ng-bind-html="codeMessage"></small>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-class="nameHasError ? 'has-error' : ''">
+                                            <input type="text"
+                                                   ng-model="emptyRow.Name"
+                                                   ng-keypress="addWhenEnter($event, emptyRow)"
+                                                   ng-required="true"
+                                                   class="form-control has-error"
+                                                   maxlength="300" placeholder="Name" />
+                                            <span ng-show="nameHasError"
+                                                  class="text-danger field-validation-error"><small ng-bind-html="nameMessage"></small></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <input type="text"
+                                                   ng-model="emptyRow.DisplayedName"
+                                                   ng-keypress="addWhenEnter($event, emptyRow)"
+                                                   class="form-control has-error"
+                                                   ng-required="true"
+                                                   maxlength="300" placeholder="Display Name" />
+                                        </div>
+                                    </td>
+                                    <td width="1%" header-class="'text-center'" class="text-center">
+                                        <label class="mt-checkbox mt-checkbox-outline">
+                                            <input type="checkbox" name="name"ng-true-value="true" 
+                                                   ng-false-value="false" ng-model="emptyRow.IsBill" />
+                                            <span></span>
+                                        </label>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-hide="hide">
+                <div class="col-md-12">
+                    <div class="form-actions">
+                        <!--Actions -->
+                        <button class="btn btn-success" style="width:90px;" ng-click="saveCategory()">
+                            <span class="glyphicon glyphicon-ok"></span> Save
+                        </button>
+                        <button class="btn btn-default" style="width:90px;" ng-click="cancel()">
+                            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section PageStyles {
+    <style>
+        .cursorText:hover {
+            cursor: text;
+        }
+    </style>
+
+    @Styles.Render("~/assets/global/scripts/datatables.min.css")
+    @Styles.Render("~/assets/global/scripts/select.dataTables.min.css")
+}
+
+@section PageScripts {
+    @Scripts.Render("~/assets/global/scripts/datatables.min.js")
+    @Scripts.Render("~/assets/global/scripts/dataTables.select.min.js")
+}
+
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/BillingCategory/BillingCategoryService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/BillingCategory/AddOrEditCategoryController.js")
+}

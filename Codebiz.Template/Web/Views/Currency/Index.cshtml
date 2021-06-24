@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Currency";
+}
+<div ng-app="MetronicApp" ng-controller="CurrencyController as controller">
+    <ng-view></ng-view>
+
+    @Html.Partial("_FinancialCurrencyTmpl")
+</div>
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/Currency/CurrencyService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Currency/CurrencyController.js")
+}
+<!-- END PAGE TITLE-->
+<!--SCRIPTS TABLE -->
+@section PageScripts {
+    <script>
+        (function () {
+
+            var app = angular.module('MetronicApp');
+            app.requires.push.apply(app.requires, ['ngRoute'])
+
+            app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+                $routeProvider
+                    .when('/New', {
+                        templateUrl: 'FinancialCurrencyAddOrEditTemplate.html',
+                        controller: 'AddOrUpdateCurrencyController',
+                        params: { isView: false }
+                    })
+                    .when('/Edit/:id', {
+                        templateUrl: 'FinancialCurrencyAddOrEditTemplate.html',
+                        controller: 'AddOrUpdateCurrencyController',
+                        params: { isView: false }
+                    })
+                    .when('/View/:id', {
+                        templateUrl: 'FinancialCurrencyAddOrEditTemplate.html',
+                        controller: 'AddOrUpdateCurrencyController',
+                        params: { isView: true }
+                    })
+                    .otherwise({
+                        templateUrl: 'FinancialCurrencyListTemplate.html',
+                    })
+
+                $locationProvider.html5Mode(false).hashPrefix('!');
+            }]);
+        }());
+
+
+
+        $(".js-example-placeholder-single").select2({
+            placeholder: "Select a state",
+            allowClear: true
+        });
+
+        $(document).ready(function () {
+            $(function () {
+                $('input[name="CreatedDate"]').daterangepicker({
+                    opens: 'left',
+                    autoUpdateInput: false
+                }, function (start, end, label) {
+                });
+            });
+            $('input[name="CreatedDate"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                $(this).trigger('change');
+            });
+
+            $('input[name="CreatedDate"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+                $(this).trigger('change');
+            });
+        });
+    </script>
+}

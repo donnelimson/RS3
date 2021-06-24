@@ -1,0 +1,263 @@
+﻿
+@{
+    ViewBag.Title = "Add or Update - Office";
+}
+
+
+<div class="row" ng-app="MetronicApp" ng-controller="OfficeAddUpdateController as controller">
+    <div class="col-md-12">
+
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>
+                        Management
+                    </span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Office")">
+                        Office
+                    </a>
+                    <i class="fa fa-circle"></i>
+                </li>
+
+                <li>
+                    <span>{{addOrEdit}}</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            Office  <small>{{addOrEdit}} Office</small>
+        </h1>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12" ng-form="saveOfficeForm">
+                <div class="portlet light bordered">
+                    <div class="portlet-body">
+                        @Html.Hidden("OfficeId")
+                        <div class="form-body">
+                            <!--Modal Body Content -->
+                            <div class="row">
+                                <!--Code Textbox -->
+                                <div class="col-md-4">
+                                    <div class="form-group" ng-class="saveOfficeForm.Code.$invalid && (saveOfficeForm.Code.$dirty || formSubmitted) ? 'has-error' : ''">
+                                        <label class="control-label">Code</label><span class="required"> * </span>
+                                        <input type="text" class="form-control" name="Code" ng-model="office.Code" ng-required="true" tabindex="1" maxlength="100" alphanumeric-dash-only />
+                                        <span color="red" ng-show="saveOfficeForm.Code.$error.required && ( saveOfficeForm.Code.$dirty || formSubmitted)" class="text-danger
+                                        field-validation-error"><small>Code is required.</small><br /></span>
+                                    </div>
+                                </div>
+                                <!--Name Textbox -->
+                                <div class="col-md-8">
+                                    <div class="form-group" ng-class="saveOfficeForm.Name.$invalid && (saveOfficeForm.Name.$dirty || formSubmitted) ? 'has-error' : ''">
+                                        <label class="control-label">Name</label><span class="required"> * </span>
+                                        <input type="text" class="form-control" name="Name" ng-model="office.Name" ng-required="true" tabindex="1" maxlength="100" alphanumeric-dash-only />
+                                        <span color="red" ng-show="saveOfficeForm.Name.$error.required && (saveOfficeForm.Name.$dirty || formSubmitted)" class="text-danger
+                                         field-validation-error"><small>Name is required.</small></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form--md-checkboxes" ng-hide="isCheck">
+                                        <div class="md-checkbox-inline">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="isActive" class="md-check" name="IsMainOffice"
+                                                       ng-model="office.IsMainOffice"
+                                                       ng-true-value="true"
+                                                       ng-false-value="false"
+                                                       ng-checked="isCheck"
+                                                       ng-click="checkIfHasMainOffice(HasMainOffice,office.IsMainOffice)"
+                                                       ng-disabled="IsDetails" />
+                                                <label for="isActive">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                    Main Office
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 class="form-sub-title">Address</h5>
+                            <hr>
+                            <!--Block Lot Number Textbox -->
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Blk & Lot Number</label>
+                                        <input type="text" class="form-control" name="BlkLotNo" ng-model="office.BlkLotNo" tabindex="1" maxlength="100" alpha-slash-dash-only />
+                                    </div>
+                                </div>
+                                <!--Street name Textbox -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Street Name</label>
+                                        <input type="text" class="form-control" name="Street" ng-model="office.Street" tabindex="1" maxlength="100" alpha-slash-dash-only />
+                                    </div>
+                                </div>
+                                <!--Province List -->
+                                <div class="col-md-3">
+                                    <div class="form-group" ng-class="saveOfficeForm.ProvinceId.$invalid && (formSubmitted) ? 'has-error' : ''">
+                                        <label class="control-label">Province</label><span class="required"> * </span>
+                                        <div id="ProvinceIdDiv">
+                                            <select select2 name="ProvinceId" class="form-control" ng-required="true" ng-model="office.ProvinceId"
+                                                    ng-change="GetCityTown()" tabindex="1"
+                                                    ng-options="province.ProvinceId as (province.Name) for province in provinces">
+                                                <option value="">---Please select---</option>
+                                            </select>
+                                        </div>
+                                        <span color="red" ng-show="saveOfficeForm.ProvinceId.$invalid && (formSubmitted)" class="text-danger field-validation-error">
+                                            <small>Province is required</small>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!--City Town List -->
+                                <div class="col-md-3">
+                                    <div class="form-group" ng-class="saveOfficeForm.CityTownId.$invalid &&  formSubmitted ? 'has-error' : ''">
+                                        <label class="control-label">Municipality</label><span class="required"> * </span>
+                                        <div id="CityTownIdDiv">
+                                            <select select2 name="CityTownId" class="form-control" ng-required="true" ng-model="office.CityTownId"
+                                                    ng-change="GetBarangay()" tabindex="1"
+                                                    ng-options="city.CityTownId as (city.Name) for city in cityTowns">
+                                                <option value="">---Please select---</option>
+                                            </select>
+                                        </div>
+                                        <span color="red" ng-show="saveOfficeForm.CityTownId.$invalid &&  formSubmitted" class="text-danger field-validation-error">
+                                            <small>Municipality is required</small>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!--Barangay List -->
+                                <div class="col-md-3">
+                                    <div class="form-group" ng-class="saveOfficeForm.BarangayId.$invalid && (saveOfficeForm.BarangayId.$dirty || formSubmitted) ? 'has-error' : ''">
+                                        <label class="control-label">Barangay</label><span class="required"> * </span>
+                                        <div id="BarangayIdDiv">
+                                            <select select2 name="BarangayId" class="form-control" ng-required="true" ng-model="office.BarangayId"
+                                                    ng-change="GetPurok(); GetSitio()" tabindex="1"
+                                                    ng-options="barangay.BarangayId as (barangay.Name) for barangay in barangays">
+                                                <option value="">---Please select---</option>
+                                            </select>
+                                        </div>
+                                        <span color="red" ng-show="saveOfficeForm.BarangayId.$invalid && (saveOfficeForm.BarangayId.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                                            <small>Barangay is required</small>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!--Purok List -->
+                                <div class="col-md-3">
+                                    <label class="control-label">Purok</label>
+                                    <div id="PurokIdDiv">
+                                        <select select2 name="PurokId" class="form-control" ng-model="office.PurokId"
+                                                tabindex="1" ng-options="purok.PurokId as (purok.Name) for purok in puroks">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--Sitio List -->
+                                <div class="col-md-3">
+                                    <label class="control-label">Sitio</label>
+                                    <div id="SitioIdDiv">
+                                        <select select2 name="SitioId" class="form-control"
+                                                ng-model="office.SitioId" tabindex="1"
+                                                ng-options="sitio.SitioId as (sitio.Name) for sitio in sitios">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="form-sub-title">Departments</h5>
+                                    <span color="red" ng-show="departmentHasError" class="text-danger
+                                         field-validation-error">Departments are required.</span>
+                                    <hr />
+                                    <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" name="departments" id="departments">
+                                        <table ng-table="tableParams" ng-class="departmentHasError ? 'has-error' : ''"
+                                               class="table table-sm table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr ng-repeat="data in office.DepartmentData track by $index">
+                                                    <td width="1%" header-class="'text-center'" class="text-center">
+                                                        <!-- DELETE BUTTON-->
+                                                        <button class="btn btn-xs btn-danger" ng-hide="data.IsEditing" ng-click="deleteRow($index)">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td ng-class="departmentHasErrorInEdit ? 'has-error' : ''" ng-click="editRow($index)">
+                                                        <span ng-hide="data.IsEditing">{{data.Department.Name}}</span>
+                                                        <div ng-show="data.IsEditing">
+                                                            <select select2 class="form-control has-error"
+                                                                    name="department" id="department"
+                                                                    ng-required="true" ng-model="data.Department.DepartmentId"
+                                                                    ng-change="addWhenChange(data)"
+                                                                    ng-options="d.DepartmentId as d.Name for d in data.departments">
+                                                                <option value="">---Please select---</option>
+                                                            </select>
+                                                            <span ng-show="departmentHasErrorInEdit && data.IsEditing" class="text-danger field-validation-error">
+                                                                <small ng-bind-html="departmentMessageInEdit"></small>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <!-- CREATE NEW CATEGORY-->
+                                                <tr ng-show="!hideAddRows">
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                        <div ng-class="departmentHasError ? 'has-error' : ''" id="emptyRowDepartmentDiv">
+                                                            <select select2 class="form-control has-error" name="emptyRowDepartment" id="emptyRowDepartment"
+                                                                    ng-model="emptyRow.Department"
+                                                                    ng-change="addWhenChange(emptyRow)"
+                                                                    ng-options="d as d.Name for d in emptyRow.departments">
+                                                                <option value="">---Please select---</option>
+                                                            </select>
+                                                            <span ng-show="departmentHasError" class="text-danger field-validation-error">
+                                                                <small ng-bind-html="departmentMessage"></small>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-left">
+                                        <!--Actions -->
+                                        <button class="btn btn-success" style="width:90px;" tabindex="1" ng-click="saveOffice()">
+                                            <span class="glyphicon glyphicon-ok"></span> {{isUpdate ? 'Update' : 'Save'}}
+                                        </button>
+                                        <button class="btn btn-default" style="width:90px;" tabindex="1" ng-click="cancel()">
+                                            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                                        </button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section AngularJSPage {
+    @Scripts.Render("~/Scripts/App/Services/Office/OfficeService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Office/OfficeAddUpdateController.js")
+}
+

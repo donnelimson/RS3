@@ -1,0 +1,110 @@
+﻿<script type="text/ng-template" id="DivisionSaveTmpl.html">
+    <div class="row">
+        <div class="col-md-12" ng-controller="DivisionAddUpdateController as controller">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN PAGE BAR -->
+                    <div class="page-bar">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <span>
+                                    Management
+                                </span>
+                                <i class="fa fa-circle"></i>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Division")">Division</a>
+                                <i class="fa fa-circle"></i>
+                            </li>
+                            <li>
+                                <span>{{addEditOrView}}</span>
+                            </li>
+                        </ul>
+                        <div class="page-toolbar">
+                            <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+                        </div>
+                    </div>
+                    <!-- END PAGE BAR -->
+                    <!-- BEGIN PAGE TITLE-->
+                    <h1 class="page-title">
+                        Division  <small>{{addEditOrView}} division</small>
+                    </h1>
+                    <!-- END PAGE TITLE-->
+                    <!-- END PAGE HEADER-->
+                    <div class="row">
+                        <div class="col-md-12 loading-container" loading-container="isDataLoading" ng-form="saveDivisionForm">
+                            <div class="portlet light bordered">
+                                <div class="portlet-body form-horizontal">
+                                    @Html.Hidden("DivisionId")
+                                    <!--Modal Body Content -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group" ng-class="saveDivisionForm.Code.$invalid && (saveDivisionForm.Code.$dirty || formSubmitted) ? 'has-error' : ''">
+                                                <div class="col-md-3">
+                                                </div>
+                                                <label class="control-label col-md-1 text-left" style="min-width:110px;">
+                                                    Code<span ng-hide="IsView" class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <input ng-disabled="IsView" type="text" class="form-control" name="Code" ng-model="division.DivisionCode" ng-required="true" tabindex="1" maxlength="20" alpha-slash-dash-only />
+                                                    <span color="red"
+                                                          ng-show="saveDivisionForm.Code.$error.required && (saveDivisionForm.Code.$dirty || formSubmitted)"
+                                                          class="text-danger field-validation-error"><small>Code is required.</small><br /></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-class="saveDivisionForm.DivisionName.$invalid && (saveDivisionForm.DivisionName.$dirty || formSubmitted) ? 'has-error' : ''">
+                                                <div class="col-md-3">
+                                                </div>
+                                                <label class="control-label col-md-1 text-left" style="min-width:110px;">
+                                                    Name<span ng-hide="IsView" class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <input ng-disabled="IsView" type="text" class="form-control" name="DivisionName" ng-model="division.DivisionName" ng-required="true" tabindex="1" maxlength="300" alphanumeric-slash-dash-only />
+                                                    <span color="red"
+                                                          ng-show="saveDivisionForm.DivisionName.$error.required && (saveDivisionForm.DivisionName.$dirty || formSubmitted)"
+                                                          class="text-danger field-validation-error"><small>Name is required.</small><br /></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                </div>
+                                                <label class="control-label col-md-1 text-left" style="min-width:110px;">Category</label>
+                                                <div class="col-md-5">
+                                                    <select select2
+                                                            id="CategoryIds"
+                                                            class="form-control select2 select2-hidden-accessible select2-multiple"
+                                                            multiple
+                                                            ng-disabled="IsView"
+                                                            name="CategoryIds"
+                                                            ng-model="division.CategoryIds"
+                                                            ng-options="item.Id as (item.Description) for item in categories">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div ng-hide="IsView" class="row">
+                                        <div class="col-md-12" style="padding-left:4px">
+                                            <div class="col-md-3"></div>
+                                            <div class="pull-left col-md-9">
+                                                <!--Actions -->
+                                                <button class="btn btn-success" ng-click="saveDivision()">
+                                                    <span class="glyphicon glyphicon-ok"></span> {{saveOrUpdate}}
+                                                </button>
+                                                <button class="btn btn-default" ng-click="cancel()">
+                                                    <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#!/View" id="cancel"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

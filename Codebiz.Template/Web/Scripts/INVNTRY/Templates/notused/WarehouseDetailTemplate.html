@@ -1,0 +1,123 @@
+﻿<div class="row">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <h4 class="bold">Warehouse</h4>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <form class="form-horizontal">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <label class="control-label">Code</label>
+                                    <input type="text" name="Name" class="form-control" autocomplete="off"
+                                        maxlength="50" ng-model="WhsCode" alphanumeric-dash-only>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="control-label">Name</label>
+                                    <input type="text" name="Description" class="form-control" autocomplete="off"
+                                        maxlength="100" ng-model="WhsName" alphanumeric-dash-only>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="tabbable-line">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#whsTab0" data-toggle="tab" target="_self">General Setup</a>
+                                        </li>
+                                        <li>
+                                            <a href="#whsTab1" data-toggle="tab" target="_self">Accounting Setup</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content clearfix">
+                                        <div class="tab-pane active" id="whsTab0">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label for="" class="control-label">Street/POBox</label>
+                                                                <input type="text" class="form-control" />
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="" class="control-label">Street No.</label>
+                                                                <input type="text" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label for="" class="control-label">Block</label>
+                                                                <input type="text" class="form-control" />
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="" class="control-label">Building</label>
+                                                                <input type="text" class="form-control" />
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="" class="control-label">Zip Code</label>
+                                                                <input type="text" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label for="" class="control-label">City</label>
+                                                                <input type="text" class="form-control" />
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="" class="control-label">County</label>
+                                                                <input type="text" class="form-control" />
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="" class="control-label">Country</label>
+                                                                <input type="text" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="whsTab1">
+                                            <table
+                                                class="table table-bordered table-striped table-hover table-condensed">
+                                                <thead>
+                                                    <tr>
+                                                        <td>#</td>
+                                                        <td>Account Code</td>
+                                                        <td>Account Name</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="portlet light bordered">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4">
+                        <div class="form-action">
+                            <div class="actions btn-set">
+                                <button class="btn btn-success" style="width: 90px;" ng-click="">
+                                    <span class="glyphicon glyphicon-ok"></span>&nbsp; Save
+                                </button>
+                                <button class="btn btn-default" style="width: 90px;">
+                                    <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

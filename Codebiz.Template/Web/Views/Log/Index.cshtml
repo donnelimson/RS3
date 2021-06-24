@@ -1,0 +1,289 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+@{
+    ViewBag.Title = "Audit Logs";
+}
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>Admin</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Log")">Audit Logs</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Audit Logs  <small>view or search audit logs</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="AuditLogsController as controller" ng-form="addDepartmentForm">
+
+        <!-- BEGIN PORTLET -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET -->
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <h4 class="bold">Search</h4>
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="expand"> </a>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                    <div class="portlet-body tabs-below" style="display: none;">
+                        <!--SEARCH TABLE -->
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">Activity Id</label>
+                                    <input type="text" name="ActivityId" ng-model="ActivityId" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">User</label>
+                                    <input type="text" name="User" ng-model="User" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">Thread</label>
+                                    <input type="text" name="Thread" ng-model="Thread" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">Level</label>
+                                    <input type="text" name="Level" ng-model="Level" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">Logger</label>
+                                    <input type="text" name="Logger" ng-model="Logger" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">Event Titles</label>
+                                    <select select2 name="Relationship" id="EventTitles"
+                                            ng-model="eventTitle" ng-options="e.Id as (e.Description) for e in eventTitles"
+                                            ng-change="search()">
+                                        <option value="">---Please select---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">Message</label>
+                                    <input type="text" name="Message" ng-model="Message" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">Exception</label>
+                                    <input type="text" name="Exception" ng-model="Exception" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--CREATED DATE SEARCH DATE PICKER -->
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">Created Date</label>
+                                    <div class='input-group date'>
+                                        <input type="text" name="CreatedDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                               is-open="createdOnDatePicker.opened" close-text="Close"
+                                               id="drp" ng-model="createdDate" ng-click="openCreatedOnDatePicker()" ng-change="search()" readonly>
+                                        <span class="input-group-addon" onclick="$('#drp').focus()">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- BUTTONS -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="actions btn-set btn-filter">
+                                    <button type="button" class="btn btn-success" ng-click="search()">
+                                        <i class="fa fa-search"></i>
+                                        <span class=""> Search </span>
+                                    </button>
+                                    <button type="button" class="btn" ng-click="reset()">
+                                        <i class="fa fa-rotate-left"></i>
+                                        <span class=""> Reset </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET -->
+            </div>
+        </div>
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    List
+                </div>
+            </div>
+            <!--DATA TABLE -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                        <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover @Html.UserHasPermission(userPermission: PermissionData.UserCanAuditViewLogs)">
+                            <tr ng-repeat="item in $data">
+                                <!--ACTION BUTTONS -->
+                                <td width="1%" header-class="'text-center'" class="text-center">
+                                    <div class="btn-group">
+                                        <button id="bars" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanAuditViewLogs)>
+                                                <a ng-click="openAuditLogDetails(item.Id)">
+                                                    <i class="fa fa-eye"></i> View
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="1%" data-title="'ID'" sortable="'ID'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.Id}}
+                                </td>
+                                <td width="5%" data-title="'DATE'" sortable="'Date'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.Date | date : 'MM/dd/yyyy hh:mm a'}}
+                                </td>
+                                <td width="4%" data-title="'ACTIVITY ID'" sortable="'ActivityId'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.ActivityId}}
+                                </td>
+                                <td width="1%" data-title="'USER'" sortable="'User'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.User}}
+                                </td>
+                                <td width="2%" data-title="'THREAD'" sortable="'Thread'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.Thread}}
+                                </td>
+                                <td width="2%" data-title="'LEVEL'" sortable="'Level'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.Level}}
+                                </td>
+                                <td width="1%" data-title="'LOGGER'" sortable="'Logger'" header-class="'table-header text-left'" class="text-left">
+                                    <span uib-popover popover-trigger="mouseenter" popover-placement="left" uib-popover-template="'tpl.html'" data-content="{{item.Logger}}">{{item.Logger}}</span>
+                                </td>
+                                <td width="4%" data-title="'EVENT TITLE'" sortable="'LogEventTitle'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.LogEventTitle}}
+                                </td>
+                                <td width="5%" data-title="'MESSAGE'" header-class="'table-header text-left'" class="text-left" style="max-height:40px">
+                                    <span ib-popover popover-trigger="mouseenter" popover-placement="left" uib-popover-template="'tpls.html'" ng-show="item.Message.length<400">{{item.Message.length >=400 ? item.Message.substring(240,0)+'...' : item.Message}}</span>
+                                    <span>{{item.Message.length >=400 ? item.Message.substring(240,0)+'...' : ''}}</span>
+                                    <a ng-show="item.Message.length>=400" ng-click="seeMore(item.Changes)">See more</a>
+                                </td>
+                                <td width="1%" data-title="'ATTACHMENTS'" sortable="'Attachments'" header-class="'table-header text-left'" class="text-left">
+                                    <div ng-repeat="file in item.FileNames[0]">
+                                        <a ng-click="filePreview(item.FileUploads[0][$index], file)">{{file}}</a>
+                                    </div>
+                                    @*<a ng-click="filePreview(item.FileUploadAttachments, item.Attachments)">{{item.Attachments}}</a>*@
+                                </td>
+                                <td width="1%" data-title="'EXCEPTION'" sortable="'Exception'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.Exception}}
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length == 0">
+                                <td colspan="12" class="text-center" style="font-style:unset">
+                                    No data available
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <script type="text/ng-template" id="tpl.html">
+                <div class="popover-content col-md-12">
+                    <span> {{item.Logger}}</span>
+                </div>
+            </script>
+            <script type="text/ng-template" id="tpls.html">
+                <div class="popover-content col-md-12">
+                    @*<div ng-repeat="changes in item.ChangesLog[0] track by $index" ng-if="item.Changes!=null">
+                    <span>{{changes}}</span>
+                </div>
+                 <div ng-if="item.Changes==null">
+                     <span>{{item.Message}}</span>
+                 </div>*@
+                    <span>{{item.Message}}</span>
+                </div>
+            </script>
+            @Html.Partial("_DetailsModal")
+            @Html.Partial("_SeeMoreView")
+            @Html.Partial("~/Views/Shared/_SupportingDocumentsPreviewModal.cshtml")
+        </div>
+    </div>
+</div>
+<!--SCRIPTS TABLE -->
+@section PageScripts {
+    <style>
+        .popover-content {
+            word-break: break-all;
+            display: table-cell;
+            vertical-align: middle;
+            overflow-y: visible;
+            width: auto;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $(function () {
+                $('input[name="CreatedDate"]').daterangepicker({
+                    opens: 'left',
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                }, function (start, end, label) {
+                });
+            });
+
+            $('[data-toggle="popover"]').popover();
+
+            $('input[name="CreatedDate"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                $(this).trigger('change');
+            });
+
+            $('input[name="CreatedDate"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+                $(this).trigger('change');
+            });
+        });
+
+
+    </script>
+}
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/ng-table.js")
+    @Scripts.Render("~/Scripts/App/Services/AuditLogsServices.js")
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/AuditLogsController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/AuditLogDetailsController.js")
+    <script src="~/Scripts/App/Controllers/SupportingDocumentsPreviewController.js"></script>
+
+}

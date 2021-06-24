@@ -1,0 +1,73 @@
+﻿<script type="text/ng-template" id="AddOrUpdateModal.html">
+    <!--Modal Head-->
+    <div class="modal-header">
+        <h4 class="form-sub-title">{{isUpdate ? 'Edit' : 'Add'}} Lifeline Subsidy</h4>
+    </div>
+    <!--Modal Body-->
+    <div id="modal-body" class="modal-body" ng-form="addOrUpdateForm">
+        <div class="form-body">
+            <!--Modal Body Content -->
+            <div class="row">
+                <!--Code Textbox -->
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="addOrUpdateForm.Code.$invalid && (addOrUpdateForm.Code.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label">Code</label><span class="required"> * </span>
+                        <input type="text" class="form-control" name="Code" ng-model="data.Code" ng-required="true" maxlength="100" alpha-slash-dash-only />
+                        <span color="red" ng-show="addOrUpdateForm.Code.$error.required && (addOrUpdateForm.Code.$dirty || formSubmitted)" class="text-danger
+                                        field-validation-error"><small>Code is required.</small></span>
+                    </div>
+                </div>
+            </div>
+            <!--Range Textbox -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="addOrUpdateForm.Minimum.$invalid && (addOrUpdateForm.Minimum.$dirty || formSubmitted) ||
+                         addOrUpdateForm.Maximum.$invalid && (addOrUpdateForm.Maximum.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label">Range</label><span class="required"> * </span>
+                        <div class="input-group">
+                            <input type="text" name="Minimum" ng-model="data.Minimum" ng-keypress="searchWhenEnter($event)" class="form-control text-right"
+                                   placeholder="Minimum" ng-required="true" maxlength="100" alpha-slash-dash-only />
+                            <span class="input-group-addon">-</span>
+                            <input type="text" name="Maximum" ng-model="data.Maximum" ng-keypress="searchWhenEnter($event)" class="form-control text-right"
+                                   placeholder="Maximum" ng-required="true"  maxlength="100" alpha-slash-dash-only />
+                        </div>
+                        <span color="red" ng-show="addOrUpdateForm.Minimum.$error.required && (addOrUpdateForm.Minimum.$dirty || formSubmitted) ||
+                                  addOrUpdateForm.Maximum.$error.required && (addOrUpdateForm.Maximum.$dirty || formSubmitted)" class="text-danger
+                                        field-validation-error"><small>Range is required.</small></span>
+                    </div>
+                </div>
+            </div>
+            <!--Discount Textbox -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="addOrUpdateForm.Discount.$invalid && (addOrUpdateForm.Discount.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="control-label">Discount(%)</label><span class="required"> * </span>
+                        <input type="text" 
+                               class="form-control" 
+                               name="Discount" 
+                               ng-model="data.Discount" 
+                               ng-required="true"  
+                               maxlength="5"
+                               ng-blur="roundOff(data.Discount)"
+                               numbers-decimal-only />
+                        <span color="red" ng-show="addOrUpdateForm.Discount.$error.required && (addOrUpdateForm.Discount.$dirty || formSubmitted)" class="text-danger
+                                        field-validation-error"><small>Discount is required.</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Footer-->
+    <div class="modal-footer pull-left">
+        <div class="form-actions">
+            <!--Actions -->
+            <button class="btn btn-success" style="width:90px;" ng-click="saveData()">
+                <span class="glyphicon glyphicon-ok"></span> {{isUpdate ? 'Update' : 'Save'}}
+            </button>
+            <button class="btn btn-default" style="width:90px;" ng-click="cancel()">
+                <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+            </button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</script>

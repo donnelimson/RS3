@@ -1,0 +1,667 @@
+GLAccountID	AcctCode	AcctName	AcctNameForeign	AcctType	ExternalCode	Level	Protected	Postable	GroupMask	FatherCode	LockManTran	Segment_0	Segment_1	Segment_2	Segment_3	Segment_4	Segment_5	Segment_6	Segment_7	Segment_8	Segment_9	Segment_10	Segment_11	Segment_12	Segment_13	Segment_14	Segment_15	SourceTran	CategoryID	Inactive	InactiveFrom	InactiveTo	Valid	ValidFrom	ValidTo	Datasource	LogIntance	CreatedBy	CreatedDate	UpdatedBy	UpdatedDate	UpdatedBy	UpdatedDate
+GLAccountID	AcctCode	AcctName	AcctNameForeign	AcctType	ExternalCode	Level	Protected	Postable	GroupMask	FatherCode	LockManTran	Segment_0	Segment_1	Segment_2	Segment_3	Segment_4	Segment_5	Segment_6	Segment_7	Segment_8	Segment_9	Segment_10	Segment_11	Segment_12	Segment_13	Segment_14	Segment_15	SourceTran	CategoryID	Inactive	InactiveFrom	InactiveTo	Valid	ValidFrom	ValidTo	Datasource	LogIntance	CreatedBy	CreatedDate	UpdatedBy	UpdatedDate	UpdatedBy	UpdatedDate
+	10000000000	ASSETS				1		N	1																																		
+	11000000000	NON CURRENT ASSETS				2		N	1	10000000000																																	
+	11100000000	Distribution Utility Plant and  Equipment (Regular)				3		N	1	11000000000																																	
+	11110100000	Distribution Utility Plant and  Equipment In Service				4		N	1	11100000000																																	
+	11110110000	"Land, Land Rights and Improvements"				5		Y	1	11110100000																																	
+	11110111000	Building				5		Y	1	11110100000																																	
+	11110112000	Structures and Improvements				5		Y	1	11110100000																																	
+	11110113000	Station EquipmentXXXXXAA				5		Y	1	11110100000																																	
+	11110114000	"Poles, Towers and Fixtures"				5		Y	1	11110100000																																	
+	11110115000	Overhead Conductors and Devices				5		Y	1	11110100000																																	
+	11110116000	Underground Conduit/Raceways				5		Y	1	11110100000																																	
+	11110117000	Underground Conduit and Devices				5		Y	1	11110100000																																	
+	11110118000	Distribution Line Transformers and Circuit Reclosers				5		Y	1	11110100000																																	
+	11110119000	Power Conditioning Equipment				5		Y	1	11110100000																																	
+	11110120000	Regulated Entity Property on Consumers' Premises				5		Y	1	11110100000																																	
+	11110121000	Street Lights  and Signal Systems				5		Y	1	11110100000																																	
+	11110122000	Submarine Cable System				5		Y	1	11110100000																																	
+	11110123000	Service Drop Wires & Equipment				5		Y	1	11110100000																																	
+	11110124000	"Meters, Metering Equipments, and Metering Transformers"				5		Y	1	11110100000																																	
+	11110125000	Office Furniture and Equipment				5		Y	1	11110100000																																	
+	11110126000	Transportation Equipment				5		Y	1	11110100000																																	
+	11110127000	"Tools, Shop, Safety Gadgets, & Garage/Motorpool Equipment"				5		Y	1	11110100000																																	
+	11110128000	Laboratory and Testing Equipment				5		Y	1	11110100000																																	
+	11110129000	Information Systems and Related Equipment				5		Y	1	11110100000																																	
+	11110130000	Power Operated Equipment				5		Y	1	11110100000																																	
+	11110131000	Communication Equipment				5		Y	1	11110100000																																	
+	11110132000	Miscellaneous Equipment and Other Assets				5		Y	1	11110100000																																	
+	11110133000	Electric Plant Purchased				5		Y	1	11110100000																																	
+	11110134000	69 kv Lines				5		Y	1	11110100000																																	
+	11110200000	Distribution Utility Plant and Equipment Not Yet In Service				4		N	1	11100000000																																	
+	11110210000	Distribution Construction Work In Progress (CWIP)				5		Y	1	11110200000																																	
+	11110210001	0				5		Y	1	11110200000																																	
+	11110210002	0				5		Y	1	11110200000																																	
+	11110211000	Dist Electric Plant and Equipment Held for Future use				5		Y	1	11110200000																																	
+	11110300000	Distribution Utility Plant & Equipment- Appraisal Increase				4		N	1	11100000000																																	
+	11110400000	Accumulated Depreciation- Dist. Utility Plant and Equipment				4		N	1	11100000000																																	
+	11110410000	Accum Depr - Building				5		Y	1	11110400000																																	
+	11110411000	Accum Depr - Structures and Improvements				5		Y	1	11110400000																																	
+	11110412000	Accum Depr - Station Equipment				5		Y	1	11110400000																																	
+	11110413000	"Accum Depr - Poles, Towers, & Fixtures"				5		Y	1	11110400000																																	
+	11110414000	Accum Depr - Overhead Conductors & Devices				5		Y	1	11110400000																																	
+	11110415000	Accum Depr - Underground Conduit/Raceways				5		Y	1	11110400000																																	
+	11110416000	Accum Depr - Underground Conduit & Devices				5		Y	1	11110400000																																	
+	11110417000	Accum Depr- Dist Line Transf and Circuit Reclosers				5		Y	1	11110400000																																	
+	11110418000	Accum Depr - Power Conditioning Equipment				5		Y	1	11110400000																																	
+	11110419000	Accum Depr - Regulated Entity Property on Cons Premises				5		Y	1	11110400000																																	
+	11110420000	Accum Depr - St Lights & Signal System				5		Y	1	11110400000																																	
+	11110421000	Accum Depr - Submarine Cable System				5		Y	1	11110400000																																	
+	11110422000	Accum Depr - Service Dropping				5		Y	1	11110400000																																	
+	11110423000	"Accum Depr - Meters, Metering Equip, Metering Transf"				5		Y	1	11110400000																																	
+	11110424000	Accum Depr - Office Furniture & Equipment				5		Y	1	11110400000																																	
+	11110425000	Accum Depr - Transportation Equipment				5		Y	1	11110400000																																	
+	11110426000	"Accum Depr- Tools, Shop, Safety Gadgets, Garage/Motorpl Equip"				5		Y	1	11110400000																																	
+	11110427000	Accum Depr - Laboratory & Testing Equipment				5		Y	1	11110400000																																	
+	11110428000	Accum Depr - Information Systems and Related Equipment				5		Y	1	11110400000																																	
+	11110429000	Accum Depr - Power Operated Equipment				5		Y	1	11110400000																																	
+	11110430000	Accum Depr - Communication Equipment				5		Y	1	11110400000																																	
+	11110431000	Accum Depr - Misc equipment & Other Assets				5		Y	1	11110400000																																	
+	11110432000	Accum Depr - Electric Plant Purchased				5		Y	1	11110400000																																	
+	11110433000	Accum Depr - 69 kv Lines				5		Y	1	11110400000																																	
+	11110500000	Accum Depr - Utility Plant In Service Held for Future Use				4		N	1	11100000000																																	
+	11110600000	Accum Depr - Utility Plant In Service- Appraisal Increase				4		N	1	11100000000																																	
+	11110700000	Distribution Utility Plant and  Equipment In Service - SFP				4		N	1	11100000000																																	
+	11110710000	"Land, Land Rights and Improvements"				5		Y	1	11110700000																																	
+	11110711000	Building				5		Y	1	11110700000																																	
+	11110712000	Structures and Improvements				5		Y	1	11110700000																																	
+	11110713000	Station Equipment				5		Y	1	11110700000																																	
+	11110714000	"Poles, Towers and Fixtures"				5		Y	1	11110700000																																	
+	11110715000	Overhead Conductors and Devices				5		Y	1	11110700000																																	
+	11110716000	Underground Conduit/Raceways				5		Y	1	11110700000																																	
+	11110717000	Underground Conduit and Devices				5		Y	1	11110700000																																	
+	11110718000	Distribution Line Transformers and Circuit Reclosers				5		Y	1	11110700000																																	
+	11110719000	Power Conditioning Equipment				5		Y	1	11110700000																																	
+	11110720000	Regulated Entity Property on Consumers' Premises				5		Y	1	11110700000																																	
+	11110721000	Street Lights  and Signal Systems				5		Y	1	11110700000																																	
+	11110722000	Submarine Cable System				5		Y	1	11110700000																																	
+	11110723000	Service Drop Wires & Equipment				5		Y	1	11110700000																																	
+	11110724000	"Meters, Metering Equipments, and Metering Transformers"				5		Y	1	11110700000																																	
+	11110725000	Office Furniture and Equipment				5		Y	1	11110700000																																	
+	11110726000	Transportation Equipment				5		Y	1	11110700000																																	
+	11110727000	"Tools, Shop, Safety Gadgets, & Garage/Motorpool Equipment"				5		Y	1	11110700000																																	
+	11110728000	Laboratory and Testing Equipment				5		Y	1	11110700000																																	
+	11110729000	Information Systems and Related Equipment				5		Y	1	11110700000																																	
+	11110730000	Power Operated Equipment				5		Y	1	11110700000																																	
+	11110731000	Communication Equipment				5		Y	1	11110700000																																	
+	11110732000	Miscellaneous Equipment and Other Assets				5		Y	1	11110700000																																	
+	11110733000	Electric Plant Purchased				5		Y	1	11110700000																																	
+	11110734000	69 kv Lines				5		Y	1	11110700000																																	
+	11110800000	Distribution Construction Work In Progress (CWIP) - SFP				4		N	1	11100000000																																	
+	11110810000	CWIP- By Contract				5		Y	1	11110800000																																	
+	11110811000	CWIP- By Administration				5		Y	1	11110800000																																	
+	11110900000	Dist Electric Plant and Equipment Held for Future use				4		N	1	11100000000																																	
+	11111000000	Distribution Utility Plant & Equipment- Appraisal Increase - SFP				4		N	1	11100000000																																	
+	11111100000	Accumulated Depreciation- Dist. Utility Plant and Equipment - SFP 				5		Y	1	11111000000																																	
+	11111110000	Accum Depr - Building				5		Y	1	11111000000																																	
+	11111111000	Accum Depr - Structures and Improvements				5		Y	1	11111000000																																	
+	11111112000	Accum Depr - Station Equipment				5		Y	1	11111000000																																	
+	11111113000	"Accum Depr - Poles, Towers, & Fixtures"				5		Y	1	11111000000																																	
+	11111114000	Accum Depr - Overhead Conductors & Devices				5		Y	1	11111000000																																	
+	11111115000	Accum Depr - Underground Conduit/Raceways				5		Y	1	11111000000																																	
+	11111116000	Accum Depr - Underground Conduit & Devices				5		Y	1	11111000000																																	
+	11111117000	Accum Depr- Dist Line Transf and Circuit Reclosers				5		Y	1	11111000000																																	
+	11111118000	 Accum Depr - Power Conditioning Equipment				5		Y	1	11111000000																																	
+	11111119000	Accum Depr - Regulated Entity Property on Cons Premises				5		Y	1	11111000000																																	
+	11111120000	Accum Depr - St Lights & Signal System				5		Y	1	11111000000																																	
+	11111121000	Accum Depr - Submarine Cable System				5		Y	1	11111000000																																	
+	11111122000	Accum Depr - Service Dropping				5		Y	1	11111000000																																	
+	11111123000	"Accum Depr - Meters, Metering Equip, Metering Transf"				5		Y	1	11111000000																																	
+	11111124000	Accum Depr - Office Furniture & Equipment				5		Y	1	11111000000																																	
+	11111125000	Accum Depr - Transportation Equipment				5		Y	1	11111000000																																	
+	11111126000	"Accum Depr- Tools, Shop, Safety Gadgets, Garage/Motorpl Equip"				5		Y	1	11111000000																																	
+	11111127000	Accum Depr - Laboratory & Testing Equipment				5		Y	1	11111000000																																	
+	11111128000	Accum Depr - Information Systems and Related Equipment				5		Y	1	11111000000																																	
+	11111129000	Accum Depr - Power Operated Equipment				5		Y	1	11111000000																																	
+	11111130000	Accum Depr - Communication Equipment				5		Y	1	11111000000																																	
+	11111131000	Accum Depr - Misc equipment & Other Assets				5		Y	1	11111000000																																	
+	11111132000	Accum Depr - Electric Plant Purchased				5		Y	1	11111000000																																	
+	11111133000	Accum Depr - Utility Plant In service Held for Future Use				5		Y	1	11111000000																																	
+	11111134000	Accum Depr - Utility Plant In Service- Appraisal Increase				5		Y	1	11111000000																																	
+	11111135000	Accum Depr - 69 kv Lines				5		Y	1	11111000000																																	
+	11200000000	Generation Plant				3		N	1	11000000000																																	
+	11210000000	Generation Plant - Mini Hydro Power Plant				4		N	1	11200000000																																	
+	11210100000	"Land, Land Rights, and Improvements"				4		N	1	11200000000																																	
+	11210200000	Structures and Improvements				4		N	1	11200000000																																	
+	11210300000	"Fuel Holders, Producers and Accessories"				4		N	1	11200000000																																	
+	11210400000	"Access Road, Dam, Surge Tanks, Headrace, Penstock"				4		N	1	11200000000																																	
+	11210500000	Accessory Electrical Plant				4		N	1	11200000000																																	
+	11210600000	"Turbine, Generator, ETC."				4		N	1	11200000000																																	
+	11210700000	Standby Unit Generators				4		N	1	11200000000																																	
+	11210800000	Miscellaneous Generation Plant & Equipment				4		N	1	11200000000																																	
+	11210900000	Generation Plant- Appraisal Increase				4		N	1	11200000000																																	
+	11211000000	Accum Depr - Generation Plant				4		N	1	11200000000																																	
+	11211010000	"Accum Depr - Gen Plant, Mini Hydro Plant"				5		Y	1	11211000000																																	
+	11211011000	Accum Depr - Structures & Improvements				5		Y	1	11211000000																																	
+	11211012000	"Accum Depr -  Fuel Holders, Prod, & Accessories"				5		Y	1	11211000000																																	
+	11211013000	"Accum Depr - access Rd, Dam, Surge Tanks"				5		Y	1	11211000000																																	
+	11211014000	Accum Depr - Accessory Electrical Plant				5		Y	1	11211000000																																	
+	11211015000	"Accum Depr - Turbine, Generator, Etc."				5		Y	1	11211000000																																	
+	11211016000	Accum Depr - Standby Unit Generator				5		Y	1	11211000000																																	
+	11211017000	Accum Depr - Misc Generation Plant & Equipment				5		Y	1	11211000000																																	
+	11211100000	Accum Depr - Generation Plant-Appraisal Increase				4		N	1	11200000000																																	
+	11211200000	Generation Plant - SFP				4		N	1	11200000000																																	
+	11211210000	Generation Plant - Mini Hydro Power Plant				5		Y	1	11211200000																																	
+	11211211000	"Land, Land Rights, and Improvements"				5		Y	1	11211200000																																	
+	11211212000	Structures and Improvements				5		Y	1	11211200000																																	
+	11211213000	"Fuel Holders, Producers and Accessories"				5		Y	1	11211200000																																	
+	11211214000	"Access Road, Dam, Surge Tanks, Headrace, Penstock"				5		Y	1	11211200000																																	
+	11211215000	Accessory Electrical Plant				5		Y	1	11211200000																																	
+	11211216000	"Turbine, Generator, ETC."				5		Y	1	11211200000																																	
+	11211217000	Standby Unit Generators				5		Y	1	11211200000																																	
+	11211218000	Miscellaneous Generation Plant & Equipment				5		Y	1	11211200000																																	
+	11211219000	Generation Plant- Appraisal Increase				5		Y	1	11211200000																																	
+	11211300000	Accum Depr - Generation Plant - SFP				5		Y	1	11211200000																																	
+	11211310000	"Accum Depr - Gen Plant, Mini Hydro Plant"				5		Y	1	11211200000																																	
+	11211311000	Accum Depr - Structures & Improvements				5		Y	1	11211200000																																	
+	11211312000	"Accum Depr -  Fuel Holders, Prod, & Accessories"				5		Y	1	11211200000																																	
+	11211313000	"Accum Depr - access Rd, Dam, Surge Tanks"				5		Y	1	11211200000																																	
+	11211314000	Accum Depr - Accessory Electrical Plant				5		Y	1	11211200000																																	
+	11211315000	"Accum Depr - Turbine, Generator, Etc."				5		Y	1	11211200000																																	
+	11211316000	Accum Depr - Standby Unit Generator				5		Y	1	11211200000																																	
+	11211317000	Accum Depr - Misc Generation Plant & Equipment				5		Y	1	11211200000																																	
+	11211318000	Accum Depr - Generation Plant-Appraisal Increase				5		Y	1	11211200000																																	
+	11300000000	Restricted Fund				3		N	1	11000000000																																	
+	11310100000	Restricted Fund-Membership				4		N	1	11300000000																																	
+	11310300000	Restricted Fund-Power Bill Deposit				4		N	1	11300000000																																	
+	11310400000	Restricted Fund - Meter Deposit				4		N	1	11300000000																																	
+	11310500000	Restricted Fund - Subsidy/Grants				4		N	1	11300000000																																	
+	11310510000	Restricted Fund - Subsidy/Grants - NEA				4		N	1	11300000000																																	
+	11310511000	Restricted Fund - Subsidy/Grants - DOE				5		Y	1	11310510000																																	
+	11310512000	Restricted Fund - Subsidy/Grants - Other Sources				5		Y	1	11310510000																																	
+	11310700000	Restricted Fund - RFSC				4		N	1	11300000000																																	
+	11310900000	Restricted Fund - Retirement Fund				4		N	1	11300000000																																	
+	11311000000	Restricted Fund - Calamity Funds				4		N	1	11300000000																																	
+	11311100000	Restricted Fund - Share Capital (for CDA ECs)				4		N	1	11300000000																																	
+	11311200000	Restricted Fund - Loan Fund				4		N	1	11300000000																																	
+	11310800000	Other Restricted Fund				4		N	1	11300000000																																	
+	11400000000	Other Non Current Assets				3		N	1	11000000000																																	
+	11410100000	Investment in Associations/Organizations				4		N	1	11400000000																																	
+	11410200000	Other Investments				4		N	1	11400000000																																	
+	11410300000	Security Deposits				4		N	1	11400000000																																	
+	11410310000	Security Deposits - GENCO				5		Y	1	11410300000																																	
+	11410311000	Security Deposits - NGCP				5		Y	1	11410300000																																	
+	11410312000	Security Deposits - ESCROW				5		Y	1	11410300000																																	
+	11410313000	Security Deposits - WESM				5		Y	1	11410300000																																	
+	11410314000	Security Deposits - OTHERS				5		Y	1	11410300000																																	
+	11410400000	Term Investment				4		N	1	11400000000																																	
+	11410410000	Investment in Non Marketable Equity Securities				5		Y	1	11410400000																																	
+	11410412000	Other Funds and Deposit*				5		Y	1	11410400000																																	
+	11410500000	Biological Assets				4		N	1	11400000000																																	
+	11410510000	Horses				5		Y	1	11410500000																																	
+	11410511000	Carabao				5		Y	1	11410500000																																	
+	11410512000	Cows				5		Y	1	11410500000																																	
+	11410513000	Dogs				5		Y	1	11410500000																																	
+	11410514000	Other Biological Assets				5		Y	1	11410500000																																	
+	11410600000	Accumulated Depreciation - Biological Assets				4		N	1	11400000000																																	
+	11410700000	Intangible Assets				4		N	1	11400000000																																	
+	11410710000	Franchise and Consents				5		Y	1	11410700000																																	
+	11410711000	Other Intangible Assets				5		Y	1	11410700000																																	
+	11410800000	Accumulated Depreciation - Intangible Assets				4		N	1	11400000000																																	
+	11410810000	Accumulated Depreciation - Franchise and Consents				5		Y	1	11410800000																																	
+	11410811000	Accumulated Depreciation - Other Intangible Assets				5		Y	1	11410800000																																	
+	11410900000	Misc Non Current Assets				4		N	1	11400000000																																	
+	11410910000	Clearing Accounts				5		Y	1	11410900000																																	
+	11410910001	0				5		Y	1	11410900000																																	
+	11410910002	0				5		Y	1	11410900000																																	
+	11410911000	VAT-Input Capital Goods				5		Y	1	11410900000																																	
+	11411000000	Other Misc. Non Current Assets				4		N	1	11400000000																																	
+	12000000000	CURRENT ASSETS				2		N	1	10000000000																																	
+	12100000000	Cash				3		N	1	12000000000																																	
+	12110100000	Cash in bank-General Fund				4		N	1	12100000000																																	
+	12110200000	Cash on Hand				4		N	1	12100000000																																	
+	12110300000	Working Funds  				4		N	1	12100000000																																	
+	12110310000	Petty Cash Fund				5		Y	1	12110300000																																	
+	12110311000	Revolving Fund				5		Y	1	12110300000																																	
+	12200000000	Cash Equivalents				3		N	1	12000000000																																	
+	12210100000	Marketable Securities				4		N	1	12200000000																																	
+	12210200000	Short Term Bonds				4		N	1	12200000000																																	
+	12210300000	Treasury Bills				4		N	1	12200000000																																	
+	12300000000	Notes Receivable				3		N	1	12000000000																																	
+	12400000000	Consumer Accounts Receivables				3		N	1	12000000000																																	
+	12410100000	Consumer Accounts Receivables-Power Bills				4		N	1	12400000000																																	
+	12410200000	Consumer Accounts Receivable - Reinvestment/RFSC				4		N	1	12400000000																																	
+	12410300000	Consumer Accounts Receivables-VAT				4		N	1	12400000000																																	
+	12410310000	CAR-VAT-GENCO				5		Y	1	12410300000																																	
+	12410311000	CAR-VAT-NGCP				5		Y	1	12410300000																																	
+	12410312000	CAR-VAT-Distribution				5		Y	1	12410300000																																	
+	12410313000	CAR-VAT-System Loss				5		Y	1	12410300000																																	
+	12410314000	CAR-VAT-Others				5		Y	1	12410300000																																	
+	12410400000	Consumer Accounts Receivables - Universal Charges				4		N	1	12400000000																																	
+	12410410000	CAR UC - Missionary Electrification				5		Y	1	12410400000																																	
+	12410411000	CAR UC - RE Developers Cash Incentives				5		Y	1	12410400000																																	
+	12410412000	CAR UC - Environmental Charge				5		Y	1	12410400000																																	
+	12410413000	CAR UC - Stranded Contract Costs				5		Y	1	12410400000																																	
+	12410414000	CAR UC - NPC Stranded Debt				5		Y	1	12410400000																																	
+	12410415000	CAR UC - Others				5		Y	1	12410400000																																	
+	12410700000	Consumer Accounts Receivables-FIT ALL				4		N	1	12400000000																																	
+	12410500000	Consumer Accounts Receivables Other Taxes				4		N	1	12400000000																																	
+	12410510000	CAR - Franchise Tax				5		Y	1	12410500000																																	
+	12410511000	CAR - Business Tax				5		Y	1	12410500000																																	
+	12410512000	CAR - Real Property Tax				5		Y	1	12410500000																																	
+	12410513000	CAR - Other Tax				5		Y	1	12410500000																																	
+	12410600000	Consumer Accounts Receivables-Others				4		N	1	12400000000																																	
+	12600000000	Other Accounts Receivables				3		N	1	12000000000																																	
+	12610100000	Other Accounts Receivables-EC				4		N	1	12600000000																																	
+	12610200000	Rents				4		N	1	12600000000																																	
+	12610300000	Interest and Dividends				4		N	1	12600000000																																	
+	12610400000	Advances to Officers and Employees				4		N	1	12600000000																																	
+	12610500000	Other Accounts Receivables				4		N	1	12600000000																																	
+	12700000000	Allowance for Uncollectible Accounts				3		N	1	12000000000																																	
+	12710100000	Allowance for Uncollectible Customer Accounts - Power Bills				4		N	1	12700000000																																	
+	12710200000	Allow for Uncollectible Accts-Other Receivables				4		N	1	12700000000																																	
+	12800000000	Materials and Supplies				3		N	1	12000000000																																	
+	12810100000	"Materials, Fuel, Oil, & Lubricants"				4		N	1	12800000000																																	
+	12810200000	Materials and Supplies - Line Construction Materials				4		N	1	12800000000																																	
+	12810210000	Materials and Supplies - Line Construction Materials - (Regular)				5		Y	1	12810200000																																	
+	12810211000	Materials and Supplies - Line Construction Materials - (SFP)				5		Y	1	12810200000																																	
+	12810300000	Materials and Supplies - Special Equipment				4		N	1	12800000000																																	
+	12810400000	Materials and Supplies - Housewiring				4		N	1	12800000000																																	
+	12810410000	Materials and Supplies - Housewiring - (Regular)				5		Y	1	12810400000																																	
+	12810411000	Materials and Supplies - Housewiring - (SFP)				5		Y	1	12810400000																																	
+	12810500000	Office Supplies				4		N	1	12800000000																																	
+	12810600000	Materials and Supplies - Others				4		N	1	12800000000																																	
+	12810700000	Store Expense Undistributed				4		N	1	12800000000																																	
+	12810800000	Allowance for Inventory Write Downs				4		N	1	12800000000																																	
+	12900000000	Other Current Assets				3		N	1	12000000000																																	
+	12910100000	Prepayments				4		N	1	12900000000																																	
+	12910110000	Prepayments - Insurance				5		Y	1	12910100000																																	
+	12910111000	Other Prepayments				5		Y	1	12910100000																																	
+	12910200000	Miscl. Current Assets				4		N	1	12900000000																																	
+	20000000000	LIABILITIES				1		N	2																																		
+	21000000000	NON CURRENT LIABILITIES				2		N	2	20000000000																																	
+	21100000000	Long Term Loans				3		N	2	21000000000																																	
+	21120100000	Long Term Loans - NEA				4		N	2	21100000000																																	
+	21120110000	Long Term Loans -NEA-Construction				5		Y	2	21120100000																																	
+	21120111000	Long Term Loans -NEA-Rehabilitation				5		Y	2	21120100000																																	
+	21120112000	Long Term Loans -NEA-Expansion				5		Y	2	21120100000																																	
+	21120113000	Long Term Loans-NEA-Logistical				5		Y	2	21120100000																																	
+	21120114000	Long Term Loans-NEA-Others				5		Y	2	21120100000																																	
+	21120200000	Long Term Loans-Banks				4		N	2	21100000000																																	
+	21120300000	Long Term Loans-Other Financial Institutions				4		N	2	21100000000																																	
+	21120400000	Long Term Loans-Others				4		N	2	21100000000																																	
+	21200000000	Long Term Consumers' Refund				3		N	2	21000000000																																	
+	21220100000	PPA Refund				4		N	2	21200000000																																	
+	21220200000	Over Recoveries-Others				4		N	2	21200000000																																	
+	21300000000	Finance Lease Liability				3		N	2	21000000000																																	
+	21320100000	TRANSCO 69KV Lines Payable				4		N	2	21300000000																																	
+	21320200000	Suppliers				4		N	2	21300000000																																	
+	21320300000	Other Finance Lease Liability				4		N	2	21300000000																																	
+	21400000000	Restructured Accounts Payable (RAP)				3		N	2	21000000000																																	
+	21420100000	RAP- Power Suppliers				4		N	2	21400000000																																	
+	21420300000	PSALM/NPC				4		N	2	21400000000																																	
+	21420110000	GENCO - Others				5		Y	2	21420300000																																	
+	21420111000	WESM				5		Y	2	21420300000																																	
+	21420112000	RAP- Transmission				5		Y	2	21420300000																																	
+	21420200000	RAP- Suppliers				4		N	2	21400000000																																	
+	21420400000	RAP- Others				4		N	2	21400000000																																	
+	21500000000	Restructured Loans Payable (RLP)				3		N	2	21000000000																																	
+	21520100000	RLP - NEA				4		N	2	21500000000																																	
+	21520200000	RLP - REFC				4		N	2	21500000000																																	
+	21520400000	RLP - Banks				4		N	2	21500000000																																	
+	21520300000	RLP-Others				4		N	2	21500000000																																	
+	21600000000	Tax Payable (TP)				3		N	2	21000000000																																	
+	21620100000	TP- Real Property Tax				4		N	2	21600000000																																	
+	21620200000	TP-Percentage Taxes				4		N	2	21600000000																																	
+	21620300000	TP - Other Taxes				4		N	2	21600000000																																	
+	21700000000	Other Non Current Liabilities				3		N	2	21000000000																																	
+	21720100000	Consumers Deposits				4		N	2	21700000000																																	
+	21720110000	Consumers' Deposits-Power Bills				5		Y	2	21720100000																																	
+	21720112000	Consumers' Deposits-Meters				5		Y	2	21720100000																																	
+	21720113000	Consumers' Deposits-Transformers				5		Y	2	21720100000																																	
+	21720114000	Consumers' Deposits -Others				5		Y	2	21720100000																																	
+	21720400000	Pension Liability				4		N	2	21700000000																																	
+	21720200000	Revolving Capital Payable				4		N	2	21700000000																																	
+	21720300000	Miscellaneous Non Current Liabilities				4		N	2	21700000000																																	
+	22000000000	CURRENT  LIABILITIES  				2		N	2	20000000000																																	
+	22100000000	NOTES PAYABLE				3		N	2	22000000000																																	
+	22120100000	Short Term Loans				4		N	2	22100000000																																	
+	22120110000	Short Term Loans - NEA				5		Y	2	22120100000																																	
+	22120111000	Short Term Loans - Banks				5		Y	2	22120100000																																	
+	22120112000	Short Term Loans - Other Financial Institutions				5		Y	2	22120100000																																	
+	22120113000	Short Term Loans - Others				5		Y	2	22120100000																																	
+	22200000000	Accounts Payable				3		N	2	22000000000																																	
+	22220100000	Accounts Payable - Power Suppliers				4		N	2	22200000000																																	
+	22220110000	PSALM/NPC				5		Y	2	22220100000																																	
+	22220111000	GENCO - Others				5		Y	2	22220100000																																	
+	22220112000	WESM				5		Y	2	22220100000																																	
+	22220200000	Accounts Payable - Transmission				4		N	2	22200000000																																	
+	22220300000	Accounts Payable-Universal Charges				4		N	2	22200000000																																	
+	22220310000	Accounts Payable - Missionary Electrification				5		Y	2	22220300000																																	
+	22220311000	Accounts Payable - RE Developers Cash Incentives				5		Y	2	22220300000																																	
+	22220312000	Accounts Payable - Environmental Charge				5		Y	2	22220300000																																	
+	22220313000	Accounts Payable - NPC Stranded Contract Costs				5		Y	2	22220300000																																	
+	22220314000	Accounts Payable - NPC Stranded Debt				5		Y	2	22220300000																																	
+	22220315000	Accounts Payable - UC - Others				5		Y	2	22220300000																																	
+	22220700000	Accounts Payable - FIT ALL				4		N	2	22200000000																																	
+	22220400000	Accounts Payable - Other Ecs				4		N	2	22200000000																																	
+	22220500000	Accounts Payable - Suppliers				4		N	2	22200000000																																	
+	22220800000	Accounts Payable - Subsidy/Grants				4		N	2	22200000000																																	
+	22220810000	Accounts Payable - Subsidy/Grants - NEA				5		Y	2	22220800000																																	
+	22220811000	Accounts Payable - Subsidy/Grants - DOE				5		Y	2	22220800000																																	
+	22220812000	Accounts Payable - Subsidy/Grants - Other Sources				5		Y	2	22220800000																																	
+	22220600000	Accounts Payable - Others				4		N	2	22200000000																																	
+	22300000000	Current Portion of Long Term Liabilities				3		N	2	22000000000																																	
+	22320100000	Current Portion of Long Term Loans 				4		N	2	22300000000																																	
+	22320110000	Current Portion of Long Term Loans - NEA				5		Y	2	22320100000																																	
+	22320111000	Current Portion of Long Term Loans - Banks				5		Y	2	22320100000																																	
+	22320112000	Current Portion of Long Term Loans - Other Financial Institutions				5		Y	2	22320100000																																	
+	22320113000	Current Portion of Long Term Loans - Others				5		Y	2	22320100000																																	
+	22320200000	Current Portion of Long Term Consumers' Refund				4		N	2	22300000000																																	
+	22320300000	Current Portion of Finance Lease Liability				4		N	2	22300000000																																	
+	22320400000	Current Portion of Restructured Loans				4		N	2	22300000000																																	
+	22320410000	Current Portion of Restructured Loans - NEA				5		Y	2	22320400000																																	
+	22320411000	Current Portion of Restructured Loans - Banks				5		Y	2	22320400000																																	
+	22320412000	Current Portion of Restructured Loans - Other Financial Institutions				5		Y	2	22320400000																																	
+	22320413000	Current Portion of Restructured Loans - Others				5		Y	2	22320400000																																	
+	22320500000	Current Portion of Restructured Accounts Payable				4		N	2	22300000000																																	
+	22320600000	Current Portion of Other Long Term Liabilities				4		N	2	22300000000																																	
+	22400000000	Accrued Taxes				3		N	2	22000000000																																	
+	22420100000	Real Property Taxes				4		N	2	22400000000																																	
+	22420200000	Expanded Withholding Tax Payable				4		N	2	22400000000																																	
+	22420300000	Withholding Tax payable - Employees				4		N	2	22400000000																																	
+	22420400000	VAT Payable				4		N	2	22400000000																																	
+	22420410000	VAT  Payable - Generation				5		Y	2	22420400000																																	
+	22420411000	VAT  Payable  - Transmission				5		Y	2	22420400000																																	
+	22420412000	VAT  Payable  - Distribution				5		Y	2	22420400000																																	
+	22420413000	VAT  Payable  - System Loss				5		Y	2	22420400000																																	
+	22420414000	VAT  Payable  - Others				5		Y	2	22420400000																																	
+	22420500000	Accrued Taxes - Others				4		N	2	22400000000																																	
+	22500000000	Accrued Interest				3		N	2	22000000000																																	
+	22600000000	Penalties and Surcharges Payable				3		N	2	22000000000																																	
+	22700000000	Patronage Capital Payable				3		N	2	22000000000																																	
+	22800000000	Patronage Refund Payable				3		N	2	22000000000																																	
+	22900000000	Interest on Share Capital Payable				3		N	2	22000000000																																	
+	23000000000	Due to Union/Federation (CETF)				3		N	2	22000000000																																	
+	23100000000	Consumer Advances for Construction				3		N	2	22000000000																																	
+	23200000000	Miscellaneous Current and Accrued Liabilities				3		N	2	22000000000																																	
+	23220100000	Accrued Rentals				4		N	2	23200000000																																	
+	23220200000	Accrued Payroll				4		N	2	23200000000																																	
+	23220300000	Accrued Employees' Leave Credits				4		N	2	23200000000																																	
+	23220400000	SSS and Philhealth Contributions Payable				4		N	2	23200000000																																	
+	23220500000	SSS Loans				4		N	2	23200000000																																	
+	23220600000	HDMF Fund Contributions				4		N	2	23200000000																																	
+	23220700000	HDMF Loans				4		N	2	23200000000																																	
+	23220800000	Accrued Pension				4		N	2	23200000000																																	
+	23220900000	Other Current and Accrued Liabilities				4		N	2	23200000000																																	
+	30000000000	MEMBERS' EQUITY AND MARGINS				1		N	3																																		
+	31000000000	EQUITY				2		N	3	30000000000																																	
+	31100000000	COOP EQUITY				3		N	3	31000000000																																	
+	31130100000	Members' Contribution				4		N	3	31100000000																																	
+	31130200000	Authorized Share Capital				4		N	3	31100000000																																	
+	31130300000	Unissued Shared Capital				4		N	3	31100000000																																	
+	31130400000	Subscribed Share Capital				4		N	3	31100000000																																	
+	31130500000	Subscription Receivable				4		N	3	31100000000																																	
+	31130600000	Paid-Up Share Capital				4		N	3	31100000000																																	
+	31130700000	Deposit for Share Capital Subscription				4		N	3	31100000000																																	
+	31130800000	Patronage Capital				4		N	3	31100000000																																	
+	31030810000	Patron' Capital Credits				5		Y	3	31130800000																																	
+	31030811000	Patronage Capital Assignable				5		Y	3	31130800000																																	
+	31131000000	Donations & Grants				4		N	3	31100000000																																	
+	31031010000	Donated Capital - PSALM				5		Y	3	31131000000																																	
+	31031011000	Donated Capital- Subsidy from Govt and NGOs				5		Y	3	31131000000																																	
+	31031011001	0				5		Y	3	31131000000																																	
+	31031011002	0				5		Y	3	31131000000																																	
+	31031012000	Donated Capital - Other Sources				5		Y	3	31131000000																																	
+	31131100000	RFSC				4		N	3	31100000000																																	
+	31131300000	Contributions in Aid of Construction				4		N	3	31100000000																																	
+	31131400000	Revaluation Surplus				4		N	3	31100000000																																	
+	31131500000	IMC Investment				4		N	3	31100000000																																	
+	32000000000	MARGINS				2		N	3	30000000000																																	
+	32100000000	Coop Margins				3		N	3	32000000000																																	
+	32130100000	Appropriated Margins				4		N	3	32100000000																																	
+	32130200000	Statutory Reserves				4		N	3	32100000000																																	
+	32030210000	Reserve Fund				5		Y	3	32130200000																																	
+	32030211000	Coop Education & Training Fund				5		Y	3	32130200000																																	
+	32030212000	Community Development Fund				5		Y	3	32130200000																																	
+	32030213000	Optional Fund				5		Y	3	32130200000																																	
+	32130300000	Unappropriated Margins				4		N	3	32100000000																																	
+	32030310000	Operating Margins				5		Y	3	32130300000																																	
+	32030310001	0				5		Y	3	32130300000																																	
+	32030310002	0				5		Y	3	32130300000																																	
+	32030311000	Non Operating  Margins				5		Y	3	32130300000																																	
+	32030311001	0				5		Y	3	32130300000																																	
+	32030311002	0				5		Y	3	32130300000																																	
+	32130400000	Undivided Net Surplus				4		N	3	32100000000																																	
+	32130500000	Net Loss				4		N	3	32100000000																																	
+	32200000000	Accumulated Other Comprehensive Margin/(Loss)				3		N	3	32000000000																																	
+	40000000000	REVENUES				1		N	4																																		
+	41000000000	DISTRIBUTION AND RELATED ACTIVITIES*				2		N	4	40000000000																																	
+	41100000000	Coop Distribution and Related Activities				3		N	4	41000000000																																	
+	41040100000	Pass-on Generation Charges				4		N	4	41100000000																																	
+	41040200000	Pass-on Transmission Charges				4		N	4	41100000000																																	
+	41040300000	Pass-on System Loss Charges				4		N	4	41100000000																																	
+	41040900000	Subsidy Charges (net of Discounts)				4		N	4	41100000000																																	
+	41041000000	Senior Citizen Discount				4		N	4	41100000000																																	
+	41041100000	Lifeline Discount				4		N	4	41100000000																																	
+	41040400000	Distribution Charges				4		N	4	41100000000																																	
+	41040410000	Residential Sales				5		Y	4	41040400000																																	
+	41040411000	Low Voltage Sales				5		Y	4	41040400000																																	
+	41040412000	High Voltage sales				5		Y	4	41040400000																																	
+	41040500000	Supply Charges				4		N	4	41100000000																																	
+	41040600000	Metering Charges				4		N	4	41100000000																																	
+	41040700000	Other Unbundled Charges				4		N	4	41100000000																																	
+	41040800000	True-Up Charges/refund				4		N	4	41100000000																																	
+	42000000000	GENERATION REVENUE				2		N	4	40000000000																																	
+	42100000000	Coop Generation Revenue				3		N	4	42000000000																																	
+	42140100000	Generation of Electricity & Prov. Of Ancillary Services				4		N	4	42100000000																																	
+	42140200000	Supply Services				4		N	4	42100000000																																	
+	42140300000	Other Generation Related Revenues				4		N	4	42100000000																																	
+	43000000000	OTHER OPERATING REVENUES				2		N	4	40000000000																																	
+	43100000000	Coop Other Operating Revenues				3		N	4	43000000000																																	
+	43140100000	Gain on Energy Trading				4		N	4	43100000000																																	
+	43140200000	Forfeited Discounts				4		N	4	43100000000																																	
+	43140300000	Rent from Electric Property				4		N	4	43100000000																																	
+	43140400000	Prompt Payment Discounts				4		N	4	43100000000																																	
+	43140600000	Collection Efficiency Discounts				4		N	4	43100000000																																	
+	43140500000	Other Operating Revenue				4		N	4	43100000000																																	
+	44000000000	NON OPERATING REVENUES				2		N	4	40000000000																																	
+	44100000000	Coop Non Operating Revenues				3		N	4	44000000000																																	
+	44140100000	"Rev from Merchandising, Jobbing & Contract Work"				4		N	4	44100000000																																	
+	44140200000	Interest & Dividend Income				4		N	4	44100000000																																	
+	44140400000	Gain on Disposal of an Asset				4		N	4	44100000000																																	
+	44140300000	Misc Non Operating Revenue				4		N	4	44100000000																																	
+	44140600002	EXPENSE ACCOUNTS				4		N	4	44100000000																																	
+	45000000000	DONATION AND GRANTS SUBSIDY * - OTHERS				2		N	4	40000000000																																	
+	45040100000	Income From Government Grants				3		N	4	45000000000																																	
+	50000000000	COSTS AND EXPENSES				1		N	5																																		
+	51000000000	OPERATION AND MAINTENANCE EXPENSES				2		N	5	50000000000																																	
+	51100000000	Purchased Power				3		N	5	51000000000																																	
+	51150100000	Generation Costs				4		N	5	51100000000																																	
+	51150110000	IPP				5		Y	5	51150100000																																	
+	51150111000	WESM				5		Y	5	51150100000																																	
+	51150112000	Purchased Power Reduction				5		Y	5	51150100000																																	
+	51150200000	Transmission				4		N	5	51100000000																																	
+	51200000000	Distribution Expenses				3		N	5	51000000000																																	
+	51250100000	"Operation, Supervision, Engineering"				4		N	5	51200000000																																	
+	51250200000	Operation - Load Dispatching				4		N	5	51200000000																																	
+	51250300000	Operation-Station Expenses				4		N	5	51200000000																																	
+	51250400000	Operation - Overhead Line Expense				4		N	5	51200000000																																	
+	51250500000	Operation - St. Lighting & Signal System				4		N	5	51200000000																																	
+	51250600000	Operation - Rents				4		N	5	51200000000																																	
+	51250700000	Operation - Miscellaneous Expenses				4		N	5	51200000000																																	
+	51250800000	Maintenance - Supervision & Engineering				4		N	5	51200000000																																	
+	51250900000	Maintenance - Structures				4		N	5	51200000000																																	
+	51251000000	Maintenance - Station Equipment				4		N	5	51200000000																																	
+	51251100000	Maintenance - Overhead Lines				4		N	5	51200000000																																	
+	51251200000	Maintenance - Line Transformers				4		N	5	51200000000																																	
+	51251300000	Maintenance - St. Lighting & Signal System				4		N	5	51200000000																																	
+	51251400000	Maintenance- Miscellaneous Plant				4		N	5	51200000000																																	
+	51300000000	Supply Expenses				3		N	5	51000000000																																	
+	51350100000	Supervision 				4		N	5	51300000000																																	
+	51350200000	Consumers' Discounts				4		N	5	51300000000																																	
+	51350210000	Consumers' Prompt Payment Discounts				5		Y	5	51350200000																																	
+	51350211000	Other Consumers' Discounts				5		Y	5	51350200000																																	
+	51350300000	Consumer Records & Collection Expenses				4		N	5	51300000000																																	
+	51350400000	Uncollectible Accounts				4		N	5	51300000000																																	
+	51350500000	Informational and Instructional Advertising Expense				4		N	5	51300000000																																	
+	51350600000	Consumers/Community Services Expense				4		N	5	51300000000																																	
+	51350700000	Housewiring Services				4		N	5	51300000000																																	
+	51350800000	WESM Related Costs and Expenses				4		N	5	51300000000																																	
+	51350900000	Miscellaneous Consumer Accounts Expenses				4		N	5	51300000000																																	
+	51400000000	Metering Expenses				3		N	5	51000000000																																	
+	51450100000	"Operation, Supervision, Engineering"				4		N	5	51400000000																																	
+	51450200000	Meter Expenses				4		N	5	51400000000																																	
+	51450300000	Meter Reading Expenses				4		N	5	51400000000																																	
+	51450400000	Service Installation Expenses				4		N	5	51400000000																																	
+	51450500000	Meter Shop-Permit & License Fees				4		N	5	51400000000																																	
+	51450600000	Rents				4		N	5	51400000000																																	
+	51450700000	Miscellaneous Expenses				4		N	5	51400000000																																	
+	51450800000	Maintenance-Meters				4		N	5	51400000000																																	
+	51450900000	Laboratory Fees and Charges				4		N	5	51400000000																																	
+	51500000000	Transmission Expenses				3		N	5	51000000000																																	
+	52000000000	POWER GENERATION EXPENSES				2		N	5	50000000000																																	
+	52100000000	Operation				3		N	5	52000000000																																	
+	52150100000	"Operation, Sup, Eng"				4		N	5	52100000000																																	
+	52150200000	Fuel				4		N	5	52100000000																																	
+	52150300000	Rents				4		N	5	52100000000																																	
+	52150400000	Miscellaneous Generation Expenses				4		N	5	52100000000																																	
+	52200000000	Maintenance				3		N	5	52000000000																																	
+	52250100000	"Maintenance, Sup., Eng"				4		N	5	52200000000																																	
+	52250200000	Maintenance of Structures				4		N	5	52200000000																																	
+	52250300000	Maintenance of Generating & Electric Equipment				4		N	5	52200000000																																	
+	52250400000	"Maint of Surge tanks, headrace, penstock, access rd, dam"				4		N	5	52200000000																																	
+	52250500000	Maint. Other  Misc Gen Plant				4		N	5	52200000000																																	
+	52300000000	Environmental  Management				3		N	5	52000000000																																	
+	52350100000	Supervision and maintenance				4		N	5	52300000000																																	
+	52350200000	Planting materials and Labor				4		N	5	52300000000																																	
+	52350300000	Advocacy and community relations				4		N	5	52300000000																																	
+	52350400000	Monitoring				4		N	5	52300000000																																	
+	52350500000	System Control and Load Dispatching				4		N	5	52300000000																																	
+	53000000000	ADMINISTRATIVE AND GENERAL EXPENSES				2		N	5	50000000000																																	
+	53100000000	Coop Administrative and General Expenses				3		N	5	53000000000																																	
+	53150100000	Administrative and General Salaries				4		N	5	53100000000																																	
+	53150200000	Office Supplies and Materials				4		N	5	53100000000																																	
+	53150300000	Outside Services Employed				4		N	5	53100000000																																	
+	53150400000	Property insurance				4		N	5	53100000000																																	
+	53150500000	Injuries and Damages				4		N	5	53100000000																																	
+	53150600000	 Employee Pension and Benefits				4		N	5	53100000000																																	
+	53150700000	Regulatory Fees and Expenses				4		N	5	53100000000																																	
+	53150800000	Scholarship Program Expenses				4		N	5	53100000000																																	
+	53150900000	Rents				4		N	5	53100000000																																	
+	53151000000	Maintenance of Office and General Plant				4		N	5	53100000000																																	
+	53151100000	Taxes and Licenses				4		N	5	53100000000																																	
+	53151200000	Real Property Tax				4		N	5	53100000000																																	
+	53151300000	Franchise Tax				4		N	5	53100000000																																	
+	53151400000	 Business and Local Tax				4		N	5	53100000000																																	
+	53151500000	Other Taxes				4		N	5	53100000000																																	
+	53151600000	Officers Allowances and Benefits				4		N	5	53100000000																																	
+	53151700000	Travel				4		N	5	53100000000																																	
+	53151800000	Training				4		N	5	53100000000																																	
+	53151900000	Association and Membership Dues				4		N	5	53100000000																																	
+	53152000000	Miscellaneous General Expenses				4		N	5	53100000000																																	
+	53152100000	General Assembly Meeting Expenses				4		N	5	53100000000																																	
+	53152200000	Members' Benefit				4		N	5	53100000000																																	
+	53152300000	Affiliation Fee				4		N	5	53100000000																																	
+	53152400000	Social & Community Service				4		N	5	53100000000																																	
+	53152500000	Provision for CGF				4		N	5	53100000000																																	
+	54000000000	DEPRECIATION AND AMORTIZATION  EXPENSES (REGULAR)				2		N	5	50000000000																																	
+	54100000000	Coop Depreciation and Amortization Expenses ( Regular )				3		N	5	54000000000																																	
+	54150100000	Depreciation Expenses- Dist Utility Plant & Equipment				4		N	5	54100000000																																	
+	54050111000	Depr. Exp. - Building				5		Y	5	54150100000																																	
+	54050112000	Depr. Exp. - Structures and Improvements				5		Y	5	54150100000																																	
+	54050113000	Depr. Exp. - Station Equipment				5		Y	5	54150100000																																	
+	54050114000	"Depr. Exp. - Poles, Towers, & Fixtures"				5		Y	5	54150100000																																	
+	54050115000	Depr. Exp. - Overhead Conductors & Devices				5		Y	5	54150100000																																	
+	54050116000	Depr. Exp. - Underground Conduit/Raceways				5		Y	5	54150100000																																	
+	54050117000	Depr. Exp - Underground Conduit & Devices				5		Y	5	54150100000																																	
+	54050118000	Depr. Exp. - Dist. Line Transf & Circuit Reclosers				5		Y	5	54150100000																																	
+	54050119000	Depr. Exp. - Power Conditioning Equipment				5		Y	5	54150100000																																	
+	54050120000	Depr. Exp. - Reg Entity Prop Cons Premises				5		Y	5	54150100000																																	
+	54050121000	Depr. Exp. - St. Light & Signal System				5		Y	5	54150100000																																	
+	54050122000	Depr. Exp. - Submarine Cable System				5		Y	5	54150100000																																	
+	54050123000	Depr. Exp. - Service Drop Wires & Equipment				5		Y	5	54150100000																																	
+	54050124000	"Depr. Exp. - Meters, Metering Equip. & Meter Transformer"				5		Y	5	54150100000																																	
+	54050125000	Depr. Exp. - Office Furniture & Equipment				5		Y	5	54150100000																																	
+	54050126000	Depr. Exp. - Transportation Equipment				5		Y	5	54150100000																																	
+	54050127000	"Depr. Exp. -  Tools, Shop, S Gadgets, Garge & Motorpool Equip"				5		Y	5	54150100000																																	
+	54050128000	Depr. Exp. - Laboratory & Testing Equipment				5		Y	5	54150100000																																	
+	54050129000	Depr. Exp. - Information Systems & Related Equipment				5		Y	5	54150100000																																	
+	54050130000	Depr. Exp. - Power Operated Equipment				5		Y	5	54150100000																																	
+	54050131000	Depr. Exp. - Communication Equipment				5		Y	5	54150100000																																	
+	54050132000	Depr. Exp. - Misc Equipment & Other Assets				5		Y	5	54150100000																																	
+	54050133000	Depr. Exp. - Electric Plant Purchased				5		Y	5	54150100000																																	
+	54050134000	Depr. Exp - 69 kv Lines				5		Y	5	54150100000																																	
+	54150200000	Depr. Exp. - Dist  Electric Plant Held for Future Use				4		N	5	54100000000																																	
+	54150300000	Depr. Exp. - Dist Utility Plant & Equipment - Appraisal Increase				4		N	5	54100000000																																	
+	54150400000	Depreciation expense- Generation Plant				4		N	5	54100000000																																	
+	54050410000	"Depr. Exp. - Gen Plant, Mini Hydro Power Plant"				5		Y	5	54150400000																																	
+	54050411000	Depr. Exp. - Structures & Improvements				5		Y	5	54150400000																																	
+	54050412000	"Depr. Exp. -  Fuel Holders, Producers and Accessories"				5		Y	5	54150400000																																	
+	54050413000	"Depr. Exp. - Access Road, Dam, Surge Tanks"				5		Y	5	54150400000																																	
+	54050414000	Depr. Exp. -  Accessory Electric Equipment				5		Y	5	54150400000																																	
+	54050415000	"Depr. Exp. - Turbine. Generator, etc"				5		Y	5	54150400000																																	
+	54050416000	Depr. Exp. - Standby Unit Generator				5		Y	5	54150400000																																	
+	54050417000	Depr. Exp. - Misc Gen Plant & Equip.				5		Y	5	54150400000																																	
+	54150500000	Depr. Exp - Generation Plant - Appraisal Increase				4		N	5	54100000000																																	
+	54150600000	Depr. Exp - Biological Assets				4		N	5	54100000000																																	
+	54150700000	Amortization  Exp - Intangible Assets				4		N	5	54100000000																																	
+	54150800001	DEPRECIATION AND AMORTIZATION  EXPENSES - SFP				4		N	5	54100000000																																	
+	54150800000	Depreciation Expenses- Dist Utility Plant & Equipment				4		N	5	54100000000																																	
+	54050811000	Depr. Exp. - Building				5		Y	5	54150800000																																	
+	54050812000	Depr. Exp. - Structures and Improvements				5		Y	5	54150800000																																	
+	54050813000	Depr. Exp. - Station Equipment				5		Y	5	54150800000																																	
+	54050814000	"Depr. Exp. - Poles, Towers, & Fixtures"				5		Y	5	54150800000																																	
+	54050815000	Depr. Exp. - Overhead Conductors & Devices				5		Y	5	54150800000																																	
+	54050816000	Depr. Exp. - Underground Conduit/Raceways				5		Y	5	54150800000																																	
+	54050817000	Depr. Exp - Underground Conduit & Devices				5		Y	5	54150800000																																	
+	54050818000	Depr. Exp. - Dist. Line Transf & Circuit Reclosers				5		Y	5	54150800000																																	
+	54050819000	Depr. Exp. - Power Conditioning Equipment				5		Y	5	54150800000																																	
+	54050820000	Depr. Exp. - Reg Entity Prop Cons Premises				5		Y	5	54150800000																																	
+	54050821000	Depr. Exp. - St. Light & Signal System				5		Y	5	54150800000																																	
+	54050822000	Depr. Exp. - Submarine Cable System				5		Y	5	54150800000																																	
+	54050823000	Depr. Exp. - Service Drop Wires & Equipment				5		Y	5	54150800000																																	
+	54050824000	"Depr. Exp. - Meters, Metering Equip. & Meter Transformer"				5		Y	5	54150800000																																	
+	54050825000	Depr. Exp. - Office Furniture & Equipment				5		Y	5	54150800000																																	
+	54050826000	Depr. Exp. - Transportation Equipment				5		Y	5	54150800000																																	
+	54050827000	"Depr. Exp. -  Tools, Shop, S Gadgets, Garge & Motorpool Equip"				5		Y	5	54150800000																																	
+	54050828000	Depr. Exp. - Laboratory & Testing Equipment				5		Y	5	54150800000																																	
+	54050829000	Depr. Exp. - Information Systems & Related Equipment				5		Y	5	54150800000																																	
+	54050830000	Depr. Exp. - Power Operated Equipment				5		Y	5	54150800000																																	
+	54050831000	Depr. Exp. - Communication Equipment				5		Y	5	54150800000																																	
+	54050832000	Depr. Exp. - Misc Equipment & Other Assets				5		Y	5	54150800000																																	
+	54050833000	Depr. Exp. - Electric Plant Purchased				5		Y	5	54150800000																																	
+	54050834000	Depr. Exp. - 69 kv Lines				5		Y	5	54150800000																																	
+	54150900000	Depr. Exp. - Dist  Electric Plant Held for Future Use				4		N	5	54100000000																																	
+	54151000000	Depr. Exp. - Dist Utility Plant & Equipment - Appraisal Increase				4		N	5	54100000000																																	
+	54151100000	Depreciation expense- Generation Plant				4		N	5	54100000000																																	
+	54051110000	"Depr. Exp. - Gen Plant, Mini Hydro Power Plant"				5		Y	5	54151100000																																	
+	54051111000	Depr. Exp. - Structures & Improvements				5		Y	5	54151100000																																	
+	54051112000	"Depr. Exp. -  Fuel Holders, Producers and Accessories"				5		Y	5	54151100000																																	
+	54051113000	"Depr. Exp. - Access Road, Dam, Surge Tanks"				5		Y	5	54151100000																																	
+	54051114000	Depr. Exp. -  Accessory Electric Equipment				5		Y	5	54151100000																																	
+	54051115000	"Depr. Exp. - Turbine. Generator, etc"				5		Y	5	54151100000																																	
+	54051116000	Depr. Exp. - Standby Unit Generator				5		Y	5	54151100000																																	
+	54051117000	Depr. Exp. - Misc Gen Plant & Equip.				5		Y	5	54151100000																																	
+	54151200000	Depr. Exp - Generation Plant - Appraisal Increase				4		N	5	54100000000																																	
+	55000000000	INTEREST CHARGES				2		N	5	50000000000																																	
+	55100000000	COOP INTEREST CHARGES				3		N	5	55000000000																																	
+	55150100000	Interest on Short Term and Long Term Debts				4		N	5	55100000000																																	
+	55050114000	NEA				5		Y	5	55150100000																																	
+	55050115000	Banks				5		Y	5	55150100000																																	
+	55050116000	Other Financial Institutions				5		Y	5	55150100000																																	
+	55050117000	Others				5		Y	5	55150100000																																	
+	55150200000	Other Interest Charges				4		N	5	55100000000																																	
+	56000000000	OTHER OPERATING EXPENSES				2		N	5	50000000000																																	
+	56100000000	Non - Operating Expenses				3		N	5	56000000000																																	
+	56150100000	Expenses on Electric Plant Leased to Others				4		N	5	56100000000																																	
+	56150200000	"Cost and Expenses of Merchandising, Jobbing and Contract  Work"				4		N	5	56100000000																																	
+	56150300000	Expenses Non-Utility Operation				4		N	5	56100000000																																	
+	56200000000	Loss on Disposal of Property				3		N	5	56000000000																																	
+	56300000000	Impairment Loss				3		N	5	56000000000																																	
+	56350100000	Impairment Loss on Mortality of BA				4		N	5	56300000000																																	
+	56350200000	Other Impairment Loss				4		N	5	56300000000																																	
+	56400000000	Non Operating Taxes				3		N	5	56000000000																																	
+	56500000000	Provision for Income Tax				3		N	5	56000000000																																	
+	56550100000	Provision for Income Tax-Current				4		N	5	56500000000																																	
+	56550200000	Provision for Income Tax - Deferred				4		N	5	56500000000																																	
+	56600000000	Extra-ordinary Items				3		N	5	56000000000																																	
+	56650100000	EXTRAORDINARY GAIN				4		N	5	56600000000																																	
+	56650200000	EXTRAORDINARY LOSS				4		N	5	56600000000																																	
+	56700000000	Other Comprehensive Marhin/(Loss)				3		N	5	56000000000																																	
+	56750100000	Unrealized Gain				4		N	5	56700000000																																	
+	56750200000	Unrealized Loss				4		N	5	56700000000																																	
+	56800000000	Miscellaneous Other Operating Expenses				3		N	5	56000000000																																	
+	56850100000	Loss on Energy Trading				4		N	5	56800000000																																	
+	56850200000	Misc. Other Operating Expenses				4		N	5	56800000000																																	

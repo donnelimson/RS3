@@ -1,0 +1,167 @@
+﻿@model  Web.Models.JobOrderViewModel
+
+<script type="text/ng-template" id="JobOrderTypeAddTemplate.html">
+    <div class="row">
+        <div class="col-md-12" ng-form="form" ng-controller="JobOrderManagementAddOrUpdateController as controller">
+            <!-- BEGIN PAGE BAR -->
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <span>Job Order</span>
+                        <i class="fa fa-circle"></i>
+                        <a href="@Url.Action("Index", "JobOrder")">{{jobOrderType}}</a>
+                        <i class="fa fa-circle"></i>
+                        <span>Add,Edit, or Delete</span>
+                    </li>
+                </ul>
+                <div class="page-toolbar">
+                    <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+                </div>
+            </div>
+            <!-- END PAGE BAR -->
+            <!-- BEGIN PAGE TITLE-->
+            <h1 class="page-title">
+                {{jobOrderType}}  <small>Add, edit, delete {{jobOrderTypeLower}}</small>
+            </h1>
+            <!-- END PAGE TITLE -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light bordered" style="margin-bottom:unset">
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div style="padding-bottom:10px; color:chocolate">
+                                        <i>Note: Fixed or in used {{jobOrderType}} are not allowed for deletion.</i>
+                                    </div>
+                                    <div ng-show="hasError" style="padding-bottom:10px">
+                                        <span class="text-danger field-validation-error"><small>{{message}}</small></span>
+                                    </div>
+                                    <div name="jobOrders" id="jobOrders">
+                                        <table ng-table="tableParams" ng-class="noItemError ? 'has-error' : ''"
+                                               class="table table-sm table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th width="1%" class="table-header">
+                                                        <button class="btn btn-xs btn-info" ng-click="addRow($index)"
+                                                                ng-show="@Html.UserHasPermissionIndex(userPermission: Model.UserCanAddJO)">
+                                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </th>
+                                                    <th width="40%" class="table-header text-left">{{jobOrderTitle}}</th>
+                                                    <th ng-if="jobOrderType == 'Nature type'" width="10%" class="table-header text-center">JO REQUEST</th>
+                                                    <th ng-if="jobOrderType == 'Nature type'" width="10%" class="table-header text-center">JO COMPLAINT</th>
+                                                    <th ng-if="jobOrderType == 'Task to be perform'" width="30%" class="table-header text-center">NATURE TYPE(S)</th>
+                                                    <th width="8%" class="table-header text-center">ACTIVE</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="data in jobOrderdata.DataResult">
+                                                    <td width="1%" header-class="'text-center'" class="text-center">
+                                                        <!-- DELETE BUTTON-->
+                                                        <button class="btn btn-xs btn-danger" ng-click="deleteRow($index)"
+                                                                ng-show="@Html.UserHasPermissionIndex(userPermission: Model.UserCanDeleteJO) && !data.IsFixed && !data.IsInUsed">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group" style="margin-bottom:unset" ng-class="form.JobOrderDatas{{$index}}.$error.required && formSubmitted || data.IsExist ? 'has-error' : ''">
+                                                            <input type="text" class="form-control"
+                                                                   name="JobOrderDatas{{$index}}" ng-model="data.JobOrderData" ng-required="true"
+                                                                   ng-change="checkIfExist($index)"
+                                                                   ng-disabled="(!@Html.UserHasPermissionIndex(userPermission: Model.UserCanEditJO) && !data.IsEdit) || data.IsFixed || data.IsInUsed"
+                                                                   maxlength="300" alpha-slash-dash-only />
+
+                                                            <span color="red" ng-show="form.JobOrderDatas{{$index}}.$error.required && formSubmitted" class="text-danger field-validation-error">
+                                                                <small>{{jobOrderType}} is required</small>
+                                                            </span>
+                                                            <span ng-show="data.IsExist" class="text-danger field-validation-error">
+                                                                <small>{{jobOrderType}} already exist!</small>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td ng-if="jobOrderType == 'Nature type'">
+                                                        <div class="row">
+                                                            <div class="col-md-12 text-center">
+                                                                <input type="checkbox" name="ForJORequest{{$index}}"
+                                                                       ng-checked="data.ForJORequest"
+                                                                       ng-disabled="!@Html.UserHasPermissionIndex(userPermission: Model.UserCanEditJO) && !data.IsEdit"
+                                                                       ng-model="data.ForJORequest" style="width: 20px; height: 20px" />
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td ng-if="jobOrderType == 'Nature type'">
+                                                        <div class="row">
+                                                            <div class="col-md-12 text-center">
+                                                                <input type="checkbox" name="ForJOComplaint{{$index}}"
+                                                                       ng-checked="data.ForJOComplaint"
+                                                                       ng-disabled="!@Html.UserHasPermissionIndex(userPermission: Model.UserCanEditJO) && !data.IsEdit"
+                                                                       ng-model="data.ForJOComplaint" style="width: 20px; height: 20px" />
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td ng-if="jobOrderType == 'Task to be perform'">
+                                                        <div class="row">
+                                                            <div class="col-md-12 form-group" style="margin-bottom: unset;"
+                                                                 ng-class="form.NatureTypeIds{{$index}}.$invalid && formSubmitted ? 'has-error' : ''">
+                                                                <select select2 class="form-control select2 select2-multiple"
+                                                                        name="NatureTypeIds{{$index}}"
+                                                                        ng-model="data.NatureTypeIds"
+                                                                        ng-required="true"
+                                                                        ng-options="p.Id as p.Description for p in NatureTypes"
+                                                                        ng-disabled="!@Html.UserHasPermissionIndex(userPermission: Model.UserCanEditJO) && !data.IsEdit"
+                                                                        multiple>
+                                                                </select>
+                                                                <span color="red" ng-show="form.NatureTypeIds{{$index}}.$error.required && formSubmitted" class="text-danger field-validation-error">
+                                                                    <small>Nature Type is required</small>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-12 text-center">
+                                                                <input type="checkbox" name="isActive{{$index}}"
+                                                                       ng-checked="data.IsActive"
+                                                                       ng-disabled="!@Html.UserHasPermissionIndex(userPermission: Model.UserCanEditJO) && !data.IsEdit"
+                                                                       ng-model="data.IsActive" style="width: 20px; height: 20px" />
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-show="jobOrderdata.DataResult == 0">
+                                                    <td colspan="10" class="text-center" style="font-style:unset">
+                                                        No data available
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light bordered" style="border-top:solid thin #e7ecf1">
+                        <!--Actions -->
+                        <div class="form-action">
+                            <button class="btn btn-success" ng-click="saveJOType()"
+                                    ng-show="@Html.UserHasPermissionIndex(userPermission: Model.UserCanAddJO) ||
+                                             @Html.UserHasPermissionIndex(userPermission: Model.UserCanEditJO) ||
+                                             @Html.UserHasPermissionIndex(userPermission: Model.UserCanDeleteJO)">
+                                <span class="glyphicon glyphicon-ok"></span> Save
+                            </button>
+                            <button class="btn btn-default" style="width:90px;" ng-click="cancel()">
+                                <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                            </button>
+                            <a ng-click="backTo" id="cancel"></a>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,122 @@
+﻿
+@model Web.Models.ViewModels.GoodsReceipt.GoodsReceiptViewModel.GoodsReceiptManualCreateModel
+<style>
+    .modal {
+        text-align: center;
+        padding: 0 !important;
+    }
+
+        .modal::before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            margin-right: -4px;
+        }
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .app-modal-window .modal-dialog {
+        width: 75%;
+    }
+</style>
+<script type="text/ng-template" id="GoodsReceiptForwardedModal.html">
+    <div  id="modal-body">
+
+        <div class="tabbalble-custom">
+            
+                <div class="portlet box blue-hoki">
+                    <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
+                        <div class="caption col-md-3">
+                            Goods Receipt: {{goodsReceiptCode}}
+                        </div>
+                        <div class="actions">
+                           Total Quantity: {{totalQuantity}} &nbsp; &nbsp; &nbsp;
+                            Total Cost: {{totalCost|number:2}} 
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <table ng-table="supplierTable" class="table table-bordered table-striped table-hover table-condensed editable-table"
+                               ng-form="ctrl.tableform" demo-tracked-table="ctrl.tableTracker">
+                            <colgroup>
+                                <col width="15%" />
+                                <col width="15%" />
+                                <col width="5%" />
+                                <col width="10%" />
+                                <col width="10%" />
+                            </colgroup>
+                            <tr ng-repeat="row in dataToInsert track by $index" ng-form="rowForm" demo-tracked-table-row="row">
+
+                          
+                                <td title="'Product'"
+                                    header-class="'text-left'" demo-tracked-table-cell>
+                                    <div>
+                    
+                                        <input type="text" name="itemTxtbox" ng-model="row.LongDescription" class="editable-input form-control input-sm" readonly />
+                                    </div>
+                                </td>
+                                <td title="'Quantity'"
+                                    header-class="'text-left'" demo-tracked-table-cell>
+                                    <div>
+                                        <div ng-form="Quantity" class="controls" ng-class="Quantity.$invalid && (Quantity.$dirty || formSubmitted) ? 'has-error' : ''">
+                                            <div class="row static-info">
+
+                                                <div class="col-md-9 value">
+                                                    <input type="number" name="quantityTextbox" id="quantity" ng-model="row.Quantity" class="editable-input form-control input-sm" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td title="'Cost'"
+                                    header-class="'text-left'" demo-tracked-table-cell>
+                                    <div>
+                                        <div ng-form="Cost" class="controls" ng-class="Cost.$invalid && (Cost.$dirty || formSubmitted) ? 'has-error' : ''">
+                                            <div class="row static-info">
+
+                                                <div class="col-md-9 value">
+                                                    <label ng-model="row.Cost" class="editable-input form-control input-sm" value="{{row.Cost}}">{{row.Cost|number:2}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td title="'TotalCost'"
+                                    header-class="'text-left'" demo-tracked-table-cell>
+                                    <div>
+                                        <div ng-form="TotalCost" class="controls" ng-class="TotalCost.$invalid && (TotalCost.$dirty || formSubmitted) ? 'has-error' : ''">
+                                            <div class="row static-info">
+
+                                                <div class="col-md-9 value">
+
+                                                    <label ng-model="row.TotalCost" id="totalCost" class="editable-input form-control input-sm">{{row.TotalCost|number:2}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                          
+                            </tr>
+
+                        </table>
+                        <div class="actions">
+                            <a ng-click="sendToAccountsPayable()" class="btn btn-info">
+                                <i class="fa fa-send"></i>
+                                <span class=""> Send to AP </span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+         
+
+        </div>
+     </div>
+  
+
+</script>
+

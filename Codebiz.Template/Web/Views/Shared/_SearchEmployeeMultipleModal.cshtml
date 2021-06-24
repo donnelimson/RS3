@@ -1,0 +1,52 @@
+﻿<script type="text/ng-template" id="SearchEmployeeMultipleModal.html">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Search {{dataType}}(s) </h4>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="table-responsive" style="overflow-x:auto;" loading-container="appUserTableParams.settings().$loading">
+            <table ng-table="appUsersTable" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover">
+                <tr ng-repeat="appUser in $data">
+                    <td width="1%" header-class="'text-center'" header="'ng-table/headers/checkbox.html'" class="text-center">
+                        <label class="mt-checkbox mt-checkbox-outline">
+                            <input type="checkbox" name="name"
+                                   ng-checked="appUser.IsSelected"
+                                   ng-click="addRemoveUsers(appUser)"
+                                   ng-model="appuser.SelectedUser"
+                                   @*ng-disabled="appUser.IsCheckedIn"*@ />
+                            <span></span>
+                        </label>
+                    </td>
+                    <td width="40%" data-title="'NAME'" sortable="'LastName'" filter="{Name: 'text'}" header-class="'table-header text-left'" class="text-left" ng-dblclick="doubleClick(appUser)">
+                        {{appUser.FullName}}
+                    </td>
+                    <td width="30%" data-title="'POSITION'" sortable="'Position'" filter="{Position: 'text'}" filter-data="positions" header-class="'table-header text-left text-primary'" class="text-left" ng-dblclick="doubleClick(appUser)">
+                        {{appUser.Position}}
+                    </td>
+                    <td width="30%" ng-if="!forJobOrderEndorse" data-title="'AREA'" sortable="'Office'" filter="{Area: 'text'}" filter-data="areas" header-class="'table-header text-left text-primary'" class="text-left" ng-dblclick="doubleClick(appUser)">
+                        {{appUser.Office}}
+                    </td>
+                </tr>
+                <tr ng-show="$data.length == 0">
+                    <td colspan="4" class="text-center" style="font-style:unset">
+                        No data available
+                    </td>
+                </tr>
+            </table>
+
+            Showing {{currentPage * tableCount-9}} to {{(currentPage * tableCount)-(tableCount-offSetCount)}} of {{totalRecordCount | number}} entries
+        </div>
+    </div>
+    <div class="modal-footer pull-left">
+        <button class="btn btn-info" type="button" ng-click="goSelect(true)">Select</button>
+        <button class="btn grey-cascade" type="button" ng-click="clear()">Clear</button>
+        <button class="btn btn-warning" type="button" ng-click="close()">Close</button>
+    </div>
+    <div class="clearfix"></div>
+
+</script>
+<script type="text/ng-template" id="ng-table/headers/checkbox.html">
+    <label class="mt-checkbox mt-checkbox-outline" style="padding-left:20px">
+        <input type="checkbox" ng-click="selectAllAppUsers(selectAll)" ng-model="selectAll" ng-checked="selectedAll" ng-disabled="checkedAll" id="selectAll" name="filter-checkbox" value="" />
+        <span></span>
+    </label>
+</script>

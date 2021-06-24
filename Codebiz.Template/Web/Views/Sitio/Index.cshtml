@@ -1,0 +1,175 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+@{
+    ViewBag.Title = "Sitio";
+}
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>
+                Management
+            </span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>
+                Address
+            </span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Sitio")">Sitio</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Sitio  <small>View, search , add, edit, delete, deactivate or reactivate</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="SitioController as controller" ng-form="addSitioForm">
+        <!-- BEGIN PORTLET -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET -->
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <h4 class="bold">Search</h4>
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="expand"> </a>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                    <div class="portlet-body tabs-below" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Code</label>
+                                    <input type="text" name="Code" class="form-control" autocomplete="off"
+                                           ng-model="code" ng-keypress="searchWhenEnter($event)" tabindex="1" maxlength="100" alphanumeric-dash-only />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Name</label>
+                                    <input type="text" name="Name" class="form-control" autocomplete="off"
+                                           ng-model="name" ng-keypress="searchWhenEnter($event)" tabindex="2" maxlength="100" alphanumeric-dash-only />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="actions btn-set btn-filter">
+                                    <button type="button" class="btn btn-success" ng-click="search()">
+                                        <i class="fa fa-search"></i>
+                                        <span class=""> Search </span>
+                                    </button>
+                                    <button type="button" class="btn" ng-click="reset()">
+                                        <i class="fa fa-rotate-left"></i>
+                                        <span class=""> Reset </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET -->
+            </div>
+        </div>
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    List
+                </div>
+                <div class="actions">
+                    <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportSitios)>
+                        <i class="fa fa-share-square-o"></i>
+                        <span class="">Export</span>
+                    </a>
+                    <a href="" class="btn btn-info" ng-click="openSitioSaveModal(0)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddSitio)>
+                        <i class="fa fa-plus"></i>
+                        <span class=""> New </span>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive padding-bottom-10" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                        <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover @Html.UserHasPermission(userPermission:new List<string>() {PermissionData.UserCanEditSitio, PermissionData.UserCanDeleteSitio, PermissionData.UserCanDeActivateReActivateSitio})">
+                            <tr ng-repeat="sitio in $data">
+                                <td width="1%" header-class="'text-center'" class="text-center">
+                                    <div class="btn-group">
+                                        <button id="bars" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="sitioId">
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditSitio)>
+                                                <a ng-click="openSitioSaveModal(sitio.SitioId)">
+                                                    <i class="glyphicon glyphicon-pencil"></i> Edit
+                                                </a>
+                                            </li>
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeleteSitio)>
+                                                <a ng-click="delete(sitio)">
+                                                    <i class="glyphicon glyphicon-trash"></i> Delete
+                                                </a>
+                                            </li>
+
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeActivateReActivateSitio)>
+                                                <a ng-click="toggleActiveStatus(sitio, false)" ng-hide="!sitio.IsActive">
+                                                    <i class="glyphicon glyphicon-remove"></i> Deactivate
+                                                </a>
+                                            </li>
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeActivateReActivateSitio)>
+                                                <a ng-click="toggleActiveStatus(sitio, true)" ng-hide="sitio.IsActive">
+                                                    <i class="glyphicon glyphicon-ok"></i> Reactivate
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="10%" data-title="'CODE'" sortable="'Code'" header-class="'table-header text-left'" class="text-left">
+                                    {{sitio.Code}}
+                                </td>
+                                <td width="10%" data-title="'NAME'" sortable="'Name'" header-class="'table-header text-left'" class="text-left">
+                                    {{sitio.Name}}
+                                </td>
+                                <td width="2%" data-title="'ACTIVE'" sortable="'IsActive'" header-class="'table-header text-center'" class="text-center">
+                                    <span class="label label-sm" ng-class="sitio.IsActive ? 'label-success' : 'label-danger'">{{sitio.IsActive ? 'Yes': 'No'}}</span>
+                                </td>
+                                <td width="10%" data-title="'CREATED BY'" sortable="'CreatedBy'" header-class="'table-header text-left'" class="text-left">
+                                    {{sitio.CreatedBy}}
+                                </td>
+                                <td width="10%" data-title="'CREATED DATE'" sortable="'CreatedDate'" header-class="'table-header text-left'" class="text-left">
+                                    {{sitio.CreatedDate | date : 'MM/dd/yyyy hh:mm a'}}
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length == 0">
+                                <td colspan="8" class="text-center" style="font-style:unset">
+                                    No data available
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @Html.Partial("SitioSaveModal")
+        </div>
+    </div>
+</div>
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/Sitio/SitioService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Sitio/SitioSaveModalController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Sitio/SitioController.js")
+}

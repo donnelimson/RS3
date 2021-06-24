@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "_ApprovalResultModal";
+}
+<!--Approval Result-->
+
+<script type="text/ng-template" id="_ApprovalResultModal.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">×</span><span class="sr-only">Close Modal</span></button>
+
+        <h4 class="modal-title" id="modal-title" style="color:#67809f">Approval Result</h4>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive" loading-container="tableParams.settings().$loading">
+                    <table ng-table="tableParams" @*show-filter="true"*@ class="table table-bordered table-responsive">
+                        <tr ng-repeat="item in $data">
+                            <a href="">
+                                <td width="10%" data-title="'NAME'" @*filter="{Name: 'text'}"*@ sortable="'Name'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.Name}}
+                                </td>
+                                <td width="5%" data-title="'POSITION'" @*filter="{Position: 'text'}"*@ sortable="'Position'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.Position}}
+                                </td>
+                                <td width="1%" data-title="'STAGE'" @*filter="{Stage: 'text'}"*@ sortable="'Stage'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.Stage}}
+                                </td>
+                                <td width="5%" data-title="'ACTION ON'" sortable="'ActionDate'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.ActionDate |date : 'MM/dd/yyyy hh:mm a'}}
+                                </td>
+                                <td width="2%" data-title="'STATUS'" @*filter="{Status: 'select'}"*@ sortable="'Status'"  @*filter-data="statuses"*@ header-class="'table-header text-center'" class="text-center">
+                                    <span class="label label-sm label-rejected ng-binding" ng-show="item.Status=='Rejected'">{{item.Status}}</span>
+                                    <span class="label label-sm label-success ng-binding " ng-show="item.Status=='Approved'">{{item.Status}}</span>
+                                    <span class="label label-sm label-warning ng-binding" ng-show="item.Status=='Disapproved'">{{item.Status}}</span>
+                                    <span class="label label-sm label-info ng-binding" ng-show="item.Status=='Pending'">{{item.Status}}</span>
+                                </td>
+                                <td width="10%" data-title="'REMARKS'" sortable="'Remarks'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.Remarks}}
+                                </td>
+                            </a>
+                        </tr>
+                        <tr ng-show="$data.length == 0">
+                            <td colspan="8" class="text-center" style="font-style:unset">
+                                No data available
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+

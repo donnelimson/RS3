@@ -1,0 +1,112 @@
+﻿<script type="text/ng-template" id="_UnbundledTransactionFormModal.html">
+    <div class="modal-header">
+        <h4 class="form-sub-title ng-binding">{{billingUnbundledTransactionCategoryDetails.Name}}</h4>
+    </div>
+    <div ng-form="form">
+        <div class="modal-body">
+            <!-- BEGIN FORM-->
+            <div class="form-body">
+                <div class="row">
+                    <!--Code-->
+                    <div class="col-md-4" style="margin-top:3px">
+                        <div class="form-group" ng-class="form.Code.$invalid && (form.Code.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label" style="font-size:13px;"> Code: </label><span class="required"> * </span>
+                            <div class="input-group">
+                                <input type="text" name="Code"
+                                       ng-model="unbundledTransactions.Code"
+                                       class="form-control" ng-required="true"
+                                       placeholder="Press enter to search"
+                                       ng-blur="getUnbundledNameByCode(unbundledTransactions.Code,billingUnbundledTransactionCategoryDetails.BillingUnbundledTransactionCategoryId)"
+                                       ng-keypress="showModalWhenPress($event,billingUnbundledTransactionCategoryDetails.BillingUnbundledTransactionCategoryId)" />
+                                <span class="input-group-btn" ng-click="searchUnbundledTransaction(billingUnbundledTransactionCategoryDetails.BillingUnbundledTransactionCategoryId)">
+                                    <button class="btn btn-info btn" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <span ng-show="form.Code.$error.required && (form.Code.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Code is required!</small></span>
+                        </div>
+                    </div>
+                    <!--Rate-->
+                    <div class="col-md-4">
+                        <div class="form-group form-md-checkboxes" ng-class="(form.Rate.$error.required ) && (form.Rate.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <div class="md-checkbox">
+                                <input type="checkbox" class="md-check" ng-model="IsAmmount" ng-true-value="false" ng-false-value="true"
+                                       id="Rate" ng-click="!IsAmmount" ng-change="unbundledTransactions.Amount = !IsAmmount ? null : Amount" ng-disabled="!IsAmmount">
+                                <label for="Rate">
+                                    <span class="inc"></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                </label>
+                                Rate:<span class="required" ng-show="!IsAmmount"> * </span>
+                            </div>
+                            <input type="text" style="margin-top:6px" name="Rate" ng-model="unbundledTransactions.Rate" class="form-control  text-right"  onchange="convertToFourDecimal(this)" ng-required="!IsAmmount"
+                                   ng-disabled="IsAmmount"  numbers-decimals-only/>
+                            <span ng-show="form.Rate.$error.required && (form.Rate.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Rate is required!</small></span>
+                        </div>
+                    </div>
+                    <!--Amount-->
+                    <div class="col-md-4">
+                        <div class="form-group form-md-checkboxes" ng-class="(form.Amount.$error.required)  && (form.Amount.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <div class="md-checkbox">
+                                <input type="checkbox" class="md-check" ng-model="IsAmmount" ng-true-value="true" ng-false-value="false"
+                                       id="Ammount" ng-click="!IsAmmount" ng-change="unbundledTransactions.Rate = IsAmmount ? null : Rate" ng-disabled="IsAmmount">
+                                <label for="Ammount">
+                                    <span class="inc"></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                </label>
+                                Amount:<span class="required" ng-show="IsAmmount"> * </span>
+                            </div>
+                            <input type="text" name="Amount" style="margin-top:6px" ng-model="unbundledTransactions.Amount" class="form-control text-right" onchange="convertToTwoDecimal(this)" ng-required="IsAmmount"
+                                   ng-disabled="!IsAmmount"  numbers-decimals-only />
+                            <span ng-show="form.Amount.$error.required && (form.Amount.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Amount is required!</small></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--Name-->
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="form.Name.$invalid && (form.Name.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label" style="font-size:13px;"> Name: </label><span class="required"> * </span>
+                            <input type="text" name="Name" ng-model="unbundledTransactions.Name" class="form-control"
+                                   ng-required="true"  ng-disabled="true" title=""/>
+                            <span ng-show="form.Name.$error.required && (form.Name.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Name is required!</small></span>
+                        </div>
+                    </div>
+                    <!--DisplayName-->
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="form.DisplayedName.$invalid && (form.DisplayedName.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label" style="font-size:13px;"> Displayed Name: </label><span class="required"> * </span>
+                            <input type="text" name="DisplayedName" ng-model="unbundledTransactions.DisplayedName" class="form-control"
+                                   ng-required="true" ng-disabled="true" title=""/>
+                            <span ng-show="form.DisplayedName.$error.required && (form.Name.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Displayed Name is required!</small></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END FORM-->
+        <div class="modal-footer pull-left">
+            <!--Save-->
+            <button type="button" class="btn btn-success" style="width: 90px;" ng-click="saveChanges()">
+                <span class="glyphicon glyphicon-plus"> </span>&nbsp; Add
+            </button>
+            <!--Cancel-->
+            <button type="button" class="btn btn-default" style="width: 90px;" ng-click="cancel()">
+                <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+            </button>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</script>
+
+
+
+
+

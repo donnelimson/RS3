@@ -1,0 +1,323 @@
+﻿    <script type="text/ng-template" id="BillingUnbundledTransactionSaveModal.html">
+
+    <!--Modal Head-->
+        <header style="background-color:#000;color:#fff;" ng-show="ForViewingOnly">
+
+        </header>
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">×</span><span class="sr-only">Close Modal</span></button>
+            <h4 class="form-sub-title" ng-show="!ForViewingOnly">Billing Unbundled Transaction - {{isUpdate ? 'EDIT':'ADD'}}</h4>
+            <h4 class="form-sub-title" ng-show="ForViewingOnly">Billing Unbundled Transaction - DETAILS</h4>
+        </div>
+    <!--Modal Body-->
+    <div id="modal-body" class="modal-body" ng-form="saveBillingUnbundledTransactionForm">
+        <!--Modal Body-->
+        <div class="form-body">
+            <!--Modal Body Content -->
+            <div class="tabbable-line">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#generalSetupTab" data-toggle="tab"><span ng-style="{'color': !saveBillingUnbundledTransactionForm.$valid && formSubmitted? 'red':'black'}">General Setup</span></a>
+                    </li>
+                    <li>
+                        <a href="#forVatTab" data-toggle="tab" ng-click="loadUnbundledTransactions(true)"
+                           ng-show = "billingUnbundledTransaction.Classification != 'VAT'">
+                            <span ng-style="{'color': (unbundledTransactionsForVat.length == 0 && billingUnbundledTransaction.ForVat)  && formSubmitted? 'red':'black'}">
+                                For Vat
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#forDiscountTab" data-toggle="tab" ng-click="loadUnbundledTransactions(false)"
+                           ng-show = "billingUnbundledTransaction.Classification != 'VAT' && billingUnbundledTransaction.Classification != 'DISCOUNT'">
+                            <span ng-style="{'color': (unbundledTransactionsForDiscount.length==0 && billingUnbundledTransaction.ForDiscount)  && formSubmitted? 'red':'black'}">
+                                For Discount
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="generalSetupTab">
+                        <div class="row">
+                            <!--Code Textbox -->
+                            <div class="col-md-3">
+                                <div class="form-group" ng-class="saveBillingUnbundledTransactionForm.Code.$invalid && (saveBillingUnbundledTransactionForm.Code.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Code</label><span class="required"> * </span>
+                                    <input type="text" class="form-control" name="Code" ng-model="billingUnbundledTransaction.Code" ng-required="true" ng-readonly="ForViewingOnly">
+                                    <span color="red" ng-show="saveBillingUnbundledTransactionForm.Code.$error.required && (saveBillingUnbundledTransactionForm.Code.$dirty || formSubmitted)" class="text-danger
+                                        field-validation-error"><small>Code is required</small><br /></span>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group" ng-class="saveBillingUnbundledTransactionForm.Name.$invalid && (saveBillingUnbundledTransactionForm.Name.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Name</label><span class="required"> * </span>
+                                    <input type="text" class="form-control" name="Name" ng-model="billingUnbundledTransaction.Name" ng-required="true" ng-readonly="ForViewingOnly" />
+                                    <span color="red" ng-show="saveBillingUnbundledTransactionForm.Name.$error.required && (saveBillingUnbundledTransactionForm.Name.$dirty  || formSubmitted)" class="text-danger
+                                         field-validation-error"><small>Name is required</small></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Displayed Name</label>
+                                    <input type="text" class="form-control" name="DisplayedName" ng-model="billingUnbundledTransaction.DisplayedName" ng-readonly="ForViewingOnly" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group" ng-class="saveBillingUnbundledTransactionForm.CategoryId.$error.required &&  (formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Category</label><span class="required"> * </span>
+                                    <div id="CategoryIdDiv">
+                                        <select select2 name="CategoryId" class="form-control" ng-required="true" ng-model="billingUnbundledTransaction.BillingUnbundledTransactionCategoryId"
+                                                ng-options="c.Id as (c.Name) for c in categories " ng-change="search()" ng-disabled="ForViewingOnly">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+                                    <span color="red" ng-show="saveBillingUnbundledTransactionForm.CategoryId.$error.required && formSubmitted" class="text-danger field-validation-error">
+                                        <small>Category is required</small>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Classification</label>
+                                    <select select2 name="Classification" class="form-control"
+                                            ng-model="billingUnbundledTransaction.Classification"
+                                            ng-disabled="ForViewingOnly"
+                                            ng-change="onChangedClassification()">
+                                        <option value="">---Please select---</option>
+                                        <option value="DISCOUNT">DISCOUNT</option>
+                                        <option value="VAT">VAT</option>
+                                        <option value="TRANSFORMER LOSS">TRANSFORMER LOSS</option>
+                                        <option value="TRANSFORMER RENTAL">TRANSFORMER RENTAL</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group"  ng-class="saveBillingUnbundledTransactionForm.ComputedBy.$error.required &&  (formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Computed By</label><span class="required"> * </span>
+                                    <select select2 name="ComputedBy" class="form-control"
+                                            ng-model="billingUnbundledTransaction.ComputedBy"
+                                            ng-disabled="ForViewingOnly"
+                                            ng-required="true">
+                                        <option value="">---Please select---</option>
+                                        <option value="KWH">KWH</option>
+                                        <option value="DKWH">DKWH</option>
+                                        <option value="KVA RATING">KVA RATING</option>
+                                    </select>
+                                    <span color="red" ng-show="saveBillingUnbundledTransactionForm.ComputedBy.$error.required && formSubmitted" class="text-danger field-validation-error">
+                                        <small>Computed by is required</small>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Included to</label>
+                                    <select select2 name="IncludedTo" class="form-control"
+                                            ng-model="billingUnbundledTransaction.IncludedTo"
+                                            ng-disabled="ForViewingOnly"
+                                            multiple>
+                                        <option value="">---Please select---</option>
+                                        <option value="CONTESTABLE">CONTESTABLE</option>
+                                        <option value="NET METERING">NET METERING</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding-top:5px">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="md-checkbox-inline">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" class="md-check"
+                                                       ng-checked="billingUnbundledTransaction.IsICERA"
+                                                       ng-model="billingUnbundledTransaction.IsICERA"
+                                                       ng-change="checkICERA()"
+                                                       ng-disabled="ForViewingOnly"
+                                                       id="IsICERA">
+                                                <label for="IsICERA">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                                ICERA
+                                            </div>
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" class="md-check"
+                                                       ng-checked="billingUnbundledTransaction.IsGRAM"
+                                                       ng-model="billingUnbundledTransaction.IsGRAM"
+                                                       ng-change="checkGRAM()"
+                                                       ng-disabled="ForViewingOnly"
+                                                       id="isGRAM">
+                                                <label for="isGRAM">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                                GRAM
+                                            </div>
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" class="md-check"
+                                                       ng-checked="billingUnbundledTransaction.IsLifelineSubsidy"
+                                                       ng-model="billingUnbundledTransaction.IsLifelineSubsidy"
+                                                       ng-change="checkLifelineSubsidy()"
+                                                       ng-disabled="ForViewingOnly"
+                                                       id="isLifelineSubsidy">
+                                                <label for="isLifelineSubsidy">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                                Lifeline Subsidy
+                                            </div>
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" class="md-check"
+                                                       ng-checked="billingUnbundledTransaction.IsSeniorCitizenDiscount"
+                                                       ng-model="billingUnbundledTransaction.IsSeniorCitizenDiscount"
+                                                       ng-change="checkSeniorCitizenDiscount()"
+                                                       ng-disabled="ForViewingOnly"
+                                                       id="isSeniorCitizenDiscount">
+                                                <label for="isSeniorCitizenDiscount">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                                Senior Citizen Discount
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6" ng-show="billingUnbundledTransaction.ComputedBy != 'DKWH'">
+                                    <div class="form-group">
+                                        <div class="md-checkbox-inline">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" class="md-check"
+                                                       ng-checked="billingUnbundledTransaction.ZeroWhenThereIsDemand"
+                                                       ng-model="billingUnbundledTransaction.ZeroWhenThereIsDemand"
+                                                       ng-disabled="ForViewingOnly"
+                                                       id="isZero">
+                                                <label for="isZero">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                                ZERO [0] WHEN THERE IS DEMAND
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" ng-show="billingUnbundledTransaction.ComputedBy == 'DKWH'">
+                                    <div class="form-group">
+                                        <div class="md-checkbox-inline">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" class="md-check"
+                                                       ng-checked="billingUnbundledTransaction.ZeroWhenThereIsNoDemand"
+                                                       ng-model="billingUnbundledTransaction.ZeroWhenThereIsNoDemand"
+                                                       ng-disabled="ForViewingOnly"
+                                                       id="isZero1">
+                                                <label for="isZero1">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                                ZERO [0] WHEN THERE IS NO DEMAND
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                        </div>
+                    <div class="tab-pane" id="forVatTab">
+                        <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                            <table ng-table="forVatTableParams" ng-class="{'loading': isLoading}" class="table table-bordered">
+                                <tr ng-repeat="item in $data">
+                                    <td width="1%" header-class="'text-center'" class="text-center">
+                                        <button class="btn btn-danger btn-mini" ng-click="deleteUnbundledTransactionLookUp(true,item)" ng-hide="ForViewingOnly">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </td>
+                                    <td width="30%" data-title="'UNBUNDLED TRANSACTIONS'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.CodeAndName}}
+                                    </td>
+                                    <td width="40%" data-title="'DISPLAY NAME'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.DisplayedName}}
+                                    </td>
+
+                                </tr>
+
+                                <tr ng-hide="ForViewingOnly">
+                                    <td></td>
+                                    <td>
+                                        <select select2 name="forVatId" class="form-control" ng-model="billingUnbundledTransaction.BillingUnbundledTransactionForVatId"
+                                                ng-options="ubv.BillingUnbundledTransactionId as (ubv.CodeAndName) for ubv in unbundledTransactions"
+                                                ng-change="addUnbundledTransaction(true,billingUnbundledTransaction.BillingUnbundledTransactionForVatId)">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr ng-show="$data.length == 0">
+                                    <td colspan="8" class="text-center" style="font-style:unset"> No data available</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="forDiscountTab">
+                        <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                            <table ng-table="forDiscountTableParams" ng-class="{'loading': isLoading}" class="table table-bordered">
+                                <tr ng-repeat="item in $data">
+                                    <td width="1%" header-class="'text-center'" class="text-center">
+                                        <button class="btn btn-danger btn-mini" ng-click="deleteUnbundledTransactionLookUp(false,item)" ng-hide="ForViewingOnly">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </td>
+                                    <td width="30%" data-title="'UNBUNDLED TRANSACTIONS'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.CodeAndName}}
+                                    </td>
+                                    <td width="40%" data-title="'DISPLAY NAME'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.DisplayedName}}
+                                    </td>
+
+                                </tr>
+                                <tr ng-hide="ForViewingOnly">
+                                    <td></td>
+                                    <td>
+                                        <select select2 name="forDiscountId" class="form-control" ng-model="billingUnbundledTransaction.BillingUnbundledTransactionForDiscountId"
+                                                ng-options="ubd.BillingUnbundledTransactionId as (ubd.CodeAndName) for ubd in unbundledTransactions"
+                                                ng-change="addUnbundledTransaction(false,billingUnbundledTransaction.BillingUnbundledTransactionForDiscountId)">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr ng-show="$data.length == 0">
+                                    <td colspan="8" class="text-center" style="font-style:unset"> No data available</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!--End Modal Body -->
+            <!--Modal Footer-->
+            <div class="modal-footer pull-left" ng-show="!ForViewingOnly" style="padding-left:0px; margin-top:20px">
+                <button class="btn btn-success" style="width:90px;" ng-click="saveBillingUnbundledTransaction()">
+                    <span class="glyphicon glyphicon-ok"></span> {{isUpdate ? 'Update':'Save'}}
+                </button>
+                <button class="btn btn-default" style="width:90px;" ng-click="cancel()">
+                    <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                </button>
+            </div>
+        </div>
+    <div class="clearfix"></div>
+</script>

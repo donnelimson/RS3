@@ -1,0 +1,317 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+@{
+    ViewBag.Title = "Users - Index";
+}
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>Management</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "AppUsers")">Users</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Users
+    <small>View, add, edit users</small>
+</h1>
+<!-- END PAGE TITLE-->
+
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="UsersController as u">
+        <!-- BEGIN PORTLET -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <h4 class="bold">Search</h4>
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="expand"> </a>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                    <div class="portlet-body tabs-below" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Name</label>
+                                    <input type="text" name="Name" class="form-control" autocomplete="off"
+                                           ng-model="name" ng-keypress="searchWhenEnter($event)">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Username</label>
+                                    <input type="text" name="Username" class="form-control" autocomplete="off"
+                                           ng-model="username" ng-keypress="searchWhenEnter($event)">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Created By</label>
+                                    <input type="text" name="Address" class="form-control" autocomplete="off"
+                                           ng-model="createdBy" ng-keypress="searchWhenEnter($event)">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Created Date</label>
+                                    <div class='input-group date'>
+                                        <input type="text" name="CreatedDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                               is-open="createdOnDatePicker.opened" close-text="Close"
+                                               id="drp" ng-model="createdDate" ng-click="openCreatedOnDatePicker()" ng-change="search()" readonly>
+                                        <span class="input-group-addon" onclick="$('#drp').focus()">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">E-mail</label>
+                                    <input type="text" name="Email" class="form-control" autocomplete="off"
+                                           ng-model="email" ng-keypress="searchWhenEnter($event)">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Office</label>
+                                    <input type="text" name="Office" class="form-control" autocomplete="off"
+                                           ng-model="office" ng-keypress="searchWhenEnter($event)">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Department</label>
+                                    <input type="text" name="Department" class="form-control" autocomplete="off"
+                                           ng-model="department" ng-keypress="searchWhenEnter($event)">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Position</label>
+                                    <input type="text" name="Position" class="form-control" autocomplete="off"
+                                           ng-model="position" ng-keypress="searchWhenEnter($event)">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Status</label>
+                                    <div id="StatusIdDiv">
+                                        <select select2 name="AppUserStatus" id="AppUserStatus" class="form-control"
+                                                ng-model="appUserStatus" ng-options="st.Id as (st.Description) for st in appUserStatuses"
+                                                ng-change="search()">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="actions btn-set btn-filter">
+                                    <button type="button" class="btn btn-success" ng-click="search()">
+                                        <i class="fa fa-search"></i>
+                                        <span class=""> Search </span>
+                                    </button>
+                                    <button type="button" class="btn" ng-click="reset()">
+                                        <i class="fa fa-rotate-left"></i>
+                                        <span class=""> Reset </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                </div>
+            </div>
+        </div>
+        <!-- BEGIN APP USERS TABLE -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            List
+                        </div>
+                        <div class="actions">
+                            <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportUsers)>
+                                <i class="fa fa-share-square-o"></i>
+                                <span class="">Export</span>
+                            </a>
+                            <a class="btn btn-info" ng-click="addOrUpdate(0)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddAppUser)>
+                                <i class="fa fa-plus"></i>
+                                <span class=""> New </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive padding-bottom-50" style="overflow:auto;" loading-container="tableParams.settings().$loading">
+                                <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped
+                                       @Html.UserHasPermission(userPermission: new List<string>() {
+                                              PermissionData.UserCanEditAppUser,
+                                              PermissionData.UserCanActivateAppUserAccount,
+                                              PermissionData.UserCanResetPasswordOfAppUser,
+                                              PermissionData.UserCanActivateDeactivateAppUser,
+                                              PermissionData.UserCanUnlockAppUserAccount})">
+                                    <tr ng-repeat="user in $data">
+                                        <td width="1%">
+                                            <div class="btn-group">
+                                                <button id="users" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-list"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="approvalStage">
+                                                    <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditAppUser)>
+                                                        <a ng-click="addOrUpdate(user.AppUserId)">
+                                                            <i class="glyphicon glyphicon-pencil"></i> Edit
+                                                        </a>
+                                                    </li>
+                                                    <li ng-show="user.IsActive && !user.EmailConfirmation" @Html.UserHasPermission(userPermission: PermissionData.UserCanActivateAppUserAccount)>
+                                                        <a ng-click="resendActivationLink(user.AppUserId)">
+                                                            <i class="glyphicon glyphicon-link"></i> Resend Activation Link
+                                                        </a>
+                                                    </li>
+                                                    <li ng-show="user.IsActive && user.EmailConfirmation && user.AppUserStatus == 'Active'" @Html.UserHasPermission(userPermission: PermissionData.UserCanResetPasswordOfAppUser)>
+                                                        <a ng-click="sendResetPasswordLink(user.AppUserId)">
+                                                            <i class="glyphicon glyphicon-link"></i>Send Reset Password Link
+                                                        </a>
+                                                    </li>
+                                                    <li ng-show="user.IsActive && user.EmailConfirmation && user.AppUserStatus !== 'Active'" @Html.UserHasPermission(userPermission: PermissionData.UserCanUnlockAppUserAccount)>
+                                                        <a ng-click="sendUnlockingAccountLink(user.AppUserId)">
+                                                            <i class="glyphicon glyphicon-link"></i> Send Unlocking Account Link
+                                                        </a>
+                                                    </li>
+                                                    <li @Html.UserHasPermission(userPermission: PermissionData.UserCanActivateDeactivateAppUser)>
+                                                        <a ng-click="toggleActiveStatus(user)" ng-hide="user.IsActive">
+                                                            <i class="glyphicon glyphicon-ok"></i>Reactivate
+                                                        </a>
+                                                    </li>
+                                                    <li @Html.UserHasPermission(userPermission: PermissionData.UserCanActivateDeactivateAppUser)>
+                                                        <a ng-click="toggleActiveStatus(user)" ng-hide="!user.IsActive">
+                                                            <i class="glyphicon glyphicon-remove"></i>Deactivate
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td width="15%" data-title="'NAME'" sortable="'Name'" header-class="'table-header text-left'" class="text-left">
+                                            {{user.Name}}
+                                        </td>
+                                        <td width="7%" data-title="'USERNAME'" sortable="'Username'" header-class="'table-header text-left'" class="text-left">
+                                            {{user.Username}}
+                                        </td>
+                                        <td width="7%" data-title="'E-MAIL'" sortable="'Email'" header-class="'table-header text-left'" class="text-left">
+                                            {{user.Email}}
+                                        </td>
+                                        <td width="7%" data-title="'OFFICE'" sortable="'Office'" header-class="'table-header text-left'" class="text-left">
+                                            {{user.Office}}
+                                        </td>
+                                        <td width="8%" data-title="'DEPARTMENT'" sortable="'Department'" header-class="'table-header text-left'" class="text-left">
+                                            {{user.Department}}
+                                        </td>
+                                        <td width="7%" data-title="'POSITION'" sortable="'Position'" header-class="'table-header text-left'" class="text-left">
+                                            <span ng-show="user.IsManager">
+                                                <font color="orange" style="font-weight: bold;">{{user.Position}}</font>
+                                            </span>
+                                            <span ng-hide="user.IsManager">{{user.Position}}</span>
+                                        </td>
+                                        <td width="12%" data-title="'E-MAIL CONFIRMATION'" sortable="'EmailConfirmation'" header-class="'table-header text-center'" class="text-center">
+                                            <span class="label label-sm" ng-class="user.EmailConfirmation ? 'label-success' : 'label-warning'">{{user.EmailConfirmation ? 'Confirmed': 'For Activation'}}</span>
+                                        </td>
+                                        <td width="7%" data-title="'STATUS'" sortable="'AppUserStatus'" header-class="'table-header text-center'" class="text-center">
+                                            <span class="label label-sm" ng-class="user.AppUserStatus === 'Active' ? 'label-success'
+                                                  : (user.AppUserStatus === 'Dormant' ? 'label-warning' : 'label-danger')">
+                                                {{user.AppUserStatus === 'Active' ? 'Active': (user.AppUserStatus === 'Dormant' ? 'Dormant' : 'Locked')}}
+                                            </span>
+                                        </td>
+                                        <td width="7%" data-title="'ACTIVE'" sortable="'IsActive'" header-class="'table-header text-center'" class="text-center">
+                                            <span class="label label-sm" ng-class="user.IsActive ? 'label-success' : 'label-danger'">{{user.IsActive ? 'Yes': 'No'}}</span>
+                                        </td>
+                                        <td width="10%" data-title="'CREATED BY'" sortable="'CreatedBy'" header-class="'table-header text-left'" class="text-left">
+                                            {{user.CreatedBy}}
+                                        </td>
+                                        <td width="10%" data-title="'CREATED DATE'" sortable="'CreatedDate'" header-class="'table-header text-left'" class="text-left">
+                                            {{user.CreatedDate | date : 'MM/dd/yyyy hh:mm a'}}
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="$data.length == 0">
+                                        <td colspan="12" class="text-center" style="font-style:unset">
+                                            No data available
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!-- END APP USERS TABLE -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET -->
+    </div>
+</div>
+
+@section pagestyles {
+    <style>
+        #users + .dropdown-menu {
+            z-index: 99000
+        }
+
+        #detail-padding div div {
+            padding-bottom: 5px;
+        }
+    </style>
+}
+
+
+@section PageScripts {
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $('input[name="CreatedDate"]').daterangepicker({
+                    opens: 'left',
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                }, function (start, end, label) {
+                });
+            });
+
+            $('input[name="CreatedDate"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                $(this).trigger('change');
+            });
+
+            $('input[name="CreatedDate"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+                $(this).trigger('change');
+            });
+        })
+    </script>
+
+}
+
+@section AngularJSPlugins {
+}
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/UserService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/AppUser/UsersController.js")
+}
+

@@ -1,0 +1,201 @@
+﻿
+@{
+    ViewBag.Title = "Form - Report Signatory";
+}
+
+<div class="row" ng-app="MetronicApp" ng-controller="ReportSignatoryFormCtrl as controller">
+    <div class="col-md-12">
+
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>
+                        Management
+                    </span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "ReportSignatory")">
+                        Report Signatory
+                    </a>
+                    <i class="fa fa-circle"></i>
+                </li>
+
+                <li>
+                    <span>{{isUpdate ? 'Update' : 'Add'}}</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="btnCancel()">Back to List</a>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            Report Signatory  <small>form</small>
+        </h1>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12" ng-form="f">
+                <div class="portlet light bordered" style="margin-bottom:unset">
+                    <div class="portlet-body">
+                        @Html.Hidden("ReportSignatoryId")
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group" ng-class="f.CategoryId.$invalid && (f.CategoryId.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Category</label><span class="required"> * </span>
+                                    <div id="CategoryIdDiv">
+                                        <select select2
+                                                name="CategoryId"
+                                                ng-model="m.CategoryId"
+                                                class="form-control"
+                                                ng-required="true"
+                                                ng-change="updateReports(null)"
+                                                ng-options="c.Id as (c.Description) for c in categories">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+
+                                    <span ng-show="f.CategoryId.$error.minimum || f.CategoryId.$invalid && (f.CategoryId.$dirty || formSubmitted)"
+                                          class="text-danger field-validation-error"><small>Category is required!</small></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" ng-class="f.Report.$invalid && (f.Report.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Report</label><span class="required"> * </span>
+                                    <div id="ReportIdDiv">
+                                        <select select2
+                                                name="Report"
+                                                ng-model="m.ReportId"
+                                                class="form-control"
+                                                ng-required="true"
+                                                ng-options="r.Id as (r.Description) for r in reports">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+
+                                    <span ng-show="f.Report.$error.minimum || f.Report.$invalid && (f.Report.$dirty || formSubmitted)"
+                                          class="text-danger field-validation-error"><small>Report is required!</small></span>
+                                </div>
+                            </div>
+                        </div>
+                        <h5 class="form-sub-title">SIGNATORIES</h5>
+                        <hr style="margin: 10px 0;" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table ng-table="tableParams" class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th width="1%" class="table-header">
+                                                <button class="btn btn-xs btn-info" ng-click="addRow()">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                                </button>
+                                            </th>
+                                            <th width="33%" class="table-header text-left">LABEL</th>
+                                            <th width="33%" class="table-header text-left">EMPLOYEE</th>
+                                            <th width="33%" class="table-header text-left">EMPLOYEE POSITION</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in m.Signatories track by $index">
+                                            <td width="1%" header-class="'text-center'" class="text-center">
+                                                <!-- DELETE BUTTON-->
+                                                <button class="btn btn-xs btn-danger"
+                                                        ng-click="deleteRow($index)">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <div ng-class="item.IsLabelExist || (f.Label{{$index}}.$error.required && (f.Label{{$index}}.$dirty || formSubmitted)) ? 'has-error' : ''">
+                                                    <select select2 name="Label{{$index}}"
+                                                            ng-model="item.LabelId"
+                                                            class="form-control"
+                                                            ng-options="p.Id as p.Description for p in labels"
+                                                            ng-change="validateLabel()"
+                                                            ng-required="true">
+                                                    </select>
+
+                                                    <span ng-show="f.Label{{$index}}.$error.required && (f.Label{{$index}}.$dirty || formSubmitted)"
+                                                          class="text-danger field-validation-error"><small>Label is required!</small></span>
+
+                                                    <span ng-show="item.IsLabelExist && !f.Label{{$index}}.$error.required" class="text-danger field-validation-error">
+                                                        <small>Label already exist</small>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div ng-class="item.IsEmployeelExist || (f.Employee{{$index}}.$invalid && (f.Employee{{$index}}.$dirty || formSubmitted)) ? 'has-error' : ''">
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <input type="text"
+                                                                   name="Employee{{$index}}"
+                                                                   ng-model="item.Employee"
+                                                                   class="form-control" 
+                                                                   ng-required="true"
+                                                                   ng-keydown="searchWhenEnter($event)"
+                                                                   disabled />
+                                                            <span class="input-group-btn">
+                                                                <!--Search Employee-->
+                                                                <button class="btn btn-info btn" type="button" ng-click="searchEmployee($index)">
+                                                                    <i class="fa fa-search"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <span ng-show="f.Employee{{$index}}.$error.required && formSubmitted"
+                                                          class="text-danger field-validation-error">
+                                                        <small>Employee is required!</small>
+                                                    </span>
+
+                                                    <span ng-show="item.IsEmployeelExist"
+                                                          class="text-danger field-validation-error">
+                                                        <small>Employee already exist!</small>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="text-left">
+                                                <div>
+                                                    <input type="text" ng-model="item.Position" class="form-control" name="Position{{$index}}" disabled />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="m.Signatories.length == 0">
+                                            <td colspan="4" class="text-center" style="font-style:unset">
+                                                <span class="text-danger"><b>Required at least one</b></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light bordered">
+                    <div class="form-action">
+                        <div class="actions btn-set">
+                            <button class="btn btn-success" style="width: 90px;" ng-click="btnSave()">
+                                <span class="glyphicon glyphicon-ok"></span>&nbsp; {{isUpdate ? 'Update':'Save'}}
+                            </button>
+                            <button class="btn btn-default" style="width: 90px;" ng-click="btnCancel()">
+                                <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Controllers/ReportSignatory/ReportSignatoryFormCtrl.js")
+    @Scripts.Render("~/Scripts/App/Services/ReportSignatoryService.js")
+    @Scripts.Render("~/Areas/Lookups/Scripts/Service/ChooseFromListDataService.js")
+    @Scripts.Render("~/Areas/Lookups/Scripts/Controller/ChooseFromListCtrl.js")
+}

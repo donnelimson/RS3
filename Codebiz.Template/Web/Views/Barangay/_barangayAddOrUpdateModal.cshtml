@@ -1,0 +1,89 @@
+﻿<script type="text/ng-template" id="BarangayAddOrUpdate.html">
+    <style>
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+    <!--Modal Head-->
+    <div class="modal-header">
+        <h4 class="form-sub-title">{{isUpdate ? 'EDIT' : 'ADD'}} BARANGAY</h4>
+    </div>
+    <!--Modal Body-->
+    <div id="modal-body" class="modalbody">
+        <!-- BEGIN PAGE BAR -->
+        <!-- BEGIN PORTLET -->
+        <div id="modal-body" class="modal-body" ng-form="barangayForm">
+            <div class="form-body">
+                <div class="row">
+                    <!--Code Textbox -->
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="barangayForm.code.$invalid && (barangayForm.code.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Barangay code</label><span class="required"> * </span>
+                            <input type="text" class="form-control" name="code" ng-model="barangayCode" ng-required="true">
+                            <span color="red" ng-show="barangayForm.code.$error.required && (barangayForm.code.$dirty || formSubmitted)" class="text-danger
+                                        field-validation-error"><small>The barangay code is required.</small><br /></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--Name Textbox -->
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="barangayForm.name.$invalid && (barangayForm.name.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Barangay name</label><span class="required"> * </span>
+                            <input type="text" class="form-control" name="name" ng-model="name" ng-required="true" />
+                            <span color="red" ng-show="barangayForm.name.$invalid && (barangayForm.name.$dirty || formSubmitted) " class="text-danger
+                                         field-validation-error"><small>The barangay name is required.</small></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="barangayForm.ProvinceId.$invalid && (barangayForm.ProvinceId.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Province</label><span class="required"> * </span>
+                            <div id="ProvinceIdDiv">
+                                <select select2 name="ProvinceId" class="select select2 form-control" ng-required="true" ng-model="provinceId"
+                                        ng-change="selectProvince()"
+                                        ng-options="province.ProvinceId as (province.Name) for province in provinces"></select>
+                            </div>
+                            <span color="red" ng-show="barangayForm.ProvinceId.$invalid && (barangayForm.ProvinceId.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                                <small>Province is required</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="barangayForm.CityTownId.$invalid && (barangayForm.CityTownId.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">City Town</label><span class="required"> * </span>
+                            <div id="CityTownIdDiv">
+                                <select select2 name="CityTownId" class="select select2 form-control" ng-required="true" ng-model="cityTownId"
+                                        ng-options="city.CityTownId as (city.Name) for city in cityTowns"></select>
+                            </div>
+                            <span color="red" ng-show="barangayForm.CityTownId.$invalid && (barangayForm.CityTownId.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                                <small>City is required</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer pull-left">
+        <!--Actions -->
+        <button class="btn btn-success" ng-click="save()">
+            <span class="glyphicon glyphicon-ok"></span> {{isUpdate ? 'Update' : 'Save'}}
+        </button>
+        <button class="btn btn-default" ng-click="cancel()">
+            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+        </button>
+    </div>
+    <div class="clearfix"></div>
+
+
+</script>

@@ -1,0 +1,247 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+@{
+    ViewBag.Title = "Units";
+}
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>Management</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Billing</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Units")">Units</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Units  <small>View, search , add, edit, delete, deactivate or reactivate units</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="UnitsController as controller" ng-form="addUnitsForm">
+
+        <!-- BEGIN PORTLET -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET -->
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <h4 class="bold">Search</h4>
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="expand"> </a>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                    <div class="portlet-body tabs-below" style="display: none;">
+                        <!--SEARCH TABLE -->
+                        <div class="row">
+                            <!--CODE SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Unit</label>
+                                    <input type="text" name="Units" ng-model="Units" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--NAME SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Area Office</label>
+                                    <div id="OfficeDiv">
+                                        <select select2 name="Office" id="Office" class="form-control" ng-model="Office"
+                                                ng-options="office.Name as (office.Name) for office in offices" ng-change="search()">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Meter Reader</label>
+                                    <input type="text" name="AppUser" ng-model="AppUser" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--CREATED BY SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Created By</label>
+                                    <input type="text" name="CreatedBy" ng-model="CreatedBy" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--CREATED DATE SEARCH DATE PICKER -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Created Date</label>
+                                    <div class='input-group date'>
+                                        <input type="text" name="CreatedDate" id="createdDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                               is-open="createdOnDatePicker.opened" close-text="Close"
+                                               ng-model="createdDate" ng-click="openCreatedOnDatePicker()" ng-change="search()" tabindex="5" readonly />
+                                        <span class="input-group-addon" ng-click="openCreatedOnDatePicker()" onclick="$('#createdDate').focus()">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- BUTTONS -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="actions btn-set btn-filter">
+                                    <button type="button" class="btn btn-success" ng-click="search()">
+                                        <i class="fa fa-search"></i>
+                                        <span class=""> Search </span>
+                                    </button>
+                                    <button type="button" class="btn" ng-click="reset()">
+                                        <i class="fa fa-rotate-left"></i>
+                                        <span class=""> Reset </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET -->
+            </div>
+        </div>
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    List
+                </div>
+                <!--ADD NEW BUTTON -->
+                <div class="actions">
+                    <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportBillingUnit)>
+                        <i class="fa fa-share-square-o"></i>
+                        <span class="">Export</span>
+                    </a>
+                    <a href="" class="btn btn-info" ng-click="openUnitsSaveModal(0)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddBillingUnit)>
+                        <i class="fa fa-plus"></i>
+                        <span class=""> New </span>
+                    </a>
+                </div>
+            </div>
+            <!--DATA TABLE -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                        <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover 
+                              @Html.UserHasPermission(userPermission:new List<string>()
+                              {
+                                  PermissionData.UserCanEditBillingUnit, 
+                                  PermissionData.UserCanDeleteBillingUnit, 
+                                  PermissionData.UserCanDeActivateReActivateBillingUnit
+                              })">
+                            <tr ng-repeat="units in $data">
+                                <!--ACTION BUTTONS -->
+                                <td width="1%" header-class="'text-center'" class="text-center">
+                                    <div class="btn-group">
+                                        <button id="bars" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditBillingUnit)>
+                                                <a ng-click="openUnitsSaveModal(units.UnitsId)">
+                                                    <i class="fa fa-edit"></i> Edit
+                                                </a>
+                                            </li>
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeleteBillingUnit)>
+                                                <a ng-click="deleteUnits(units.UnitsId,units.Unit)">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </a>
+                                            </li>
+                                            <li ng-hide="!units.IsActive" @Html.UserHasPermission(userPermission: PermissionData.UserCanDeActivateReActivateBillingUnit)>
+                                                <a ng-click="toggleActiveStatus(units.UnitsId, false, units.Unit)">
+                                                    <i class="fa fa-ban"></i> Deactivate
+                                                </a>
+                                            </li>
+                                            <li ng-hide="units.IsActive" @Html.UserHasPermission(userPermission: PermissionData.UserCanDeActivateReActivateBillingUnit)>
+                                                <a ng-click="toggleActiveStatus(units.UnitsId, true, units.Unit)">
+                                                    <i class="fa fa-check-circle"></i> Reactivate
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="4%" data-title="'UNIT'" sortable="'Unit'" header-class="'table-header text-left'" class="text-left">
+                                    {{units.Unit}}
+                                </td>
+                                <td width="9%" data-title="'AREA OFFICE'" sortable="'Office'" header-class="'table-header text-left'" class="text-left">
+                                    {{units.Office}}
+                                </td>
+                                <td width="9%" data-title="'METER READER'" sortable="'AppUser'" header-class="'table-header text-left'" class="text-left">
+                                    {{units.AppUser}}
+                                </td>
+                                <td width="2%" data-title="'ACTIVE'" sortable="'IsActive'" header-class="'table-header text-center'" class="text-center">
+                                    <span class="label label-sm" ng-class="units.IsActive ? 'label-success' : 'label-danger'">{{units.IsActive ? 'Yes': 'No'}}</span>
+                                </td>
+                                <td width="9%" data-title="'CREATED BY'" sortable="'CreatedBy'" header-class="'table-header text-left'" class="text-left">
+                                    {{units.CreatedBy}}
+                                </td>
+                                <td width="5%" data-title="'CREATED DATE'" sortable="'CreatedDate'" header-class="'table-header text-left'" class="text-left">
+                                    {{units.CreatedDate | date : 'MM/dd/yyyy hh:mm a'}}
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length == 0">
+                                <td hidden></td>
+                                <td colspan="8" class="text-center" style="font-style:unset">
+                                    No data available
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @Html.Partial("UnitsSaveModal")
+        </div>
+    </div>
+</div>
+
+<!--SCRIPTS TABLE -->
+@section PageScripts {
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $('input[name="CreatedDate"]').daterangepicker({
+                    opens: 'right',
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                }, function (start, end, label) {
+                });
+            });
+
+            $('input[name="CreatedDate"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                $(this).trigger('change');
+            });
+
+            $('input[name="CreatedDate"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+                $(this).trigger('change');
+            });
+        })
+    </script>
+}
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/BillingUnitService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/BillingUnits/UnitsSaveModalController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/BillingUnits/UnitsController.js")
+}

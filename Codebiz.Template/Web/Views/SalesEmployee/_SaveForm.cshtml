@@ -1,0 +1,125 @@
+﻿<script type="text/ng-template" id="SaveModalForm.html">
+
+    <!--Modal Head-->
+    <div class="modal-header">
+        <h4 class="form-sub-title">Sales Employee - {{addOrEdit}}</h4>
+    </div>
+    <!--Modal Body-->
+    <div id="modal-body" class="modal-body" ng-form="saveForm">
+        <!--Modal Body-->
+        <!--Modal Body Content -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <!--Sales Employee Textbox -->
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="saveForm.SalesEmployee.$invalid && (saveForm.SalesEmployee.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Sales Employee</label><span class="required"> * </span>
+                            <div class="input-group" ng-class="saveForm.SalesEmployee.$invalid && (saveForm.SalesEmployee.$dirty || formSubmitted) ? 'has-error' : ''">
+                                <input type="text" name="SalesEmployee" ng-model="employeeDetails.FullName" class="form-control" ng-required="true"
+                                       ng-keydown="searchWhenEnter($event)" disabled />
+                                <span class="input-group-btn">
+                                    <!--Search Sales Employee-->
+                                    <button class="btn btn-info btn" type="button" ng-click="searchAppUser(employeeDetails)">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <span color="red" ng-show="saveForm.SalesEmployee.$error.required && (saveForm.SalesEmployee.$dirty || formSubmitted)" class="text-danger
+                                  field-validation-error"><small>Sales Employee is required!</small></span>
+                        </div>
+                    </div>
+                    <!-- Active Checkbox -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label"></label>
+                            <div class="input-group">
+                                <div class="mt-checkbox-inline">
+                                    <label class="control-label mt-checkbox mt-checkbox-outline">
+                                        <input type="checkbox" name="name"
+                                               ng-model="data.IsActive" />
+                                        <span></span>
+                                    </label>
+                                    Active
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Sales Employees Position -->
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="saveForm.Position.$invalid && (saveForm.Position.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Position</label>
+                            <input type="text" class="form-control" ng-required="true" name="Position" ng-model="employeeDetails.Position" disabled />
+                            <span color="red" ng-show="saveForm.Position.$error.required && (saveForm.Position.$dirty || formSubmitted)" class="text-danger
+                                  field-validation-error"><small>Position is empty!</small></span>
+                        </div>
+                    </div>
+                    <!-- Sales Employees Area Office -->
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="saveForm.Office.$invalid && (saveForm.Office.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Area Office</label>
+                            <input type="text" class="form-control" ng-required="true" name="Office" ng-model="employeeDetails.AreaOffice" disabled />
+                            <span color="red" ng-show="saveForm.Office.$error.required && (saveForm.Office.$dirty || formSubmitted)" class="text-danger
+                                  field-validation-error"><small>Office area is empty!</small></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--Comission Group List -->
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="saveForm.CommissionGroupId.$invalid && (saveForm.CommissionGroupId.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Commission Group</label><span class="required"> * </span>
+                            <div id="CommissionGroupIdDiv">
+                                <select select2 name="CommissionGroupId" class="form-control" ng-required="true" ng-model="data.CommissionGroupId" tabindex="4"
+                                        ng-options="cg.Id as (cg.Description) for cg in commissionGroups">
+                                    <option value="">---Please select---</option>
+                                </select>
+                            </div>
+                            <span color="red" ng-show="saveForm.CommissionGroupId.$error.required && (saveForm.CommissionGroupId.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                                <small>Commission Group is required</small>
+                            </span>
+                        </div>
+                    </div>
+                    <!--Commission Textbox -->
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="@*(data.Commission == 0 ||*@ saveForm.Commission.$invalid @*)*@ && (saveForm.Commission.$dirty || formSubmitted) ? 'has-error' : ''">
+                            <label class="control-label">Commission</label><span class="required"> * </span>
+                            <input type="text" class="form-control" id="com" name="Commission" ng-model="data.Commission" ng-required="true" placeholder="0.00" ng-blur="addZero()"
+                                   style="text-align:right;" tabindex="3" maxlength="20" numbers-decimal-only />
+                            <span color="red" ng-show="@*(data.Commission != 0 ||*@ saveForm.Commission.$error.required @*)*@ && (saveForm.Commission.$dirty || formSubmitted)" class="text-danger"
+                                  field-validation-error"><small>Commission is required!</small></span>
+                            @*<span color="red" ng-show="(data.Commission == 0 || saveForm.Commission.$error.required) && (saveForm.Commission.$dirty || formSubmitted)" class="text-danger"
+                        field-validation-error"><small>Commission is invalid!</small></span>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--Remarks Text Area-->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Remarks</label>
+                            <textarea name="Remarks" rows="6" ng-model="data.Remarks" placeholder="Enter remarks...."
+                                      class="form-control" alpha-slash-dash-only></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- Modal Footer -->
+    <!--Actions -->
+    <div class="modal-footer pull-left">
+        <div class="actions btn-set">
+            <button class="btn btn-success" style="width: 90px;" ng-click="saveData()">
+                <span class="glyphicon glyphicon-ok"></span>&nbsp; {{addOrUpdate}}
+            </button>
+            <button class="btn btn-default" style="width: 90px;" ng-click="cancel()">
+                <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+            </button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</script>

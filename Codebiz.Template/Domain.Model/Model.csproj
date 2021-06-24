@@ -1,0 +1,523 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EACD2DBB-02C3-436B-ABB0-0EA75356D6D3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Codebiz.Domain.Common.Model</RootNamespace>
+    <AssemblyName>Codebiz.Domain.Common.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants\DocumentTransactions.cs" />
+    <Compile Include="Constants\PositionName.cs" />
+    <Compile Include="Constants\ContactTypes.cs" />
+    <Compile Include="Constants\NotificationData.cs" />
+    <Compile Include="Constants\BillingUnbundled.cs" />
+    <Compile Include="DataModel\Address\Route.cs" />
+    <Compile Include="DataModel\Approval\ApprovalStage\ApprovalStage.cs" />
+    <Compile Include="DataModel\Approval\ApprovalStage\ApprovalStageApprover.cs" />
+    <Compile Include="DataModel\Approval\ApprovalTemplate\ApprovalTemplate.cs" />
+    <Compile Include="DataModel\Approval\ApprovalTemplate\ApprovalTemplateOriginator.cs" />
+    <Compile Include="DataModel\Approval\ApprovalTemplate\ApprovalTemplateStages.cs" />
+    <Compile Include="DataModel\Approval\ApproverLabel.cs" />
+    <Compile Include="DataModel\Employee\Employee.cs" />
+    <Compile Include="DataModel\base\ModelBase2.cs" />
+    <Compile Include="DataModel\Collection\Surcharge.cs" />
+    <Compile Include="DataModel\CSA\Billing\MeterReadingRemark.cs" />
+    <Compile Include="DataModel\CSA\Billing\MonthlyRate\BillingMonthlyRateUnbundledTransaction.cs" />
+    <Compile Include="DataModel\CSA\Billing\MonthlyRate\BillingMonthlyRate.cs" />
+    <Compile Include="DataModel\CSA\Billing\UnbundledTransaction\BillingUnbundledTransaction.cs" />
+    <Compile Include="DataModel\CSA\Billing\UnbundledTransaction\BillingUnbundledTransactionDetails.cs" />
+    <Compile Include="DataModel\CSA\ComplaintType\ComplaintSubType.cs" />
+    <Compile Include="DataModel\CSA\ConsumerType\ConsumerType.cs" />
+    <Compile Include="DataModel\CSA\ConsumerType\ConsumerTypeMembershiptype.cs" />
+    <Compile Include="DataModel\CSA\ConsumerType\ConsumerTypeMembershipTypeSubcategory.cs" />
+    <Compile Include="DataModel\CSA\DepartmentDetail.cs" />
+    <Compile Include="DataModel\CSA\DivisionPosition.cs" />
+    <Compile Include="DataModel\CSA\DivisionCategory.cs" />
+    <Compile Include="DataModel\CSA\OfficeDepartment.cs" />
+    <Compile Include="DataModel\CSA\SubStation\Feather.cs" />
+    <Compile Include="DataModel\CSA\SubStation\SubStation.cs" />
+    <Compile Include="DataModel\CSA\SupportingDocument\SupportingDocumentDetail.cs" />
+    <Compile Include="DataModel\CSA\SupportingDocument\SupportingDocument.cs" />
+    <Compile Include="DataModel\CSA\Division.cs" />
+    <Compile Include="DataModel\CSA\WorkOrder.cs" />
+    <Compile Include="DataModel\DocumentHistory.cs" />
+    <Compile Include="DataModel\Employee\EmployeePhoto.cs" />
+    <Compile Include="DataModel\Financials\FinancialProject.cs" />
+    <Compile Include="DataModel\Financials\Currency.cs" />
+    <Compile Include="DataModel\Financial\Currency\Decimals.cs" />
+    <Compile Include="DataModel\Financial\Currency\ISOCurrencyCode.cs" />
+    <Compile Include="DataModel\Financial\Currency\Rounding.cs" />
+    <Compile Include="DataModel\Inventory\Manufacturer.cs" />
+    <Compile Include="DataModel\Inventory\PackagingType.cs" />
+    <Compile Include="DataModel\JobOrder\JobOrderNatureType.cs" />
+    <Compile Include="DataModel\JobOrder\TaskToBePerform\JobOrderTaskToBePerform.cs" />
+    <Compile Include="DataModel\LifelineSubsidy\LifelineSubsidy.cs" />
+    <Compile Include="DataModel\Log\LogAttachment.cs" />
+    <Compile Include="DataModel\Notification\Notification.cs" />
+    <Compile Include="DataModel\Notification\NotificationDetail.cs" />
+    <Compile Include="DataModel\ParameterOrderAttribute.cs" />
+    <Compile Include="DataModel\Purpose.cs" />
+    <Compile Include="DataModel\ReportSignatory\ReportSignatoryDetail.cs" />
+    <Compile Include="DataModel\ReportSignatory\ReportSignatory.cs" />
+    <Compile Include="DataModel\ReportSignatory\ReportCategory.cs" />
+    <Compile Include="DataModel\ReportSignatory\Report.cs" />
+    <Compile Include="DataModel\SalesEmployee\CommisionGroups.cs" />
+    <Compile Include="DataModel\SalesEmployee\SalesEmployee.cs" />
+    <Compile Include="DataModel\TransactionNumbering.cs" />
+    <Compile Include="DataModel\Transaction\TransactionSubType.cs" />
+    <Compile Include="DTOs\AccountStatusHistoryDTO.cs" />
+    <Compile Include="DTOs\AccountTransaction\AccountTransactionDetailsDTO.cs" />
+    <Compile Include="DTOs\AjaxResult.cs" />
+    <Compile Include="DataModel\CSA\Department.cs" />
+    <Compile Include="DTOs\ApplicationPhaseDTO.cs" />
+    <Compile Include="DTOs\ApprovalTemplate\ApprovalTemplateDTO.cs" />
+    <Compile Include="DTOs\Approval\ApprovalDetailsDTO.cs" />
+    <Compile Include="DTOs\Approval\ApprovalStageDTO.cs" />
+    <Compile Include="DTOs\Approval\ApproverLabelDTO.cs" />
+    <Compile Include="DTOs\AppUser\AppUserDTO.cs" />
+    <Compile Include="DTOs\AppUser\AppUserLookUpDTO.cs" />
+    <Compile Include="DTOs\AppUser\AppUserProfileDTO.cs" />
+    <Compile Include="DTOs\AuditLogsDTO.cs" />
+    <Compile Include="DTOs\Banking\BankDTO.cs" />
+    <Compile Include="DTOs\Banking\HouseBankAccountDTO.cs" />
+    <Compile Include="DTOs\Barangay\BarangayDTO.cs" />
+    <Compile Include="DTOs\BillingCategory\CategoryTableDTO.cs" />
+    <Compile Include="DTOs\BillingUnbundledTransactionDTO.cs" />
+    <Compile Include="DTOs\BillingUnits\UnitsDTO.cs" />
+    <Compile Include="DTOs\BurialAssistanceContentFileDTO.cs" />
+    <Compile Include="DTOs\BusinessPartners\CustomerGroupDTO.cs" />
+    <Compile Include="DTOs\ChangeOfNameContentFileDTO.cs" />
+    <Compile Include="DTOs\CheckIfConsumerTypeAndDateCreatedExistDTO.cs" />
+    <Compile Include="DTOs\CityTown\CityTownDTO.cs" />
+    <Compile Include="DTOs\ComplaintType\ComplaintTypeDetailsForUpdateDTO.cs" />
+    <Compile Include="DTOs\ComplaintType\ComplaintTypeDTO.cs" />
+    <Compile Include="DTOs\ConfigSettingsDTO.cs" />
+    <Compile Include="DTOs\ComplaintDto.cs" />
+    <Compile Include="DTOs\ConsumerTypeDTO.cs" />
+    <Compile Include="DTOs\Country\CountryDTO.cs" />
+    <Compile Include="DTOs\Currency\CurrencyDTO.cs" />
+    <Compile Include="DTOs\Department\DepartmentDTO.cs" />
+    <Compile Include="DTOs\Department\DepartmentLookUpDTO.cs" />
+    <Compile Include="DTOs\DisconnectionRequestContentFileDTO.cs" />
+    <Compile Include="DTOs\DiscountApplicationContentFileDTO.cs" />
+    <Compile Include="DTOs\ApproversDTO.cs" />
+    <Compile Include="DTOs\Division\DivisionsDTO.cs" />
+    <Compile Include="DTOs\Employee\EmployeeWithLicenseNoDTO.cs" />
+    <Compile Include="DTOs\Employee\EmployeeDto.cs" />
+    <Compile Include="DTOs\MaterialChargeTicketDTO.cs" />
+    <Compile Include="DTOs\DocumentNumbering\DocNumberingDTO.cs" />
+    <Compile Include="DTOs\DocumentNumbering\DocumentNumberingDTO.cs" />
+    <Compile Include="DTOs\ExportToExcel\AccountToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\ApprovalStageToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\ApprovalTemplateToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\ApprovalToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\AppUserToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\BarangayToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\ChangeOfNameToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\BillingUnbundledTransaction\BillingUnbundledTransactionToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\ComplaintTypeToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\ComplaintTypeToExcelCopy.cs" />
+    <Compile Include="DTOs\ExportToExcel\CityTownExportToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\ConfigSettingsToExcelCopy.cs" />
+    <Compile Include="DTOs\ExportToExcel\CSARequest\BurialAssistanceToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\DocumentNumbering\DocumenberNumberingToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\FAMMS\Inventory\ItemMasterData\ItemMasterDataToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\IncomingMeterToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\NavigationLinksToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\PaymentToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\SubStationToExcelCopy.cs" />
+    <Compile Include="DTOs\ExportToExcel\SubStationToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\DepartmentsToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\HWIToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\BillingMonthlyRateToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\PermissionToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\RequestDisconnectionToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\SurchargeToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\ProvinceToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\LinemanDataToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\UnitsToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\ConsumerTypeToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\NoOfUnitsAndKvaRatingToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\PoleToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\PositionToExcel.cs" />
+    <Compile Include="DTOs\ExportToExcel\WorkOrderToExcel.cs" />
+    <Compile Include="DTOs\Financial\Project\FinancialProjectsDetailsDTO.cs" />
+    <Compile Include="DTOs\Financial\Project\FinancialProjectsDTO.cs" />
+    <Compile Include="DTOs\JobCategory\AccountTransactionsForJobOrderRequestDTO.cs" />
+    <Compile Include="DTOs\JobCategory\JobOrderRequestContentFileDTO.cs" />
+    <Compile Include="DTOs\JobOrderComplaintContentFileDTO.cs" />
+    <Compile Include="DTOs\ContentFileDTO.cs" />
+    <Compile Include="DTOs\JobOrder\NatureType\NatureTypeDTO.cs" />
+    <Compile Include="DTOs\LifelineSubsidy\LifelineSubsidyDTO.cs" />
+    <Compile Include="DTOs\LookUpDTO.cs" />
+    <Compile Include="DTOs\MemberAndAccountContentFileDTO.cs" />
+    <Compile Include="DTOs\MemberLookUpDTO.cs" />
+    <Compile Include="DTOs\MeterReadingRemarks\MeterReadingRemarksDTO.cs" />
+    <Compile Include="DTOs\MonthlyRateDTO.cs" />
+    <Compile Include="DTOs\MonthlyRate\MonthlyRateDTO.cs" />
+    <Compile Include="DTOs\MonthlyRateUnbundledTransactionDTO.cs" />
+    <Compile Include="DTOs\NavLinkDTO.cs" />
+    <Compile Include="DTOs\NoOfUnitsAndKvaRating\NoOfUnitsAndKvaRatingDTO.cs" />
+    <Compile Include="DTOs\Office\OfficeDTO.cs" />
+    <Compile Include="DTOs\PermissionDTO.cs" />
+    <Compile Include="DTOs\Pole\PoleDTO.cs" />
+    <Compile Include="DTOs\Position\PositionLookUpDTO.cs" />
+    <Compile Include="DTOs\Position\PositionTableDTO.cs" />
+    <Compile Include="DTOs\PurposeDTO.cs" />
+    <Compile Include="DTOs\ReconnectionContentFileDTO.cs" />
+    <Compile Include="DTOs\RegionDTO.cs" />
+    <Compile Include="DTOs\Route\RouteModalDTO.cs" />
+    <Compile Include="DTOs\SalesEmployee\SalesEmployeeDTO.cs" />
+    <Compile Include="DTOs\SearchAppUserDTO.cs" />
+    <Compile Include="DTOs\ProvinceDTO.cs" />
+    <Compile Include="DTOs\Purok\PurokDTO.cs" />
+    <Compile Include="DTOs\BusinessPartners\ShippingTypesDTO.cs" />
+    <Compile Include="DTOs\Sitio\SitioDTO.cs" />
+    <Compile Include="DTOs\SubStationDetailsForUpdateDTO.cs" />
+    <Compile Include="DTOs\SubStation\SubStationDTO.cs" />
+    <Compile Include="DTOs\SupportingDocuments\SupportingDocumentDetailsForUpdateDTO.cs" />
+    <Compile Include="DTOs\SupportingDocuments\SupportingDocumentDTO.cs" />
+    <Compile Include="DTOs\SupportingDocuments\SupportingDocumentsDetailsDTO.cs" />
+    <Compile Include="DTOs\SurchargeDTO.cs" />
+    <Compile Include="DTOs\TransactionTypeDTO.cs" />
+    <Compile Include="DTOs\UserGroupDTO.cs" />
+    <Compile Include="DTOs\VendorGroupDTO.cs" />
+    <Compile Include="DTOs\MigrateDto.cs" />
+    <Compile Include="DTOs\WorkOrderDTO.cs" />
+    <Compile Include="EnumBaseModels\ConsumerClass.cs" />
+    <Compile Include="EnumBaseModels\CountryCode.cs" />
+    <Compile Include="EnumBaseModels\Member\MembershipType.cs" />
+    <Compile Include="EnumBaseModels\Member\MembershipTypeSubcategory.cs" />
+    <Compile Include="EnumBaseModels\PaperType.cs" />
+    <Compile Include="EnumBaseModels\TemplateName.cs" />
+    <Compile Include="Enums\ApprovalStageLabels.cs" />
+    <Compile Include="Enums\BillingTransaction\BillingTransactionEnums.cs" />
+    <Compile Include="Enums\BusinessPartners\CashDiscountBasedOnEnum.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\ConnectionTypeIdentifications.cs" />
+    <Compile Include="EnumBaseModels\ContentFileType.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\CoopEvaluationEnum.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\DiscountTypes.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\DocumentTypes.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\JobOrder\JobOrderTaskToBePerformEnum.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\Request\ChangeOfNameTypesEnum.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\Request\DisconnectionCircumstancesEnums.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\Request\RequestPhaseEnums.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\Transformer\Conditions.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\Transformer\TransformerManagementTypes.cs" />
+    <Compile Include="Enums\CommisionGroupEnums.cs" />
+    <Compile Include="Enums\ComplaintReport\ComplaintReportEnum.cs" />
+    <Compile Include="Enums\ConsumerClasses.cs" />
+    <Compile Include="Enums\ConsumerIdentificationTypeEnums.cs" />
+    <Compile Include="Enums\CountryCodes.cs" />
+    <Compile Include="Enums\Currency\DecimalEnums.cs" />
+    <Compile Include="Enums\Currency\ISOCurrencyCodes.cs" />
+    <Compile Include="Enums\Currency\Roundings.cs" />
+    <Compile Include="Enums\DivisionTypeEnums.cs" />
+    <Compile Include="Enums\FAMMS\Inventory\FrequencyEnums.cs" />
+    <Compile Include="Enums\FAMMS\Inventory\ItemGroup\ProcurementMethodEnums.cs" />
+    <Compile Include="Enums\FAMMS\Inventory\ItemGroup\ValuationMetodEnums.cs" />
+    <Compile Include="Enums\FAMMS\Inventory\ItemMasterData\IssuedMethodEnum.cs" />
+    <Compile Include="Enums\FAMMS\Inventory\ItemMasterData\ItemMasterDataStatusEnum.cs" />
+    <Compile Include="Enums\FAMMS\Inventory\ItemMasterData\ManageItemByEnum.cs" />
+    <Compile Include="Enums\Material\MaterialPhaseEnum.cs" />
+    <Compile Include="Enums\MeterLabReport\MeterLabReportEnum.cs" />
+    <Compile Include="Enums\PaperTypes.cs" />
+    <Compile Include="Enums\ReportSignatoryEnums.cs" />
+    <Compile Include="Enums\RoundingMethods.cs" />
+    <Compile Include="Enums\TemplateNames.cs" />
+    <Compile Include="Enums\TransactionSubTypes.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\RelationshipTypes.cs" />
+    <Compile Include="Enums\TransactionTypes.cs" />
+    <Compile Include="Enums\Statuses.cs" />
+    <Compile Include="DataModel\base\FileBase.cs" />
+    <Compile Include="Enums\WithdrawalStatusesEnum.cs" />
+    <Compile Include="Filter\AddressFilter.cs" />
+    <Compile Include="Filter\ApprovalFilter.cs" />
+    <Compile Include="Filter\ApprovalResultFilter.cs" />
+    <Compile Include="Filter\ApprovalStageFilter.cs" />
+    <Compile Include="Filter\ApprovalTemplate\ApprovalTemplateFilter.cs" />
+    <Compile Include="Filter\ApproverLabelFilter.cs" />
+    <Compile Include="Filter\AppUserFilter.cs" />
+    <Compile Include="Filter\AppUserLookUpFilter.cs" />
+    <Compile Include="Filter\AuditLogsFilter.cs" />
+    <Compile Include="Filter\Banking\BankFilter.cs" />
+    <Compile Include="Filter\Banking\HouseBankAccountFilter.cs" />
+    <Compile Include="Filter\BarangayFilter.cs" />
+    <Compile Include="Filter\BillingUnbundledTransactionFilter.cs" />
+    <Compile Include="Filter\BusinessPartners\CustomerGroupFilter.cs" />
+    <Compile Include="Filter\CategoryFilter.cs" />
+    <Compile Include="Filter\ChangeOfNameFilter.cs" />
+    <Compile Include="Filter\ChangeOfNameHistoryFilter.cs" />
+    <Compile Include="Filter\CityTownFilter.cs" />
+    <Compile Include="Filter\ComplaintTypeFilter.cs" />
+    <Compile Include="Filter\CompliantTypeFilter.cs" />
+    <Compile Include="Filter\Country\CountryFilter.cs" />
+    <Compile Include="Filter\DivisionsFilter.cs" />
+    <Compile Include="Filter\Employee\EmployeeFilter.cs" />
+    <Compile Include="Filter\Financials\FinancialProjectsFilter.cs" />
+    <Compile Include="Filter\Currency\CurrencyFilter.cs" />
+    <Compile Include="Filter\ForDisconnection\ForDisconnectionFilter.cs" />
+    <Compile Include="Filter\IssueForConnectionFilter.cs" />
+    <Compile Include="Filter\ConfigSettingsFilter.cs" />
+    <Compile Include="Filter\ConsumerDetailsAccountsFilter.cs" />
+    <Compile Include="Filter\ConsumerTypeFilter.cs" />
+    <Compile Include="Filter\DepartmentFilter.cs" />
+    <Compile Include="Filter\DiscountApplicationFilter.cs" />
+    <Compile Include="Filter\DocumentNumberingFilter.cs" />
+    <Compile Include="Filter\FAMMS\Inventory\ItemMasterData\ItemMasterDataFilter.cs" />
+    <Compile Include="Filter\FilterBase.cs" />
+    <Compile Include="Filter\JobOrder\JobOrderComplaintFilter.cs" />
+    <Compile Include="Filter\JobOrder\JobOrderRequestFilter.cs" />
+    <Compile Include="Filter\JobOrder\JobOrderManagementFilter.cs" />
+    <Compile Include="Filter\JobOrder\JobOrderToAssignForEmployeesFilter.cs" />
+    <Compile Include="Filter\JobOrder\ProcessJobOrderFilter.cs" />
+    <Compile Include="Filter\LifelineSubsidy\LifelineSubsidyFilter.cs" />
+    <Compile Include="Filter\MemberAccountFilter.cs" />
+    <Compile Include="Filter\MemberFilter.cs" />
+    <Compile Include="Filter\MeterReadingRemarks\MeterReadingRemarksFilter.cs" />
+    <Compile Include="Filter\MonthlyRateFilter.cs" />
+    <Compile Include="Filter\NavigationLinkFIlter.cs" />
+    <Compile Include="Filter\NavLinkFilter.cs" />
+    <Compile Include="Filter\NetMeteringFilter.cs" />
+    <Compile Include="Filter\NoOfUnitsAndKvaRatingFilter.cs" />
+    <Compile Include="Filter\Office\OfficeAddressFilter.cs" />
+    <Compile Include="Filter\Office\OfficeFilter.cs" />
+    <Compile Include="Filter\OtherRequestFilter.cs" />
+    <Compile Include="Filter\PaymentFilter.cs" />
+    <Compile Include="Filter\PermissionFilter.cs" />
+    <Compile Include="Filter\PMOSeminarFilter.cs" />
+    <Compile Include="Filter\PoleFilter.cs" />
+    <Compile Include="Filter\PositionFilter.cs" />
+    <Compile Include="Filter\ProvinceFilter.cs" />
+    <Compile Include="Filter\PurokFilter.cs" />
+    <Compile Include="Filter\PurposeFilter.cs" />
+    <Compile Include="Filter\RegionFilter.cs" />
+    <Compile Include="Filter\ReportSignatoryFilter.cs" />
+    <Compile Include="Filter\Request\DisconnectionFilter.cs" />
+    <Compile Include="Filter\Request\DiscountApplicationSupportingHistoryFilter.cs" />
+    <Compile Include="Filter\Request\ReconnectionFilter.cs" />
+    <Compile Include="Filter\SalesEmployeeFilter.cs" />
+    <Compile Include="Filter\SearchMemberFilter.cs" />
+    <Compile Include="Filter\SearchAccountFilter.cs" />
+    <Compile Include="Filter\BusinessPartners\ShippingTypesFilter.cs" />
+    <Compile Include="Filter\SitioFilter.cs" />
+    <Compile Include="Filter\SubStationFilter.cs" />
+    <Compile Include="Filter\SupportingDocumentFilter.cs" />
+    <Compile Include="Filter\SurchargeFilter.cs" />
+    <Compile Include="Filter\Transformer\IncomingDistributionTransformerFilter.cs" />
+    <Compile Include="Filter\Transformer\OutgoingDistributionTransformerFilter.cs" />
+    <Compile Include="Filter\Transformer\SearchTransformerFilter.cs" />
+    <Compile Include="Filter\UnitsFilter.cs" />
+    <Compile Include="Filter\UnitsSearchModalFilter.cs" />
+    <Compile Include="Filter\UserGroupFilter.cs" />
+    <Compile Include="DataModel\base\ImageBase.cs" />
+    <Compile Include="DataModel\CSA\NoOfUnitsAndKvaRating.cs" />
+    <Compile Include="DataModel\CSA\Pole\Pole.cs" />
+    <Compile Include="DataModel\CSA\Pole\PoleNumberSeed.cs" />
+    <Compile Include="DataModel\Transaction\TransactionType.cs" />
+    <Compile Include="DataModel\Approval\ApprovalTemplate\ApprovalTemplateTransaction.cs" />
+    <Compile Include="DataModel\BrandType.cs" />
+    <Compile Include="DataModel\CSA\ComplaintType\ComplaintType.cs" />
+    <Compile Include="DataModel\ConnectionOrderInitialReadingType.cs" />
+    <Compile Include="Enums\AccountStatuses.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\AccountStatusEnum.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\AccountPhaseEnum.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\BillingInformationEnum.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\BillingSubscriptions.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\MembershipTypes.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\MembershipTypeSubcategories.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\MemberStatuses.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\OwnershipTypes.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\HouseWiringInspectionStatusEnum.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\Voltage.cs" />
+    <Compile Include="Enums\Phases.cs" />
+    <Compile Include="Enums\CommercialServicesApplication\PersonTypes.cs" />
+    <Compile Include="Enums\UserStatuses.cs" />
+    <Compile Include="DataModel\LoginHistory.cs" />
+    <Compile Include="Enums\MembershipStatus.cs" />
+    <Compile Include="Enums\ReportTemplate.cs" />
+    <Compile Include="Enums\RuleEngines.cs" />
+    <Compile Include="Enums\ReportingReason.cs" />
+    <Compile Include="DataModel\ItemSales.cs" />
+    <Compile Include="DataModel\CSA\Office.cs" />
+    <Compile Include="DataModel\CSA\Position.cs" />
+    <Compile Include="DataModel\Address\Purok.cs" />
+    <Compile Include="Enums\ReportFields.cs" />
+    <Compile Include="Enums\TransactionCategories.cs" />
+    <Compile Include="Extensions\IntExtensions.cs" />
+    <Compile Include="Enums\LeaveTypes.cs" />
+    <Compile Include="Constants\DesignationCodes.cs" />
+    <Compile Include="Constants\StationCodes.cs" />
+    <Compile Include="Constants\SubUnitCodes.cs" />
+    <Compile Include="DataTransferObject\ApprovalCountDto.cs" />
+    <Compile Include="DataModel\AppUser\AppUserUserGroup.cs" />
+    <Compile Include="DataModel\Address\Barangay.cs" />
+    <Compile Include="DataModel\AccessLevel.cs" />
+    <Compile Include="DataModel\File\ContentFile.cs" />
+    <Compile Include="Enums\ContentFileTypes.cs" />
+    <Compile Include="Enums\ApprovalStatuses.cs" />
+    <Compile Include="DataModel\File\FileType.cs" />
+    <Compile Include="DataModel\Approval\ApprovalStatus.cs" />
+    <Compile Include="DataModel\Log\LogEventTitle.cs" />
+    <Compile Include="DataModel\ConfigSetting\ConfigSetting.cs" />
+    <Compile Include="DataModel\ConfigSetting\ConfigSettingDataType.cs" />
+    <Compile Include="DataModel\ConfigSetting\ConfigSettingGroup.cs" />
+    <Compile Include="DataModel\base\EnumBase.cs" />
+    <Compile Include="Enums\AccessLevels.cs" />
+    <Compile Include="Enums\LogEventTitles.cs" />
+    <Compile Include="Enums\LogLevels.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="DataModel\Permission\PermissionGroup.cs" />
+    <Compile Include="DataModel\Address\CityTown.cs" />
+    <Compile Include="DataModel\Address\Province.cs" />
+    <Compile Include="DataModel\Address\Region.cs" />
+    <Compile Include="DataModel\AppUser\AppUser.cs" />
+    <Compile Include="DataModel\Log\Log.cs" />
+    <Compile Include="DataModel\base\ModelBase.cs" />
+    <Compile Include="DataModel\NavLink\NavLink.cs" />
+    <Compile Include="DataModel\Permission\Permission.cs" />
+    <Compile Include="Filter\VendorGroupFilter.cs" />
+    <Compile Include="Filter\WorkOrderFilter.cs" />
+    <Compile Include="Params\ExportToExcelParams.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataModel\SalesOrder.cs" />
+    <Compile Include="DataModel\Address\Sitio.cs" />
+    <Compile Include="DataModel\Transaction\TransactionTypeCategory.cs" />
+    <Compile Include="DataModel\Status.cs" />
+    <Compile Include="DataModel\CSA\Billing\UnbundledTransaction\BillingUnbundledTransactionCategory.cs" />
+    <Compile Include="DataModel\CSA\Billing\BillingUnit.cs" />
+    <Compile Include="DataModel\UserGroup\UserGroup.cs" />
+    <Compile Include="DataModel\AppUser\UserStatus.cs" />
+    <Compile Include="ViewModel\ApprovalTemplate\ApprovalTemplateViewModel.cs" />
+    <Compile Include="ViewModel\AttachmentViewModel.cs" />
+    <Compile Include="ViewModel\Banking\BankViewModel.cs" />
+    <Compile Include="ViewModel\Banking\HouseBankAccountViewModel.cs" />
+    <Compile Include="ViewModel\Barangay\BarangayViewModel.cs" />
+    <Compile Include="ViewModel\BillingUnits\UnitsViewModel.cs" />
+    <Compile Include="ViewModel\BusinessPartners\CashDiscountViewModel.cs" />
+    <Compile Include="ViewModel\BusinessPartners\CustomerGroupViewModel.cs" />
+    <Compile Include="ViewModel\BusinessPartners\IndustryViewModel.cs" />
+    <Compile Include="ViewModel\CityTown\CityTownViewModel.cs" />
+    <Compile Include="ViewModel\ComplaintType\ComplaintTypeViewModel.cs" />
+    <Compile Include="ViewModel\ConsumerType\ConsumerTypeViewModel.cs" />
+    <Compile Include="ViewModel\Country\CountryViewModel.cs" />
+    <Compile Include="ViewModel\Currency\CurrencyViewModel.cs" />
+    <Compile Include="ViewModel\Department\DepartmentViewModel.cs" />
+    <Compile Include="ViewModel\Division\DivisionViewModel.cs" />
+    <Compile Include="ViewModel\DocumentHistory\DocumentHistoryViewModel.cs" />
+    <Compile Include="ViewModel\DocumentNumbering\DocumentNumberingViewModel.cs" />
+    <Compile Include="ViewModel\FileUploadViewModel.cs" />
+    <Compile Include="ViewModel\Finance\JournalEntryViewModel.cs" />
+    <Compile Include="ViewModel\FinancialProjects\FinancialProjectsViewModel.cs" />
+    <Compile Include="ViewModel\JobOrder\JobOrderSaveViewModel.cs" />
+    <Compile Include="ViewModel\LifelineSubsidy\LifelineSubsidyViewModel.cs" />
+    <Compile Include="ViewModel\MeterReadingRemarks\MeterReadingRemarksViewModel.cs" />
+    <Compile Include="ViewModel\MonthlyRate\MonthlyRateViewModel.cs" />
+    <Compile Include="ViewModel\NoOfUnitsAndKVARating\NoOfUnitsAndKvaRatingViewModel.cs" />
+    <Compile Include="ViewModel\Pole\PoleViewModel.cs" />
+    <Compile Include="ViewModel\Position\PositionViewModel.cs" />
+    <Compile Include="ViewModel\PurposeViewModel.cs" />
+    <Compile Include="ViewModel\Region\RegionViewModel.cs" />
+    <Compile Include="ViewModel\ReportSignatoryViewModel.cs" />
+    <Compile Include="ViewModel\Route\RouteAddUpdateViewModel.cs" />
+    <Compile Include="ViewModel\Office\OfficeAddViewModel.cs" />
+    <Compile Include="ViewModel\Purok\PurokViewModel.cs" />
+    <Compile Include="ViewModel\BusinessPartners\ShippingTypeViewModel.cs" />
+    <Compile Include="ViewModel\SalesEmployee\SalesEmployeeViewModel.cs" />
+    <Compile Include="ViewModel\Sitio\SitioViewModel.cs" />
+    <Compile Include="ViewModel\VendorGroupViewModel.cs" />
+    <Compile Include="ViewModel\WorkOrder\WorkOrderViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DTOs\ExportToExcel\JobOrder\" />
+    <Folder Include="DTOs\JobOrder\TaskToBePerform\" />
+    <Folder Include="ViewModel\RouteMeterReading\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

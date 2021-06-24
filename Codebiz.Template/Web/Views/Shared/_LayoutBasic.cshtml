@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - TARELCO ERP</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link rel="shortcut icon" href="~/Content/Image/Tarelconew.ico" type="image/x-icon" />
+    <!-- BEGIN CSS -->
+    @Html.Partial("_Styles")
+    @Styles.Render("~/assets/pages/css/error.min.css")
+    @Styles.Render("~/assets/pages/css/login.min.css")
+    @Styles.Render("~/css/theme-global")
+    @RenderSection("pagestyles", required: false)
+    <!-- END CSS -->
+</head>
+<!-- END HEAD -->
+<body class="login" style="background-color: #1f1f1f;">
+    @RenderBody()
+    @Html.Partial("_Modal") <!-- MODAL -->
+
+    <!-- BEGIN SCRIPT -->
+    @Html.Partial("_Scripts")
+    @RenderSection("pagepluginscripts", required: false)
+    @RenderSection("pagescripts", required: false)
+    @Scripts.Render("~/assets/global/scripts/app.min.js")
+</body>
+</html>

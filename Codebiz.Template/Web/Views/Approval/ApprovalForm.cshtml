@@ -1,0 +1,145 @@
+﻿@model Codebiz.Domain.ERP.Model.ViewModel.Approval.ApprovalProcessViewModel
+@using Codebiz.Domain.ERP.Context.SeedData;
+
+@{
+    ViewBag.Title = "Approve";
+}
+<div class="row"
+     ng-app="MetronicApp"
+     ng-controller="ApprovalFormController as c"
+     ng-init="ApprovalApproverId = @Model.ApprovalApproverId"
+     ng-AfterContentInit="getApprovalAccountDetails()">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>Commercial Services Application</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Approval")">Approval</a>
+                    <i class="fa fa-circle"></i>
+                    <a style="cursor:auto; text-decoration:none">{{approvalInformation.TransactionType}}</a>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            Approval
+            <small>process transaction</small>
+        </h1>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <input hidden id="TransactionTypeId" value="@Model.TransactionTypeId" />
+            <input hidden id="ApprovalApproverId" value="@Model.ApprovalApproverId" />
+
+            <div class="col-md-12">
+                <div class="profile-sidebar"
+                     ng-show="approvalInformation.AccountId != null">
+                    @Html.Partial("~/Areas/CommercialServicesApplication/Views/Shared/_AccountProfileSideBar.cshtml")
+                </div>
+                <div class="profile-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="portlet light" style="margin-bottom:unset">
+                                <div class="portlet-body form" ng-form="approvalForm">
+                                    <input hidden name="ApprovalId" id="ApprovalId" value="@Model.ApprovalId" />
+                                    <h5 class="form-sub-title"> INFORMATION</h5>
+                                    <hr style="margin: 10px 0" />
+                                    <div class="row padding-bottom-10">
+                                        <div class="col-md-12">
+                                            <table id="informations" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <td class="tabletd" width="15%"><b>Reference No.</b></td>
+                                                        <td class="tabletd">
+                                                            <a ng-click="gotoDetails(approvalInformation)">{{approvalInformation.TransactionCode}}</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tabletd" width="15%"><b>Transaction</b></td>
+                                                        <td class="tabletd">{{approvalInformation.TransactionType}}</td>
+                                                    </tr>
+                                                    <tr @Html.UserHasPermission(userPermission: PermissionData.UserCanViewApprovalResult)>
+                                                        <td class="tabletd" width="15%"><b>Approval Result(s)</b></td>
+                                                        <td class="tabletd">
+                                                            <a ng-click="approvalResult(ApprovalId)">View</a>
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="form-sub-title"> APPROVAL</h5>
+                                    <hr style="margin: 10px 0" />
+                                    <!--Decision-->
+                                    <div class="row">
+                                        <!--Decision List -->
+                                        <div class="col-md-6">
+                                            <div class="form-group" ng-class="approvalForm.Decision.$invalid && (approvalForm.Decision.$dirty || formSubmitted) ? 'has-error' : ''">
+                                                <label class="control-label">Decision</label><span class="required"> * </span>
+                                                <select select2 name="Decision" class="form-control" tabindex="1" ng-required="true" ng-model="Decision"
+                                                        ng-options="d as (d.Description) for d in decisions " ng-change="search()">
+                                                    <option value="">---Please select---</option>
+                                                </select>
+                                                <span color="red" ng-show="approvalForm.Decision.$error.required && (approvalForm.Decision.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                                                    <small>Decision is required</small>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Remarks-->
+                                    <div class="row">
+                                        <!--Remarks Text Area-->
+                                        <div class="col-md-12">
+                                            <div class="form-group" ng-class="approvalForm.Remarks.$invalid && (approvalForm.Remarks.$dirty || formSubmitted) ? 'has-error' : ''">
+                                                <label class="control-label">Remarks</label><span class="required"> * </span>
+                                                <textarea name="Remarks" rows="4" ng-model="Remarks" placeholder="Enter remarks...." class="form-control" ng-required="true" tabindex="1" alphanumeric-dash-only></textarea>
+                                                <span color="red" ng-show="approvalForm.Remarks.$error.required && (approvalForm.Remarks.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                                                    <small>Remarks is required</small>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="portlet light" style="border-top:solid thin #e7ecf1">
+                                <div class="form-actions">
+                                    <button class="btn btn-success" ng-click="process()">
+                                        <span class="glyphicon glyphicon-ok"></span>&nbsp; Process
+                                    </button>
+                                    <button class="btn btn-default" ng-click="cancel()">
+                                        <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Partial("_ApprovalResultModal")
+
+@section PageStyles {
+    @Styles.Render("~/assets/global/css/consumer-account-details.css")
+}
+
+@section AngularJSPage {
+    @Scripts.Render("~/Areas/CommercialServicesApplication/Scripts/App/Services/MemberAccountsService.js")
+    @Scripts.Render("~/Scripts/App/Services/ApprovalService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Approval/ApprovalFormController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Approval/ApprovalResultController.js")
+}

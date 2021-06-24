@@ -1,0 +1,228 @@
+﻿
+@{
+    ViewBag.Title = "Document Numbering Form";
+}
+
+    <div class="row" ng-controller="DocumentNumberingAddOrUpdateController">
+        <div class="col-md-12">
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <span>Management</span>
+                        <i class="fa fa-circle"></i>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "DocumentNumbering")">Document Numbering</a>
+                        <i class="fa fa-circle"></i>
+                    </li>
+                    <li>
+                        <span>{{isUpdate ? viewOnly ? 'Details': 'Edit' : 'Add'}}</span>
+                    </li>
+                </ul>
+                <div class="page-toolbar">
+                    <a class="btn btn-sm btn-default" ng-click="cancelChanges()">Back to List</a>
+                </div>
+            </div>
+            <h1 class="page-title">
+                Document Numbering
+                <small> Form</small>
+            </h1>
+            <div class="row">
+                <div class="col-md-12" ng-form="DocumentNumberingForm">
+                    <div class="portlet light">
+                        <div class="row padding-bottom-15">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="form-group" ng-class="DocumentNumberingForm.TransactionTypeId.$invalid && (formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Transaction Type</label><span class="required"> *</span>
+                                    <div id="TransactionTypeIdDiv">
+                                        <select select2 name="TransactionTypeId" id="transactionType" class=" form-control not-allow-numbers" tabindex="1"
+                                                ng-model="documentNumbering.TransactionTypeId"
+                                                ng-options="t.TransactionTypeId as (t.Description) for t in transactionTypes"
+                                                ng-disabled="isUpdate"
+                                                ng-required="true"
+                                                style="display: inline-block"></select>
+                                    </div>
+                                    <span ng-show="DocumentNumberingForm.TransactionTypeId.$invalid && (DocumentNumberingForm.TransactionTypeId.$dirty || formSubmitted)"
+                                          class="text-danger field-validation-error"><small>Transaction type is required!</small></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h5><b>List</b></h5>
+                            </div>
+                            <div class="col-md-3" ng-show="!viewOnly">
+                                <div class="actions" style="display: inline; float: right;">
+                                    <button class="btn btn-success" ng-disabled="!canSetDefault" ng-click=" setDefault()">
+
+                                        <span> SET AS DEFAULT </span>
+                                    </button>
+                                    <button class="btn btn-info" ng-click=" addOrUpdate()">
+
+                                        <span> ADD </span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="documentNumberingTableParams.settings().$loading">
+                                    <table ng-table="documentNumberingTableParams" ng-class="{'loading': isLoading}" class="table table-bordered">
+                                        <tr ng-repeat="item in documentNumbering.DocumentNumberingTransactions " ng-class="{'selected':$index == selectedRow}" ng-style="{'color': item.IsDefault? 'orange':'black'}" style="cursor:pointer" ng-keypress="addDocumentNumbering($event,item,$last,$index)" ng-click="clickRow(item,$index,$last)" ng-show="!item.IsDeleted">
+                                            <td width="1%" class="text-center">
+                                                <div class="btn-group"  ng-show="!viewOnly">
+                                                    <button id="account" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false" ng-show="$index!=0">
+                                                        <i class="fa fa-list"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="account">
+                                                        <li>
+                                                            <a ng-click="addOrUpdate(item)">
+                                                                <i class="glyphicon glyphicon-pencil"></i> Edit
+                                                            </a>
+                                                        </li>
+                                                        <li ng-hide="item.NextNo > item.FirstNo">
+                                                            <a ng-click="delete($index)">
+                                                                <i class="glyphicon glyphicon-trash"></i> Delete
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td width="8%" data-title="'NAME'" header-class="'table-header text-left'" ng-class="(DocumentNumberingForm.name{{$index}}.$error.required || item.IsDuplicateName) && !item.Excluded  && (formSubmitted||documentSubmitted) ? 'has-error' : ''">
+                                                <div>
+                                                    <span ng-style="{'color': item.IsDefault? 'orange':'black'}">{{item.Name}}</span>
+                                                </div>
+                                                <div>
+                                                    <span ng-show="(DocumentNumberingForm.name{{$index}}.$error.required && !item.IsDuplicateName ) && !item.Excluded   && (formSubmitted || documentSubmitted)"
+                                                          class="text-danger field-validation-error"><small>Name is required!</small></span>
+                                                    <span ng-show="(item.IsDuplicateName)  &&  (formSubmitted || documentSubmitted)"
+                                                          class="text-danger field-validation-error"><small>Duplicate Name is not allowed!</small></span>
+                                                </div>
+                                            </td>
+
+                                            <td width="3%" data-title="'FIRST NO.'" header-class="'table-header text-right'" class="text-right" ng-class="(DocumentNumberingForm.firstNo{{$index}}.$error.required ||hasInvalidFirstNo) &&!item.Excluded  && (formSubmitted || documentSubmitted)? 'has-error' : ''">
+                                                <div>
+                                                    <span ng-style="{'color': item.IsDefault? 'orange':'black'}">{{item.FirstNo}}</span>
+                                                </div>
+                                                <div>
+                                                    <span ng-show="(DocumentNumberingForm.firstNo{{$index}}.$error.required )&&!item.Excluded   && (formSubmitted||documentSubmitted)"
+                                                          class="text-danger field-validation-error"><small>First No. is required!</small></span>
+                                                    <span ng-show="item.IsInvalidFirstNo && (formSubmitted||documentSubmitted)"
+                                                          class="text-danger field-validation-error"><small>First No. must be greater than 0!</small></span>
+                                                </div>
+                                            </td>
+                                            <td width="3%" data-title="'NEXT NO.'" header-class="'table-header text-right'" class="text-right">
+                                                <div>
+                                                    <span ng-disabled="$first" ng-style="{'color': item.IsDefault? 'orange':'black'}">{{item.NextNo}}</span>
+                                                </div>
+
+                                            </td>
+                                            <td width="3%" data-title="'LAST NO.'" header-class="'table-header text-right'" class="text-right" ng-class="item.isInvalidLastNo && (formSubmitted || documentSubmitted)? 'has-error' :''">
+                                                <div>
+                                                    <span ng-disabled="$first" ng-style="{'color': item.IsDefault? 'orange':'black'}">{{item.LastNo}}</span>
+                                                </div>
+                                                <div>
+                                                    <span ng-show="item.isInvalidLastNo && (formSubmitted||documentSubmitted)"
+                                                          class="text-danger field-validation-error"><small>Last No. is invalid</small></span>
+                                                </div>
+                                            </td>
+
+                                            <td width="7%" data-title="'PREFIX'" header-class="'table-header text-left'" class="text-left" ng-class="(item.IsDuplicatePrefix) &&!item.Excluded  && (formSubmitted || documentSubmitted)? 'has-error' : ''">
+                                                <div>
+                                                    <span ng-style="{'color': item.IsDefault? 'orange':'black'}">{{item.Prefix}}</span>
+                                                </div>
+                                                <div>
+                                                    <span ng-show="item.IsDuplicatePrefix && (formSubmitted || documentSubmitted)"
+                                                          class="text-danger field-validation-error"><small>Duplicate prefix is not allowed!</small></span>
+                                                </div>
+                                            </td>
+                                            <td width="7%" data-title="'SUFFIX'" header-class="'table-header text-left'" class="text-left" ng-class="(item.IsDuplicateSuffix) &&!item.Excluded  && (formSubmitted || documentSubmitted)? 'has-error' : ''">
+                                                <div>
+                                                    <span ng-style="{'color': item.IsDefault? 'orange':'black'}">{{item.Suffix}}</span>
+                                                </div>
+                                                <div>
+                                                    <span ng-show="item.IsDuplicateSuffix && (formSubmitted || documentSubmitted)"
+                                                          class="text-danger field-validation-error"><small>Duplicate suffix is not allowed!</small></span>
+                                                </div>
+                                            </td>
+                                            <td width="5%" data-title="'NO. OF DIGITS'" header-class="'table-header text-right'" class="text-right" ng-class="(DocumentNumberingForm.noOfDigits{{$index}}.$error.required || item.isInvalidNoOfDigits)&&!item.Excluded  && (documentSubmitted||formSubmitted) ? 'has-error' : ''">
+                                                <div>
+                                                    <span ng-style="{'color': item.IsDefault? 'orange':'black'}">{{item.NoOfDigits}}</span>
+                                                </div>
+                                                <div>
+                                                    <span ng-show="DocumentNumberingForm.noOfDigits{{$index}}.$error.required && !item.isInvalidNoOfDigits &&!item.Excluded   && (documentSubmitted||formSubmitted)"
+                                                          class="text-danger field-validation-error"><small>No. of Digits is required!</small></span>
+                                                    <span ng-show="item.isInvalidNoOfDigits && (formSubmitted || documentSubmitted)"
+                                                          class="text-danger field-validation-error"><small>No. of Digits must range from 1-15 only!</small></span>
+                                                </div>
+                                            </td>
+                                            <td width="2%" data-title="'LOCKED'" header-class="'table-header text-center'" class="text-center">
+                                                <span ng-show="((item.Name!='' && item.Name!=null) || (item.FirstNo!='' && item.FirstNo!=null) ||(item.LastNo!='' && item.LastNo!=null)
+                                                  || (item.Prefix!='' && item.Prefix!=null) || (item.Suffix!='' && item.Suffix!=null) || (item.NoOfDigits!='' && item.NoOfDigits!=null))" class="label label-sm" ng-class="item.IsLocked ? 'label-success' : 'label-danger'">{{item.IsLocked ? 'Yes': 'No'}}</span>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="!viewOnly">
+                            <div class="col-md-12">
+
+                                <!--Actions (Save/Cancel)-->
+                                <div class="form-actions">
+                                    <button class="btn btn-success" id="addbtn" style="width: 90px;" ng-click="save()">
+                                        <span class="glyphicon glyphicon-ok"></span>&nbsp; {{isUpdate ? 'Update':'Save'}}
+                                    </button>
+                                    <button class="btn btn-default" style="width: 90px;" ng-click="cancelChanges()">
+                                        <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        @Html.Partial("_DocumentNumberingAddOrUpdateModal")
+    </div>
+@section pagestyles {
+    @Styles.Render("~/assets/global/plugins/fancybox/source/jquery.fancybox.css")
+    @Styles.Render("~/Content/ng-table.min.css")
+    @Styles.Render("~/Scripts/moment.min.js")
+    <style>
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+}
+
+@section PageScripts {
+    @Scripts.Render("~/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js")
+    @Scripts.Render("~/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js")
+    @Scripts.Render("~/assets/pages/scripts/ui-extended-modals.min.js")
+    @Scripts.Render("~/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js")
+    @Scripts.Render("~/bundles/fileupload")
+}
+
+@section AngularJSPlugins {
+    @Scripts.Render("~/Scripts/ng-table.js")
+}
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Scripts/App/Services/DocumentNumberingService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/DocumentNumbering/DocumentNumberingAddOrUpdatecontroller.js")
+    @Scripts.Render("~/Scripts/App/Controllers/DocumentNumbering/DocumentNumberingModalAddOrUpdateController.js")
+}

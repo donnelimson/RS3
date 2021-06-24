@@ -1,0 +1,33 @@
+﻿
+<script type="text/ng-template" id="SupportingDocumentsPreviewModal.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">×</span><span class="sr-only">Close Modal</span></button>
+        <h4 class="modal-title" id="modal-title">Supporting Document Preview</h4>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="portlet-body">
+            <table show-filter="false" class="table table-bordered table-striped tablefont tableStyle">
+                <tr>
+                    <td width="20%"><h5 class="bold" style="text-align:right"> File Name :</h5></td>
+                    <td width="100%"><h5 class="">{{name}}</h5></td>
+                </tr>
+            </table>
+             <div>
+                <img class="imageStyle" ng-src="{{thumbnailUrl}}" alt=""/>
+            </div>
+        </div>
+    </div>
+</script>
+
+<style>
+    .imageStyle{
+        vertical-align: middle;
+        border-style: none;
+        width: 570px;
+        height:450px;
+        background-color:#EBEBEB;
+        margin: auto;
+        display:block;
+    }
+</Style>
+

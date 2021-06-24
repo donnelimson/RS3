@@ -1,0 +1,234 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+@{
+    ViewBag.Title = "Position";
+}
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>
+                Management
+            </span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Position")">Position</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Position  <small>View, search , add, edit, delete, deactivate or reactivate position</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="PositionController as controller">
+        <!-- BEGIN PORTLET -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET -->
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <h4 class="bold">Search</h4>
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="expand"> </a>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                    <div class="portlet-body tabs-below" style="display: none;">
+                        <!--SEARCH TABLE -->
+                        <div class="row">
+                            <!--CODE SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Code</label>
+                                    <input type="text" name="Code" ng-model="Code" ng-keypress="searchWhenEnter($event)" class="form-control" tabindex="1" maxlength="100" />
+                                </div>
+                            </div>
+                            <!--NAME SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Name</label>
+                                    <input type="text" name="Name" ng-model="Name" ng-keypress="searchWhenEnter($event)" class="form-control" tabindex="2" maxlength="100" />
+                                </div>
+                            </div>
+                            <!--CREATED BY SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Created By</label>
+                                    <input type="text" name="CreatedBy" ng-model="CreatedBy" ng-keypress="searchWhenEnter($event)" class="form-control" tabindex="3" maxlength="100" />
+                                </div>
+                            </div>
+                            <!--CREATED DATE SEARCH DATE PICKER -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Created Date</label>
+                                    <div class='input-group date'>
+                                        <input type="text" name="CreatedDate" id="createdDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                               is-open="createdOnDatePicker.opened" close-text="Close"
+                                               ng-model="createdDate" ng-click="openCreatedOnDatePicker()" ng-change="search()" tabindex="4" readonly />
+                                        <span class="input-group-addon" ng-click="openCreatedOnDatePicker()" onclick="$('#createdDate').focus()">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- BUTTONS -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="actions btn-set btn-filter">
+                                    <button type="button" class="btn btn-success" ng-click="search()">
+                                        <i class="fa fa-search"></i>
+                                        <span class=""> Search </span>
+                                    </button>
+                                    <button type="button" class="btn" ng-click="reset()">
+                                        <i class="fa fa-rotate-left"></i>
+                                        <span class=""> Reset </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            List
+                        </div>
+                        <!--ADD NEW BUTTON -->
+                        <div class="actions">
+                            <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportPositions)>
+                                <i class="fa fa-share-square-o"></i>
+                                <span class="">Export</span>
+                            </a>
+                            <a href="" class="btn btn-info" ng-click="openPositionSaveModal(0)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddPosition)>
+                                <i class="fa fa-plus"></i>
+                                <span class=""> New </span>
+                            </a>
+                        </div>
+                    </div>
+                    <!--DATA TABLE -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                                <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover">
+                                    <tr ng-repeat="position in $data">
+                                        <td width="1%" header-class="'text-center'" class="text-center">
+                                            <!--ACTION BUTTONS -->
+                                            <div class="btn-group" ng-show="
+                                         @Html.UserHasPermissionIndex(userPermission: PermissionData.UserCanEditPosition) ||
+                                         @Html.UserHasPermissionIndex(userPermission:PermissionData.UserCanDeletePosition) ||
+                                         @Html.UserHasPermissionIndex(userPermission:PermissionData.UserCanDeActivateReActivatePosition)">
+                                                <button id="bars" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-bars"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="purokId">
+                                                    <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditPosition)>
+                                                        <a ng-click="openPositionSaveModal(position.PositionId)">
+                                                            <i class="glyphicon glyphicon-pencil"></i> Edit
+                                                        </a>
+                                                    </li>
+                                                    <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeletePosition)>
+                                                        <a ng-click="deletePosition(position)">
+                                                            <i class="glyphicon glyphicon-trash"></i> Delete
+                                                        </a>
+                                                    </li>
+
+                                                    <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeActivateReActivatePosition)>
+                                                        <a ng-click="toggleActiveStatus(position, false)" ng-hide="!position.IsActive">
+                                                            <i class="glyphicon glyphicon-remove"></i> Deactivate
+                                                        </a>
+                                                    </li>
+                                                    <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeActivateReActivatePosition)>
+                                                        <a ng-click="toggleActiveStatus(position, true)" ng-hide="position.IsActive">
+                                                            <i class="glyphicon glyphicon-ok"></i> Reactivate
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td width="4%" data-title="'CODE'" sortable="'Code'" header-class="'table-header text-left'" class="text-left">
+                                            {{position.Code}}
+                                        </td>
+                                        <td width="9%" data-title="'NAME'" sortable="'Name'" header-class="'table-header text-left'" class="text-left">
+                                            <span ng-show="position.IsManager">
+                                                <font color="orange" style="font-weight: bold;">{{position.Name}}</font>
+                                            </span>
+                                            <span ng-hide="position.IsManager">{{position.Name}}</span>
+                                        </td>
+                                        <td width="2%" data-title="'ACTIVE'" sortable="'IsActive'" header-class="'table-header text-center'" class="text-center">
+                                            <span class="label label-sm" ng-class="position.IsActive ? 'label-success' : 'label-danger'">{{position.IsActive ? 'Yes': 'No'}}</span>
+                                        </td>
+                                        <td width="9%" data-title="'CREATED BY'" sortable="'CreatedBy'" header-class="'table-header text-left'" class="text-left">
+                                            {{position.CreatedBy}}
+                                        </td>
+                                        <td width="5%" data-title="'CREATED DATE'" sortable="'CreatedDate'" header-class="'table-header text-left'" class="text-left">
+                                            {{position.CreatedDate | date : 'MM/dd/yyyy hh:mm a'}}
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="$data.length == 0">
+                                        <td colspan="8" class="text-center" style="font-style:unset">
+                                            No data available
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.Partial("PositionSaveModal")
+                </div>
+            </div>
+        </div>
+        <!-- BEGIN PORTLET -->
+    </div>
+</div>
+
+<!--SCRIPTS TABLE -->
+@section PageScripts {
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $('input[name="CreatedDate"]').daterangepicker({
+                    opens: 'left',
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                }, function (start, end, label) {
+                });
+            });
+
+            $('input[name="CreatedDate"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                $(this).trigger('change');
+            });
+
+            $('input[name="CreatedDate"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+                $(this).trigger('change');
+            });
+        })
+    </script>
+}
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/Position/PositionService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Position/PositionSaveModalController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Position/PositionController.js")
+}

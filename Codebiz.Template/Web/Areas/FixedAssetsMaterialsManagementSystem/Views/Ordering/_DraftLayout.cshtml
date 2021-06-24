@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - TARELCO</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <!-- BEGIN CSS -->
+    @Html.Partial("_Styles")
+    @RenderSection("pagestyles", required: false)
+    <!-- END CSS -->
+</head>
+<!-- END HEAD -->
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
+    <div class="page-wrapper">
+        <!-- BEGIN HEADER -->
+        @Html.Partial("_PageHeader")
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            @Html.Partial("_SidebarDynamicOptimized")
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper" style="">
+                <div class="page-content" style="background-color: #eef1f5">
+                    @RenderBody()
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+            <!-- BEGIN QUICK SIDEBAR -->
+            <!-- /*Html.Partial("_QuickSidebar")*/-->
+            <!-- END QUICK SIDEBAR -->
+        </div>
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        @Html.Partial("_Footer")
+        <!-- END FOOTER -->
+    </div>
+
+    @Html.Partial("_Modal") <!-- MODAL -->
+ 
+    <!-- BEGIN SCRIPT -->
+    @Html.Partial("_Scripts")
+    @RenderSection("pagepluginscripts", required: false)
+    @RenderSection("pagescripts", required: false)
+    @RenderSection("angularjsplugins", required: false)
+    @RenderSection("angularjspage", required: false)
+
+    <script>
+        document.baseUrl = '@Url.Action("Index", "Home")';
+    </script>
+    <!-- END SCRIPT -->
+</body>
+</html>

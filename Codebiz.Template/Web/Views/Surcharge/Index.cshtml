@@ -1,0 +1,259 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+@{
+    ViewBag.Title = "Surcharge";
+}
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>Management</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Surcharge")">Surcharge</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Surcharge <small>View, search , add, edit, delete, deactivate or reactivate Surcharge</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="SurchargeController as controller" ng-form="addSurchargeForm">
+
+        <!-- BEGIN PORTLET -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET -->
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <h4 class="bold">Search</h4>
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="expand"> </a>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                    <div class="portlet-body tabs-below" style="display: none;">
+                        <!--SEARCH TABLE -->
+                        <div class="row">
+                            <!--CONSUMER CLASS SEARCH TEXTBOX -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Consumer Class</label>
+                                    <select select2 name="ConsumerClass" id="ConsumerClass" class="form-control"
+                                            ng-model="consumerClass" ng-options="c.Id as (c.Description) for c in consumerClasses"
+                                            ng-change="search()">
+                                        <option value="">---Please select---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--YEAR OF DELIQUENCY SEARCH TEXTBOX -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Year of Delinquency</label>
+                                    <input name="yearOfDelinquency" ng-model="YearOfDelinquency" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--RATE PER MONTH SEARCH TEXTBOX -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Rate per Month</label>
+                                    <input id='numberbox1' positive type="number" name="ratePerMonth" ng-model="RatePerMonth" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--CREATED BY SEARCH TEXTBOX -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Created By</label>
+                                    <input type="text" name="CreatedBy" ng-model="CreatedBy" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--CREATED DATE SEARCH DATE PICKER -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Created Date</label>
+                                    <div class='input-group date'>
+                                        <input type="text" name="CreatedDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                               is-open="createdOnDatePicker.opened" close-text="Close"
+                                               id="drp" ng-model="createdDate" ng-click="openCreatedOnDatePicker()" ng-change="search()" readonly>
+                                        <span class="input-group-addon" onclick="$('#drp').focus()">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- BUTTONS -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="actions btn-set btn-filter">
+                                    <button type="button" class="btn btn-success" ng-click="search()">
+                                        <i class="fa fa-search"></i>
+                                        <span class=""> Search </span>
+                                    </button>
+                                    <button type="button" class="btn" ng-click="reset()">
+                                        <i class="fa fa-rotate-left"></i>
+                                        <span class=""> Reset </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET -->
+            </div>
+        </div>
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    List
+                </div>
+                <!--ADD NEW BUTTON -->
+                <div class="actions">
+                    <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportSurcharge)>
+                        <i class="fa fa-share-square-o"></i>
+                        <span class="">Export</span>
+                    </a>
+                    <a href="" class="btn btn-info" ng-click="openSurchargeSaveModal(0)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddSurcharge)>
+                        <i class="fa fa-plus"></i>
+                        <span class=""> New </span>
+                    </a>
+                </div>
+            </div>
+            <!--DATA TABLE -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                        <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover @Html.UserHasPermission(userPermission:new List<string>() {PermissionData.UserCanDeleteSurcharge, PermissionData.UserCanEditSurcharge,PermissionData.UserCanDeActivateReActivateSurcharge})">
+                            <tr ng-repeat="surcharge in $data">
+                                <td width="1%" header-class="'text-center'" class="text-center">
+                                    <!--ACTION BUTTONS -->
+                                    <div class="btn-group">
+                                        <button id="bars" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditSurcharge)>
+                                                <a ng-click="openSurchargeSaveModal(surcharge.SurchargeId)">
+                                                    <i class="fa fa-edit"></i> Edit
+                                                </a>
+                                            </li>
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeleteSurcharge)>
+                                                <a ng-click="deleteSurcharge(surcharge.SurchargeId, surcharge.ConsumerClass)">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </a>
+                                            </li>
+                                            <li ng-hide="!surcharge.IsActive" @Html.UserHasPermission(userPermission: PermissionData.UserCanDeActivateReActivateSurcharge)>
+                                                <a ng-click="toggleActiveStatus(surcharge.SurchargeId, false,surcharge.ConsumerClass)">
+                                                    <i class="fa fa-ban"></i> Deactivate
+                                                </a>
+                                            </li>
+                                            <li ng-hide="surcharge.IsActive" @Html.UserHasPermission(userPermission: PermissionData.UserCanDeActivateReActivateSurcharge)>
+                                                <a ng-click="toggleActiveStatus(surcharge.SurchargeId, true,surcharge.ConsumerClass)">
+                                                    <i class="fa fa-check-circle"></i> Reactivate
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="7%" data-title="'CONSUMER CLASS'" sortable="'ConsumerClass'" header-class="'table-header text-left'" class="text-left">
+                                    {{surcharge.ConsumerClass}}
+                                </td>
+                                <td width="7%" data-title="'YEAR OF DELINQUENCY'" sortable="'YearOfDelinquency'" header-class="'table-header text-left'" class="text-right">
+                                    {{surcharge.YearOfDelinquency}}
+                                </td>
+                                <td width="8%" data-title="'RATE PER MONTH'" sortable="'RatePerMonth'" header-class="'table-header text-left'" class="text-right">
+                                    {{surcharge.RatePerMonth|number:2}}
+                                </td>
+                                <td width="5%" data-title="'ACTIVE'" sortable="'IsActive'" header-class="'table-header text-center'" class="text-center">
+                                    <span class="label label-sm" ng-class="surcharge.IsActive ? 'label-success' : 'label-danger'">{{surcharge.IsActive ? 'Yes': 'No'}}</span>
+                                </td>
+                                <td width="7%" data-title="'CREATED BY'" sortable="'CreatedBy'" header-class="'table-header text-left'" class="text-left">
+                                    {{surcharge.CreatedBy}}
+                                </td>
+                                <td width="5%" data-title="'CREATED DATE'" sortable="'CreatedDate'" header-class="'table-header text-left'" class="text-left">
+                                    {{surcharge.CreatedDate | date : 'MM/dd/yyyy hh:mm a'}}
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length == 0">
+                                <td colspan="12" class="text-center" style="font-style:unset">
+                                    No data available
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @Html.Partial("SurchargeSaveModal")
+        </div>
+    </div>
+</div>
+
+<!--SCRIPTS TABLE -->
+@section PageScripts {
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $('input[name="CreatedDate"]').daterangepicker({
+                    opens: 'left',
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                }, function (start, end, label) {
+                });
+            });
+
+            $('input[name="CreatedDate"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                $(this).trigger('change');
+            });
+
+            $('input[name="CreatedDate"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+                $(this).trigger('change');
+            });
+
+            $('#numberbox').keyup(function () {
+                if ($(this).val() > 100 || $(this).val() == 0) {
+                    document.getElementById('numberbox').value = "''";
+
+                }
+            });
+            $('#numberbox1').keyup(function () {
+                if ($(this).val() > 100 || $(this).val() == 0) {
+                    document.getElementById('numberbox1').value = "''";
+
+                }
+            });
+
+
+        })
+    </script>
+}
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+@section angularjspage {
+    @Scripts.Render("~/Scripts/ng-table.js")
+    @Scripts.Render("~/Scripts/App/Services/SurchargeService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/SurchargeSaveModalController.js")
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/SurchargeController.js")
+}

@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "View Details- Department";
+}
+
+<div class="row" ng-app="MetronicApp" ng-controller="DepartmentAddUpdateController as controller">
+    <div class="col-md-12">
+
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>
+                        Management
+                    </span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Department")">Department</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Details</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="backToList()">Back to List</a>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            Department  <small>View department details</small>
+        </h1>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-body">
+                        @Html.Hidden("DepartmentId")
+                        <div class="form-body">
+                            <!--Modal Body Content -->
+                            <div class="row">
+                                <!--Code Textbox -->
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Code</label>
+                                        <input type="text" class="form-control" name="Code" ng-model="department.Code" maxlength="100" alphanumeric-dash-only disabled />
+                                    </div>
+                                </div>
+                                <!--Name Textbox -->
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="control-label">Name</label>
+                                        <input type="text" class="form-control" name="Name" ng-model="department.Name" maxlength="100" alphanumeric-dash-only disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="form-sub-title">Positions</h5>
+                                    <hr />
+                                    <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" name="positions" id="positions">
+                                        <table ng-table="tableParams" ng-class="departmentHasError ? 'has-error' : ''"
+                                               class="table table-sm table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th width="33%" class="table-header text-left">POSITION</th>
+                                                    <th width="33%" class="table-header text-left">DIVISION</th>
+                                                    <th width="33%" class="table-header text-left">CATEGORY</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="position in department.Details track by $index">
+                                                    <td>
+                                                        <span>{{position.PositionName}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{position.DivisionName}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{position.CategoryName}}</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section AngularJSPage {
+    @Scripts.Render("~/Scripts/App/Services/Department/DepartmentService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Department/DepartmentAddUpdateController.js")
+}
+
+

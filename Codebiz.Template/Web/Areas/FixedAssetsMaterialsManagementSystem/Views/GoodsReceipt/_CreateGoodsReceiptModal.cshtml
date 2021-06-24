@@ -1,0 +1,26 @@
+﻿@model Web.Models.ViewModels.GoodsReceipt.GoodsReceiptViewModel.GoodsReceiptIndexModel
+<style>
+    .modal-dialog {
+        position: absolute;
+        top: 50%;
+        margin-top: -100px;
+        left: 30%;
+    }
+</style>
+<script type="text/ng-template" id="CreateGoodsReceipt.html">
+    <div class="modal-body" id="modal-body">
+        <select select2 name="Supplier" class="form-control"
+                ui-validate="{minimum : '$value>0'}"
+                ng-required="true"
+                ng-model="mapSuppliers.SupplierId"
+                ng-options='map.SupplierId as (map.SupplierCode+" - "+map.SupplierDescription) for map in mapSuppliers'>
+            <option value="">---Please select---</option>
+        </select>
+        <br /><br />
+        <button class="btn btn-primary" ng-model="addItem" ng-click="getSupplier()">Select supplier and generate</button>
+        <div class="modal-footer">
+            <button class="btn btn-danger" type="button" ng-click="cancel()">Close</button>
+        </div>
+    </div>
+</script>
+

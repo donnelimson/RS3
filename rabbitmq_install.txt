@@ -1,0 +1,20 @@
+
+/*install chocolatey*/
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+
+
+choco install rabbitmq
+
+/*add to path*/
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.8.5\sbin
+
+
+/*command line  add user*/
+rabbitmqctl add_user myUsr myPass
+rabbitmqctl set_user_tags myUsr administrator
+rabbitmq-plugins enable rabbitmq_web_stomp
+
+/*access*/
+127.0.0.1:15672
+webstomp ws://servername:15674

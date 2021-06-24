@@ -1,0 +1,20 @@
+UnitOfMeasureId	Code	Name	UnitType
+UnitOfMeasureId	Code	Name	UnitType
+	PC	Piece	UNIT
+	CAN	Can	UNIT
+	BOX	Box 	UNIT
+	cm	Centimeter 	LENGTH
+	mm	Millimeter	LENGTH
+	m	Meter	LENGTH
+	roll	Roll	UNIT
+	UNIT	Unit 	UNIT
+	CS	Case	UNIT
+	BOT	Bottle	UNIT
+	CUP	Cup	UNIT
+	GAL	Gallon	VOLUME
+	LITER	Liter	VOLUME
+	SET	Set	UNIT
+	METER(S)	Meter(s)	LENGTH
+	in	Inch	
+	ft	Feet	
+	yd	Yard	

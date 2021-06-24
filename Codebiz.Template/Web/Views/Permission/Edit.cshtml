@@ -1,0 +1,117 @@
+﻿@model Web.Models.ViewModels.Permission.PermissionEditViewModel
+@{
+    ViewBag.Title = "Update Permissions";
+}
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="@Url.Action("Index", "Permission")">Permissions</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Update</span>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <a class="btn btn-sm btn-default" href="@Url.Action("Index", "Permission")">Back to List</a>
+    </div>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Permissions
+    <small>View, add, edit permissions</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    @*<i class="fa fa-search"></i>*@Update
+                </div>
+            </div>
+            <div class="portlet-body form">
+                @using (Html.BeginForm("Edit", "Permission", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(a => a.PermissionId)
+                    @Html.AntiForgeryToken()
+                    <div class="form-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", placeholder = "Description" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SelectedPermissionGroup, htmlAttributes: new { @class = "control-label col-md-3 access-level", data_access_level_id = (int)AccessLevels.Regional })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.SelectedPermissionGroup, new SelectList(Model.PermissionGroupLookUp, "Key", "Value"), "Please select", new { @class = "form-control select2", placeholder = "Please select" })
+                                @Html.ValidationMessageFor(model => model.SelectedPermissionGroup, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SelectedNavLink, htmlAttributes: new { @class = "control-label col-md-3 access-level", data_access_level_id = (int)AccessLevels.Unit })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.SelectedNavLink, new SelectList(Model.NavLinkLookUp, "Key", "Value"), "Please select", new { @class = "form-control select2", placeholder = "Please select" })
+                                @Html.ValidationMessageFor(model => model.SelectedNavLink, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-4">
+                                <div class="mt-checkbox-inline">
+                                    <label class="mt-checkbox mt-checkbox-outline">
+                                        <input name="IsActive" type="checkbox" value="true" @(Model.IsActive ? "checked" : "")>
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>*@
+                    </div>
+
+                    <div class="form-actions fluid">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn green">Submit</button>
+                                <a class="btn white" href="@Url.Action("Index")">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- END PORTLET -->
+    </div>
+</div>
+@section PageStyles {
+    @Styles.Render("~/assets/global/plugins/select2/css/select2.min.css")
+    @Styles.Render("~/assets/global/plugins/select2/css/select2-bootstrap.min.css")
+
+
+
+}
+@section PageScripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/assets/global/plugins/select2/js/select2.full.min.js")
+
+    <script>
+        $(document).ready(function () {
+            // Set the "bootstrap" theme as the default theme for all Select2
+            // widgets.
+            //
+            // see https://github.com/select2/select2/issues/2927
+            $.fn.select2.defaults.set("theme", "bootstrap");
+
+            $(".select2, .select2-multiple").select2({
+                width: '100%'
+            });
+
+        });
+    </script>
+}

@@ -1,0 +1,120 @@
+﻿<script src="~/assets/global/plugins/jquery.min.js"></script>
+
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="@Url.Action("Index","Home")">
+                <img src="@Url.Content("~/content/image/tarelco1logo.png")" alt="logo" height="27" class="logo-default" />
+            </a>
+            <div class="menu-toggler sidebar-toggler">
+                <span></span>
+            </div>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+            <span></span>
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <!-- BEGIN USER LOGIN DROPDOWN -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar" ng-controller="NotificationController as controller">
+                    <a href="javascript:;" ng-click="readNotification()" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="icon-bell"></i>
+                        <span class="badge badge-default">{{unreadCount == null || unreadCount === 0 ? mull : unreadCount}}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="external">
+                            <h3>
+                                You have
+                                <span class="bold">{{unreadCount == null || unreadCount === 0 ? mull : unreadCount}} {{unreadCount == null || unreadCount === 0 ? 'No' : 'New'}}</span> Notification
+                            </h3>
+                        </li>
+                        <li>
+                            <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                <li ng-repeat="item in Notifications | orderBy: 'NotificationId' : 'reverse'" ng-style="{'background-color': !item.IsProcessed ? 'lightgray' : 'white'}">
+                                    <a ng-click="process(item)">
+                                        <span class="photo">
+                                            <img ng-src="{{item.AppUserPhotoThumbnailUrl}}" class="img-circle">
+                                        </span>
+                                        <span class="subject">
+                                            <span class="from"> {{item.Name}} </span>
+                                            <span class="time">{{item.TimeInterval}}</span>
+                                        </span>
+                                        <span class="message"> {{item.Message}} </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                    <!-- END INBOX DROPDOWN -->
+                    <!-- END NOTIFICATION DROPDOWN -->
+                    <li class="dropdown dropdown-user">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <img alt="" class="img-circle" id="imageBody" src="#" />
+                            @Html.Hidden("userName", @User.Identity.Name, new { @id = "userName" })
+                            <span class="username username-hide-on-mobile"> @User.Identity.Name </span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li>
+                                <a href="@Url.Action("MyProfile", "AppUsers", new{area=""})" class="nav-link @Html.IsSelected(controller: "AppUsers") ">
+                                    <i class="icon-user"></i> My Profile
+                                </a>
+                            </li>
+                            <li class="divider"> </li>
+                            <li>
+                                <a href="javascript:document.getElementById('logoutForm').submit()">
+                                    <i class="icon-key"></i> Log Out
+                                </a>
+                            </li>
+                        </ul>
+                        @using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        {
+                            @Html.AntiForgeryToken()
+                        }
+                    </li>
+                    <!-- END USER LOGIN DROPDOWN -->
+                }
+                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown">
+                    <a href="javascript:document.getElementById('logoutForm').submit()" class="dropdown-toggle">
+                        <i class="icon-logout"></i>
+                    </a>
+                </li>
+                <!-- END QUICK SIDEBAR TOGGLER -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>
+<style>
+ 
+</style>
+<script>
+    //$(window).on("load", function () {
+    //    $.ajax({
+    //        cache: false,
+    //        type: "GET",
+    //        url: document.baseUrlNoArea + "AppUsers/getImage",
+    //        success: function (data) {
+    //            $("#imageBody").prop("src", data.photoUrl);
+    //        },
+    //        error: function (xhr, ajaxOptions, thrownError) {
+    //            //alert('Failed to retrieve province.');
+    //        }
+    //    });
+
+    //});
+ 
+</script>

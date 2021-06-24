@@ -1,0 +1,591 @@
+DocFormGridColID	DocForm	ColID	DocType	Name	AliasName	Field	LineNum	VisNum	ShowColumn	HeaderCssClass	Editor	DataType	FieldCssClass	Width	ObjectType	CreatedByAppUserId	CreatedOn
+DocFormGridColID	DocForm	ColID	DocType	Name	AliasName	Field	LineNum	VisNum	ShowColumn	HeaderCssClass	Editor	DataType	FieldCssClass	Width	ObjectType	CreatedByAppUserId	CreatedOn
+	DOC	I_DocNum	I	DocNum	DocNum	DocNum	1	1	N	text-center				100		1	01/01/2001
+	DOC	I_LineNum	I	LineNum	#	LineNum	2	2	Y	text-center			text-center	20		1	01/01/2001
+	DOC	I_ItemCode	I	ItemCode	ITEM CODE	ItemCode	3	3	Y	text-center	LinkTextBoxEditor			100		1	01/01/2001
+	DOC	I_Dscription	I	Dscription	ITEM NAME	Dscription	4	4	Y	text-left			text-left readonly-field	200		1	01/01/2001
+	DOC	I_WhsCode	I	WhsCode	WAREHOUSE	WhsCode	5	5	Y	text-center	LinkTextBoxEditor			200		1	01/01/2001
+	DOC	I_PriceList	I	PriceList	PRICE LIST	PriceList	6	6	N	text-center	SelectListEditor			150	PRL	1	01/01/2001
+	DOC	I_Quantity	I	Quantity	QUANTITY	Quantity	7	7	Y	text-center	SlickEditorsText	int	text-right	100		1	01/01/2001
+	DOC	I_Price	I	Price	UNIT PRICE	Price	8	8	Y	text-center	SlickEditorsText	float	text-right	100		1	01/01/2001
+	DOC	I_UOM	I	UOM	UOM	UOM	9	9	Y	text-center	SelectListEditor			150	UOM	1	01/01/2001
+	DOC	I_Discount	I	Discount	DISCOUNT %	Discount	10	10	Y	text-center	SlickEditorsText	float	text-right	100		1	01/01/2001
+	DOC	I_VatGroup	I	VatGroup	TAX CODE	VatGroup	11	11	Y	text-center	SelectListEditor		text-center	150	VTG	1	01/01/2001
+	DOC	I_WtLiable	I	WtLiable	WTAX LIABLE	WtLiable	13	13	Y	text-center	SelectListEditor		text-center	100	WHT	1	01/01/2001
+	DOC	I_PriceAfTax	I	PriceAfTax	PRICE AFTAX	PriceAfTax	14	14	N	text-center	SlickEditorsText		text-right	100		1	01/01/2001
+	DOC	I_LineTotal	I	LineTotal	LINE TOTAL	LineTotal	15	15	Y	text-center			text-right readonly-field	100		1	01/01/2001
+	DOC	I_GTotal	I	GTotal	GROSS TOTAL	GTotal	16	16	Y	text-center			text-right readonly-field	100		1	01/01/2001
+	DOC	I_AcctCode	I	AcctCode	G/L ACCOUNT	AcctCode	17	17	Y	text-center	LinkTextBoxEditor			100		1	01/01/2001
+	DOC	I_AcctName	I	AcctName	G/L ACCOUNT NAME	AcctName	18	18	N	text-left				150		1	01/01/2001
+	DOC	I_VisNum	I	VisNum	VISNUM	VisNum	19	19	N	text-center				100		1	01/01/2001
+	DOC	I_LineType	I	LineType	LINETYPE	LineType	20	20	N	text-center				100		1	01/01/2001
+	DOC	I_Text	I	Text	TEXT	Text	21	21	N	text-center				100		1	01/01/2001
+	DOC	I_ObjType	I	ObjType	OBJTYPE	ObjType	22	22	N	text-center				100		1	01/01/2001
+	DOC	I_BaseEntry	I	BaseEntry	BASEENTRY	BaseEntry	23	23	N	text-center				100		1	01/01/2001
+	DOC	I_BaseType	I	BaseType	BASETYPE	BaseType	24	24	N	text-center				100		1	01/01/2001
+	DOC	I_BaseLine	I	BaseLine	BASELINE	BaseLine	25	25	N	text-center				100		1	01/01/2001
+	DOC	I_BaseDocNum	I	BaseDocNum	BASEDOCNUM	BaseDocNum	26	26	N	text-center				100		1	01/01/2001
+	DOC	I_BaseDocRef	I	BaseDocRef	BASEDOCREF	BaseDocRef	27	27	N	text-center				100		1	01/01/2001
+	DOC	I_TargetEntry	I	TargetEntry	TARGETENTRY	TargetEntry	28	28	N	text-center				100		1	01/01/2001
+	DOC	I_LineStatus	I	LineStatus	LINESTATUS	LineStatus	29	29	N	text-center				100		1	01/01/2001
+	DOC	I_TargetType	I	TargetType	TARGETTYPE	TargetType	30	30	N	text-center				100		1	01/01/2001
+	DOC	I_TargetLine	I	TargetLine	TARGETLINE	TargetLine	31	31	N	text-center				100		1	01/01/2001
+	DOC	I_TargetDocRef	I	TargetDocRef	TARGETDOCREF	TargetDocRef	32	32	N	text-center				100		1	01/01/2001
+	DOC	I_Currency	I	Currency	CURRENCY	Currency	33	33	N	text-center				100		1	01/01/2001
+	DOC	I_CardCode	I	CardCode	CARDCODE	CardCode	34	34	N	text-center				100		1	01/01/2001
+	DOC	I_CardName	I	CardName	CARDNAME	CardName	35	35	N	text-left				100		1	01/01/2001
+	DOC	I_DocDate	I	DocDate	DOCDATE	DocDate	36	36	N	text-center				100		1	01/01/2001
+	DOC	I_Dscription2	I	Dscription2	DSCRIPTION2	Dscription2	37	37	N	text-left				100		1	01/01/2001
+	DOC	I_OpenQty	I	OpenQty	OPENQTY	OpenQty	38	38	N	text-center				100		1	01/01/2001
+	DOC	I_QtyPerPacUOM	I	QtyPerPacUOM	QTYPERPACUOM	QtyPerPacUOM	39	39	N	text-center				100		1	01/01/2001
+	DOC	I_BaseQty	I	BaseQty	BASEQTY	BaseQty	40	40	N	text-center				100		1	01/01/2001
+	DOC	I_BaseOpenQty	I	BaseOpenQty	BASEOPENQTY	BaseOpenQty	41	41	N	text-center				100		1	01/01/2001
+	DOC	I_QtyToShip	I	QtyToShip	QTYTOSHIP	QtyToShip	42	42	N	text-center				100		1	01/01/2001
+	DOC	I_DeliveredQty	I	DeliveredQty	DELIVEREDQTY	DeliveredQty	43	43	N	text-center				100		1	01/01/2001
+	DOC	I_OrderedQty	I	OrderedQty	ORDEREDQTY	OrderedQty	44	44	N	text-center				100		1	01/01/2001
+	DOC	I_NumPerMsr	I	NumPerMsr	QTY/UOM	NumPerMsr	45	45	N	text-center				100		1	01/01/2001
+	DOC	I_ShipDate	I	ShipDate	SHIPDATE	ShipDate	46	46	N	text-center				100		1	01/01/2001
+	DOC	I_ShipToCode	I	ShipToCode	SHIPTOCODE	ShipToCode	47	47	N	text-center				100		1	01/01/2001
+	DOC	I_ShipToDesc	I	ShipToDesc	SHIPTODESC	ShipToDesc	48	48	N	text-center				100		1	01/01/2001
+	DOC	I_TotalInvntryQty	I	TotalInvntryQty	TOTALINVNTRYQTY	TotalInvntryQty	49	49	N	text-center				100		1	01/01/2001
+	DOC	I_StockPrice	I	StockPrice	STOCKPRICE	StockPrice	50	50	N	text-center				100		1	01/01/2001
+	DOC	I_StockValue	I	StockValue	STOCKVALUE	StockValue	51	51	N	text-center				100		1	01/01/2001
+	DOC	I_INMPRice	I	INMPRice	INMPRICE	INMPRice	52	52	N	text-center				100		1	01/01/2001
+	DOC	I_PickQty	I	PickQty	PICKQTY	PickQty	53	53	N	text-center				100		1	01/01/2001
+	DOC	I_PickStatus	I	PickStatus	PICKSTATUS	PickStatus	54	54	N	text-center				100		1	01/01/2001
+	DOC	I_InvntryUOM	I	InvntryUOM	INVNTRYUOM	InvntryUOM	55	55	N	text-center				100		1	01/01/2001
+	DOC	I_ItemCost	I	ItemCost	ITEMCOST	ItemCost	56	56	N	text-center				100		1	01/01/2001
+	DOC	I_PriceAfVat	I	PriceAfVat	PRICEAFVAT	PriceAfVat	57	57	N	text-center	SlickEditorText		text-right	100		1	01/01/2001
+	DOC	I_DiscountAmt	I	DiscountAmt	DISCOUNTAMT	DiscountAmt	58	58	N	text-center				100		1	01/01/2001
+	DOC	I_Discount2	I	Discount2	DISCOUNT2	Discount2	59	59	N	text-center				100		1	01/01/2001
+	DOC	I_DiscountAmt2	I	DiscountAmt2	DISCOUNTAMT2	DiscountAmt2	60	60	N	text-center				100		1	01/01/2001
+	DOC	I_Discount3	I	Discount3	DISCOUNT3	Discount3	61	61	N	text-center				100		1	01/01/2001
+	DOC	I_DiscountAmt3	I	DiscountAmt3	DISCOUNTAMT3	DiscountAmt3	62	62	N	text-center				100		1	01/01/2001
+	DOC	I_Discount4	I	Discount4	DISCOUNT4	Discount4	63	63	N	text-center				100		1	01/01/2001
+	DOC	I_DiscountAmt4	I	DiscountAmt4	DISCOUNTAMT4	DiscountAmt4	64	64	N	text-center				100		1	01/01/2001
+	DOC	I_Discount5	I	Discount5	DISCOUNT5	Discount5	65	65	N	text-center				100		1	01/01/2001
+	DOC	I_DiscountAmt5	I	DiscountAmt5	DISCOUNTAMT5	DiscountAmt5	66	66	N	text-center				100		1	01/01/2001
+	DOC	I_PriceBeforeDscnt	I	PriceBeforeDscnt	PRICEBEFOREDSCNT	PriceBeforeDscnt	67	67	N	text-center				100		1	01/01/2001
+	DOC	I_VatPercent	I	VatPercent	VATPERCENT	VatPercent	68	68	N	text-center				100		1	01/01/2001
+	DOC	I_VatSum	I	VatSum	VATSUM	VatSum	69	69	N	text-center				100		1	01/01/2001
+	DOC	I_VatSumSys	I	VatSumSys	VATSUMSYS	VatSumSys	70	70	N	text-center				100		1	01/01/2001
+	DOC	I_VatSumFC	I	VatSumFC	VATSUMFC	VatSumFC	71	71	N	text-center				100		1	01/01/2001
+	DOC	I_FinacialPeriodID	I	FinacialPeriodID	FINACIALPERIODID	FinacialPeriodID	72	72	N	text-center				100		1	01/01/2001
+	DOC	I_COGSAcct	I	COGSAcct	COGSACCT	COGSAcct	73	73	N	text-center				100		1	01/01/2001
+	DOC	I_LineTotalFC	I	LineTotalFC	LINETOTALFC	LineTotalFC	74	74	N	text-center			text-right readonly-field	100		1	01/01/2001
+	DOC	I_LineTotalSC	I	LineTotalSC	LINETOTALSC	LineTotalSC	75	75	N	text-center				100		1	01/01/2001
+	DOC	I_LineVatSum	I	LineVatSum	LINEVATSUM	LineVatSum	76	76	N	text-center				100		1	01/01/2001
+	DOC	I_LinVatSys	I	LinVatSys	LINVATSYS	LinVatSys	77	77	N	text-center				100		1	01/01/2001
+	DOC	I_LineVatFC	I	LineVatFC	LINEVATFC	LineVatFC	78	78	N	text-center				100		1	01/01/2001
+	DOC	I_OpenSum	I	OpenSum	OPENSUM	OpenSum	79	79	N	text-center				100		1	01/01/2001
+	DOC	I_OpenSumFC	I	OpenSumFC	OPENSUMFC	OpenSumFC	80	80	N	text-center				100		1	01/01/2001
+	DOC	I_Factor1	I	Factor1	FACTOR1	Factor1	81	81	N	text-center				100		1	01/01/2001
+	DOC	I_Factor2	I	Factor2	FACTOR2	Factor2	82	82	N	text-center				100		1	01/01/2001
+	DOC	I_Factor3	I	Factor3	FACTOR3	Factor3	83	83	N	text-center				100		1	01/01/2001
+	DOC	I_Factor4	I	Factor4	FACTOR4	Factor4	84	84	N	text-center				100		1	01/01/2001
+	DOC	I_Length1	I	Length1	LENGTH1	Length1	85	85	N	text-center				100		1	01/01/2001
+	DOC	I_Len1Unit	I	Len1Unit	LEN1UNIT	Len1Unit	86	86	N	text-center				100		1	01/01/2001
+	DOC	I_Width1	I	Width1	WIDTH1	Width1	87	87	N	text-center				100		1	01/01/2001
+	DOC	I_Width1Unit	I	Width1Unit	WIDTH1UNIT	Width1Unit	88	88	N	text-center				100		1	01/01/2001
+	DOC	I_Height1	I	Height1	HEIGHT1	Height1	89	89	N	text-center				100		1	01/01/2001
+	DOC	I_Height1Unit	I	Height1Unit	HEIGHT1UNIT	Height1Unit	90	90	N	text-center				100		1	01/01/2001
+	DOC	I_Length2	I	Length2	LENGTH2	Length2	91	91	N	text-center				100		1	01/01/2001
+	DOC	I_Len2Unit	I	Len2Unit	LEN2UNIT	Len2Unit	92	92	N	text-center				100		1	01/01/2001
+	DOC	I_Width2	I	Width2	WIDTH2	Width2	93	93	N	text-center				100		1	01/01/2001
+	DOC	I_Width2Unit	I	Width2Unit	WIDTH2UNIT	Width2Unit	94	94	N	text-center				100		1	01/01/2001
+	DOC	I_Height2	I	Height2	HEIGHT2	Height2	95	95	N	text-center				100		1	01/01/2001
+	DOC	I_Height2Unit	I	Height2Unit	HEIGHT2UNIT	Height2Unit	96	96	N	text-center				100		1	01/01/2001
+	DOC	I_Volume	I	Volume	VOLUME	Volume	97	97	N	text-center				100		1	01/01/2001
+	DOC	I_VolUnit	I	VolUnit	VOLUNIT	VolUnit	98	98	N	text-center				100		1	01/01/2001
+	DOC	I_ProjectCode	I	ProjectCode	PROJECTCODE	ProjectCode	99	99	N	text-center				100		1	01/01/2001
+	DOC	I_OcrCode	I	OcrCode	OCRCODE	OcrCode	100	100	N	text-center				100		1	01/01/2001
+	DOC	I_OcrCode2	I	OcrCode2	OCRCODE2	OcrCode2	101	101	N	text-center				100		1	01/01/2001
+	DOC	I_OcrCode3	I	OcrCode3	OCRCODE3	OcrCode3	102	102	N	text-center				100		1	01/01/2001
+	DOC	I_OcrCode4	I	OcrCode4	OCRCODE4	OcrCode4	103	103	N	text-center				100		1	01/01/2001
+	DOC	I_OcrCode5	I	OcrCode5	OCRCODE5	OcrCode5	104	104	N	text-center				100		1	01/01/2001
+	DOC	I_GTotalFC	I	GTotalFC	GTOTALFC	GTotalFC	105	105	N	text-center			text-right readonly-field	100		1	01/01/2001
+	DOC	I_GrossProfit	I	GrossProfit	GROSSPROFIT	GrossProfit	106	106	N	text-center				100		1	01/01/2001
+	DOC	I_GrossProfitFC	I	GrossProfitFC	GROSSPROFITFC	GrossProfitFC	107	107	N	text-center				100		1	01/01/2001
+	DOC	S_LineNum	S	LineNum	#	LineNum	1	1	Y	text-center			text-center	20		1	01/01/2001
+	DOC	S_Dscription	S	Dscription	DESCRIPTION	Dscription	2	2	Y	text-left	SlickEditorsText			350		1	01/01/2001
+	DOC	S_Price	S	Price	UNIT PRICE	Price	3	3	Y	text-center	SlickEditorsText	float	text-right	100		1	01/01/2001
+	DOC	S_AcctCode	S	AcctCode	G/L ACCOUNT 	AcctCode	4	4	Y	text-center	LinkTextBoxEditor			100		1	01/01/2001
+	DOC	S_AcctName	S	AcctName	G/L ACCOUNT NAME	AcctName	5	5	Y	text-left				350		1	01/01/2001
+	DOC	S_VatGroup	S	VatGroup	VATGROUP	VatGroup	6	6	Y	text-center	SelectListEditor		text-center	150	VTG	1	01/01/2001
+	DOC	S_LineTotal	S	LineTotal	TOTAL	LineTotal	7	7	Y	text-center			text-right	100		1	01/01/2001
+	DOC	S_DocNum	S	DocNum	DOCNUM	DocNum	8	8	N	text-center				100		1	01/01/2001
+	DOC	S_VisNum	S	VisNum	VISNUM	VisNum	9	9	N	text-center				100		1	01/01/2001
+	DOC	S_LineType	S	LineType	LINETYPE	LineType	10	10	N	text-center				100		1	01/01/2001
+	DOC	S_Text	S	Text	TEXT	Text	11	11	N	text-center				100		1	01/01/2001
+	DOC	S_ObjType	S	ObjType	OBJTYPE	ObjType	12	12	N	text-center				100		1	01/01/2001
+	DOC	S_BaseEntry	S	BaseEntry	BASEENTRY	BaseEntry	13	13	N	text-center				100		1	01/01/2001
+	DOC	S_BaseType	S	BaseType	BASETYPE	BaseType	14	14	N	text-center				100		1	01/01/2001
+	DOC	S_BaseLine	S	BaseLine	BASELINE	BaseLine	15	15	N	text-center				100		1	01/01/2001
+	DOC	S_BaseDocNum	S	BaseDocNum	BASEDOCNUM	BaseDocNum	16	16	N	text-center				100		1	01/01/2001
+	DOC	S_BaseDocRef	S	BaseDocRef	BASEDOCREF	BaseDocRef	17	17	N	text-center				100		1	01/01/2001
+	DOC	S_TargetEntry	S	TargetEntry	TARGETENTRY	TargetEntry	18	18	N	text-center				100		1	01/01/2001
+	DOC	S_LineStatus	S	LineStatus	LINESTATUS	LineStatus	19	19	N	text-center				100		1	01/01/2001
+	DOC	S_TargetType	S	TargetType	TARGETTYPE	TargetType	20	20	N	text-center				100		1	01/01/2001
+	DOC	S_TargetLine	S	TargetLine	TARGETLINE	TargetLine	21	21	N	text-center				100		1	01/01/2001
+	DOC	S_TargetDocRef	S	TargetDocRef	TARGETDOCREF	TargetDocRef	22	22	N	text-center				100		1	01/01/2001
+	DOC	S_Currency	S	Currency	CURRENCY	Currency	23	23	N	text-center				100		1	01/01/2001
+	DOC	S_CardCode	S	CardCode	CARDCODE	CardCode	24	24	N	text-center				100		1	01/01/2001
+	DOC	S_CardName	S	CardName	CARDNAME	CardName	25	25	N	text-left				100		1	01/01/2001
+	DOC	S_DocDate	S	DocDate	DOCDATE	DocDate	26	26	N	text-center				100		1	01/01/2001
+	DOC	S_ItemCode	S	ItemCode	ITEMCODE	ItemCode	27	27	N	text-center				100		1	01/01/2001
+	DOC	S_Dscription2	S	Dscription2	DSCRIPTION2	Dscription2	28	28	N	text-left				100		1	01/01/2001
+	DOC	S_WhsCode	S	WhsCode	WAREHOUSE	WhsCode	29	29	N	text-center				100		1	01/01/2001
+	DOC	S_Quantity	S	Quantity	QUANTITY	Quantity	30	30	N	text-center				100		1	01/01/2001
+	DOC	S_OpenQty	S	OpenQty	OPENQTY	OpenQty	31	31	N	text-center				100		1	01/01/2001
+	DOC	S_QtyPerPacUOM	S	QtyPerPacUOM	QTYPERPACUOM	QtyPerPacUOM	32	32	N	text-center				100		1	01/01/2001
+	DOC	S_BaseQty	S	BaseQty	BASEQTY	BaseQty	33	33	N	text-center				100		1	01/01/2001
+	DOC	S_BaseOpenQty	S	BaseOpenQty	BASEOPENQTY	BaseOpenQty	34	34	N	text-center				100		1	01/01/2001
+	DOC	S_QtyToShip	S	QtyToShip	QTYTOSHIP	QtyToShip	35	35	N	text-center				100		1	01/01/2001
+	DOC	S_DeliveredQty	S	DeliveredQty	DELIVEREDQTY	DeliveredQty	36	36	N	text-center				100		1	01/01/2001
+	DOC	S_OrderedQty	S	OrderedQty	ORDEREDQTY	OrderedQty	37	37	N	text-center				100		1	01/01/2001
+	DOC	S_NumPerMsr	S	NumPerMsr	NUMPERMSR	NumPerMsr	38	38	N	text-center				100		1	01/01/2001
+	DOC	S_ShipDate	S	ShipDate	SHIPDATE	ShipDate	39	39	N	text-center				100		1	01/01/2001
+	DOC	S_ShipToCode	S	ShipToCode	SHIPTOCODE	ShipToCode	40	40	N	text-center				100		1	01/01/2001
+	DOC	S_ShipToDesc	S	ShipToDesc	SHIPTODESC	ShipToDesc	41	41	N	text-center				100		1	01/01/2001
+	DOC	S_UOM	S	UOM	UOM	UOM	42	42	N	text-center				100		1	01/01/2001
+	DOC	S_TotalInvntryQty	S	TotalInvntryQty	TOTALINVNTRYQTY	TotalInvntryQty	43	43	N	text-center				100		1	01/01/2001
+	DOC	S_StockPrice	S	StockPrice	STOCKPRICE	StockPrice	44	44	N	text-center				100		1	01/01/2001
+	DOC	S_StockValue	S	StockValue	STOCKVALUE	StockValue	45	45	N	text-center				100		1	01/01/2001
+	DOC	S_INMPRice	S	INMPRice	INMPRICE	INMPRice	46	46	N	text-center				100		1	01/01/2001
+	DOC	S_PickQty	S	PickQty	PICKQTY	PickQty	47	47	N	text-center				100		1	01/01/2001
+	DOC	S_PickStatus	S	PickStatus	PICKSTATUS	PickStatus	48	48	N	text-center				100		1	01/01/2001
+	DOC	S_InvntryUOM	S	InvntryUOM	INVNTRYUOM	InvntryUOM	49	49	N	text-center				100		1	01/01/2001
+	DOC	S_ItemCost	S	ItemCost	ITEMCOST	ItemCost	50	50	N	text-center				100		1	01/01/2001
+	DOC	S_PriceAfVat	S	PriceAfVat	PRICEAFVAT	PriceAfVat	51	51	N	text-center	SlickEditorsText		text-right	100		1	01/01/2001
+	DOC	S_Discount	S	Discount	DISCOUNT %	Discount	52	52	N	text-center	SlickEditorsText		text-right	100		1	01/01/2001
+	DOC	S_DiscountAmt	S	DiscountAmt	DISCOUNTAMT	DiscountAmt	53	53	N	text-center				100		1	01/01/2001
+	DOC	S_Discount2	S	Discount2	DISCOUNT2	Discount2	54	54	N	text-center				100		1	01/01/2001
+	DOC	S_DiscountAmt2	S	DiscountAmt2	DISCOUNTAMT2	DiscountAmt2	55	55	N	text-center				100		1	01/01/2001
+	DOC	S_Discount3	S	Discount3	DISCOUNT3	Discount3	56	56	N	text-center				100		1	01/01/2001
+	DOC	S_DiscountAmt3	S	DiscountAmt3	DISCOUNTAMT3	DiscountAmt3	57	57	N	text-center				100		1	01/01/2001
+	DOC	S_Discount4	S	Discount4	DISCOUNT4	Discount4	58	58	N	text-center				100		1	01/01/2001
+	DOC	S_DiscountAmt4	S	DiscountAmt4	DISCOUNTAMT4	DiscountAmt4	59	59	N	text-center				100		1	01/01/2001
+	DOC	S_Discount5	S	Discount5	DISCOUNT5	Discount5	60	60	N	text-center				100		1	01/01/2001
+	DOC	S_DiscountAmt5	S	DiscountAmt5	DISCOUNTAMT5	DiscountAmt5	61	61	N	text-center				100		1	01/01/2001
+	DOC	S_PriceBeforeDscnt	S	PriceBeforeDscnt	PRICEBEFOREDSCNT	PriceBeforeDscnt	62	62	N	text-center				100		1	01/01/2001
+	DOC	S_WtLiable	S	WtLiable	WTAX LIABLE	WtLiable	63	63	N	text-center	SelectListEditor		text-center	100	WHT	1	01/01/2001
+	DOC	S_VatPercent	S	VatPercent	VATPERCENT	VatPercent	64	64	N	text-center				100		1	01/01/2001
+	DOC	S_VatSum	S	VatSum	VATSUM	VatSum	65	65	N	text-center				100		1	01/01/2001
+	DOC	S_VatSumSys	S	VatSumSys	VATSUMSYS	VatSumSys	66	66	N	text-center				100		1	01/01/2001
+	DOC	S_VatSumFC	S	VatSumFC	VATSUMFC	VatSumFC	67	67	N	text-center				100		1	01/01/2001
+	DOC	S_FinacialPeriodID	S	FinacialPeriodID	FINACIALPERIODID	FinacialPeriodID	68	68	N	text-center				100		1	01/01/2001
+	DOC	S_COGSAcct	S	COGSAcct	COGSACCT	COGSAcct	69	69	N	text-center	LinkTextBoxEditor			150		1	01/01/2001
+	DOC	S_LineTotal	S	LineTotal	TOTAL	LineTotal	70	70	N	text-center			text-right	100		1	01/01/2001
+	DOC	S_LineTotalFC	S	LineTotalFC	LINETOTALFC	LineTotalFC	71	71	N	text-center			text-right	100		1	01/01/2001
+	DOC	S_LineTotalSC	S	LineTotalSC	LINETOTALSC	LineTotalSC	72	72	N	text-center				100		1	01/01/2001
+	DOC	S_LineVatSum	S	LineVatSum	LINEVATSUM	LineVatSum	73	73	N	text-center				100		1	01/01/2001
+	DOC	S_LinVatSys	S	LinVatSys	LINVATSYS	LinVatSys	74	74	N	text-center				100		1	01/01/2001
+	DOC	S_LineVatFC	S	LineVatFC	LINEVATFC	LineVatFC	75	75	N	text-center				100		1	01/01/2001
+	DOC	S_OpenSum	S	OpenSum	OPENSUM	OpenSum	76	76	N	text-center				100		1	01/01/2001
+	DOC	S_OpenSumFC	S	OpenSumFC	OPENSUMFC	OpenSumFC	77	77	N	text-center				100		1	01/01/2001
+	DOC	S_Factor1	S	Factor1	FACTOR1	Factor1	78	78	N	text-center				100		1	01/01/2001
+	DOC	S_Factor2	S	Factor2	FACTOR2	Factor2	79	79	N	text-center				100		1	01/01/2001
+	DOC	S_Factor3	S	Factor3	FACTOR3	Factor3	80	80	N	text-center				100		1	01/01/2001
+	DOC	S_Factor4	S	Factor4	FACTOR4	Factor4	81	81	N	text-center				100		1	01/01/2001
+	DOC	S_Length1	S	Length1	LENGTH1	Length1	82	82	N	text-center				100		1	01/01/2001
+	DOC	S_Len1Unit	S	Len1Unit	LEN1UNIT	Len1Unit	83	83	N	text-center				100		1	01/01/2001
+	DOC	S_Width1	S	Width1	WIDTH1	Width1	84	84	N	text-center				100		1	01/01/2001
+	DOC	S_Width1Unit	S	Width1Unit	WIDTH1UNIT	Width1Unit	85	85	N	text-center				100		1	01/01/2001
+	DOC	S_Height1	S	Height1	HEIGHT1	Height1	86	86	N	text-center				100		1	01/01/2001
+	DOC	S_Height1Unit	S	Height1Unit	HEIGHT1UNIT	Height1Unit	87	87	N	text-center				100		1	01/01/2001
+	DOC	S_Length2	S	Length2	LENGTH2	Length2	88	88	N	text-center				100		1	01/01/2001
+	DOC	S_Len2Unit	S	Len2Unit	LEN2UNIT	Len2Unit	89	89	N	text-center				100		1	01/01/2001
+	DOC	S_Width2	S	Width2	WIDTH2	Width2	90	90	N	text-center				100		1	01/01/2001
+	DOC	S_Width2Unit	S	Width2Unit	WIDTH2UNIT	Width2Unit	91	91	N	text-center				100		1	01/01/2001
+	DOC	S_Height2	S	Height2	HEIGHT2	Height2	92	92	N	text-center				100		1	01/01/2001
+	DOC	S_Height2Unit	S	Height2Unit	HEIGHT2UNIT	Height2Unit	93	93	N	text-center				100		1	01/01/2001
+	DOC	S_Volume	S	Volume	VOLUME	Volume	94	94	N	text-center				100		1	01/01/2001
+	DOC	S_VolUnit	S	VolUnit	VOLUNIT	VolUnit	95	95	N	text-center				100		1	01/01/2001
+	DOC	S_ProjectCode	S	ProjectCode	PROJECTCODE	ProjectCode	96	96	N	text-center				100		1	01/01/2001
+	DOC	S_OcrCode	S	OcrCode	OCRCODE	OcrCode	97	97	N	text-center				100		1	01/01/2001
+	DOC	S_OcrCode2	S	OcrCode2	OCRCODE2	OcrCode2	98	98	N	text-center				100		1	01/01/2001
+	DOC	S_OcrCode3	S	OcrCode3	OCRCODE3	OcrCode3	99	99	N	text-center				100		1	01/01/2001
+	DOC	S_OcrCode4	S	OcrCode4	OCRCODE4	OcrCode4	100	100	N	text-center				100		1	01/01/2001
+	DOC	S_OcrCode5	S	OcrCode5	OCRCODE5	OcrCode5	101	101	N	text-center				100		1	01/01/2001
+	DOC	S_GTotal	S	GTotal	GROSS TOTAL	GTotal	102	102	N	text-center			text-right	100		1	01/01/2001
+	DOC	S_GTotalFC	S	GTotalFC	GTOTALFC	GTotalFC	103	103	N	text-center			text-right	100		1	01/01/2001
+	DOC	S_GrossProfit	S	GrossProfit	GROSSPROFIT	GrossProfit	104	104	N	text-center				100		1	01/01/2001
+	DOC	S_GrossProfitFC	S	GrossProfitFC	GROSSPROFITFC	GrossProfitFC	105	105	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_DocNum	I	DocNum	DOCNUM	DocNum	1	1	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_LineNum	I	LineNum	#	LineNum	2	2	Y	text-center				20		1	01/01/2001
+	INVNTRY	IN_VisNum	I	VisNum	VISNUM	VisNum	3	3	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_LineType	I	LineType	LINETYPE	LineType	4	4	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Text	I	Text	TEXT	Text	5	5	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_ObjType	I	ObjType	OBJTYPE	ObjType	6	6	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_BaseEntry	I	BaseEntry	BASEENTRY	BaseEntry	7	7	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_BaseType	I	BaseType	BASETYPE	BaseType	8	8	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_BaseLine	I	BaseLine	BASELINE	BaseLine	9	9	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_BaseDocNum	I	BaseDocNum	BASEDOCNUM	BaseDocNum	10	10	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_BaseDocRef	I	BaseDocRef	BASEDOCREF	BaseDocRef	11	11	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_TargetEntry	I	TargetEntry	TARGETENTRY	TargetEntry	12	12	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_LineStatus	I	LineStatus	LINESTATUS	LineStatus	13	13	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_TargetType	I	TargetType	TARGETTYPE	TargetType	14	14	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_TargetLine	I	TargetLine	TARGETLINE	TargetLine	15	15	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_TargetDocRef	I	TargetDocRef	TARGETDOCREF	TargetDocRef	16	16	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Currency	I	Currency	CURRENCY	Currency	17	17	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_CardCode	I	CardCode	CARDCODE	CardCode	18	18	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_CardName	I	CardName	CARDNAME	CardName	19	19	N	text-left				100		1	01/01/2001
+	INVNTRY	IN_DocDate	I	DocDate	DOCDATE	DocDate	20	20	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_ItemCode	I	ItemCode	ITEMCODE	ItemCode	21	21	Y	text-center				100		1	01/01/2001
+	INVNTRY	IN_Dscription	I	Dscription	ITEM NAME	Dscription	22	22	Y	text-left				100		1	01/01/2001
+	INVNTRY	IN_Dscription2	I	Dscription2	DSCRIPTION2	Dscription2	23	23	N	text-left				100		1	01/01/2001
+	INVNTRY	IN_WhsCode	I	WhsCode	WHSCODE	WhsCode	24	24	Y	text-center				100		1	01/01/2001
+	INVNTRY	IN_Quantity	I	Quantity	QUANTITY	Quantity	25	25	Y	text-center				100		1	01/01/2001
+	INVNTRY	IN_OpenQty	I	OpenQty	OPENQTY	OpenQty	26	26	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_QtyPerPacUOM	I	QtyPerPacUOM	QTYPERPACUOM	QtyPerPacUOM	27	27	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_BaseQty	I	BaseQty	BASEQTY	BaseQty	28	28	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_BaseOpenQty	I	BaseOpenQty	BASEOPENQTY	BaseOpenQty	29	29	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_QtyToShip	I	QtyToShip	QTYTOSHIP	QtyToShip	30	30	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_DeliveredQty	I	DeliveredQty	DELIVEREDQTY	DeliveredQty	31	31	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_OrderedQty	I	OrderedQty	ORDEREDQTY	OrderedQty	32	32	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_NumPerMsr	I	NumPerMsr	QTY/UOM	NumPerMsr	33	33	Y	text-center				100		1	01/01/2001
+	INVNTRY	IN_ShipDate	I	ShipDate	SHIPDATE	ShipDate	34	34	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_ShipToCode	I	ShipToCode	SHIPTOCODE	ShipToCode	35	35	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_ShipToDesc	I	ShipToDesc	SHIPTODESC	ShipToDesc	36	36	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_UOM	I	UOM	UOM	UOM	37	37	Y	text-center				100		1	01/01/2001
+	INVNTRY	IN_TotalInvntryQty	I	TotalInvntryQty	TOTALINVNTRYQTY	TotalInvntryQty	38	38	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_StockPrice	I	StockPrice	STOCKPRICE	StockPrice	39	39	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_StockValue	I	StockValue	STOCKVALUE	StockValue	40	40	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_INMPRice	I	INMPRice	INMPRICE	INMPRice	41	41	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_PickQty	I	PickQty	PICKQTY	PickQty	42	42	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_PickStatus	I	PickStatus	PICKSTATUS	PickStatus	43	43	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_InvntryUOM	I	InvntryUOM	INVNTRYUOM	InvntryUOM	44	44	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_ItemCost	I	ItemCost	ITEMCOST	ItemCost	45	45	Y	text-center				100		1	01/01/2001
+	INVNTRY	IN_Price	I	Price	UNIT PRICE	Price	46	46	Y	text-center				100		1	01/01/2001
+	INVNTRY	IN_PriceAfVat	I	PriceAfVat	PRICEAFVAT	PriceAfVat	47	47	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Discount	I	Discount	DISCOUNT	Discount	48	48	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_DiscountAmt	I	DiscountAmt	DISCOUNTAMT	DiscountAmt	49	49	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Discount2	I	Discount2	DISCOUNT2	Discount2	50	50	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_DiscountAmt2	I	DiscountAmt2	DISCOUNTAMT2	DiscountAmt2	51	51	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Discount3	I	Discount3	DISCOUNT3	Discount3	52	52	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_DiscountAmt3	I	DiscountAmt3	DISCOUNTAMT3	DiscountAmt3	53	53	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Discount4	I	Discount4	DISCOUNT4	Discount4	54	54	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_DiscountAmt4	I	DiscountAmt4	DISCOUNTAMT4	DiscountAmt4	55	55	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Discount5	I	Discount5	DISCOUNT5	Discount5	56	56	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_DiscountAmt5	I	DiscountAmt5	DISCOUNTAMT5	DiscountAmt5	57	57	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_PriceBeforeDscnt	I	PriceBeforeDscnt	PRICEBEFOREDSCNT	PriceBeforeDscnt	58	58	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_VatGroup	I	VatGroup	VATGROUP	VatGroup	59	59	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_VatPercent	I	VatPercent	VATPERCENT	VatPercent	60	60	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_VatSum	I	VatSum	VATSUM	VatSum	61	61	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_VatSumSys	I	VatSumSys	VATSUMSYS	VatSumSys	62	62	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_VatSumFC	I	VatSumFC	VATSUMFC	VatSumFC	63	63	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_FinacialPeriodID	I	FinacialPeriodID	FINACIALPERIODID	FinacialPeriodID	64	64	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_AcctCode	I	AcctCode	G/L ACCOUNT	AcctCode	65	65	Y	text-center				100		1	01/01/2001
+	INVNTRY	IN_AcctName	I	AcctName	G/L ACCOUNT NAME	AcctName	65	65	Y	text-left				150		1	01/01/2001
+	INVNTRY	IN_COGSAcct	I	COGSAcct	COGSACCT	COGSAcct	66	66	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_LineTotal	I	LineTotal	LINE TOTAL	LineTotal	67	67	Y	text-center				100		1	01/01/2001
+	INVNTRY	IN_LineTotalFC	I	LineTotalFC	LINETOTALFC	LineTotalFC	68	68	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_LineTotalSC	I	LineTotalSC	LINETOTALSC	LineTotalSC	69	69	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_LineVatSum	I	LineVatSum	LINEVATSUM	LineVatSum	70	70	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_LinVatSys	I	LinVatSys	LINVATSYS	LinVatSys	71	71	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_LineVatFC	I	LineVatFC	LINEVATFC	LineVatFC	72	72	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_OpenSum	I	OpenSum	OPENSUM	OpenSum	73	73	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_OpenSumFC	I	OpenSumFC	OPENSUMFC	OpenSumFC	74	74	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Factor1	I	Factor1	FACTOR1	Factor1	75	75	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Factor2	I	Factor2	FACTOR2	Factor2	76	76	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Factor3	I	Factor3	FACTOR3	Factor3	77	77	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Factor4	I	Factor4	FACTOR4	Factor4	78	78	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Length1	I	Length1	LENGTH1	Length1	79	79	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Len1Unit	I	Len1Unit	LEN1UNIT	Len1Unit	80	80	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Width1	I	Width1	WIDTH1	Width1	81	81	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Width1Unit	I	Width1Unit	WIDTH1UNIT	Width1Unit	82	82	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Height1	I	Height1	HEIGHT1	Height1	83	83	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Height1Unit	I	Height1Unit	HEIGHT1UNIT	Height1Unit	84	84	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Length2	I	Length2	LENGTH2	Length2	85	85	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Len2Unit	I	Len2Unit	LEN2UNIT	Len2Unit	86	86	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Width2	I	Width2	WIDTH2	Width2	87	87	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Width2Unit	I	Width2Unit	WIDTH2UNIT	Width2Unit	88	88	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Height2	I	Height2	HEIGHT2	Height2	89	89	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Height2Unit	I	Height2Unit	HEIGHT2UNIT	Height2Unit	90	90	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_Volume	I	Volume	VOLUME	Volume	91	91	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_VolUnit	I	VolUnit	VOLUNIT	VolUnit	92	92	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_ProjectCode	I	ProjectCode	PROJECTCODE	ProjectCode	93	93	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_OcrCode	I	OcrCode	OCRCODE	OcrCode	94	94	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_OcrCode2	I	OcrCode2	OCRCODE2	OcrCode2	95	95	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_OcrCode3	I	OcrCode3	OCRCODE3	OcrCode3	96	96	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_OcrCode4	I	OcrCode4	OCRCODE4	OcrCode4	97	97	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_OcrCode5	I	OcrCode5	OCRCODE5	OcrCode5	98	98	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_GTotal	I	GTotal	GROSS TOTAL	GTotal	99	99	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_GTotalFC	I	GTotalFC	GTOTALFC	GTotalFC	100	100	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_GrossProfit	I	GrossProfit	GROSSPROFIT	GrossProfit	101	101	N	text-center				100		1	01/01/2001
+	INVNTRY	IN_GrossProfitFC	I	GrossProfitFC	GROSSPROFITFC	GrossProfitFC	102	102	N	text-center				100		1	01/01/2001
+	JEN	J_LineID	I	LineID	#	LineID	1	1	Y	text-center				20		1	01/01/2001
+	JEN	J_ObjType	I	ObjType	OBJTYPE	ObjType	2	2	N	text-center				100		1	01/01/2001
+	JEN	J_BaseEntry	I	BaseEntry	BASEENTRY	BaseEntry	3	3	N	text-center				100		1	01/01/2001
+	JEN	J_BaseNum	I	BaseNum	BASENUM	BaseNum	4	4	N	text-center				100		1	01/01/2001
+	JEN	J_BaseType	I	BaseType	BASETYPE	BaseType	5	5	N	text-center				100		1	01/01/2001
+	JEN	J_TargetEntry	I	TargetEntry	TARGETENTRY	TargetEntry	6	6	N	text-center				100		1	01/01/2001
+	JEN	J_TargetNum	I	TargetNum	TARGETNUM	TargetNum	7	7	N	text-center				100		1	01/01/2001
+	JEN	J_TargetType	I	TargetType	TARGETTYPE	TargetType	8	8	N	text-center				100		1	01/01/2001
+	JEN	J_TransType	I	TransType	TRANSTYPE	TransType	9	9	N	text-center				100		1	01/01/2001
+	JEN	J_VisID	I	VisID	VISID	VisID	10	10	N	text-center				100		1	01/01/2001
+	JEN	J_ShortName	I	ShortName	GL ACCT/CARD CODE	ShortName	11	11	Y	text-left				150		1	01/01/2001
+	JEN	J_GLAcctName	I	GLAcctName	GL ACCT/CARD NAME	GLAcctName	12	12	Y	text-left				200		1	01/01/2001
+	JEN	J_Debit	I	Debit	DEBIT	Debit	13	13	Y	text-center				100		1	01/01/2001
+	JEN	J_Credit	I	Credit	CREDIT	Credit	14	14	Y	text-center				100		1	01/01/2001
+	JEN	J_DebitSC	I	DebitSC	DEBITSC	DebitSC	15	15	N	text-center				100		1	01/01/2001
+	JEN	J_CreditSC	I	CreditSC	CREDITSC	CreditSC	16	16	N	text-center				100		1	01/01/2001
+	JEN	J_DebitFC	I	DebitFC	DEBITFC	DebitFC	17	17	N	text-center				100		1	01/01/2001
+	JEN	J_CreditFC	I	CreditFC	CREDITFC	CreditFC	18	18	N	text-center				100		1	01/01/2001
+	JEN	J_GLAcctCode	I	GLAcctCode	CONTROL  ACCOUNT	GLAcctCode	19	19	Y	text-center				150		1	01/01/2001
+	JEN	J_ContraAccount	I	ContraAccount	CONTRAACCOUNT	ContraAccount	20	20	N	text-center				100		1	01/01/2001
+	JEN	J_DebitCredit	I	DebitCredit	DEBITCREDIT	DebitCredit	21	21	N	text-center				100		1	01/01/2001
+	JEN	J_BaseAmt	I	BaseAmt	BASE AMT.	BaseAmt	22	22	Y	text-center				100		1	01/01/2001
+	JEN	J_VatGroup	I	VatGroup	TAX GROUP	VatGroup	23	23	Y	text-center				100		1	01/01/2001
+	JEN	J_VatAmt	I	VatAmt	VAT AMT.	VatAmt	24	24	Y	text-center				100		1	01/01/2001
+	JEN	J_RefDate	I	RefDate	DATE	RefDate	25	25	Y	text-center				100		1	01/01/2001
+	JEN	J_RefDate2	I	RefDate2	REFDATE2	RefDate2	26	26	N	text-center				100		1	01/01/2001
+	JEN	J_RefDate3	I	RefDate3	REFDATE3	RefDate3	27	27	N	text-center				100		1	01/01/2001
+	JEN	J_Ref1	I	Ref1	REF1	Ref1	28	28	Y	text-center				100		1	01/01/2001
+	JEN	J_Ref2	I	Ref2	REF2	Ref2	29	29	N	text-center				100		1	01/01/2001
+	JEN	J_Ref3	I	Ref3	REF3	Ref3	30	30	N	text-center				100		1	01/01/2001
+	JEN	J_Project	I	Project	PROJECT	Project	31	31	Y	text-center				100		1	01/01/2001
+	JEN	J_OcrCode	I	OcrCode	COST CENTER	OcrCode	32	32	Y	text-center				100		1	01/01/2001
+	JEN	J_OcrCode2	I	OcrCode2	OCRCODE2	OcrCode2	33	33	N	text-center				100		1	01/01/2001
+	JEN	J_OcrCode3	I	OcrCode3	OCRCODE3	OcrCode3	34	34	N	text-center				100		1	01/01/2001
+	JEN	J_OcrCode4	I	OcrCode4	OCRCODE4	OcrCode4	35	35	N	text-center				100		1	01/01/2001
+	JEN	J_OcrCode5	I	OcrCode5	OCRCODE5	OcrCode5	36	36	N	text-center				100		1	01/01/2001
+	JEN	J_LineRemarks	I	LineRemarks	REMARKS	LineRemarks	37	37	Y	text-center				250		1	01/01/2001
+	JEN	J_VersionNo	I	VersionNo	VERSIONNO	VersionNo	38	38	N	text-center				100		1	01/01/2001
+	JEN	J_Datasource	I	Datasource	DATASOURCE	Datasource	39	39	N	text-center				100		1	01/01/2001
+	JEN	J_LogIntance	I	LogIntance	LOGINTANCE	LogIntance	40	40	N	text-center				100		1	01/01/2001
+	PYT	PYL_DocLine	I	DocLine	#	DocLine	1	1	Y	text-center				20		1	01/01/2001
+	PYT	PYL_Selected	I	Selected	SELECT	Selected	2	2	N	text-center				50		1	01/01/2001
+	PYT	PYL_PaymentID	I	PaymentID	PAYMENTID	PaymentID	3	3	N	text-center				100		1	01/01/2001
+	PYT	PYL_InvType	I	InvType	DOC. TYPE	InvType	4	4	Y	text-center				100		1	01/01/2001
+	PYT	PYL_InstId	I	InstId	INSTALLMENT	InstId	5	5	Y	text-center				120		1	01/01/2001
+	PYT	PYL_DocID	I	DocID	DOCID	DocID	6	6	N	text-center				100		1	01/01/2001
+	PYT	PYL_DocNum	I	DocNum	DOC#	DocNum	7	7	Y	text-center				100		1	01/01/2001
+	PYT	PYL_DocDate	I	DocDate	DOC. DATE	DocDate	8	8	Y	text-center				100		1	01/01/2001
+	PYT	PYL_DocDueDate	I	DocDueDate	DUE DATE	DocDueDate	9	9	Y	text-center				100		1	01/01/2001
+	PYT	PYL_VatDate	I	VatDate	VATDATE	VatDate	10	10	N	text-center				100		1	01/01/2001
+	PYT	PYL_TaxDate	I	TaxDate	TAXDATE	TaxDate	11	11	N	text-center				100		1	01/01/2001
+	PYT	PYL_DaysOverdue	I	DaysOverdue	OVERDUE(DAYS)	DaysOverdue	12	12	Y	text-center				120		1	01/01/2001
+	PYT	PYL_DocTotal	I	DocTotal	TOTAL	DocTotal	13	13	Y	text-center				100		1	01/01/2001
+	PYT	PYL_Dscount	I	Dscount	% DISCOUNT	Dscount	14	14	Y	text-center				100		1	01/01/2001
+	PYT	PYL_SumApplied	I	SumApplied	TOTAL PAYMENT	SumApplied	15	15	Y	text-center				110		1	01/01/2001
+	PYT	PYL_BalanceDue	I	BalanceDue	AMT. DUE	BalanceDue	16	16	Y	text-center				100		1	01/01/2001
+	PYT	PYL_Remarks	I	Remarks	REMARKS	Remarks	17	17	Y	text-center				300		1	01/01/2001
+	PYT	PYL_AppliedFC	I	AppliedFC	APPLIEDFC	AppliedFC	18	18	N	text-center				100		1	01/01/2001
+	PYT	PYL_AppliedSys	I	AppliedSys	APPLIEDSYS	AppliedSys	19	19	N	text-center				100		1	01/01/2001
+	PYT	PYL_DocRate	I	DocRate	DOCRATE	DocRate	20	20	N	text-center				100		1	01/01/2001
+	PYT	PYL_Flags	I	Flags	FLAGS	Flags	21	21	N	text-center				100		1	01/01/2001
+	PYT	PYL_IntrsStat	I	IntrsStat	INTRSSTAT	IntrsStat	22	22	N	text-center				100		1	01/01/2001
+	PYT	PYL_VatApplied	I	VatApplied	VATAPPLIED	VatApplied	23	23	N	text-center				100		1	01/01/2001
+	PYT	PYL_VatAppldFC	I	VatAppldFC	VATAPPLDFC	VatAppldFC	24	24	N	text-center				100		1	01/01/2001
+	PYT	PYL_VatAppldSy	I	VatAppldSy	VATAPPLDSY	VatAppldSy	25	25	N	text-center				100		1	01/01/2001
+	PYT	PYL_SelfInv	I	SelfInv	SELFINV	SelfInv	26	26	N	text-center				100		1	01/01/2001
+	PYT	PYL_ObjType	I	ObjType	OBJTYPE	ObjType	27	27	N	text-center				100		1	01/01/2001
+	PYT	PYL_DscntSum	I	DscntSum	DSCNTSUM	DscntSum	28	28	N	text-center				100		1	01/01/2001
+	PYT	PYL_DscntSumFC	I	DscntSumFC	DSCNTSUMFC	DscntSumFC	29	29	N	text-center				100		1	01/01/2001
+	PYT	PYL_DscntSumSy	I	DscntSumSy	DSCNTSUMSY	DscntSumSy	30	30	N	text-center				100		1	01/01/2001
+	PYT	PYL_BfDcntSum	I	BfDcntSum	BFDCNTSUM	BfDcntSum	31	31	N	text-center				100		1	01/01/2001
+	PYT	PYL_BfDcntSumF	I	BfDcntSumF	BFDCNTSUMF	BfDcntSumF	32	32	N	text-center				100		1	01/01/2001
+	PYT	PYL_BfDcntSumS	I	BfDcntSumS	BFDCNTSUMS	BfDcntSumS	33	33	N	text-center				100		1	01/01/2001
+	PYT	PYL_BfNetDcnt	I	BfNetDcnt	BFNETDCNT	BfNetDcnt	34	34	N	text-center				100		1	01/01/2001
+	PYT	PYL_BfNetDcntF	I	BfNetDcntF	BFNETDCNTF	BfNetDcntF	35	35	N	text-center				100		1	01/01/2001
+	PYT	PYL_BfNetDcntS	I	BfNetDcntS	BFNETDCNTS	BfNetDcntS	36	36	N	text-center				100		1	01/01/2001
+	PYT	PYL_PaidSum	I	PaidSum	PAID AMT.	PaidSum	37	37	N	text-center				100		1	01/01/2001
+	PYT	PYL_ExpAppld	I	ExpAppld	EXPAPPLD	ExpAppld	38	38	N	text-center				100		1	01/01/2001
+	PYT	PYL_ExpAppldFC	I	ExpAppldFC	EXPAPPLDFC	ExpAppldFC	39	39	N	text-center				100		1	01/01/2001
+	PYT	PYL_ExpAppldSC	I	ExpAppldSC	EXPAPPLDSC	ExpAppldSC	40	40	N	text-center				100		1	01/01/2001
+	PYT	PYL_Rounddiff	I	Rounddiff	ROUNDDIFF	Rounddiff	41	41	N	text-center				100		1	01/01/2001
+	PYT	PYL_RounddifFc	I	RounddifFc	ROUNDDIFFC	RounddifFc	42	42	N	text-center				100		1	01/01/2001
+	PYT	PYL_RounddifSc	I	RounddifSc	ROUNDDIFSC	RounddifSc	43	43	N	text-center				100		1	01/01/2001
+	PYT	PYL_WtAppld	I	WtAppld	WTAPPLD	WtAppld	44	44	N	text-center				100		1	01/01/2001
+	PYT	PYL_WtAppldFC	I	WtAppldFC	WTAPPLDFC	WtAppldFC	45	45	N	text-center				100		1	01/01/2001
+	PYT	PYL_WtAppldSC	I	WtAppldSC	WTAPPLDSC	WtAppldSC	46	46	N	text-center				100		1	01/01/2001
+	PYT	PYL_LinkDate	I	LinkDate	LINKDATE	LinkDate	47	47	N	text-center				100		1	01/01/2001
+	PYT	PYL_AmtDifPst	I	AmtDifPst	AMTDIFPST	AmtDifPst	48	48	N	text-center				100		1	01/01/2001
+	PYT	PYL_PaidDpm	I	PaidDpm	PAIDDPM	PaidDpm	49	49	N	text-center				100		1	01/01/2001
+	PYT	PYL_DpmPosted	I	DpmPosted	DPMPOSTED	DpmPosted	50	50	N	text-center				100		1	01/01/2001
+	PYT	PYL_ExpVatSum	I	ExpVatSum	EXPVATSUM	ExpVatSum	51	51	N	text-center				100		1	01/01/2001
+	PYT	PYL_ExpVatSumF	I	ExpVatSumF	EXPVATSUMF	ExpVatSumF	52	52	N	text-center				100		1	01/01/2001
+	PYT	PYL_ExpVatSumS	I	ExpVatSumS	EXPVATSUMS	ExpVatSumS	53	53	N	text-center				100		1	01/01/2001
+	PYT	PYL_IsRateDiff	I	IsRateDiff	ISRATEDIFF	IsRateDiff	54	54	N	text-center				100		1	01/01/2001
+	PYT	PYL_WtInvCatS	I	WtInvCatS	WTINVCATS	WtInvCatS	55	55	N	text-center				100		1	01/01/2001
+	PYT	PYL_WtInvCatSF	I	WtInvCatSF	WTINVCATSF	WtInvCatSF	56	56	N	text-center				100		1	01/01/2001
+	PYT	PYL_WtInvCatSS	I	WtInvCatSS	WTINVCATSS	WtInvCatSS	57	57	N	text-center				100		1	01/01/2001
+	PYT	PYL_DocTransId	I	DocTransId	DOCTRANSID	DocTransId	58	58	N	text-center				100		1	01/01/2001
+	PYT	PYL_MIEntry	I	MIEntry	MIENTRY	MIEntry	59	59	N	text-center				100		1	01/01/2001
+	PYT	PYL_OcrCode	I	OcrCode	OCRCODE	OcrCode	60	60	N	text-center				100		1	01/01/2001
+	PYT	PYL_OcrCode2	I	OcrCode2	OCRCODE2	OcrCode2	61	61	N	text-center				100		1	01/01/2001
+	PYT	PYL_OcrCode3	I	OcrCode3	OCRCODE3	OcrCode3	62	62	N	text-center				100		1	01/01/2001
+	PYT	PYL_OcrCode4	I	OcrCode4	OCRCODE4	OcrCode4	63	63	N	text-center				100		1	01/01/2001
+	PYT	PYL_OcrCode5	I	OcrCode5	OCRCODE5	OcrCode5	64	64	N	text-center				100		1	01/01/2001
+	PYT	PYL_IsSelected	I	IsSelected	ISSELECTED	IsSelected	65	65	N	text-center				100		1	01/01/2001
+	PYT	PYL_WTOnHold	I	WTOnHold	WTONHOLD	WTOnHold	66	66	N	text-center				100		1	01/01/2001
+	PYT	PYL_WTOnhldPst	I	WTOnhldPst	WTONHLDPST	WTOnhldPst	67	67	N	text-center				100		1	01/01/2001
+	PYT	PYL_BaseAbs	I	BaseAbs	BASEABS	BaseAbs	68	68	N	text-center				100		1	01/01/2001
+	PYT	PYL_MIType	I	MIType	MITYPE	MIType	69	69	N	text-center				100		1	01/01/2001
+	PYT	PYL_IsActive	I	IsActive	ISACTIVE	IsActive	70	70	N	text-center				100		1	01/01/2001
+	PYC	PYC_ObjType	I	ObjType	OBJTYPE	ObjType	1	1	N	text-center				100		1	01/01/2001
+	PYC	PYC_LineID	I	LineID	#	LineID	2	2	Y	text-center				20		1	01/01/2001
+	PYC	PYC_DueDate	I	DueDate	DUEDATE	DueDate	3	3	Y	text-center				100		1	01/01/2001
+	PYC	PYC_ManualChk	I	ManualChk	MANUALCHK	ManualChk	4	4	Y	text-center				100		1	01/01/2001
+	PYC	PYC_CheckNum	I	CheckNum	CHECK NUM.	CheckNum	5	5	Y	text-center				130		1	01/01/2001
+	PYC	PYC_CheckSum	I	CheckSum	CHECK AMT.	CheckSum	6	6	Y	text-center				100		1	01/01/2001
+	PYC	PYC_BankId	I	BankId	BANK ID	BankId	7	7	N	text-center				100		1	01/01/2001
+	PYC	PYC_BankName	I	BankName	BANK 	BankName	8	8	Y	text-left				180		1	01/01/2001
+	PYC	PYC_AccountNo	I	AccountNo	ACCOUNT NO.	AccountNo	9	9	Y	text-center				120		1	01/01/2001
+	PYC	PYC_CheckAcct	I	CheckAcct	G/L ACCT.	CheckAcct	10	10	Y	text-center				100		1	01/01/2001
+	PYC	PYC_BankCode	I	BankCode	BANK CODE	BankCode	11	11	Y	text-center				100		1	01/01/2001
+	PYC	PYC_Branch	I	Branch	BRANCH	Branch	12	12	Y	text-center				200		1	01/01/2001
+	PYC	PYC_Details	I	Details	DETAILS	Details	13	13	Y	text-center				250		1	01/01/2001
+	PYC	PYC_Trnsfrable	I	Trnsfrable	TRNSFRABLE	Trnsfrable	14	14	N	text-center				100		1	01/01/2001
+	PYC	PYC_Currency	I	Currency	CURRENCY	Currency	15	15	N	text-center				100		1	01/01/2001
+	PYC	PYC_Flags	I	Flags	FLAGS	Flags	16	16	N	text-center				100		1	01/01/2001
+	PYC	PYC_CountryCode	I	CountryCode	COUNTRY	CountryCode	17	17	Y	text-center				100		1	01/01/2001
+	PYC	PYC_CheckAbs	I	CheckAbs	CHECKABS	CheckAbs	18	18	N	text-center				100		1	01/01/2001
+	PYC	PYC_BnkActKey	I	BnkActKey	BNKACTKEY	BnkActKey	19	19	N	text-center				100		1	01/01/2001
+	PYC	PYC_CheckDate	I	CheckDate	CHECK DATE	CheckDate	20	20	N	text-center				100		1	01/01/2001
+	PYC	PYC_CheckName	I	CheckName	CHECK NAME	CheckName	21	21	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_LineNum	I	LineNum	#	LineNum	1	1	Y	text-center				20		1	01/01/2001
+	WTAX	WTAX_WTCode	I	WTCode	CODE	WTCode	2	2	Y	text-center			text-left	100		1	01/01/2001
+	WTAX	WTAX_WTName	I	WTName	NAME	WTName	3	2	Y	text-center			text-left readonly-field	250		1	01/01/2001
+	WTAX	WTAX_Rate	I	Rate	RATE	Rate	4	3	Y	text-center				100		1	01/01/2001
+	WTAX	WTAX_TaxbleAmnt	I	TaxbleAmnt	TAXBLE AMT	TaxbleAmnt	5	4	Y	text-center			text-right	100		1	01/01/2001
+	WTAX	WTAX_TxblAmntSC	I	TxblAmntSC	TXBLAMNTSC	TxblAmntSC	6	5	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_TxblAmntFC	I	TxblAmntFC	TXBLAMNTFC	TxblAmntFC	7	6	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_WTAmnt	I	WTAmnt	WT AMT	WTAmnt	8	7	Y	text-center			text-right	100		1	01/01/2001
+	WTAX	WTAX_WTAmntSC	I	WTAmntSC	WTAMNTSC	WTAmntSC	9	8	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_WTAmntFC	I	WTAmntFC	WTAMNTFC	WTAmntFC	10	9	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_ApplAmnt	I	ApplAmnt	APPLAMNT	ApplAmnt	11	10	N	text-center			text-right	100		1	01/01/2001
+	WTAX	WTAX_ApplAmntSC	I	ApplAmntSC	APPLAMNTSC	ApplAmntSC	12	11	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_ApplAmntFC	I	ApplAmntFC	APPLAMNTFC	ApplAmntFC	13	12	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_Category	I	Category	CATEGORY	Category	14	13	Y	text-center			text-left readonly-field	100		1	01/01/2001
+	WTAX	WTAX_Criteria	I	Criteria	CRITERIA	Criteria	15	14	Y	text-center			text-left readonly-field	100		1	01/01/2001
+	WTAX	WTAX_AcctCode	I	AcctCode	G/L CODE	AcctCode	16	15	Y	text-center			text-left	150		1	01/01/2001
+	WTAX	WTAX_AcctName	I	AcctName	G/L NAME	AcctName	17	15	N	text-center			text-left	100		1	01/01/2001
+	WTAX	WTAX_WTaxType	I	WTaxType	WTAXTYPE	WTaxType	18	16	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_RoundType	I	RoundType	ROUNDTYPE	RoundType	19	17	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_BaseType	I	BaseType	BASETYPE	BaseType	20	18	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_BaseAbsEnt	I	BaseAbsEnt	BASEABSENT	BaseAbsEnt	21	19	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_BaseLine	I	BaseLine	BASELINE	BaseLine	22	20	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_BaseNum	I	BaseNum	BASENUM	BaseNum	23	21	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_BaseRef	I	BaseRef	BASEREF	BaseRef	24	22	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_Status	I	Status	STATUS	Status	25	23	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_TrgType	I	TrgType	TRGTYPE	TrgType	26	24	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_TrgAbsEntr	I	TrgAbsEntr	TRGABSENTR	TrgAbsEntr	27	25	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_ObjType	I	ObjType	OBJTYPE	ObjType	28	26	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_Doc1LineNo	I	Doc1LineNo	DOC1LINENO	Doc1LineNo	29	27	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_WtLineType	I	WtLineType	WTLINETYPE	WtLineType	30	28	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_TxblCurr	I	TxblCurr	TXBLCURR	TxblCurr	31	29	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_DtblCurr	I	DtblCurr	DTBLCURR	DtblCurr	32	30	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_DtblRate	I	DtblRate	DTBLRATE	DtblRate	33	31	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_TxblRate	I	TxblRate	TXBLRATE	TxblRate	34	32	N	text-center				100		1	01/01/2001
+	WTAX	WTAX_DtblAmount	I	DtblAmount	DTBLAMOUNT	DtblAmount	35	33	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_LineID	R	LineID	#	LineID	1	1	Y	text-center				20		1	01/01/2001
+	TJRPT	TJRPT_ObjType	R	ObjType	OBJTYPE	ObjType	2	2	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_BaseEntry	R	BaseEntry	BASEENTRY	BaseEntry	3	3	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_BaseNum	R	BaseNum	BASENUM	BaseNum	4	4	Y	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_BaseType	R	BaseType	BASETYPE	BaseType	5	5	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_TargetEntry	R	TargetEntry	TARGETENTRY	TargetEntry	6	6	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_TargetNum	R	TargetNum	TARGETNUM	TargetNum	7	7	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_TargetType	R	TargetType	TARGETTYPE	TargetType	8	8	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_RefDate	R	RefDate	DATE	RefDate	9	9	Y	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_TransID	R	TransID	TRANS NO.	TransID	10	10	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_TransType	R	TransType	TRANSTYPE	TransType	11	11	Y	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_GLAcctCode	R	GLAcctCode	CTRL  ACCT	GLAcctCode	12	12	Y	text-center				150		1	01/01/2001
+	TJRPT	TJRPT_GLAcctName	R	GLAcctName	CTRL  ACCT. NAME	GLAcctName	13	13	Y	text-center				150		1	01/01/2001
+	TJRPT	TJRPT_VisID	R	VisID	VISID	VisID	14	14	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_ShortName	R	ShortName	GL ACCT/CARD CODE	ShortName	15	15	Y	text-center				150		1	01/01/2001
+	TJRPT	TJRPT_ShortNameDesc	R	ShortNameDesc	GL ACCT/CARD NAME	ShortNameDesc	16	16	Y	text-center				200		1	01/01/2001
+	TJRPT	TJRPT_Debit	R	Debit	DEBIT	Debit	17	17	Y	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_Credit	R	Credit	CREDIT	Credit	18	18	Y	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_DebitSC	R	DebitSC	DEBITSC	DebitSC	19	19	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_CreditSC	R	CreditSC	CREDITSC	CreditSC	20	20	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_DebitFC	R	DebitFC	DEBITFC	DebitFC	21	21	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_CreditFC	R	CreditFC	CREDITFC	CreditFC	22	22	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_ContraAccount	R	ContraAccount	CONTRAACCOUNT	ContraAccount	23	23	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_DebitCredit	R	DebitCredit	DEBITCREDIT	DebitCredit	24	24	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_BaseAmt	R	BaseAmt	BASE AMT.	BaseAmt	25	25	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_VatGroup	R	VatGroup	TAX GROUP	VatGroup	26	26	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_VatAmt	R	VatAmt	VAT AMT.	VatAmt	27	27	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_RefDate2	R	RefDate2	REFDATE2	RefDate2	28	28	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_RefDate3	R	RefDate3	REFDATE3	RefDate3	29	29	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_Ref1	R	Ref1	REF1	Ref1	30	30	Y	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_Ref2	R	Ref2	REF2	Ref2	31	31	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_Ref3	R	Ref3	REF3	Ref3	32	32	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_Project	R	Project	PROJECT	Project	33	33	Y	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_OcrCode	R	OcrCode	COST CENTER	OcrCode	34	34	Y	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_OcrCode2	R	OcrCode2	OCRCODE2	OcrCode2	35	35	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_OcrCode3	R	OcrCode3	OCRCODE3	OcrCode3	36	36	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_OcrCode4	R	OcrCode4	OCRCODE4	OcrCode4	37	37	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_OcrCode5	R	OcrCode5	OCRCODE5	OcrCode5	38	38	N	text-center				100		1	01/01/2001
+	TJRPT	TJRPT_LineRemarks	R	LineRemarks	REMARKS	LineRemarks	39	39	N	text-center				250		1	01/01/2001
+	PNLRA	PNLRA_AcctCode	R	AcctCode	ACCT CODE	AcctCode	1	1	Y	text-center				250		1	01/01/2001
+	PNLRA	PNLRA_AcctName	R	AcctName	ACCT NAME	AcctName	1	1	Y	text-center				350		1	01/01/2001
+	PNLRA	PNLRA_GroupMask	R	GroupMask	GROUP	GroupMask	1	1	Y	text-center				100		1	01/01/2001
+	PNLRA	PNLRA_CurrentPeriod	R	CurrentPeriod	CURRENT PERIOD	CurrentPeriod	1	1	Y	text-center				100		1	01/01/2001
+	PNLRA	PNLRA_CurrentYear	R	CurrentYear	CURRENT YR.	CurrentYear	1	1	Y	text-center				100		1	01/01/2001
+	PNLRQ	PNLRQ_AcctCode	R	AcctCode	ACCT CODE	AcctCode	1	1	Y	text-center				250		1	01/01/2001
+	PNLRQ	PNLRQ_AcctName	R	AcctName	ACCT NAME	AcctName	1	1	Y	text-center				350		1	01/01/2001
+	PNLRQ	PNLRQ_GroupMask	R	GroupMask	GROUP	GroupMask	1	1	Y	text-center				100		1	01/01/2001
+	PNLRQ	PNLRQ_Q1	R	Q1	Q1	Q1	1	1	Y	text-center				100		1	01/01/2001
+	PNLRQ	PNLRQ_Q2	R	Q2	Q2	Q2	1	1	Y	text-center				100		1	01/01/2001
+	PNLRQ	PNLRQ_Q3	R	Q3	Q3	Q3	1	1	Y	text-center				100		1	01/01/2001
+	PNLRQ	PNLRQ_Q4	R	Q4	Q4	Q4	1	1	Y	text-center				100		1	01/01/2001
+	PNLRQ	PNLRQ_CurrentYear	R	CurrentYear	CURRENT YR.	CurrentYear	1	1	Y	text-center				100		1	01/01/2001
+	PNLRM	PNLRM_AcctCode	R	AcctCode	ACCT CODE	AcctCode	1	1	Y	text-center				250		1	01/01/2001
+	PNLRM	PNLRM_AcctName	R	AcctName	ACCT NAME	AcctName	1	1	Y	text-center				350		1	01/01/2001
+	PNLRM	PNLRM_GroupMask	R	GroupMask	GROUP	GroupMask	1	1	Y	text-center				100		1	01/01/2001
+	PNLRM	PNLRM_Jan	R	Jan	JAN	Jan	1	1	Y	text-center				100		1	01/01/2001
+	PNLRM	PNLRM_Feb	R	Feb	FEB	Feb	1	1	Y	text-center				100		1	01/01/2001
+	PNLRM	PNLRM_Mar	R	Mar	MAR	Mar	1	1	Y	text-center				100		1	01/01/2001
+	PNLRM	PNLRM_Apr	R	Apr	APR	Apr	1	1	Y	text-center				100		1	01/01/2001
+	PNLRM	PNLRM_May	R	May	MAY	May	1	1	Y	text-center				100		1	01/01/2001
+	PNLRM	PNLRM_Jun	R	Jun	JUN	Jun	1	1	Y	text-center				100		1	01/01/2001
+	PNLRM	PNLRM_Jul	R	Jul	JUL	Jul	1	1	Y	text-center				100		1	01/01/2001
+	PNLRM	PNLRM_Aug	R	Aug	AUG	Aug	1	1	Y	text-center				100		1	01/01/2001
+	PNLRM	PNLRM_Sep	R	Sep	SEP	Sep	1	1	Y	text-center				100		1	01/01/2001
+	PNLRM	PNLRM_Oct	R	Oct	OCT	Oct	1	1	Y	text-center				100		1	01/01/2001
+	PNLRM	PNLRM_Nov	R	Nov	NOV	Nov	1	1	Y	text-center				100		1	01/01/2001
+	PNLRM	PNLRM_Dec	R	Dec	DEC	Dec	1	1	Y	text-center				100		1	01/01/2001
+	PNLRM	PNLRM_CurrentYear	R	CurrentYear	CURRENT YR.	CurrentYear	1	1	Y	text-center				100		1	01/01/2001
+	CHK	CHK_LineNum	I	LineNum	#	LineNum	1	1	Y	text-center				20		1	01/01/2001
+	CHK	CHK_CheckID	I	CheckID	CHECKID	CheckID	1	1	N	text-center				100		1	01/01/2001
+	CHK	CHK_CheckNum	I	CheckNum	CHECKNUM	CheckNum	2	2	Y	text-center				100		1	01/01/2001
+	CHK	CHK_BankCode	I	BankCode	BANKCODE	BankCode	3	3	Y	text-center				100		1	01/01/2001
+	CHK	CHK_Branch	I	Branch	BRANCH	Branch	4	4	Y	text-center				100		1	01/01/2001
+	CHK	CHK_CashCheckAcct	I	CashCheckAcct	CSH CHECK ACCT.	CashCheckAcct	5	5	Y	text-center				180		1	01/01/2001
+	CHK	CHK_CheckDate	I	CheckDate	CHECKDATE	CheckDate	6	6	Y	text-center				100		1	01/01/2001
+	CHK	CHK_Details	I	Details	DETAILS	Details	7	7	Y	text-center				100		1	01/01/2001
+	CHK	CHK_CardCode	I	CardCode	CARDCODE	CardCode	8	8	Y	text-center				100		1	01/01/2001
+	CHK	CHK_RcptDate	I	RcptDate	RCPTDATE	RcptDate	9	9	N	text-center				100		1	01/01/2001
+	CHK	CHK_RcptNum	I	RcptNum	RCPTNUM	RcptNum	10	10	N	text-center				100		1	01/01/2001
+	CHK	CHK_CheckSum	I	CheckSum	CHECK AMT.	CheckSum	11	11	Y	text-center				100		1	01/01/2001
+	CHK	CHK_Trnsfrable	I	Trnsfrable	TRNSFRABLE	Trnsfrable	12	12	N	text-center				100		1	01/01/2001
+	CHK	CHK_Deposited	I	Deposited	DEPOSITED	Deposited	13	13	N	text-center				100		1	01/01/2001
+	CHK	CHK_Converted	I	Converted	CONVERTED	Converted	14	14	N	text-center				100		1	01/01/2001
+	CHK	CHK_Vendor	I	Vendor	VENDOR	Vendor	15	15	N	text-center				100		1	01/01/2001
+	CHK	CHK_TransNum	I	TransNum	TRANSNUM	TransNum	16	16	N	text-center				100		1	01/01/2001
+	CHK	CHK_DepNum2	I	DepNum2	DEPNUM2	DepNum2	17	17	N	text-center				100		1	01/01/2001
+	CHK	CHK_DpstAbs	I	DpstAbs	DPSTABS	DpstAbs	18	18	N	text-center				100		1	01/01/2001
+	CHK	CHK_BankAcct	I	BankAcct	BANKACCT	BankAcct	19	19	Y	text-center				100		1	01/01/2001
+	CHK	CHK_AcctNum	I	AcctNum	ACCTNUM	AcctNum	20	20	Y	text-center				100		1	01/01/2001
+	CHK	CHK_Currency	I	Currency	CURRENCY	Currency	21	21	N	text-center				100		1	01/01/2001
+	CHK	CHK_Canceled	I	Canceled	CANCELED	Canceled	22	22	N	text-center				100		1	01/01/2001
+	CHK	CHK_RcptLineID	I	RcptLineID	RCPTLINEID	RcptLineID	23	23	N	text-center				100		1	01/01/2001
+	CHK	CHK_Transfered	I	Transfered	TRANSFERED	Transfered	24	24	N	text-center				100		1	01/01/2001
+	CHK	CHK_Instance	I	Instance	INSTANCE	Instance	25	25	N	text-center				100		1	01/01/2001
+	CHK	CHK_UserID	I	UserID	USERID	UserID	26	26	N	text-center				100		1	01/01/2001
+	CHK	CHK_BankCountr	I	BankCountr	BANKCOUNTR	BankCountr	27	27	N	text-center				100		1	01/01/2001
+	CHK	CHK_Project	I	Project	PROJECT	Project	28	28	Y	text-center				100		1	01/01/2001
+	CHK	CHK_CanceJEAbs	I	CanceJEAbs	CANCEJEABS	CanceJEAbs	29	29	N	text-center				100		1	01/01/2001
+	CHO	CHO_CheckID	I	CheckID	CHECKID	CheckID	1	1	N	text-center				100		1	01/01/2001
+	CHO	CHO_LineId	I	LineId	#	LineId	2	2	Y	text-center				20		1	01/01/2001
+	CHO	CHO_LineDetail	I	LineDetail	DETAILS	LineDetail	3	3	Y	text-center				550		1	01/01/2001
+	CHO	CHO_LineAmt	I	LineAmt	AMT. 	LineAmt	4	4	N	text-center				100		1	01/01/2001
+	CHO	CHO_LineCurr	I	LineCurr	LINECURR	LineCurr	5	5	N	text-center				100		1	01/01/2001
+	CHO	CHO_LineAcct	I	LineAcct	LINEACCT	LineAcct	6	6	N	text-center				100		1	01/01/2001
+	CHO	CHO_IsCard	I	IsCard	ISCARD	IsCard	7	7	N	text-center				100		1	01/01/2001
+	CHO	CHO_Code	I	Code	CODE	Code	8	8	N	text-center				100		1	01/01/2001
+	CHO	CHO_CredAcct	I	CredAcct	CREDACCT	CredAcct	9	9	N	text-center				100		1	01/01/2001
+	CHO	CHO_VatPercent	I	VatPercent	VATPERCENT	VatPercent	10	10	N	text-center				100		1	01/01/2001
+	CHO	CHO_ObjType	I	ObjType	OBJTYPE	ObjType	11	11	N	text-center				100		1	01/01/2001

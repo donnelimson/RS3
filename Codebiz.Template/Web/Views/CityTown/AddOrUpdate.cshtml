@@ -1,0 +1,136 @@
+﻿<script type="text/ng-template" id="CityTownAddOrUpdate.html">
+    <style>
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+    <!--Modal Head-->
+    <div class="modal-header">
+        <h4 class="form-sub-title">{{isUpdate ? 'Edit' : 'Add'}} City / Town</h4>
+    </div>
+    <!--Modal Body-->
+    <div id="modal-body" class="modalbody">
+        <!-- BEGIN PAGE BAR -->
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered" ng-form="cityTownForm">
+            <div class="portlet-body">
+                <!--Modal Body-->
+                <div class="form-body">
+                    <!--Modal Body Content -->
+
+                    <div class="row">
+                        <!--Code Textbox -->
+                        <div class="col-md-4">
+                            <div class="form-group" ng-class="cityTownForm.code.$invalid && (cityTownForm.code.$dirty || formSubmitted) ? 'has-error' : ''">
+                                <label class="control-label">City Town Code</label><span class="required"> * </span>
+                                <input type="text" class="form-control" name="code" ng-model="cityTownCode" ng-required="true">
+                                <span color="red" ng-show="cityTownForm.code.$error.required && (cityTownForm.code.$dirty || formSubmitted)" class="text-danger
+                                        field-validation-error"><small>The citytown code is required.</small><br /></span>
+                            </div>
+                        </div>
+                        <!--Name Textbox -->
+                        <div class="col-md-4">
+                            <div class="form-group" ng-class="cityTownForm.name.$invalid && (cityTownForm.name.$dirty || formSubmitted) ? 'has-error' : ''">
+                                <label class="control-label">City Town Name</label><span class="required"> * </span>
+                                <input type="text" class="form-control" name="name" ng-model="name" ng-required="true" />
+                                <span color="red" ng-show="cityTownForm.name.$invalid && (cityTownForm.name.$dirty || formSubmitted) " class="text-danger
+                                         field-validation-error"><small>The city town name is required.</small></span>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group" ng-class="cityTownForm.abbv.$invalid && (cityTownForm.abbv.$dirty || formSubmitted) ? 'has-error' : ''">
+                                <label class="control-label">Abbreviation</label><span class="required"> * </span>
+                                <input type="text" class="form-control" name="abbv" ng-model="abbv" ng-required="true" />
+                                <span color="red" ng-show="cityTownForm.abbv.$invalid && (cityTownForm.abbv.$dirty || formSubmitted) " class="text-danger
+                                         field-validation-error"><small>Abbreviation is required.</small></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="form-group" ng-class="cityTownForm.RegionId.$invalid && (cityTownForm.RegionId.$dirty || formSubmitted) ? 'has-error' : ''">
+                                <label class="control-label">Region</label><span class="required"> * </span>
+                                <div id="RegionIdDiv">
+                                <select select2 name="RegionId" class="select select2 form-control" ng-required="true" ng-model="regionId"
+                                        ng-change="updateProvince()"
+                                        ng-options="region.RegionId as (region.Name) for region in regions"></select>
+                                    </div>
+                                <span color="red" ng-show="cityTownForm.RegionId.$invalid && (cityTownForm.RegionId.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                                    <small>Region is required</small>
+                                </span>
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group" ng-class="cityTownForm.ProvinceId.$invalid && (cityTownForm.ProvinceId.$dirty || formSubmitted) ? 'has-error' : ''">
+                                <label class="control-label">Province</label><span class="required"> * </span>
+                                <div id="ProvinceIdDiv">
+                                    <select select2 name="ProvinceId" class="select select2 form-control" ng-required="true" ng-model="provinceId"
+                                            ng-options="province.ProvinceId as (province.Name) for province in provinces"></select>
+                                    </div>
+                                    <span color="red" ng-show="cityTownForm.ProvinceId.$invalid && (cityTownForm.ProvinceId.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                                        <small>Province is required</small>
+                                    </span>
+                                </div>
+                            </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Zip code</label>
+                                <input type="text" class="form-control" name="ZipCode" ng-model="zipCode" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Latitude</label>
+                                <input type="number" class="form-control" name="latitude" ng-model="latitude" />
+
+                            </div>
+                        </div>
+                        <!--Street name Textbox -->
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Longitude</label>
+                                <input type="number" class="form-control" name="longitude" ng-model="longitude" />
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!--Actions -->
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-success" ng-click="save()">
+                                    <span class="glyphicon glyphicon-ok"></span> {{isUpdate ? 'Update' : 'Save'}}
+                                </button>
+                                <button class="btn btn-default" ng-click="cancel()">
+                                    <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Modal Body -->
+            </div>
+            <!-- END PORTLET -->
+        </div>
+    </div>
+
+
+
+</script>

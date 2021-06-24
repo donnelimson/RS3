@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "Substation - Form";
+}
+
+<div class="row" ng-controller="SubStationAddOrUpdateController as controller">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>Management</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a ng-click="backToList()">Substation</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>{{isUpdate ? 'Edit' : 'Add'}}</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            Substation
+            <small>Add substation</small>
+        </h1>
+        <div class="row">
+            <div class="col-md-12" ng-form="form">
+                @Html.Hidden("SubStationId")
+                <div class="portlet light">
+                    <div class="row padding-bottom-15">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group" ng-class="form.Description.$invalid && (form.Description.$dirty || formSubmitted) ? 'has-error' : ''">
+                                <label class="control-label">Substation</label><span class="required"> *</span>
+                                <input type="text" name="Description" ng-model="subStation.Description" class="form-control" ng-required="true">
+                                <span ng-show="form.Description.$invalid && (form.Description.$dirty || formSubmitted)"
+                                      class="text-danger field-validation-error"><small>Substation is required!</small></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="form-sub-title">FEEDER</h5>
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row padding-bottom-10">
+                                <div class="col-md-12">
+                                    <span ng-show="!subStation.Feeders.length && formSubmitted"
+                                          class="text-danger field-validation-error">Please add at least one feather.</span>
+                                </div>
+                            </div>
+                            <div class="table-responsive padding-bottom-20" style="overflow-x: auto;">
+                                <table id="supportingDocumentsTable" class="table table-bordered table-striped ng-cloak">
+                                    <thead>
+                                        <tr>
+                                            <th width="3%" class="table-header"></th>
+                                            <th width="50%" class="table-header">NAME</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="feeder in subStation.Feeders track by $index">
+                                            <td class="text-center">
+                                                <button class="btn btn-xs btn-danger" ng-click="deleteRow($index)">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                            </td>
+                                            <td class="cursorText" ng-click="editRow($index)">
+                                                <span ng-hide="feeder.IsEditing">{{feeder.Name}}</span>
+                                                <div ng-class="alreadyExists  && currentIndex === $index ? 'has-error' : ''">
+                                                    <input id="feedersInput{{$index}}" focus-on="!!feeder.IsEditing" ng-show="feeder.IsEditing" type="text"
+                                                           ng-model="feeder.Name"
+                                                           ng-blur="addOrEditSubStation(feeder, $index)"
+                                                           ng-change="checkIfNameIsEmpty(feeder, $index)"
+                                                           ng-keypress="addOrEditSubStationOnEnter($event, feeder, $index)"
+                                                           class="form-control" maxlength="50" alphanumeric-dash-only />
+                                                    <span ng-show="alreadyExists && currentIndex === $index"
+                                                          class="text-danger field-validation-error"><small>Name already exists!</small></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <div ng-class="alreadyExists  && currentIndex === -1 ? 'has-error' : ''">
+                                                    <input type="text"
+                                                           id="emptyRow"
+                                                           ng-model="emptyRow.Name"
+                                                           ng-blur="addOrEditSubStation(emptyRow, -1)"
+                                                           ng-keypress="addOrEditSubStationOnEnter($event, emptyRow, -1)"
+                                                           ng-change="checkIfNameExists()"
+                                                           class="form-control has-error"
+                                                           maxlength="50" alphanumeric-dash-only />
+                                                    <span ng-show="alreadyExists && currentIndex === -1"
+                                                          class="text-danger field-validation-error"><small>Name already exists!</small></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- BEGIN FORM SAVE/CANCEL -->
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4">
+                            <div class="form-action">
+                                <div class="actions btn-set">
+                                    <button class="btn btn-success" style="width: 90px;" ng-click="save()">
+                                        <span class="glyphicon glyphicon-ok"></span>&nbsp; {{isUpdate ? 'Update' : 'Save'}}
+                                    </button>
+                                    <button class="btn btn-default" style="width: 90px;" ng-click="cancel()">
+                                        <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END FORM SAVE/CANCEL -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section PageStyles {
+    <style>
+        .cursorText:hover {
+            cursor: text;
+        }
+    </style>
+
+    @Styles.Render("~/assets/global/scripts/datatables.min.css")
+    @Styles.Render("~/assets/global/scripts/select.dataTables.min.css")
+}
+
+@section PageScripts {
+    @Scripts.Render("~/assets/global/scripts/datatables.min.js")
+    @Scripts.Render("~/assets/global/scripts/dataTables.select.min.js")
+}
+
+@section AngularJSPage {
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Scripts/App/Services/SubStationService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/SubStationController.js")
+}
+
+
+
+

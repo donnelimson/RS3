@@ -1,0 +1,191 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData;
+@{
+    ViewBag.Title = "City Towns";
+}
+<!-- BEGIN PAGE BAR -->
+<div ng-app="MetronicApp" ng-controller="CityTownController">
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <span>Management</span>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Address</span>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "CityTown")">City Towns</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>List</span>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE BAR -->
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title">
+        City town
+        <small>View, add, edit, deativate or reactivate city town</small>
+    </h1>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN PORTLET -->
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <h4 class="bold">Search</h4>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="expand"> </a>
+                    </div>
+                </div>
+                <!-- BEGIN FILTERS -->
+                <div class="portlet-body tabs-below" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">City/Town:</label>
+                                <input type="text" ng-model="cityTown" ng-keypress="searchWhenEnter($event)" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Province :</label>
+                                <input type="text" ng-model="province" ng-keypress="searchWhenEnter($event)" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="actions btn-set btn-filter">
+                                <button type="button" class="btn btn-success" ng-click="search()">
+                                    <i class="fa fa-search"></i>
+                                    <span class=""> Search </span>
+                                </button>
+                                <button type="button" class="btn" ng-click="reset()">
+                                    <i class="fa fa-rotate-left"></i>
+                                    <span class=""> Reset </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PORTLET -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN PORTLET -->
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        @*<i class="fa fa-user"></i>*@List
+                    </div>
+                    <div class="actions">
+                        <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportCityTownViewList)>
+                            <i class="fa fa-share-square-o"></i>
+                            <span class="">Export</span>
+                        </a>
+                        <a ng-click="openAddOrUpdateModal()" class="btn btn-info"  @Html.UserHasPermission(userPermission: PermissionData.UserCanAddCityTownData)>
+                            <i class="fa fa-plus"></i>
+                            <span class=""> New </span>
+                        </a>
+                    </div>
+                </div>
+
+
+                <!-- END PORTLET -->
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="no-padding loading-container" loading-container="tableParams.settings().$loading">
+                            <table ng-table="tableForCityTown" ng-class="{'loading': isLoading}" class="table table-bordered table-striped">
+
+
+                                <tr ng-repeat="item in $data">
+                                    <td width="1%">
+                                        @if (Html.UserHasPermission(userPermission: PermissionData.UserCanReactivateDeactivateCityTownData).ToString() != "" && Html.UserHasPermission(userPermission: PermissionData.UserCanEditCityTownData).ToString() != "")
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            <div class="btn-group">
+
+                                                <button id="actions" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-list"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li>
+                                                        <a ng-click="openAddOrUpdateModal(item.CityTownID)" @Html.UserHasPermission(userPermission: PermissionData.UserCanEditCityTownData)>
+                                                            <i class="fa fa-edit"></i> Edit
+                                                        </a>
+                                                    </li>
+                                                    <li ng-show="item.Status">
+                                                        <a ng-click="reactivateDeactivate(item.CityTownID,item.Status,item.CityTown)" @Html.UserHasPermission(userPermission: PermissionData.UserCanReactivateDeactivateCityTownData)>
+                                                            <i class="fa fa-ban"></i> Deactivate
+                                                        </a>
+                                                    </li>
+                                                    <li ng-show="!item.Status">
+                                                        <a ng-click="reactivateDeactivate(item.CityTownID,item.Status,item.CityTown)" @Html.UserHasPermission(userPermission: PermissionData.UserCanReactivateDeactivateCityTownData)>
+                                                            <i class="fa fa-check"></i> Reactivate
+                                                        </a>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                        }
+
+                                    </td>
+                                    <td width="5%" data-title="'CODE'" sortable="'CityTownCode'" header-class="'table-header text-left'">
+                                        {{item.CityTownCode}}
+                                    </td>
+                                    <td width="15%" data-title="'CITY TOWN'" sortable="'CityTown'" header-class="'table-header text-left'">
+                                        {{item.CityTown}}
+                                    </td>
+                                    <td width="15%" data-title="'PROVINCE'" sortable="'Province'" header-class="'table-header text-left'">
+                                        {{item.Province}}
+                                    </td>
+                                    <td width="5%" data-title="'STATUS'" sortable="'Status'" header-class="'table-header text-center'" class="text-center">
+                                        <span class="label label-sm" ng-class="item.Status ? 'label-success' : 'label-danger'">{{item.Status ? 'Yes': 'No'}}</span>
+                                    </td>
+                                    <td width="12%" data-title="'CREATED BY'" sortable="'FullName'" header-class="'table-header text-left'">
+                                        {{item.FullName}}
+                                    </td>
+                                    <td width="7%" data-title="'CREATED DATE'" sortable="'CreatedOn'" header-class="'table-header text-left'">
+                                        {{item.CreatedOn | date: 'short'}}
+                                    </td>
+                                </tr>
+                                <tr ng-show="$data.length == 0">
+                                    <td colspan="8" class="text-center" style="font-style:unset">
+                                        No data available
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                @Html.Partial("AddOrUpdate")
+            </div>
+        </div>
+    </div>
+</div>
+
+@section pagestyles {
+}
+
+@section PageScripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/CityTownService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/CityTown/CityTownController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/CityTown/CityTownAddOrUpdateController.js")
+}

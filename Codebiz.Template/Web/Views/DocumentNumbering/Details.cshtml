@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "Document Numbering Details";
+}
+
+<div class="row" ng-controller="DocumentNumberingDetailsController">
+    <div class="col-md-12">
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>Management</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "DocumentNumbering")">Document Numbering</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Details</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="backToList()">Back to List</a>
+            </div>
+        </div>
+        <h1 class="page-title">
+            Document Numbering
+            <small>Details view</small>
+        </h1>
+        <div class="row">
+            <div class="col-md-12" ng-form="DocumentNumberingForm">
+                <div class="portlet light">
+                    <div class="row padding-bottom-15">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Transaction Type</label><span class="required"> *</span>
+                                <select name="TransactionTypeId" class="select2 form-control not-allow-numbers" tabindex="1"
+                                        ng-model="transactionTypeId"
+                                        ng-options="t.TransactionTypeId as (t.Description) for t in transactionTypes"
+                                        ng-disabled="true"
+                                        style="display: inline-block">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h5><b>List</b></h5>
+                        </div>
+
+
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="documentNumberingTableParams.settings().$loading">
+                                <table ng-table="documentNumberingTableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover">
+                                    <tr ng-repeat="item in $data " ng-style="{'color': item.IsDefault? 'orange':'black'}" >
+                                        <td width="8%" data-title="'NAME'"  sortable="'Name'" header-class="'table-header text-left'" ng-class="(item.Name=='' || item.Name==null ||item.IsDuplicate) && documentSubmitted ? 'has-error' : ''">
+                                            <span>{{item.Name}}</span>
+                                        </td>
+
+                                        <td width="3%" data-title="'FIRST NO.'" sortable="'FirstNo'" header-class="'table-header text-right'" class="text-right" ng-class="item.FirstNo==null && documentSubmitted ? 'has-error' : ''">
+                                            <span>{{item.FirstNo}}</span>
+                                        </td>
+                                        <td width="3%" data-title="'NEXT NO.'" sortable="'NextNo'" header-class="'table-header text-right'" class="text-right">
+                                           <span>{{item.NextNo}}</span>                                      
+                                        </td>
+                                        <td width="3%" data-title="'LAST NO.'" sortable="'LastNo'" header-class="'table-header text-right'" class="text-right">
+                                           <span>{{item.LastNo}}</span>
+                                        </td>
+
+                                        <td width="7%" data-title="'PREFIX'" sortable="'Prefix'" header-class="'table-header text-left'" class="text-left">
+                                         <span> {{item.Prefix}}</span>
+                                        </td>
+                                        <td width="7%" data-title="'SUFFIX'" sortable="'Suffix'" header-class="'table-header text-left'" class="text-left">
+                                            <span>{{item.Suffix}}</span>
+                                        </td>
+                                        <td width="5%" data-title="'NO. OF DIGITS'" sortable="'NoOfDigits'" header-class="'table-header text-left'" class="text-left" ng-class="(item.NoOfDigits==null || (item.InvalidNoOfDigits && InvalidNoOfDigits)) && documentSubmitted ? 'has-error' : ''">
+                                            <span>{{item.NoOfDigits}}</span>
+                                   
+                                        </td>
+                                        <td width="2%" data-title="'LOCKED'" sortable="'IsLocked'" header-class="'table-header text-center'" class="text-center">
+                                            <span ng-show="item.IsLocked!=null && selectedRowIndex!=$index" class="label label-sm" ng-class="item.IsLocked ? 'label-success' : 'label-danger'">{{item.IsLocked ? 'Yes': 'No'}}</span>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section pagestyles {
+    @Styles.Render("~/assets/global/plugins/fancybox/source/jquery.fancybox.css")
+    @Styles.Render("~/Content/ng-table.min.css")
+    @Styles.Render("~/Scripts/moment.min.js")
+    <style>
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+}
+
+@section PageScripts {
+    @Scripts.Render("~/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js")
+    @Scripts.Render("~/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js")
+    @Scripts.Render("~/assets/pages/scripts/ui-extended-modals.min.js")
+    @Scripts.Render("~/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js")
+    @Scripts.Render("~/bundles/fileupload")
+}
+
+@section AngularJSPlugins {
+    @Scripts.Render("~/Scripts/ng-table.js")
+}
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Scripts/App/Services/DocumentNumberingService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/DocumentNumbering/DocumentNumberingDetailsController.js")
+}

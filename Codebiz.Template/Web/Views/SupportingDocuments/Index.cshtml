@@ -1,0 +1,222 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+@{
+    ViewBag.Title = "Supporting Documents - Index";
+}
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>Management</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "SupportingDocuments")">Supporting Documents</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Supporting Documents <small>View, search, add, delete supporting documents</small>
+</h1>
+<!-- END PAGE TITLE-->
+
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="SupportingDocumentsController as sdc">
+        <!-- BEGIN PORTLET -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <h4 class="bold">Search</h4>
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="expand"> </a>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                    <div class="portlet-body tabs-below" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Transaction Type</label>
+                                    <select select2 name="TransactionType" id="TransactionType" class="form-control not-allow-numbers"
+                                            ng-model="transactionTypeId" ng-options="t.TransactionTypeId as (t.Description) for t in requestTransactionTypes"
+                                            ng-change="search()">
+                                        <option value="">---Please select---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Created By</label>
+                                    <input type="text" name="CreatedBy" class="form-control" autocomplete="off" maxlength="100"
+                                           ng-model="createdBy" ng-keypress="searchWhenEnter($event)" alphanumeric-dash-only>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Created Date</label>
+                                    <div class='input-group date'>
+                                        <input type="text" id="drp" name="CreatedDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                               is-open="createdOnDatePicker.opened" close-text="Close"
+                                               ng-model="createdDate" ng-click="openCreatedOnDatePicker()" ng-change="search()" readonly>
+                                        <span class="input-group-addon" onclick="$('#drp').focus()">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="actions btn-set btn-filter">
+                                    <button type="button" class="btn btn-success" ng-click="search()">
+                                        <i class="fa fa-search"></i>
+                                        <span class=""> Search </span>
+                                    </button>
+                                    <button type="button" class="btn" ng-click="reset()">
+                                        <i class="fa fa-rotate-left"></i>
+                                        <span class=""> Reset </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                </div>
+            </div>
+        </div>
+        <!-- BEGIN SUPPORTING DOCUMENTS TABLE -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            List
+                        </div>
+                        <div class="actions">
+                            <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportSupportingDocuments)>
+                                <i class="fa fa-share-square-o"></i>
+                                <span class="">Export</span>
+                            </a>
+                            <a class="btn btn-info" ng-click="addOrUpdate(0)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddSupportingDocuments)>
+                                <i class="fa fa-plus"></i>
+                                <span class=""> New </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive padding-bottom-50" style="overflow:auto;" loading-container="tableParams.settings().$loading">
+                                <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped
+                                       @Html.UserHasPermission(userPermission: new List<string>() {
+                                                        PermissionData.UserCanViewSupportingDocuments,
+                                                        PermissionData.UserCanEditSupportingDocuments,
+                                                        PermissionData.UserCanDeleteSupportingDocuments})">
+                                    <tr ng-repeat="item in $data">
+                                        <td width="1%">
+                                            <div class="btn-group">
+                                                <button id="supportingDocuments" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-list"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="supportingDocuments">
+                                                    <li @Html.UserHasPermission(userPermission: PermissionData.UserCanViewSupportingDocuments)>
+                                                        <a ng-click="viewDetails(item.SupportingDocumentId)">
+                                                            <i class="glyphicon glyphicon-eye-open"></i> View
+                                                        </a>
+                                                    </li>
+                                                    <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditSupportingDocuments)>
+                                                        <a ng-click="addOrUpdate(item.SupportingDocumentId)">
+                                                            <i class="glyphicon glyphicon-pencil"></i> Edit
+                                                        </a>
+                                                    </li>
+                                                    <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeleteSupportingDocuments)>
+                                                        <a ng-click="delete(item.SupportingDocumentId,item.TransactionType)">
+                                                            <i class="glyphicon glyphicon-trash"></i> Delete
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td width="25%" data-title="'TRANSACTION TYPE'" sortable="'TransactionType'" header-class="'table-header text-left'" class="text-left">
+                                            {{item.TransactionType}}
+                                        </td>
+                                        <td width="35%" data-title="'TYPE'" sortable="'Type'" header-class="'table-header text-left'" class="text-left">
+                                            {{item.Type}}
+                                        </td>
+                                        <td width="20%" data-title="'CREATED BY'" sortable="'CreatedBy'" header-class="'table-header text-left'" class="text-left">
+                                            {{item.CreatedBy}}
+                                        </td>
+                                        <td width="20%" data-title="'CREATED DATE'" sortable="'CreatedDate'" header-class="'table-header text-left'" class="text-left">
+                                            {{item.CreatedDate | date : 'MM/dd/yyyy hh:mm a'}}
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="$data.length == 0">
+                                        <td colspan="5" class="text-center" style="font-style:unset">
+                                            No data available
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!-- END BEGIN SUPPORTING DOCUMENTS TABLE -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET -->
+    </div>
+</div>
+
+@section pagestyles {
+    <style>
+        #supportingDocuments + .dropdown-menu {
+            z-index: 99000
+        }
+    </style>
+}
+
+
+@section PageScripts {
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $('input[name="CreatedDate"]').daterangepicker({
+                    opens: 'right',
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                }, function (start, end, label) {
+                });
+            });
+
+            $('input[name="CreatedDate"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                $(this).trigger('change');
+            });
+
+            $('input[name="CreatedDate"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+                $(this).trigger('change');
+            });
+        })
+    </script>
+
+}
+
+@section AngularJSPlugins {
+}
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/SupportingDocumentsService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/SupportingDocumentsController.js")
+}
+

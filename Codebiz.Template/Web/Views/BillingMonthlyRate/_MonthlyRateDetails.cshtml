@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "Monthly Rate Form";
+}
+<div class="row" ng-app="MetronicApp"
+     ng-controller="MonthlyRateDetailsController as controller" file-upload="options">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>Management</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Billing</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "MonthlyRate")">Monthly Rates</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Details</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="goToIndex()">Back to List</a>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            Billing Monthly Rates
+        </h1>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12 loading-container" loading-container="isDataLoading">
+                <div class="portlet light bordered">
+                    <!-- BEGIN PORTLET -->
+                    <div class="portlet-body form">
+                        <div class="form-body">
+                            <div class="row" ng-cloak>
+                                <div class="alert alert-danger" ng-if="errorMessage">
+                                    <button class="close" data-close="alert"></button> {{errorMessage}}
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="row" style="margin-left:2px; margin-right:2px;">
+                                    <div class="col-md-12">
+                                        <h4 class="form-sub-title">Information</h4>
+                                        <hr />
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h5 class=""> Billing Period : {{monthlyRatesDetails.BillingPeriod}}</h5>
+                                        <h5 class=""> Description : {{monthlyRatesDetails.Description}}</h5>
+                                        <h5 class=""> Consumer Class : {{monthlyRatesDetails.ConsumerClass}}</h5>
+                                    </div>
+                                </div>
+                                <div class="caption col-md-12" ng-repeat="category in monthlyRatesDetails.UnbundledTransactionsByCategory">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h4 class="form-sub-title">{{category.Description}}</h4>
+                                            <hr />
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group" loading-container="tableParams.settings().$loading">
+                                                <table class="table table-bordered table-hover table-striped">
+                                                    <tr>
+                                                        <th class="text-left" style="color:#337AB7;">CODE</th>
+                                                        <th class="text-left" style="color:#337AB7;">NAME</th>
+                                                        <th class="text-right" style="color:#337AB7;">RATE</th>
+                                                        <th class="text-right" style="color:#337AB7;">AMOUNT</th>
+                                                    </tr>
+                                                    <tbody>
+                                                        <tr ng-repeat="item in category.UnbundledTransactions">
+                                                            <td width="12%">
+                                                                {{item.Code}}
+                                                            </td>
+                                                            <td width="15%" class="text-left">
+                                                                {{item.Name}}
+                                                            </td>
+                                                            <td width="10%" class="text-right">
+                                                                {{item.Rate}}
+                                                            </td>
+                                                            <td width="10%" class="text-right">
+                                                                {{item.Amount}}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section PageScripts {
+    @Scripts.Render("~/bundles/fileupload");
+
+}
+@section AngularJSPage {
+
+    @Scripts.Render("~/Scripts/App/Services/MonthlyRateService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/BillingMonthlyRate/MonthlyRateController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/BillingMonthlyRate/MonthlyRateDetailsController.js")
+
+}
+
+
+
+

@@ -1,0 +1,665 @@
+Description,Route,Province,CityCode,Municipality,BarangayCode,Barangay,BookNo
+,1205,Tarlac,12,Anao,5,Baguindoc (Baguinloc),1
+,1209,Tarlac,12,Anao,9,Bantog,4
+,1201,Tarlac,12,Anao,1,Campos,11
+,1205,Tarlac,12,Anao,5,Casili,1
+,1202,Tarlac,12,Anao,2,Hernando,11
+,1201,Tarlac,12,Anao,1,San Francisco,11
+,1202,Tarlac,12,Anao,2,San Jose ,11
+,1208,Tarlac,12,Anao,8,San Jose ,3
+,1202,Tarlac,12,Anao,2,Santo Domingo,11
+,1205,Tarlac,12,Anao,5,Sinense,2
+,1207,Tarlac,12,Anao,7,Sinense,2
+,1209,Tarlac,12,Anao,9,Suaverdez,4
+Street Lights,3100,Tarlac,31,Anao,0,Anao Municipal,9
+Street Lights,3111,Tarlac,31,Anao,11,Campos ,12
+Street Lights,3112,Tarlac,31,Anao,12,Campos ,12
+Street Lights,3103,Tarlac,31,Anao,3,Hernando ,12
+Street Lights,3108,Tarlac,31,Anao,8,Poblacion ,12
+Street Lights,3109,Tarlac,31,Anao,9,Rizal ,12
+Street Lights,3110,Tarlac,31,Anao,10,Rizal ,12
+Street Lights,3113,Tarlac,31,Anao,13,San Francisco West,12
+Street Lights,3102,Tarlac,31,Anao,2,San Jose South ,12
+Street Lights,3105,Tarlac,31,Anao,5,San Juan ,12
+Street Lights,3106,Tarlac,31,Anao,6,San Roque ,12
+Street Lights,3104,Tarlac,31,Anao,4,Sto. Domingo ,12
+,633,Tarlac,6,Camiling,33,Anoling 1st,29-A
+,661,Tarlac,6,Camiling,61,Anoling 1st,29-B
+,633,Tarlac,6,Camiling,33,Anoling 1st,29-A
+,634,Tarlac,6,Camiling,34,Anoling 2nd,30
+,633,Tarlac,6,Camiling,33,Anoling 2nd,29-A
+,634,Tarlac,6,Camiling,34,Anoling 3rd,30
+,641,Tarlac,6,Camiling,41,Bacabac,37-A
+,662,Tarlac,6,Camiling,62,Bacabac,37-B
+,670,Tarlac,6,Camiling,70,Bacsay 1st,60
+,647,Tarlac,6,Camiling,47,Bancay 1st,42
+,672,Tarlac,6,Camiling,72,Bilad,63
+,671,Tarlac,6,Camiling,71,Bilad,62
+,646,Tarlac,6,Camiling,46,Birbira,41
+,649,Tarlac,6,Camiling,49,Bobon 1st,44
+,645,Tarlac,6,Camiling,45,Bobon 2nd,40
+,666,Tarlac,6,Camiling,66,Bobon Caarosipan,57
+,639,Tarlac,6,Camiling,39,Cabanabaan,35
+,644,Tarlac,6,Camiling,44,Cacalibo,34-B
+,665,Tarlac,6,Camiling,65,Cacamilingan Norte,56
+,659,Tarlac,6,Camiling,59,Cacamilingan Norte,16-B
+,615,Tarlac,6,Camiling,15,Cacamilingan Norte,14
+,617,Tarlac,6,Camiling,17,Cacamilingan Norte,16-A
+,625,Tarlac,6,Camiling,25,Cacamilingan Sur,22
+,615,Tarlac,6,Camiling,15,Cacamilingan Sur,14
+,615,Tarlac,6,Camiling,15,Cacamilingan East,14
+,640,Tarlac,6,Camiling,40,Caniag,36
+,640,Tarlac,6,Camiling,40,Carael,36
+,660,Tarlac,6,Camiling,60,Cayaoan,10-B
+,611,Tarlac,6,Camiling,11,Cayaoan,10-A
+,658,Tarlac,6,Camiling,58,Cayasan,53
+,656,Tarlac,6,Camiling,56,Florida,51
+,656,Tarlac,6,Camiling,56,Lasong,51
+,631,Tarlac,6,Camiling,31,Libueg,28-A
+,632,Tarlac,6,Camiling,32,Libueg,28-B
+,603,Tarlac,6,Camiling,3,Malacampa,3
+,630,Tarlac,6,Camiling,30,Malacampa,27
+,604,Tarlac,6,Camiling,4,Malacampa,4
+,605,Tarlac,6,Camiling,5,Malacampa,5
+,628,Tarlac,6,Camiling,28,Malasin,25
+,648,Tarlac,6,Camiling,48,Manakem,43
+,642,Tarlac,6,Camiling,42,Marawi,38
+,637,Tarlac,6,Camiling,37,Matubog,33
+,673,Tarlac,6,Camiling,73,Nagrambacan,64
+,654,Tarlac,6,Camiling,54,Nagserialan,48
+,637,Tarlac,6,Camiling,37,Nagserialan,33
+,601,Tarlac,6,Camiling,1,Palimbo-Caarosipan,1
+,653,Tarlac,6,Camiling,53,Palimbo Proper,50
+,643,Tarlac,6,Camiling,43,Palimbo Proper,39
+,623,Tarlac,6,Camiling,23,Pao 1st,20-B
+,622,Tarlac,6,Camiling,22,Pao 1st,20-A
+,622,Tarlac,6,Camiling,22,Pao 2nd,20-A
+,633,Tarlac,6,Camiling,33,Pao 3rd,29-A
+,669,Tarlac,6,Camiling,69,Papaac,59
+,668,Tarlac,6,Camiling,68,Pindangan 1st,58
+,667,Tarlac,6,Camiling,67,Pindangan 2nd,61
+,629,Tarlac,6,Camiling,29,Santa Maria,26
+,628,Tarlac,6,Camiling,28,Santa Maria,25
+,674,Tarlac,6,Camiling,74,Sawat,65
+,657,Tarlac,6,Camiling,57,Sinilian 1st,52
+,644,Tarlac,6,Camiling,44,Sinilian 1st,34-B
+,638,Tarlac,6,Camiling,38,Sinilian 1st,34-A
+,638,Tarlac,6,Camiling,38,Sinilian 2nd,34-A
+,663,Tarlac,6,Camiling,63,Sinilian 3rd,54
+,638,Tarlac,6,Camiling,38,Sinilian 3rd,34-A
+,638,Tarlac,6,Camiling,38,Sinilian Cacalibosoan,34-A
+,664,Tarlac,6,Camiling,64,Sinulatan 1st,55
+,636,Tarlac,6,Camiling,36,Sinulatan 1st,32
+,636,Tarlac,6,Camiling,36,Sinulatan 2nd,32
+,626,Tarlac,6,Camiling,26,Surgui 1st,23
+,608,Tarlac,6,Camiling,8,Surgui 2nd,7
+,606,Tarlac,6,Camiling,6,Surgui 3rd,6-A
+,607,Tarlac,6,Camiling,7,Surgui 3rd,6-B
+,608,Tarlac,6,Camiling,8,Surgui 3rd,7
+,635,Tarlac,6,Camiling,35,Tambugan,31
+,607,Tarlac,6,Camiling,7,Tuec,6-B
+Street Lights,2001,Tarlac,20,Camiling,1,Palimbo,
+Street Lights,2080,Tarlac,20,Camiling,80,Bacabac,5
+Street Lights,2075,Tarlac,20,Camiling,75,Bancay 1st,5
+Street Lights,2063,Tarlac,20,Camiling,63,Bilad,5
+Street Lights,2088,Tarlac,20,Camiling,88,Birbira,5
+Street Lights,2056,Tarlac,20,Camiling,56,Bobon 1st. ,29
+Street Lights,2025,Tarlac,20,Camiling,25,Bobon 2nd,10
+Street Lights,2001,Tarlac,20,Camiling,1,Caarosipan,23
+Street Lights,2060,Tarlac,20,Camiling,60,Cabanabaan-down grade to 9khw,5
+Street Lights,2026,Tarlac,20,Camiling,26,Camiling S.L. Municipal,22
+Street Lights,2076,Tarlac,20,Camiling,76,Matubog,5
+Street Lights,2028,Tarlac,20,Camiling,28,Poblacion A (Barangay),13
+Street Lights,2027,Tarlac,20,Camiling,27,Poblacion A (Municipal),33
+Street Lights,2030,Tarlac,20,Camiling,30,Poblacion B (Barangay),5
+Street Lights,2029,Tarlac,20,Camiling,29,Poblacion B (Municipal),40
+Street Lights,2032,Tarlac,20,Camiling,32,Poblacion C (Barangay),1
+Street Lights,2031,Tarlac,20,Camiling,31,Poblacion C (Municipal),16
+Street Lights,2034,Tarlac,20,Camiling,34,Poblacion D (Municipal),27
+Street Lights,2036,Tarlac,20,Camiling,36,Poblacion E (Barangay),21
+Street Lights,2035,Tarlac,20,Camiling,35,Poblacion E (Municipal),28
+Street Lights,2038,Tarlac,20,Camiling,38,Poblacion F (Barangay),7
+Street Lights,2037,Tarlac,20,Camiling,37,Poblacion F (Municipal),20
+Street Lights,2040,Tarlac,20,Camiling,40,Poblacion G (Barangay),6
+Street Lights,2039,Tarlac,20,Camiling,39,Poblacion G (Municipal),12
+Street Lights,2042,Tarlac,20,Camiling,42,Poblacion H (Barangay),15
+Street Lights,2041,Tarlac,20,Camiling,41,Poblacion H (Municipal),25
+Street Lights,2044,Tarlac,20,Camiling,44,Poblacion I (Barangay),1
+Street Lights,2043,Tarlac,20,Camiling,43,Poblacion I (Municipal),27
+Street Lights,2046,Tarlac,20,Camiling,46,Poblacion J (Barangay),5
+Street Lights,2045,Tarlac,20,Camiling,45,Poblacion J (Municipal),28
+Street Lights,2052,Tarlac,20,Camiling,52,Quezon Ave. (Municipal),5
+Street Lights,2048,Tarlac,20,Camiling,48,San Isidro,5
+Street Lights,2066,Tarlac,20,Camiling,66,Sinilian 1st,5
+Street Lights,2057,Tarlac,20,Camiling,57,Sta. Maria,13
+Street Lights,2013,Tarlac,20,Camiling,13,Surgui 1st,5
+Street Lights,2016,Tarlac,20,Camiling,16,Surgui 2nd,2
+,912,Tarlac,9,Gerona,12,Abagon,9
+,913,Tarlac,9,Gerona,13,Abagon,10
+,916,Tarlac,9,Gerona,16,Amacalan,13-B
+,932,Tarlac,9,Gerona,32,Apsayan,26-A
+,958,Tarlac,9,Gerona,58,Apsayan,26-B
+,925,Tarlac,9,Gerona,25,Ayson,19
+,954,Tarlac,9,Gerona,54,Ayson,43
+,923,Tarlac,9,Gerona,23,Bawa,18-A
+,924,Tarlac,9,Gerona,24,Bawa,18-B
+,945,Tarlac,9,Gerona,45,Buenlag,11-A
+,946,Tarlac,9,Gerona,46,Buenlag,11-B
+,955,Tarlac,9,Gerona,55,Buenlag,20
+,930,Tarlac,9,Gerona,30,Bularit,24-A
+,962,Tarlac,9,Gerona,62,Carbonel,25
+,949,Tarlac,9,Gerona,49,Cardona,27
+,950,Tarlac,9,Gerona,50,Cardona,28
+,902,Tarlac,9,Gerona,2,Caturay,1-B
+,920,Tarlac,9,Gerona,20,Danzo,15-B
+,925,Tarlac,9,Gerona,25,Danzo,19
+,922,Tarlac,9,Gerona,22,Dicolor,17-A
+,966,Tarlac,9,Gerona,66,Dicolor,17-B
+,935,Tarlac,9,Gerona,35,Don Basilio,31
+,931,Tarlac,9,Gerona,31,Luna,24-B
+,903,Tarlac,9,Gerona,3,Magaspac,2-A
+,904,Tarlac,9,Gerona,4,Magaspac,2-B
+,905,Tarlac,9,Gerona,5,Magaspac,3-A
+,964,Tarlac,9,Gerona,64,Magaspac,3-B
+,925,Tarlac,9,Gerona,25,Malayep,19
+,944,Tarlac,9,Gerona,44,Malayep,39
+,927,Tarlac,9,Gerona,27,Matapitap,21-B
+,942,Tarlac,9,Gerona,42,Matayumcab,37
+,943,Tarlac,9,Gerona,43,Matayumcab,38
+,901,Tarlac,9,Gerona,1,Oloybuaya,1-A
+,928,Tarlac,9,Gerona,28,Parsolingan,22-A
+,968,Tarlac,9,Gerona,68,Parsolingan,22-B
+,917,Tarlac,9,Gerona,17,Pinasling (Pinasung),14-A
+,918,Tarlac,9,Gerona,18,Pinasling (Pinasung),14-B
+,901,Tarlac,9,Gerona,1,Plastado,1-A
+,963,Tarlac,9,Gerona,63,Plastado,45
+,906,Tarlac,9,Gerona,6,Poblacion 1,4-A
+,907,Tarlac,9,Gerona,7,Poblacion 1,4-B
+,908,Tarlac,9,Gerona,8,Poblacion 1,5
+,909,Tarlac,9,Gerona,9,Poblacion 2,6
+,910,Tarlac,9,Gerona,10,Poblacion 2,7
+,911,Tarlac,9,Gerona,11,Poblacion 2,8
+,908,Tarlac,9,Gerona,8,Poblacion 3,5
+,911,Tarlac,9,Gerona,11,Poblacion 3,8
+,931,Tarlac,9,Gerona,31,Poroc,24-B
+,929,Tarlac,9,Gerona,29,Rizal,23
+,926,Tarlac,9,Gerona,26,Salapungan,21-A
+,914,Tarlac,9,Gerona,14,San Antonio,12-A
+,942,Tarlac,9,Gerona,42,San Antonio,37
+,956,Tarlac,9,Gerona,56,San Antonio,12-B
+,933,Tarlac,9,Gerona,33,Singat,29
+,919,Tarlac,9,Gerona,19,Tagumbao,15-A
+,920,Tarlac,9,Gerona,20,Tagumbao,15-B
+,921,Tarlac,9,Gerona,21,Tagumbao,16-A
+,957,Tarlac,9,Gerona,57,Tagumbao,16-B
+,951,Tarlac,9,Gerona,51,Villa Paz,42
+Street Lights,1863,Tarlac,18,Gerona,63,Abagon,9
+Street Lights,1876,Tarlac,18,Gerona,76,Amacalan,9
+Street Lights,1878,Tarlac,18,Gerona,78,Ayson,9
+Street Lights,1849,Tarlac,18,Gerona,49,Bawa,9
+Street Lights,1864,Tarlac,18,Gerona,64,Buenlag,9
+Street Lights,1875,Tarlac,18,Gerona,75,Bularit,9
+Street Lights,1850,Tarlac,18,Gerona,50,Cardona,9
+Street Lights,1846,Tarlac,18,Gerona,46,Caturay ,9
+Street Lights,1858,Tarlac,18,Gerona,58,Danzo,9
+Street Lights,1853,Tarlac,18,Gerona,53,Dicolor,9
+Street Lights,1867,Tarlac,18,Gerona,67,Don Basilio,9
+Street Lights,1866,Tarlac,18,Gerona,66,Luna,9
+Street Lights,1859,Tarlac,18,Gerona,59,Magaspac,9
+Street Lights,1873,Tarlac,18,Gerona,73,Malayep,9
+Street Lights,1848,Tarlac,18,Gerona,48,Matapitap ,9
+Street Lights,1851,Tarlac,18,Gerona,51,Matayungcab,9
+Street Lights,1852,Tarlac,18,Gerona,52,Parsolingan,9
+Street Lights,1856,Tarlac,18,Gerona,56,Pinasling,9
+Street Lights,1871,Tarlac,18,Gerona,71,Pob. 1,9
+Street Lights,1861,Tarlac,18,Gerona,61,Pob. 3,9
+Street Lights,1877,Tarlac,18,Gerona,77,Salapungan,9
+Street Lights,1857,Tarlac,18,Gerona,57,San Antonio,9
+Street Lights,1870,Tarlac,18,Gerona,70,Tagumbao,9
+,706,Tarlac,7,Mayantoc,6,Ambalingit,6
+,712,Tarlac,7,Mayantoc,12,Baybayaoas,12
+,728,Tarlac,7,Mayantoc,28,Bigbiga,25
+,729,Tarlac,7,Mayantoc,29,Bigbiga,26
+,727,Tarlac,7,Mayantoc,27,Binbinaca,24
+,703,Tarlac,7,Mayantoc,3,Calabtangan,8
+,719,Tarlac,7,Mayantoc,19,Caocaoayan,19
+,717,Tarlac,7,Mayantoc,17,Carabaoan,17
+,707,Tarlac,7,Mayantoc,7,Cubcub,7
+,726,Tarlac,7,Mayantoc,26,Gayonggayong,23
+,709,Tarlac,7,Mayantoc,9,Gossood,9
+,714,Tarlac,7,Mayantoc,14,Mamonit,14
+,715,Tarlac,7,Mayantoc,15,Mamonit,15
+,716,Tarlac,7,Mayantoc,16,Mamonit,16
+,720,Tarlac,7,Mayantoc,20,Maniniog,20
+,724,Tarlac,7,Mayantoc,24,Mapandan,21
+,725,Tarlac,7,Mayantoc,25,Mapandan,22
+,734,Tarlac,7,Mayantoc,34,Mapandan,30
+,732,Tarlac,7,Mayantoc,32,Nambalan,29-A
+,733,Tarlac,7,Mayantoc,33,Nambalan,29-B
+,710,Tarlac,7,Mayantoc,10,Pedro L. Quines,10
+,711,Tarlac,7,Mayantoc,11,Pitombayog,11
+,705,Tarlac,7,Mayantoc,5,Poblacion Norte,5-A
+,708,Tarlac,7,Mayantoc,8,Poblacion Norte,3-A
+,723,Tarlac,7,Mayantoc,23,Poblacion Norte,3-B
+,702,Tarlac,7,Mayantoc,2,Poblacion Sur,2
+,708,Tarlac,7,Mayantoc,8,Poblacion Sur,3-A
+,723,Tarlac,7,Mayantoc,23,Poblacion Sur,3-B
+,713,Tarlac,7,Mayantoc,13,Rotrottooc,13
+,701,Tarlac,7,Mayantoc,1,San Bartolome,1-A
+,722,Tarlac,7,Mayantoc,22,San Bartolome,1-B
+,718,Tarlac,7,Mayantoc,18,San Jose,18
+,707,Tarlac,7,Mayantoc,7,Taldiapan,7
+,730,Tarlac,7,Mayantoc,30,Tangcarang,27
+,731,Tarlac,7,Mayantoc,31,Tangcarang,28
+Street Lights,2201,Tarlac,22,Mayantoc,1,Ambalingit,3
+Street Lights,2202,Tarlac,22,Mayantoc,2,Bigbiga,5
+Street Lights,2204,Tarlac,22,Mayantoc,4,Binbinaca ,3
+Street Lights,2207,Tarlac,22,Mayantoc,7,Pitombayog ,21
+Street Lights,2208,Tarlac,22,Mayantoc,8,Poblacion Norte,1
+Street Lights,2209,Tarlac,22,Mayantoc,9,Poblacion Sur,33
+Street Lights,2211,Tarlac,22,Mayantoc,11,SL - Going Tow Proper,3
+Street Lights,2212,Tarlac,22,Mayantoc,12,San Bartolome,12
+Street Lights,2213,Tarlac,22,Mayantoc,13,Tangkaran,1
+,242,Tarlac,2,Moncada,42,Anao,33
+,226,Tarlac,2,Moncada,26,Aringin,22
+,203,Tarlac,2,Moncada,3,Atencio,3
+,224,Tarlac,2,Moncada,24,Banaoang East,20
+,232,Tarlac,2,Moncada,32,Banaoang West,27
+,224,Tarlac,2,Moncada,24,Baquero Norte,20
+,229,Tarlac,2,Moncada,29,Baquero Norte,25
+,220,Tarlac,2,Moncada,20,Baquero Sur,16
+,205,Tarlac,2,Moncada,5,Burgos,4-B
+,206,Tarlac,2,Moncada,6,Burgos,5
+,240,Tarlac,2,Moncada,40,Calamay,31
+,233,Tarlac,2,Moncada,33,Calapan,28
+,215,Tarlac,2,Moncada,15,Camangaan East,12-A
+,216,Tarlac,2,Moncada,16,Camangaan East,12-B
+,216,Tarlac,2,Moncada,16,Camangaan West,12-B
+,220,Tarlac,2,Moncada,20,Camangaan West,16
+,227,Tarlac,2,Moncada,27,Camposanto 1 - Norte,23
+,208,Tarlac,2,Moncada,8,Camposanto 1 - Sur,7-A
+,209,Tarlac,2,Moncada,9,Camposanto 1 - Sur,7-B
+,209,Tarlac,2,Moncada,9,Camposanto 2,7-B
+,213,Tarlac,2,Moncada,13,Capaoayan,11-A
+,202,Tarlac,2,Moncada,2,Lapsing,2-A
+,235,Tarlac,2,Moncada,35,Lapsing,30
+,241,Tarlac,2,Moncada,41,Lapsing,32
+,227,Tarlac,2,Moncada,27,Mabini,23
+,238,Tarlac,2,Moncada,38,Mabini,2-B
+,204,Tarlac,2,Moncada,4,Maluac,4-A
+,205,Tarlac,2,Moncada,5,Maluac,4-B
+,208,Tarlac,2,Moncada,8,Poblacion 1,7-A
+,210,Tarlac,2,Moncada,10,Poblacion 1,8
+,211,Tarlac,2,Moncada,11,Poblacion 1,9
+,211,Tarlac,2,Moncada,11,Poblacion 2,9
+,212,Tarlac,2,Moncada,12,Poblacion 2,10
+,215,Tarlac,2,Moncada,15,Poblacion 2,12-A
+,228,Tarlac,2,Moncada,28,Poblacion 2,24
+,212,Tarlac,2,Moncada,12,Poblacion 3,10
+,228,Tarlac,2,Moncada,28,Poblacion 3,24
+,214,Tarlac,2,Moncada,14,Poblacion 4,11-B
+,206,Tarlac,2,Moncada,6,Rizal,5
+,223,Tarlac,2,Moncada,23,Rizal,19
+,227,Tarlac,2,Moncada,27,Rizal,23
+,238,Tarlac,2,Moncada,38,Rizal,2-B
+,201,Tarlac,2,Moncada,1,San Juan,1
+,221,Tarlac,2,Moncada,21,San Julian,17-A
+,236,Tarlac,2,Moncada,36,San Julian,17-B
+,222,Tarlac,2,Moncada,22,San Leon,18
+,201,Tarlac,2,Moncada,1,San Pedro,1
+,248,Tarlac,2,Moncada,48,San Pedro,39
+,234,Tarlac,2,Moncada,34,San Roque,29
+,237,Tarlac,2,Moncada,37,San Roque,13-B
+,219,Tarlac,2,Moncada,19,Santa Lucia East,15-A
+,249,Tarlac,2,Moncada,49,Santa Lucia West,15-B
+,217,Tarlac,2,Moncada,17,Santa Maria,13-A
+,237,Tarlac,2,Moncada,37,Santa Maria,13-B
+,225,Tarlac,2,Moncada,25,Santa Monica,21
+,234,Tarlac,2,Moncada,34,Santa Monica,29
+,218,Tarlac,2,Moncada,18,Tolega Norte,14
+,241,Tarlac,2,Moncada,41,Tolega Norte,32
+,218,Tarlac,2,Moncada,18,Tolega Sur,14
+,239,Tarlac,2,Moncada,39,Tubec-Tubang,6
+,226,Tarlac,2,Moncada,26,Villa,22
+Street Lights,2726,Tarlac,27,Moncada,26,Banaoang East ,2
+Street Lights,2733,Tarlac,27,Moncada,33,Banaoang West ,2
+Street Lights,2731,Tarlac,27,Moncada,31,Baquero Sur,2
+Street Lights,2706,Tarlac,27,Moncada,6,Burgos ,2
+Street Lights,2732,Tarlac,27,Moncada,32,Camangaan East ,2
+Street Lights,2707,Tarlac,27,Moncada,7,Camp Norte,2
+Street Lights,2720,Tarlac,27,Moncada,20,Camp Norte ,2
+Street Lights,2719,Tarlac,27,Moncada,19,Capaoayan ,2
+Street Lights,2713,Tarlac,27,Moncada,13,Lapsing,2
+Street Lights,2725,Tarlac,27,Moncada,25,Mabini ,2
+Street Lights,2730,Tarlac,27,Moncada,30,Moncada Municipal,2
+Street Lights,2728,Tarlac,27,Moncada,28,Poblacion ,2
+Street Lights,2729,Tarlac,27,Moncada,29,Poblacion ,2
+,309,Tarlac,3,Paniqui,9,Abogado,6
+,339,Tarlac,3,Paniqui,39,Abogado,31
+,340,Tarlac,3,Paniqui,40,Acocolao,32-A
+,365,Tarlac,3,Paniqui,65,Acocolao,32-B
+,351,Tarlac,3,Paniqui,51,Amansimon,43
+,353,Tarlac,3,Paniqui,53,Aduas,45
+,301,Tarlac,3,Paniqui,1,Apulid,1-A
+,302,Tarlac,3,Paniqui,2,Apulid,1-B
+,349,Tarlac,3,Paniqui,49,Balaoang,41
+,369,Tarlac,3,Paniqui,69,Balaoang,50
+,361,Tarlac,3,Paniqui,61,Barang (Borang),42-B
+,362,Tarlac,3,Paniqui,62,Brillante,49
+,311,Tarlac,3,Paniqui,11,Bugallon,7-B
+,312,Tarlac,3,Paniqui,12,Burgos,8
+,327,Tarlac,3,Paniqui,27,Burgos,21
+,329,Tarlac,3,Paniqui,29,Burgos,23
+,352,Tarlac,3,Paniqui,52,Burgos,44
+,330,Tarlac,3,Paniqui,30,Cabayaoasan,24
+,344,Tarlac,3,Paniqui,44,Cabayaoasan,36
+,348,Tarlac,3,Paniqui,48,Cabayaoasan,40-A
+,360,Tarlac,3,Paniqui,60,Cabayaoasan,37-B
+,303,Tarlac,3,Paniqui,3,Canan,2-A
+,305,Tarlac,3,Paniqui,5,Canan,3-A
+,331,Tarlac,3,Paniqui,31,Cariño,25-A
+,332,Tarlac,3,Paniqui,32,Cariño,25-B
+,333,Tarlac,3,Paniqui,33,Cariño,26-A
+,334,Tarlac,3,Paniqui,34,Cariño,26-B
+,337,Tarlac,3,Paniqui,37,Cayanga,29
+,335,Tarlac,3,Paniqui,35,Colibangbang,27
+,374,Tarlac,3,Paniqui,74,Commercial Arcade,18-B
+,320,Tarlac,3,Paniqui,20,Coral,14-A
+,336,Tarlac,3,Paniqui,36,Dapdap,28
+,308,Tarlac,3,Paniqui,8,Del Valle,5
+,307,Tarlac,3,Paniqui,7,Del Pilar,4
+,310,Tarlac,3,Paniqui,10,Del Pilar,7-A
+,312,Tarlac,3,Paniqui,12,Del Pilar,8
+,313,Tarlac,3,Paniqui,13,Del Pilar,9
+,307,Tarlac,3,Paniqui,7,Estacion,4
+,310,Tarlac,3,Paniqui,10,Estacion,7-A
+,311,Tarlac,3,Paniqui,11,Estacion,7-B
+,317,Tarlac,3,Paniqui,17,Licor,11-B
+,326,Tarlac,3,Paniqui,26,Luna,20-B
+,368,Tarlac,3,Paniqui,68,Luna,20-A
+,355,Tarlac,3,Paniqui,55,Mabilang,42-A
+,361,Tarlac,3,Paniqui,61,Mabilang,42-B
+,306,Tarlac,3,Paniqui,6,Manaois,3-B
+,304,Tarlac,3,Paniqui,4,Matalapitap,2-B
+,359,Tarlac,3,Paniqui,59,Nagmisaan,48
+,345,Tarlac,3,Paniqui,45,Nancamarinan,37-A
+,351,Tarlac,3,Paniqui,51,Nancamarinan,43
+,360,Tarlac,3,Paniqui,60,Nancamarinan,37-B
+,338,Tarlac,3,Paniqui,38,Nipaco,30-A
+,367,Tarlac,3,Paniqui,67,Nipaco,30-B
+,316,Tarlac,3,Paniqui,16,Palarca,11-A
+,317,Tarlac,3,Paniqui,17,Palarca,11-B
+,322,Tarlac,3,Paniqui,22,Patalan,15-A
+,363,Tarlac,3,Paniqui,63,Patalan,15-B
+,348,Tarlac,3,Paniqui,48,Rang-ayan,40-A
+,354,Tarlac,3,Paniqui,54,Rang-ayan,46-A
+,366,Tarlac,3,Paniqui,66,Rang-ayan,40-B
+,328,Tarlac,3,Paniqui,28,Salumague,22
+,330,Tarlac,3,Paniqui,30,Salumague,24
+,347,Tarlac,3,Paniqui,47,Salumague,39
+,313,Tarlac,3,Paniqui,13,Samput,9
+,314,Tarlac,3,Paniqui,14,Samput,10-A
+,315,Tarlac,3,Paniqui,15,Samput,10-B
+,373,Tarlac,3,Paniqui,73,Samput,53
+,372,Tarlac,3,Paniqui,72,San Carlos,52
+,342,Tarlac,3,Paniqui,42,San Isidro,34
+,358,Tarlac,3,Paniqui,58,San Juan de Milla,47
+,371,Tarlac,3,Paniqui,71,San Juan de Milla,46-B
+,341,Tarlac,3,Paniqui,41,Santa Ines,33
+,354,Tarlac,3,Paniqui,54,Sinigpit,46-A
+,329,Tarlac,3,Paniqui,29,Tablang,23
+,347,Tarlac,3,Paniqui,47,Tablang,39
+,343,Tarlac,3,Paniqui,43,Ventenilla,35
+,344,Tarlac,3,Paniqui,44,Ventenilla,36
+,346,Tarlac,3,Paniqui,46,Ventilla,38
+Street Lights,2605,Tarlac,26,Paniqui,5,Cariño ,3
+Street Lights,2649,Tarlac,26,Paniqui,49,Coral ,3
+Street Lights,2648,Tarlac,26,Paniqui,48,Samput ,3
+,1109,Tarlac,11,Pura,9,Balite,8-A
+,1110,Tarlac,11,Pura,10,Balite,8-B
+,1111,Tarlac,11,Pura,11,Buenavista,9-A
+,1112,Tarlac,11,Pura,12,Buenavista,9-B
+,1114,Tarlac,11,Pura,14,Cadanglaan,11-A
+,1120,Tarlac,11,Pura,20,Cadanglaan,11-B
+,1106,Tarlac,11,Pura,6,Estipona,5-A
+,1108,Tarlac,11,Pura,8,Estipona,7-A
+,1118,Tarlac,11,Pura,18,Estipona,5-B
+,1119,Tarlac,11,Pura,19,Estipona,7-B
+,1113,Tarlac,11,Pura,13,Linao,10
+,1124,Tarlac,11,Pura,24,Lomorito,16
+,1115,Tarlac,11,Pura,15,Maasin,12
+,1101,Tarlac,11,Pura,1,Matindeg,1-A
+,1114,Tarlac,11,Pura,14,Maungib,11-A
+,1120,Tarlac,11,Pura,20,Maungib,11-B
+,1104,Tarlac,11,Pura,4,Naya,3-A
+,1116,Tarlac,11,Pura,16,Nilasin 1st,13
+,1121,Tarlac,11,Pura,21,Nilasin 1st,6-B
+,1107,Tarlac,11,Pura,7,Nilasin 2nd,6-A
+,1103,Tarlac,11,Pura,3,Poblacion 1,2
+,1104,Tarlac,11,Pura,4,Poblacion 1,3-A
+,1117,Tarlac,11,Pura,17,Poblacion 1,3-B
+,1103,Tarlac,11,Pura,3,Poblacion 2,2
+,1101,Tarlac,11,Pura,1,Poblacion 3,1-A
+,1102,Tarlac,11,Pura,2,Poblacion3,1-B
+,1104,Tarlac,11,Pura,4,Poroc,3-A
+,1122,Tarlac,11,Pura,22,San Miguel,14
+,1123,Tarlac,11,Pura,23,San Miguel,15
+,1125,Tarlac,11,Pura,25,San Miguel,17
+,1105,Tarlac,11,Pura,5,Singat,4
+Street Lights,1912,Tarlac,19,Pura,12,Estipona,11
+Street Lights,1910,Tarlac,19,Pura,10,Naya,11
+Street Lights,1906,Tarlac,19,Pura,6,Pob. 1,11
+Street Lights,1911,Tarlac,19,Pura,11,Singat,11
+,405,Tarlac,4,Ramos,5,Coral-Iloco,4-A
+,406,Tarlac,4,Ramos,6,Coral-Iloco,4-B
+,401,Tarlac,4,Ramos,1,Guiteb,1-A
+,413,Tarlac,4,Ramos,13,Guiteb,1-B
+,405,Tarlac,4,Ramos,5,Namnama,4-A
+,411,Tarlac,4,Ramos,11,Mapantat,9
+,403,Tarlac,4,Ramos,3,Pance,3-A
+,404,Tarlac,4,Ramos,4,Pance,3-B
+,402,Tarlac,4,Ramos,2,Poblacion Center,2-A
+,405,Tarlac,4,Ramos,5,Poblacion Center,4-A
+,407,Tarlac,4,Ramos,7,Poblacion Center,5
+,408,Tarlac,4,Ramos,8,Poblacion Center,6
+,414,Tarlac,4,Ramos,14,Poblacion Center,2-B
+,405,Tarlac,4,Ramos,5,Poblacion North,4-A
+,407,Tarlac,4,Ramos,7,Poblacion North,5
+,408,Tarlac,4,Ramos,8,Poblacion South,6
+,411,Tarlac,4,Ramos,11,Poblacion South,9
+,402,Tarlac,4,Ramos,2,San Juan,2-A
+,409,Tarlac,4,Ramos,9,San Juan,7
+,415,Tarlac,4,Ramos,15,San Raymundo,11
+,412,Tarlac,4,Ramos,12,Serrano,10
+,410,Tarlac,4,Ramos,10,Toledo,8
+Street Lights,2800,Tarlac,28,Ramos,0,Ramos Mun.,4
+Street Lights,2802,Tarlac,28,Ramos,2,Poblacion Center,4
+,508,Tarlac,5,San Clemente,8,Balloc,8
+,507,Tarlac,5,San Clemente,7,Bamban,7-B
+,511,Tarlac,5,San Clemente,11,Bamban,7-A
+,509,Tarlac,5,San Clemente,9,Casipo,9
+,502,Tarlac,5,San Clemente,2,Catagudingan,2
+,507,Tarlac,5,San Clemente,7,Daldalayap,7-B
+,511,Tarlac,5,San Clemente,11,Daldalayap,7-A
+,501,Tarlac,5,San Clemente,1,Doclong 1,1
+,506,Tarlac,5,San Clemente,6,Doclong 2,6
+,507,Tarlac,5,San Clemente,7,Maasin,7-B
+,504,Tarlac,5,San Clemente,4,Nagsabaran,4
+,501,Tarlac,5,San Clemente,1,Pit-ao,1
+,505,Tarlac,5,San Clemente,5,Pit-ao,5
+,501,Tarlac,5,San Clemente,1,Poblacion Norte,1
+,502,Tarlac,5,San Clemente,2,Poblacion Norte,2
+,503,Tarlac,5,San Clemente,3,Poblacion Sur,3
+,108,Tarlac,1,San Manuel,8,Colubot,4
+,102,Tarlac,1,San Manuel,2,Lanat,2
+,110,Tarlac,1,San Manuel,10,Lanat,5
+,105,Tarlac,1,San Manuel,5,Legaspi,8
+,116,Tarlac,1,San Manuel,16,Mangandingay,15
+,112,Tarlac,1,San Manuel,12,Matarannoc,12
+,113,Tarlac,1,San Manuel,13,Pacpaco,10-B
+,103,Tarlac,1,San Manuel,3,Poblacion,3
+,107,Tarlac,1,San Manuel,7,Poblacion,11
+,111,Tarlac,1,San Manuel,11,Salcedo,9
+,109,Tarlac,1,San Manuel,9,San Agustin,7
+,105,Tarlac,1,San Manuel,5,San Felipe,8
+,114,Tarlac,1,San Manuel,14,San Felipe,13
+,115,Tarlac,1,San Manuel,15,San Felipe,14
+,104,Tarlac,1,San Manuel,4,San Jacinto,6
+,103,Tarlac,1,San Manuel,3,San Miguel,3
+,104,Tarlac,1,San Manuel,4,San Miguel,6
+,107,Tarlac,1,San Manuel,7,San Miguel,11
+,117,Tarlac,1,San Manuel,17,San Narciso,16
+,101,Tarlac,1,San Manuel,1,San Vicente,1
+,106,Tarlac,1,San Manuel,6,San Vicente,10-A
+,102,Tarlac,1,San Manuel,2,Santa Maria,2
+,110,Tarlac,1,San Manuel,10,Santa Maria,5
+,107,Tarlac,1,San Manuel,7,Santa Maria,11
+,808,Tarlac,8,Santa Ignacia,8,Baldios,7
+,838,Tarlac,8,Santa Ignacia,38,Botbotones,20-B
+,824,Tarlac,8,Santa Ignacia,24,Caanamongan,21-A
+,825,Tarlac,8,Santa Ignacia,25,Cabaruan,22
+,842,Tarlac,8,Santa Ignacia,42,Cabugbugan,31
+,828,Tarlac,8,Santa Ignacia,28,Caduldulaoan,23
+,843,Tarlac,8,Santa Ignacia,43,Calipayan,32
+,813,Tarlac,8,Santa Ignacia,13,Macaguing,12
+,807,Tarlac,8,Santa Ignacia,7,Nambalan,6
+,811,Tarlac,8,Santa Ignacia,11,Padapada,10-A
+,820,Tarlac,8,Santa Ignacia,20,Pilpila,18
+,812,Tarlac,8,Santa Ignacia,12,Pinpinas,11
+,804,Tarlac,8,Santa Ignacia,4,Poblacion East,3-A
+,804,Tarlac,8,Santa Ignacia,4,Poblacion West,3-A
+,844,Tarlac,8,Santa Ignacia,44,Pugo-Cecilio,5-C
+,818,Tarlac,8,Santa Ignacia,18,San Francisco,19
+,845,Tarlac,8,Santa Ignacia,45,San Sotero,33
+,801,Tarlac,8,Santa Ignacia,1,San Vicente,1
+,824,Tarlac,8,Santa Ignacia,24,San Vicente,21-A
+,822,Tarlac,8,Santa Ignacia,22,Santa Ines Centro,13-B
+,814,Tarlac,8,Santa Ignacia,14,Santa Ines East,13-A
+,819,Tarlac,8,Santa Ignacia,19,Santa Ines West,17
+,815,Tarlac,8,Santa Ignacia,15,Taguiporo,14
+,808,Tarlac,8,Santa Ignacia,8,Timmaguab,7
+,820,Tarlac,8,Santa Ignacia,20,Vargas,18
+,1013,Tarlac,10,Victoria,13,Baculong,9-A
+,1014,Tarlac,10,Victoria,14,Baculong,9-B
+,1022,Tarlac,10,Victoria,22,Balayang,16-A
+,1041,Tarlac,10,Victoria,41,Balayang,16-B
+,1016,Tarlac,10,Victoria,16,Balbaloto,11
+,1026,Tarlac,10,Victoria,26,Bangar,20
+,1031,Tarlac,10,Victoria,31,Bantog,25
+,1053,Tarlac,10,Victoria,53,Bantog,37
+,1025,Tarlac,10,Victoria,25,Batangbatang,19
+,1023,Tarlac,10,Victoria,23,Bulo,17-A
+,1040,Tarlac,10,Victoria,40,Bulo,17-B
+,1028,Tarlac,10,Victoria,28,Cabuluan,22
+,1024,Tarlac,10,Victoria,24,Calibungan,18-A
+,1037,Tarlac,10,Victoria,37,Calibungan,18-B
+,1027,Tarlac,10,Victoria,27,Canarem,21
+,1017,Tarlac,10,Victoria,17,Cruz,12
+,1029,Tarlac,10,Victoria,29,Lalapac,23
+,1036,Tarlac,10,Victoria,36,Maluid,30-A
+,1045,Tarlac,10,Victoria,45,Maluid,30-B
+,1030,Tarlac,10,Victoria,30,Mangolago,24
+,1051,Tarlac,10,Victoria,51,Masalasa,35
+,1052,Tarlac,10,Victoria,52,Masalasa,36
+,1021,Tarlac,10,Victoria,21,Palacpalac,15-B
+,1044,Tarlac,10,Victoria,44,Palacpalac,32
+,1017,Tarlac,10,Victoria,17,Paltoc,12
+,1034,Tarlac,10,Victoria,34,San Agustin,28-A
+,1035,Tarlac,10,Victoria,35,San Agustin,29-A
+,1047,Tarlac,10,Victoria,47,San Agustin,28-B
+,1049,Tarlac,10,Victoria,49,San Agustin,29-B
+,1015,Tarlac,10,Victoria,15,San Andres,10-A
+,1042,Tarlac,10,Victoria,42,San Andres,10-B
+,1011,Tarlac,10,Victoria,11,San Fernando (Poblacion),7
+,1012,Tarlac,10,Victoria,12,San Fernando (Poblacion),8
+,1020,Tarlac,10,Victoria,20,San Francisco,15-A
+,1006,Tarlac,10,Victoria,6,San Gavino (Poblacion),3-B
+,1009,Tarlac,10,Victoria,9,San Gavino (Poblacion),5
+,1010,Tarlac,10,Victoria,10,San Gavino (Poblacion),6
+,1018,Tarlac,10,Victoria,18,San Jacinto,13-A
+,1019,Tarlac,10,Victoria,19,San Jacinto,14
+,1050,Tarlac,10,Victoria,50,San Jacinto,13-B
+,1001,Tarlac,10,Victoria,1,San Nicolas (Poblacion),1-A
+,1003,Tarlac,10,Victoria,3,San Nicolas (Poblacion),2-A
+,1004,Tarlac,10,Victoria,4,San Nicolas (Poblacion),2-B
+,1005,Tarlac,10,Victoria,5,San Vicente,3-A
+,1006,Tarlac,10,Victoria,6,Santa Barbara,3-B
+,1007,Tarlac,10,Victoria,7,Santa Barbara,4-A
+,1008,Tarlac,10,Victoria,8,Santa Barbara,4-B
+,1043,Tarlac,10,Victoria,43,Santa Barbara,31
+,1001,Tarlac,10,Victoria,1,Santa Lucia (Poblacion),1-A
+,1002,Tarlac,10,Victoria,2,Santa Lucia (Poblacion),1-B
+Street Lights,1710,Tarlac,17,Victoria,10,Balbalato,10
+Street Lights,1736,Tarlac,17,Victoria,36,Batang-Batang,10
+Street Lights,1745,Tarlac,17,Victoria,45,Bulo Municipal,10
+Street Lights,1713,Tarlac,17,Victoria,13,Maluid,10
+Street Lights,1766,Tarlac,17,Victoria,66,Mangolago,10
+Street Lights,1753,Tarlac,17,Victoria,53,San fernando,10
+Street Lights,1718,Tarlac,17,Victoria,18,San Gabino,10
+Street Lights,1721,Tarlac,17,Victoria,21,San Nicolas,10
+Street Lights,1716,Tarlac,17,Victoria,16,San Vicente,10
+Street Lights,1727,Tarlac,17,Victoria,27,Sta. Barbara Municipal,10
+Street Lights,1746,Tarlac,17,Victoria,46,Sta. Lucia Municipal,10
+,1310,Nueva Ecija,13,Nampicuan,10,Ambassador Alzate Village,3-B
+,1308,Nueva Ecija,13,Nampicuan,8,Cabaducan East (Poblacion),2-B
+,1308,Nueva Ecija,13,Nampicuan,8,Cabaducan West (Poblacion),2-B
+,1306,Nueva Ecija,13,Nampicuan,6,Cabawangan,6
+,1301,Nueva Ecija,13,Nampicuan,1,East Central Poblacion,1
+,1314,Nueva Ecija,13,Nampicuan,14,Edy,11
+,1312,Nueva Ecija,13,Nampicuan,12,Maeling,9
+,1307,Nueva Ecija,13,Nampicuan,7,Mayantoc,7
+,1313,Nueva Ecija,13,Nampicuan,13,Medico,10
+,1311,Nueva Ecija,13,Nampicuan,11,Monic,8
+,1301,Nueva Ecija,13,Nampicuan,1,Northwest Poblacion,1
+,1304,Nueva Ecija,13,Nampicuan,4,Estacion,4
+,1305,Nueva Ecija,13,Nampicuan,5,Recuerdo,5
+,1301,Nueva Ecija,13,Nampicuan,1,Southwest Poblacion,1
+,1458,Nueva Ecija,14,Cuyapo,58,Baloy,46
+,1428,Nueva Ecija,14,Cuyapo,28,Bambanaba,21
+,1414,Nueva Ecija,14,Cuyapo,14,Bantug,9
+,1423,Nueva Ecija,14,Cuyapo,23,Bentigan,17
+,1406,Nueva Ecija,14,Cuyapo,6,Bibiclat,4-B
+,1416,Nueva Ecija,14,Cuyapo,16,Bonifacio,10-B
+,1445,Nueva Ecija,14,Cuyapo,45,Bonifacio,34-A
+,1453,Nueva Ecija,14,Cuyapo,53,Bonifacio,34-B
+,1414,Nueva Ecija,14,Cuyapo,14,Bulala,9
+,1407,Nueva Ecija,14,Cuyapo,7,Burgos,4-A
+,1406,Nueva Ecija,14,Cuyapo,6,Burgos,4-B
+,1456,Nueva Ecija,14,Cuyapo,56,Cabatuan,44
+,1402,Nueva Ecija,14,Cuyapo,2,Cabileo,1-B
+,1434,Nueva Ecija,14,Cuyapo,34,Cacapasan,28
+,1426,Nueva Ecija,14,Cuyapo,26,Calancuasan Norte,20
+,1424,Nueva Ecija,14,Cuyapo,24,Calancuasan Sur,18-A
+,1442,Nueva Ecija,14,Cuyapo,42,Calancuasan Sur,18-B
+,1452,Nueva Ecija,14,Cuyapo,52,Colosboa,41
+,1409,Nueva Ecija,14,Cuyapo,9,Curva,5
+,1446,Nueva Ecija,14,Cuyapo,46,Landig,13-B
+,1447,Nueva Ecija,14,Cuyapo,47,Latap,12-B
+,1435,Nueva Ecija,14,Cuyapo,35,Loob,29
+,1430,Nueva Ecija,14,Cuyapo,30,Luna,24
+,1433,Nueva Ecija,14,Cuyapo,33,Malbeg-Patalan,27
+,1410,Nueva Ecija,14,Cuyapo,10,Malineng,6
+,1409,Nueva Ecija,14,Cuyapo,9,Matindeg,5
+,1443,Nueva Ecija,14,Cuyapo,43,Maycaban,33
+,1431,Nueva Ecija,14,Cuyapo,31,Maycaban,25
+,1454,Nueva Ecija,14,Cuyapo,54,Nagcuralan,42
+,1405,Nueva Ecija,14,Cuyapo,5,Nagmisahan,3-A
+,1459,Nueva Ecija,14,Cuyapo,59,Paitan Norte,47
+,1450,Nueva Ecija,14,Cuyapo,50,Paitan Sur,39
+,1411,Nueva Ecija,14,Cuyapo,11,Pugo,7-A
+,1441,Nueva Ecija,14,Cuyapo,41,Rizal,36
+,1441,Nueva Ecija,14,Cuyapo,41,Rizal,36
+,1444,Nueva Ecija,14,Cuyapo,44,Sabit,23-B
+,1429,Nueva Ecija,14,Cuyapo,29,Sabit,23-A
+,1432,Nueva Ecija,14,Cuyapo,32,Salagusog,26
+,1401,Nueva Ecija,14,Cuyapo,1,San Antonio (Butao),1-A
+,1403,Nueva Ecija,14,Cuyapo,3,San Antonio (Butao),2-A
+,1404,Nueva Ecija,14,Cuyapo,4,San Antonio (Butao),2-B
+,1411,Nueva Ecija,14,Cuyapo,11,San Jose,7-B
+,1455,Nueva Ecija,14,Cuyapo,55,San Juan,43
+,1401,Nueva Ecija,14,Cuyapo,1,Santa Clara,1-A
+,1449,Nueva Ecija,14,Cuyapo,49,Santa Cruz,38
+,1451,Nueva Ecija,14,Cuyapo,51,Simimbaan,40
+,1404,Nueva Ecija,14,Cuyapo,4,Tagtagumbao,2-B
+,1436,Nueva Ecija,14,Cuyapo,36,Tutuloy,30
+Street Lights,3002,Tarlac,30,Cuyapo,2,Cuyapo Municipal,47

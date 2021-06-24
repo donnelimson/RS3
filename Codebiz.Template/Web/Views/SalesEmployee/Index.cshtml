@@ -1,0 +1,205 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+@{
+    ViewBag.Title = "Sales Employee";
+}
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>
+                Management
+            </span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "SalesEmployee")">Sales Employee</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Sales Employee <small>View, search , add, edit, delete</small>
+</h1>
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="SalesEmployeeController as controller">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET -->
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <h4 class="bold">Search</h4>
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="expand"> </a>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                    <div class="portlet-body tabs-below" style="display: none;">
+                        <!--SEARCH TABLE -->
+                        <div class="row">
+                            <!--CODE SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Sales Employee</label>
+                                    <input type="text" name="CompanyName" ng-model="salesEmployee" ng-keypress="searchWhenEnter($event)" class="form-control" tabindex="1" />
+                                </div>
+                            </div>
+                            <!--CODE SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Position</label>
+                                    <input type="text" name="Position" ng-model="position" ng-keypress="searchWhenEnter($event)" class="form-control" tabindex="2" />
+                                </div>
+                            </div>
+                            <!--AREA OFFICE SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div id="AreaOfficeIdDiv">
+                                        <label class="control-label">Area Office</label>
+                                        <select select2 name="AreaOfficeId" class="form-control" ng-model="areaOfficeId"
+                                                ng-options="at.OfficeId as at.Name for at in offices" ng-change="search()">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--AREA OFFICE SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div id="CommissionGroupIdDiv">
+                                        <label class="control-label">Commission Group</label>
+                                        <select select2 name="CommissionGroupId" class="form-control" ng-model="commissionGroupId"
+                                                ng-options="cg.Id as cg.Description for cg in commissionsGroups" ng-change="search()">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--ADDRESS SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Commission</label>
+                                    <input type="text" name="Commission" ng-model="commission" ng-keypress="searchWhenEnter($event)" class="form-control" tabindex="3" />
+                                </div>
+                            </div>
+                            <!-- BUTTONS -->
+                            <div class="col-md-6">
+                                <div class="actions btn-set btn-filter">
+                                    <button type="button" class="btn btn-success" ng-click="search()" tabindex="4">
+                                        <i class="fa fa-search"></i>
+                                        <span class=""> Search </span>
+                                    </button>
+                                    <button type="button" class="btn" ng-click="reset()" tabindex="5">
+                                        <i class="fa fa-rotate-left"></i>
+                                        <span class=""> Reset </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET -->
+            </div>
+        </div>
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    List
+                </div>
+                <!--ADD NEW BUTTON -->
+                <div class="actions">
+                    <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportSalesEmployees)>
+                        <i class="fa fa-share-square-o"></i>
+                        <span class="">Export</span>
+                    </a>
+                    <a href="" class="btn btn-info" ng-click="addOrUpdate(0)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddSalesEmployees)>
+                        <i class="fa fa-plus"></i>
+                        <span class=""> New </span>
+                    </a>
+                </div>
+            </div>
+            <!--DATA TABLE -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                        <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover">
+                            <tr ng-repeat="se in $data">
+                                <td width="1%" header-class="'text-center'" class="text-center">
+                                    <!--ACTION BUTTONS -->
+                                    <div class="btn-group" ng-show="
+                                            @Html.UserHasPermissionIndex(userPermission: PermissionData.UserCanEditSalesEmployees) ||
+                                         @Html.UserHasPermissionIndex(userPermission: PermissionData.UserCanDeleteSalesEmployees)">
+
+                                        <button id="bars" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="purokId">
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditSalesEmployees)>
+                                                <a ng-click="addOrUpdate(se.SalesEmployeeId)">
+                                                    <i class="glyphicon glyphicon-pencil"></i> Edit
+                                                </a>
+                                            </li>
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeleteSalesEmployees)>
+                                                <a ng-click="deleteSalesEmployee(se)">
+                                                    <i class="glyphicon glyphicon-trash"></i> Delete
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="15%" data-title="'SALES EMPLOYEE'" sortable="'SalesEmployee'" header-class="'table-header text-left'" class="text-left">
+                                    {{se.SalesEmployee}}
+                                </td>
+                                <td width="15%" data-title="'POSITION'" sortable="'Position'" header-class="'table-header text-left'" class="text-left">
+                                    {{se.Position}}
+                                </td>
+                                <td width="10%" data-title="'AREA OFFICE'" sortable="'AreaOffice'" header-class="'table-header text-left'" class="text-left">
+                                    {{se.AreaOffice}}
+                                </td>
+                                <td width="15%" data-title="'COMMISSION GROUP'" sortable="'CommissionGroup'" header-class="'table-header text-left'" class="text-left">
+                                    {{se.CommissionGroup}}
+                                </td>
+                                <td width="10%" data-title="'COMMISSION'" sortable="'Commission'" header-class="'table-header text-left'" class="text-left" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?/" step="0.01">
+                                    {{se.Commission | number : 2}}
+                                </td>
+                                <td width="10%" data-title="'REMARKS'" sortable="'Remarks'" header-class="'table-header text-left'" class="text-left">
+                                    {{se.Remarks}}
+                                </td>
+                                <td width="2%" data-title="'ACTIVE'" sortable="'IsActive'" header-class="'table-header text-center'" class="text-center">
+                                    <span class="label label-sm" ng-class="se.IsActive ? 'label-success' : 'label-danger'">{{se.IsActive ? 'Yes': 'No'}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length == 0">
+                                <td colspan="8" class="text-center" style="font-style:unset">
+                                    No data available
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@Html.Partial("_SaveForm")
+@section pagestyles {
+
+}
+<!--SCRIPTS TABLE -->
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/SalesEmployeeService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/SalesEmployee/SalesEmployeeController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/SalesEmployee/SaveFormController.js")
+    @Scripts.Render("~/Areas/Lookups/Scripts/Service/ChooseFromListDataService.js")
+    @Scripts.Render("~/Areas/Lookups/Scripts/Controller/ChooseFromListCtrl.js")
+}

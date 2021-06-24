@@ -1,0 +1,25 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    Layout = "~/Views/Shared/_LayoutBasic.cshtml";
+    ViewBag.Title = "Error";
+}
+
+<div class="content" style="text-align: center">
+
+    <h4 style="color: red">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Something Went Wrong
+    </h4>
+    <div class="row">
+        <h5>
+            Please try to reload page.<br />
+        </h5>
+        <h5>
+            <a href="@Url.Action("Index", "Approval", new { area = "" })">
+                <i class="icon-refresh"></i> Reload page
+            </a>
+        </h5>
+    </div>
+</div>
+
+<div class="copyright"> @DateTime.Now.Year © TARELCO 1 (@AppVersion.BuildVersion)</div>

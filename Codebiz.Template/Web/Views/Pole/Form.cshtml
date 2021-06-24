@@ -1,0 +1,223 @@
+﻿
+@{
+    ViewBag.Title = "Pole Form";
+}
+<div class="row" ng-app="MetronicApp"
+     ng-controller="PoleAddOrUpdateController as controller" file-upload="options">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>Management</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Pole")">Pole</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>{{addOrEdit}}</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="reset()">Back to List</a>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            Pole
+            <small>add, edit pole</small>
+        </h1>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div ng-form="controller.form" class="col-md-12 loading-container" loading-container="isDataLoading">
+                <div class="portlet light bordered">
+                    <!-- BEGIN PORTLET -->
+                    <div class="portlet-body">
+                        <div class="row">
+                            <!--Province-->
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="controller.form.ProvinceId.$invalid && (controller.form.ProvinceId.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Province</label><span class="required"> * </span>
+                                    <div id="ProvinceIdDiv">
+                                        <select select2 name="ProvinceId" ng-model="ProvinceId" class="form-control"
+                                                ng-required="true"
+                                                ng-change="GetCitytown(ProvinceId, null)"
+                                                ng-options="p.ProvinceId as (p.Name) for p in province">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+                                    <span ng-show="controller.form.ProvinceId.$error.minimum || controller.form.ProvinceId.$invalid && (controller.form.ProvinceId.$dirty || formSubmitted)"
+                                          class="text-danger field-validation-error"><small>Province is required!</small></span>
+                                </div>
+                            </div>
+                            <!--Municipality-->
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="controller.form.CityTownId.$invalid && ( formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Municipality</label><span class="required"> * </span>
+                                    <div id="CityTownIdDiv">
+                                        <select select2 name="CityTownId" ng-model="CityTownId" class="form-control"
+                                                ng-change="generatePolenumber(Code,CityTownId); GetBarangays(CityTownId)"
+                                                ng-required="true"
+                                                ng-options="ct.CityTownId as (ct.Name) for ct in cityTowns">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+                                    <span ng-show="controller.form.CityTownId.$error.minimum || controller.form.CityTownId.$invalid && (formSubmitted)"
+                                          class="text-danger field-validation-error"><small>Municipality is required!</small></span>
+                                </div>
+                            </div>
+                            <!--Barangay-->
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="controller.form.BarangayId.$invalid && (controller.form.BarangayId.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Barangay</label><span class="required"> * </span>
+                                    <div id="BarangayIdDiv">
+                                        <select select2 name="BarangayId" ng-model="BarangayId" class="form-control"
+                                                ng-required="true"
+                                                ng-options="p.BarangayId as (p.Name) for p in barangays">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+                                    <span ng-show="controller.form.BarangayId.$error.minimum || controller.form.BarangayId.$invalid && (controller.form.BarangayId.$dirty || formSubmitted)"
+                                          class="text-danger field-validation-error"><small>Barangay is required!</small></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--PoleID-->
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="controller.form.PoleNumber.$invalid && (PoleNumber.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Pole ID</label><span class="required"> * </span>
+                                    <input type="text" name="PoleNumber" ng-model="PoleNumber" class="form-control" ng-disabled="true" ng-required="true">
+                                    <span ng-show="controller.form.PoleNumber.$invalid && (controller.form.PoleNumber.$dirty || formSubmitted)"
+                                          class="text-danger field-validation-error"><small>Pole ID is required!</small></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="controller.form.Code.$invalid && (Code.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Code</label><span class="required"> * </span>
+                                    <input type="text" name="Code" ng-model="Code" class="form-control" ng-required="true" ng-blur="generatePolenumber(Code,CityTownId)">
+                                    <span ng-show="controller.form.Code.$error.minimum || controller.form.Code.$invalid && (controller.form.Code.$dirty || formSubmitted)"
+                                          class="text-danger field-validation-error"><small>Code is required!</small></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="(controller.form.Latitude.$invalid || controller.form.Longitude.$invalid) && ((controller.form.Latitude.$dirty || controller.form.Longitude.$dirty) || formSubmitted) ? 'has-error' : ''">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="control-label">Longitude and Latitude</label><span class="required"> * </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="input-group" >
+                                                <!--Latitude-->
+                                                <input type="text" name="Latitude" ng-model="Latitude" class="form-control" ng-required="true" numbers-decimal-only>
+                                                <span class="input-group-addon"> , </span>
+                                                <!--Longitude-->
+                                                <input type="text" name="Longitude" ng-model="Longitude" class="form-control" ng-required="true" numbers-decimal-only>
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-info btn" type="button" data-toggle="tooltip" title="View map"
+                                                            ng-click="viewMap()">
+                                                        <i class="fa fa-map-marker" style="font-size: 17px;"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                            <span ng-show="controller.form.Latitude.$invalid && (controller.form.Longitude.$dirty || formSubmitted)"
+                                                  class="text-danger field-validation-error"><small> Latitude is required!</small><br /></span>
+                                            <span ng-show="controller.form.Longitude.$invalid && (controller.form.Longitude.$dirty || formSubmitted)"
+                                                  class="text-danger field-validation-error"><small> Longitude is required!</small></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Item -->
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="controller.form.ItemCode.$invalid && (controller.form.ItemCode.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Item</label><span class="required"> * </span>
+                                    <div class="input-group" style="position:unset">
+                                        <input type="text" name="ItemCode" ng-model="ItemCode" class="form-control" ng-required="true"
+                                               style="background-color:#fff0; position:unset"
+                                               alphanumeric-dash-only />
+                                        <span class="input-group-btn">
+                                            <!--Search Item-->
+                                            <button class="btn btn-info btn" type="button" ng-click="SearchItems(ItemCode)">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <span ng-show="controller.form.ItemCode.$invalid && (controller.form.ItemCode.$dirty || formSubmitted)"
+                                          class="text-danger field-validation-error"><small> Item Code is required!</small></span>
+                                </div>              
+                            </div>
+                            <!--Item Name-->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Item Name</label>
+                                    <input type="text" name="ItemName" ng-model="ItemName" class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-actions" style="padding-top:10px">
+                                    <button class="btn btn-success" style="width: 90px;" ng-click="saveChanges()">
+                                        <span class="glyphicon glyphicon-ok"></span>&nbsp; {{saveOrUpdate}}
+                                    </button>
+                                    <button class="btn btn-default" style="width: 90px;" ng-click="reset()">
+                                        <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PORTLET -->
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_MapModal")
+    @Html.Partial("_SearchPoleInItemMaster")
+</div>
+@section PageStyles {
+    <style>
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        #PoleIdDiv [class^='select2'] {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+
+        #map-canvas {
+            height: 100%;
+            width: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+    </style>
+}
+@section PageScripts {
+    @Scripts.Render("~/bundles/fileupload");
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather,visualization,panoramio"></script>
+}
+@section AngularJSPage {
+    @Scripts.Render("~/Scripts/App/Services/PoleService.js")
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Pole/PoleAddOrUpdateController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/MapController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/SearchItemController.js")
+}
+

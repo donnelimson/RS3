@@ -1,0 +1,308 @@
+﻿@{
+    ViewBag.Title = "Monthly Rate Form";
+}
+<div class="row" ng-app="MetronicApp"
+     ng-form="form"
+     ng-controller="MonthlyRateAddOrUpdateController as controller" file-upload="options">
+
+    <div class="col-md-12">
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <span>Management</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Billing</span>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "BillingMonthlyRate")">Monthly Rates</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>{{isUpdate ? isClone ? 'Clone':'Edit' : 'Add'}}</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="cancelMonthlyRates()">Back to List</a>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            Monthly Rates
+        </h1>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light bordered" style="margin-bottom:unset">
+                    <div class="portlet-body">
+                        <div class="row">
+                            <!--ConsumerType-->
+                            <div class="col-md-3">
+                                <div class="form-group" ng-class="form.ConsumerClassId.$invalid && (form.ConsumerClassId.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Consumer Class</label><span class="required"> * </span>
+                                    <div id="ConsumerTypeIdDiv">
+                                        <select select2 name="ConsumerClassId" class="form-control"
+                                                ng-model="data.ConsumerClassId"
+                                                ng-required="true"
+                                                ng-disabled="isUpdate && !isClone"
+                                                ng-options="ct.Id as (ct.Description) for ct in consumerClasses">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                    </div>
+                                    <span ng-show="form.ConsumerClassId.$error.minimum || form.ConsumerClassId.$invalid && (form.ConsumerClassId.$dirty || formSubmitted)"
+                                          class="text-danger field-validation-error"><small>Consumer Class is required!</small></span>
+                                </div>
+                            </div>
+                            <!--BillingPeriod-->
+                            @*<div class="col-md-3">
+                                    <div class="form-group" ng-class="form.BillingPeriod.$invalid && (form.BillingPeriod.$dirty || formSubmitted) ? 'has-error' : ''">
+                                        <label class="control-label">Billing Period</label><span class="required"> * </span>
+                                        <input type="text" name="BillingPeriod" ng-model="data.BillingPeriod" class="form-control" ng-disabled="true" ng-required="true">
+                                        <span ng-show="form.BillingPeriod.$error.minimum || form.BillingPeriod.$invalid && (form.BillingPeriod.$dirty || formSubmitted)"
+                                              class="text-danger field-validation-error"><small>Billing Period is required!</small></span>
+                                    </div>
+                                </div>*@
+                            <div class="col-md-3">
+                                
+                                <div class="form-group" ng-class="(form.billingPeriodDatePicker.$invalid) && (form.billingPeriodDatePicker.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label"> Billing Period<span class="required">*</span> </label>
+                                    <div class="input-group date">
+                                        <input datepicker class="form-control white-input" name="billingPeriodDatePicker" ng-required="true"
+                                               type="text" value="" readonly ng-model="data.BillingPeriod" id="billingPeriodDatePicker" ng-change="changeBillingPeriod()">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-info" onclick="$('#billingPeriodDatePicker').focus()">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <span ng-show="form.billingPeriodDatePicker.$error.minimum && form.billingPeriodDatePicker.$invalid && (form.billingPeriodDatePicker.$dirty || formSubmitted)"
+                                          class="text-danger field-validation-error"><small>Billing Period is required!</small></span>
+                                    <span ng-show="form.billingPeriodDatePicker.$invalid && (form.billingPeriodDatePicker.$dirty || formSubmitted)"
+                                          class="text-danger field-validation-error"><small>Billing Period is invalid!</small></span>
+                                </div>
+
+                            </div>
+                            <!--Description-->
+                            <div class="col-md-6">
+                                <div class="form-group" ng-class="form.Description.$invalid && (form.Description.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Description</label><span class="required"> * </span>
+                                    <input type="text" name="Description" ng-model="data.Description" class="form-control" ng-disabled="true" ng-required="true">
+                                    <span ng-show="form.Description.$error.minimum || form.Description.$invalid && (form.Description.$dirty || formSubmitted)"
+                                          class="text-danger field-validation-error"><small>Description is required!</small></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:10px">
+                            <div class="col-md-12" ng-repeat="category in data.UnbundledTransactionsByCategory" ng-init="categoryIndex = $index">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5 class="form-sub-title" style="margin-bottom: 2px;">
+                                            <span ng-style="{'color':category.UnbundledTransactions.length==0 && formSubmitted? 'red':'black'}">{{category.Description}}</span>
+                                        </h5>
+                                        <span style="color:#67809f; font-size:11px">
+                                            Drag and drop to rearrange the items.
+                                        </span><br />
+                                        <span style="font-size:11px" ng-show="category.UnbundledTransactions.length==0 && formSubmitted" ng-style="{'color':category.UnbundledTransactions.length==0 && formSubmitted? 'red':'black'}">
+                                            Must have at least 1 (one) unbundled transaction.
+                                        </span>
+                                        <hr style="margin: 10px 0;" />
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <table ng-table="unbundledTransactionTable" class="table table-sm table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="1%" class="table-header" style="vertical-align:unset">
+                                                            <button class="btn btn-mini btn-info" ng-click="addRow(category, categoryIndex)">
+                                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                                            </button>
+                                                        </th>
+                                                        <th width="4%" class="table-header text-left">&nbsp;</th>
+                                                        <th width="55%" class="table-header text-left">UNBUNDLED</th>
+                                                        <th width="10%" class="table-header text-left"></th>
+                                                        <th width="15%" class="table-header text-left">RATE</th>
+                                                        <th width="15%" class="table-header text-left">AMOUNT</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody ui-sortable ng-model="category.UnbundledTransactions" style="cursor: grab;">
+                                                    <tr ng-repeat="item in category.UnbundledTransactions" ng-init="itemIndex = $index">
+                                                        <td header-class="'text-center'" class="text-center">
+                                                            <!-- DELETE BUTTON-->
+                                                            <button class="btn btn-mini btn-danger" ng-click="deleteRow(category, itemIndex)">
+                                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td style="background-color:aliceblue">
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-md-12 form-group" style="margin-bottom: unset;"
+                                                                     ng-class="(form.BillingUnbundledTransactionId{{categoryIndex}}{{itemIndex}}.$error.required && formSubmitted) || item.IsExist ? 'has-error' : ''">
+                                                                    <select select2 class="form-control select2"
+                                                                            name="BillingUnbundledTransactionId{{categoryIndex}}{{itemIndex}}"
+                                                                            ng-model="item.BillingUnbundledTransactionId"
+                                                                            ng-required="true"
+                                                                            ng-change="unbundledChanged(category, item)"
+                                                                            ng-options="p.BillingUnbundledTransactionId as p.Unbundled for p in category.UnbundledTransactionList">
+                                                                        <option value="">---Please select---</option>
+                                                                    </select>
+                                                                    <span color="red" ng-show="form.BillingUnbundledTransactionId{{categoryIndex}}{{itemIndex}}.$error.required && formSubmitted" class="text-danger field-validation-error">
+                                                                        <small>Unbundled is required</small>
+                                                                    </span>
+                                                                    <span ng-show="item.IsExist" class="text-danger field-validation-error">
+                                                                        <small>Unbundled already exist!</small>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-md-12 form-group" style="margin-bottom: unset;"
+                                                                     ng-class="(form.RateOrAmount{{categoryIndex}}{{itemIndex}}.$error.required || item.IsExist) && (form.RateOrAmount{{categoryIndex}}{{itemIndex}}.$dirty  || formSubmitted)  ? 'has-error' : ''">
+                                                                    <select select2 class="form-control select2"
+                                                                            name="RateOrAmount{{categoryIndex}}{{itemIndex}}"
+                                                                            ng-model="item.RateOrAmount"
+                                                                            ng-required="true"
+                                                                            ng-change="rateOrAmount(categoryIndex, itemIndex, item)"
+                                                                            ng-disabled="item.RateOrAmount=='KVARATING'">
+                                                                        <option value="KVARATING" ng-if="item.RateOrAmount=='KVARATING'">KVA RATING</option>
+                                                                        <option value="RATE">RATE</option>
+                                                                        <option value="AMOUNT">AMOUNT</option>
+                                                                    </select>
+                                                                    <span color="red" ng-show="(form.RateOrAmount{{categoryIndex}}{{itemIndex}}.$error.required || item.IsExist) && (form.RateOrAmount{{categoryIndex}}{{itemIndex}}.$dirty || formSubmitted)" class="text-danger field-validation-error">
+                                                                        <small>This is required</small>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td 
+                                                            ng-class="(form.Rate{{categoryIndex}}{{itemIndex}}.$error.required) && (form.Rate{{categoryIndex}}{{itemIndex}}$dirty || formSubmitted) ? 'has-error' :''">
+                                                            <input type="text" class="form-control text-right"
+                                                                   id="Rate{{categoryIndex}}{{itemIndex}}"
+                                                                   name="Rate{{categoryIndex}}{{itemIndex}}"
+                                                                   ng-disabled="item.RateOrAmount == 'AMOUNT'||item.RateOrAmount == 'KVARATING' || item.RateOrAmount == ''"
+                                                                   value="{{item.Rate | number:4}}"
+                                                                   ng-model="item.Rate"
+                                                                   ng-required="item.RateOrAmount=='RATE'"
+                                                                   numbers-decimals-only
+                                                                   onchange="convertToFourDecimal(this)" />
+                                                            <span color="red" ng-show="(form.Rate{{categoryIndex}}{{itemIndex}}.$error.required) && (form.Rate{{categoryIndex}}{{itemIndex}}$dirty || formSubmitted)" class="text-danger field-validation-error">
+                                                                <small>Rate is required</small>
+                                                            </span>
+                                                        </td>
+                                                        <td 
+                                                             ng-class="(form.Amount{{categoryIndex}}{{itemIndex}}.$error.required) && (form.Amount{{categoryIndex}}{{itemIndex}}$dirty || formSubmitted) ? 'has-error' :''">
+                                                            <input type="text" class="form-control text-right"
+                                                                   id="Amount{{categoryIndex}}{{itemIndex}}"
+                                                                   name="Amount{{categoryIndex}}{{itemIndex}}"
+                                                                   ng-disabled="item.RateOrAmount == 'RATE' ||item.RateOrAmount == 'KVARATING' || item.RateOrAmount == ''"
+                                                                   ng-model="item.Amount"
+                                                                   ng-required="item.RateOrAmount=='AMOUNT'"
+                                                                   numbers-decimals-only
+                                                                   onchange="convertToTwoDecimal(this)" />
+                                                            <span color="red" ng-show="(form.Amount{{categoryIndex}}{{itemIndex}}.$error.required) && (form.Amount{{categoryIndex}}{{itemIndex}}$dirty || formSubmitted)" class="text-danger field-validation-error">
+                                                                <small>Amount is required</small>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr ng-show="category.UnbundledTransactions.length == 0">
+                                                        <td colspan="9" class="text-center" style="font-style:unset;  padding: 6px;">
+                                                            No data available
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <span ng-show="category.IsNoCategory && formSubmitted"
+                                                  class="text-danger field-validation-error"><medium>Required atleast 1 Unbundled Transaction per category</medium></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light bordered" style="border-top:solid thin #e7ecf1">
+                    <!--Actions -->
+                    <div class="form-action">
+                        <button class="btn btn-success" style="width: 90px;" ng-click="saveChanges()">
+                            <span class="glyphicon glyphicon-ok"></span>&nbsp; {{isUpdate ? isClone ? 'Save':'Update':'Save'}}
+                        </button>
+                        <button class="btn btn-default" style="width: 90px;" ng-click="cancelMonthlyRates()">
+                            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                        </button>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_UnbundledTransactionFormModal")
+    @Html.Partial("_SearchBillingUnbundledTransactionModal")
+</div>
+@section PageStyles {
+    <style>
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+            vertical-align: unset;
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+    </style>
+}
+@section PageScripts {
+    <script>
+        function convertToFourDecimal(input) {
+            input.value = parseFloat(input.value).toFixed(4);
+            if (input.value == 'NaN')
+                input.value = "";
+        }
+        function convertToTwoDecimal(input) {
+            input.value = Number(parseFloat(input.value).toFixed(2)).toLocaleString('en', {
+                minimumFractionDigits: 2
+            });
+            if (input.value == 'NaN')
+                input.value = "";
+        }
+        $("#billingPeriodDatePicker").datepicker({
+            format: "yyyymm",
+            viewMode: "months",
+            minViewMode: "months",
+            autoclose: true,
+            startDate:new Date()
+        });
+    </script>
+    @Scripts.Render("~/bundles/fileupload");
+
+
+}
+@section AngularJSPage {
+    <script src="~/Areas/CommercialServicesApplication/Scripts/App/Services/BillingPeriodService.js"></script>
+    @Scripts.Render("~/Scripts/App/Services/MonthlyRateService.js")
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Scripts/App/Services/BillingTransaction/BillingUnbundledTransactionService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/SearchBillingUnbundledTransactionModalController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/MonthlyRateUnbundledTransactionFormModalController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/BillingMonthlyRate/MonthlyRateAddOrUpdateController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/BillingMonthlyRate/MonthlyRateDetailsController.js")
+}
+
+

@@ -1,0 +1,93 @@
+﻿@using Web.Helpers
+@model Web.Models.ViewModels.Personnel.PersonnelViewModel
+@*@model Domain.Model.Personnel*@
+<div class="profile-sidebar">
+    <!-- PORTLET MAIN -->
+    @*<div class="portlet light bordered profile-sidebar-portlet ">*@
+
+    <div id="pi-sidebar" class="portlet mt-element-ribbon light portlet-fit bordered">
+        <div class="ribbon ribbon-vertical-right ribbon-shadow uppercase ribbon-color-primary">
+            <div class="ribbon-sub ribbon-bookmark"></div>
+            @if (Model.RankSymbolCount.HasValue)
+            {
+                for (int i = 0; i < Model.RankSymbolCount.GetValueOrDefault(); i++)
+                {
+                    <i class="fa fa-star"></i>
+                }
+            }
+
+        </div>
+        <div class="portlet-title">
+            <div class="caption">
+                <span class="caption-subject font-blue-chambray bold">Personnel Summary</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row"></div>
+            <!-- SIDEBAR USERPIC -->
+            <div class="profile-userpic">
+                @*<img src="@Url.Content("~/assets/pages/media/profile/User_Avatar.png")" class="img-responsive" alt="">*@
+                <img src="@Url.Action("PersonnelPhoto", "Personnel", new { personnelId = Model.PersonnelId})" )" class="img-responsive" alt="" style="-webkit-border-radius: 0%!important; -moz-border-radius: 50%!important; border-radius: 0%!important;">
+            </div>
+            @if (Request.RequestContext.RouteData.Values["Controller"].ToString() == "Personnel" && Request.RequestContext.RouteData.Values["Action"].ToString() == "Edit")
+            {
+
+                <div align="center">
+                    <a class="ajax-modal-link btn btn-default" data-modal-id="#update-photo-modal" data-toggle="modal" data-url="@Url.Action("UpdatePrimaryPhoto", "Personnel", new { personnelId = Model.PersonnelId })" id="btnUpdatePhoto">
+                        @*<i class="fa fa-file"></i>*@
+                        <span class=""> Update Photo </span>
+                    </a>
+                </div>
+            }
+
+            <!-- END SIDEBAR USERPIC -->
+            <!-- SIDEBAR USER TITLE -->
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-job">@Model.Rank <span style="font-weight:600">@(Model.RStatus != null ? $"({Model.RStatus.Description})" : "")</span></div>
+                @*<div class="profile-usertitle-name">@Model.LastName, @Model.FirstName @Model.MiddleName </div>*@
+                <div class="profile-usertitle-name">@Html.ActionLink($"{Model.LastName}, {Model.FirstName} {Model.MiddleName}", "Details", "Personnel", new { id = Model.PersonnelId }, null) </div>
+                <div style="margin: 15px; color: gray;" class="profile-usertitle-job">Acct # : @Html.ActionLink(Model.AccountNumber, "Details", "Personnel", new { id = Model.PersonnelId }, null) @*@Model.AccountNumber*@</div>
+                @if (Model.RankId == (int)Ranks.NUP)
+                {
+                    <div style="margin: 15px; color: gray;" class="profile-usertitle-job">SG-ST : @Model.SalaryGrade-@Model.SalaryStep</div>
+                }
+                @if (!string.IsNullOrEmpty(Model.Unit))
+                {
+                    <div style="margin: 15px; color: gray;" class="profile-usertitle-job">Unit : @Model.Unit</div>
+                }
+                @if (!string.IsNullOrEmpty(Model.SubUnit))
+                {
+                    <div style="margin: 15px; color: gray;" class="profile-usertitle-job">Sub-Unit : @Model.SubUnit</div>
+                }
+                @if (!string.IsNullOrEmpty(Model.Designation))
+                {
+                    <div style="margin: 15px; color: gray;" class="profile-usertitle-job">Designation : @Model.Designation</div>
+                }
+                <span class="@UiHelper.GetCssClassForPStatus(Model.PStatusReason)" style="font-size: 15px">
+                    @if (Model.PStatusReason != null)
+                    {
+                        @Model.PStatusReason.Description
+                    }
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    @*<div class="mt-element-ribbon bg-white portlet box blue-sharp">
+
+            <div class="ribbon ribbon-vertical-left ribbon-color-primary uppercase ">
+                <i class="fa fa-star"></i>
+            </div>
+
+
+        </div>*@
+
+
+
+    @*</div>*@
+    <!-- END PORTLET MAIN -->
+</div>

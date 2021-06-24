@@ -1,0 +1,260 @@
+﻿@{
+    ViewBag.Title = "Approval Template Add/Edit";
+}
+<div ng-app="MetronicApp" ng-controller="ApprovalTemplateAddController" ng-form="atForm">
+    <!-- BEGIN PAGE BAR -->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <span>Management</span>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Approval Procedure</span>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "ApprovalTemplate")">Approval Template</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>{{viewOnly ? "Details" : forUpdate ? "Edit" : "Add"}}</span>
+            </li>
+        </ul>
+        <div class="page-toolbar">
+            <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+        </div>
+    </div>
+    <!-- END PAGE BAR -->
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title">
+        Approval Template <small>{{viewOnly ? "details" : "form"}}</small>
+    </h1>
+    <!-- END PAGE TITLE-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light" style="margin-bottom:unset">
+                <div class="portlet-body">
+                    <div class="portlet-body form">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="atForm.Name.$invalid && (atForm.Name.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Name<span class="required">*</span></label>
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="m.Name"
+                                           name="Name"
+                                           ng-required="true"
+                                           maxlength="1000"
+                                           capitalize
+                                           ng-disabled="viewOnly" />
+                                    <span ng-show="atForm.Name.$error.required && (atForm.Name.$dirty || formSubmitted)"
+                                          class="text-danger field-validation-error"><small>Name is required!</small></span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="tabbable-line">
+                                    <ul class="nav nav-tabs ">
+                                        <li class="active">
+                                            <a href="#transactionsTab" id="transactionsLi" data-toggle="tab">
+                                                <span ng-style="{'color': (m.Transactions | filter: {IsSelected: true}).length <= 0 && formSubmitted ? 'red':'none'}">TRANSACTION/S</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#originatorsTab" id="originatorsLi" data-toggle="tab">
+                                                <span ng-style="{'color':  m.Originators.length <= 0  && formSubmitted ? 'red':'none'}">ORIGINATORS/S</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#stagesTab" id="stagesLi" data-toggle="tab">
+                                                <span ng-style="{'color':  m.Stages.length <= 0  && formSubmitted ? 'red':'none'}">STAGE/S</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content" style="padding-top:15px">
+                                    <div class="tab-pane active" id="transactionsTab">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <span ng-show="(m.Transactions | filter: {IsSelected: true}).length <= 0 && formSubmitted" class="text-danger field-validation-error">
+                                                    <small>At least one selected transaction is required!</small>
+                                                </span>
+                                            </div>
+                                            <div class="col-md-12" ng-repeat="(key, value)  in m.Transactions | groupBy: 'Category'">
+                                                <h4><b>{{key}}</b></h4>
+                                                <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                                                    <table style="font-size:15px">
+                                                        <tr ng-repeat="item in value |  orderBy : 'Description'">
+                                                            <td width="1%" header-class="'text-center'" class="text-center">
+                                                                <label class="mt-checkbox mt-checkbox-outline">
+                                                                    <input type="checkbox" ng-checked="item.IsSelected" ng-click="onchangedTransaction()" ng-model="item.IsSelected" ng-disabled="viewOnly" />
+                                                                    <span></span>
+                                                                </label>
+                                                            </td>
+                                                            <td width="35%" header-class="'text-left'" class="text-left">
+                                                                {{item.Description}}
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="originatorsTab">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive padding-bottom-10" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                                                    <table ng-table="OriginatorListParams" class="table table-bordered">
+                                                        <tr ng-repeat="item in $data track by $index">
+                                                            <td width="1%" header-class="'text-center width-1'" class="text-center" header="'ng-table/headers/addOriginator.html'" ng-if="!viewOnly">
+                                                                <div class="btn-group">
+                                                                    <button class="btn btn-mini btn-danger" ng-click="deleteOriginator(item)">
+                                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                            <td width="40%" data-title="'NAME'" header-class="'table-header text-left'" class="text-left">
+                                                                {{item.FullName}}
+                                                            </td>
+                                                            <td width="30%" data-title="'POSITION'" header-class="'table-header  text-left'" class="text-left">
+                                                                {{item.Position}}
+                                                            </td>
+                                                            <td width="30%" data-title="'AREA/OFFICE'" header-class="'table-header  text-left'" class="text-left">
+                                                                {{item.Office}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-show="$data.length == 0">
+                                                            <td colspan="8" class="text-center" style="font-style:unset">
+                                                                <span class="text-danger field-validation-error">
+                                                                    Please add atleast one (1) originator.
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="stagesTab">
+                                        <div class="row" ng-hide="viewOnly">
+                                            <div class="col-md-12" style="padding-bottom: 10px">
+                                                <span style="color:#67809f; font-size:11px;">
+                                                    Drag and drop to rearrange the items.
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <td width="1%" class="text-center" ng-hide="viewOnly">
+                                                            <div class="btn-group">
+                                                                <button class="btn btn-mini btn-info" ng-click="addStages()">
+                                                                    <i class="fa fa-plus"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                        <td width="40%" class="'table-header text-left'">
+                                                            NAME
+                                                        </td>
+                                                        <td width="40%" class="'table-header text-left'">
+                                                            DESCRIPTION
+                                                        </td>
+                                                        <td width="20%" class="'table-header text-left'">
+                                                            REQUIRED APPROVAL
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody ui-sortable ng-model="m.Stages" style="cursor: grab;">
+                                                    <tr ng-repeat="item in m.Stages">
+                                                        <td width="1%" class="text-center" ng-hide="viewOnly">
+                                                            <div class="btn-group">
+                                                                <button class="btn btn-mini btn-danger" ng-click="deleteStage(item)">
+                                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-left">
+                                                            <a ng-click="viewStageDetail(item.ApprovalStageId)">
+                                                                {{item.Name}}
+                                                            </a>
+                                                        </td>
+                                                        <td class="text-left">
+                                                            {{item.Description}}
+                                                        </td>
+                                                        <td class="text-left">
+                                                            {{item.RequiredApprovals}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr ng-show="m.Stages.length == 0">
+                                                        <td colspan="8" class="text-center" style="font-style:unset">
+                                                            <span class="text-danger field-validation-error">
+                                                                Please add atleast one (1) stage.
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-hide="viewOnly">
+        <div class="col-md-12">
+            <div class="portlet light" style="border-top:solid thin #e7ecf1">
+                <!--Actions (Save/Cancel)-->
+                <div class="form-action">
+                    <div class="actions btn-set">
+                        <button class="btn btn-success" style="width: 90px;" ng-click="save()">
+                            <span class="glyphicon glyphicon-ok"></span>&nbsp; {{forUpdate ? 'Update' : 'Save'}}
+                        </button>
+                        <button class="btn btn-default" style="width: 90px;" ng-click="cancel()">
+                            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="ng-table/headers/addOriginator.html">
+    <div class="btn-group">
+        <button class="btn btn-mini btn-info" ng-click="addOriginators()">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+</script>
+
+@Html.Partial("~/Views/Shared/_WarningMessageModal.cshtml", "approvalTemplate")
+@Html.Partial("~/Views/ApprovalStage/_ApprovalStageDetailsModal.cshtml")
+
+@section pagestyles {
+}
+
+@section PageScripts {
+}
+
+@section AngularJSPlugins {
+}
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/LookUpService.js");
+    @Scripts.Render("~/Areas/CommercialServicesApplication/Scripts/App/Controller/WarningMessageModalController.js")
+    @Scripts.Render("~/Scripts/App/Services/ApprovalTemplateService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/ApprovalTemplate/ApprovalTemplateAddController.js")
+    @Scripts.Render("~/Areas/CommercialServicesApplication/Scripts/App/Services/BillingTransaction/BillingTransactionService.js")
+    <script src="~/Scripts/App/Services/ApprovalStageService.js"></script>
+    <script src="~/Scripts/App/Controllers/ApprovalStage/ApprovalStageDetailController.js"></script>
+    @Scripts.Render("~/Areas/Lookups/Scripts/Service/ChooseFromListDataService.js")
+    @Scripts.Render("~/Areas/Lookups/Scripts/Controller/ChooseFromListMultipleSelectCtrl.js")
+}

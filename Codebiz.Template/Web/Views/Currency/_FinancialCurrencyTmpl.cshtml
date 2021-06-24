@@ -1,0 +1,407 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+<!--Financial Currency List Template-->
+<script type="text/ng-template" id="FinancialCurrencyListTemplate.html">
+    <div class="row">
+        <div class="col-md-12" ng-controller="CurrencyController as controller">
+            <!-- BEGIN PAGE BAR -->
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <span>Management</span>
+                        <i class="fa fa-circle"></i>
+                        <span>Financial</span>
+                        <i class="fa fa-circle"></i>
+                        <a href="@Url.Action("Index", "Currency")">Currencies</a>
+                        <i class="fa fa-circle"></i>
+                        <span>List</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- END PAGE BAR -->
+            <!-- BEGIN PAGE TITLE-->
+            <h1 class="page-title">
+                Currencies  <small>View, search, add, edit, delete currencies</small>
+            </h1>
+            <!-- END PAGE TITLE -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <h4 class="bold">Search</h4>
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="expand"> </a>
+                            </div>
+                        </div>
+                        <!-- BEGIN FILTERS -->
+                        <div class="portlet-body tabs-below" style="display: none;">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Code</label>
+                                        <input type="text" name="trackingNo" ng-model="code" alphanumeric-dash-only
+                                               ng-keypress="searchWhenEnter($event)" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Currency</label>
+                                        <input type="text" name="controlNo" ng-model="currency" alphanumeric-dash-only
+                                               ng-keypress="searchWhenEnter($event)" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Action By</label>
+                                        <input type="text" name="name" ng-model="actionBy" alpha-dash-only
+                                               ng-keypress="searchWhenEnter($event)" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Action On</label>
+                                        <div class='input-group date'>
+                                            <input type="text" name="CreatedDate" id="createdDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                                   is-open="createdOnDatePicker.opened" close-text="Close"
+                                                   ng-model="createdDate" ng-click="openCreatedOnDatePicker()" ng-change="search()" readonly>
+                                            <span class="input-group-addon" ng-click="openCreatedOnDatePicker()" onclick="$('#createdDate').focus()">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="actions btn-set btn-filter">
+                                        <button type="button" class="btn btn-success" ng-click="search()">
+                                            <i class="fa fa-search"></i>
+                                            <span class=""> Search </span>
+                                        </button>
+                                        <button type="button" class="btn" ng-click="reset()">
+                                            <i class="fa fa-rotate-left"></i>
+                                            <span class=""> Reset </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                List
+                            </div>
+                            <div class="actions">
+                                <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportCurrencyViewList)>
+                                    <i class="fa fa-share-square-o"></i>
+                                    <span class="">Export</span>
+                                </a>
+                                <a href="" class="btn btn-info" ng-click="goToCreateOrEdit(0 , false)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddCurrencyData)>
+                                    <i class="fa fa-plus"></i>
+                                    <span class=""> New </span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                                    <table ng-table="tableParams" ng-class=" {'loading': isLoading}" class="table table-bordered table-striped table-hover
+                            @Html.UserHasPermission(userPermission: new List<string>() {
+                                   
+                                    PermissionData.UserCanEditCurrencyData,
+                                    PermissionData.UserCanDeleteCurrencyData })">
+                                        <tr ng-repeat="item in currencies">
+                                            <td width="1%">
+                                                <div class="btn-group">
+                                                    <button id="reconnection" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa fa-list"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="currency">
+                                                        <li >
+                                                            <a ng-click="goToCreateOrEdit(item.CurrencyId, true)">
+                                                                <i class="glyphicon glyphicon-eye-open"></i> View
+                                                            </a>
+                                                        </li>
+                                                        <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditCurrencyData)>
+                                                            <a ng-click="goToCreateOrEdit(item.CurrencyId, false)">
+                                                                <i class="glyphicon glyphicon-pencil"></i> Edit
+                                                            </a>
+                                                        </li>
+                                                        <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeleteCurrencyData)>
+                                                            <a ng-click="deleteCurrency(item)">
+                                                                <i class="glyphicon glyphicon-trash"></i> Delete
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td width="10%" data-title="'CODE'" sortable="'Code'" header-class="'table-header text-left'" class="text-left">
+                                                {{item.Code}}
+                                            </td>
+                                            <td width="10%" data-title="'CURRENCY'" sortable="'Code'" header-class="'table-header text-left'" class="text-left">
+                                                {{item.Currency}}
+                                            </td>
+                                            <td width="10%" data-title="'ACTION BY'" sortable="'Code'" header-class="'table-header text-left'" class="text-left">
+                                                {{item.ActionBy}}
+                                            </td>
+                                            <td width="10%" data-title="'ACTION ON'" sortable="'Code'" header-class="'table-header text-left'" class="text-left">
+                                                {{item.ActionOn |  date : 'MM/dd/yyyy hh:mm a'}}
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="currencies.length == 0">
+                                            <td colspan="7" class="text-center" style="font-style:unset">
+                                                No data available
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!--Financial Currency Add or Edit Template-->
+<script type="text/ng-template" id="FinancialCurrencyAddOrEditTemplate.html">
+    <div class="row">
+        <div class="col-md-12" ng-form="currencyForm" ng-controller="AddOrUpdateCurrencyController as controller">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN PAGE BAR -->
+                    <div class="page-bar">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <span>Management</span>
+                                <i class="fa fa-circle"></i>
+                                <span>Financial</span>
+                                <i class="fa fa-circle"></i>
+                                <a href="@Url.Action("Index", "Currency")">Currencies</a>
+                                <i class="fa fa-circle"></i>
+                                <span>{{addEditOrView}}</span>
+                            </li>
+                        </ul>
+                        <div class="page-toolbar" style="text-align:right;">
+                            <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+                        </div>
+                    </div>
+                    <!-- END PAGE BAR -->
+                    <!-- BEGIN PAGE TITLE-->
+                    <h1 class="page-title">
+                        Currencies  <small>{{addEditOrView}} currency {{details}}</small>
+                    </h1>
+                    <!-- END PAGE TITLE -->
+                    <!-- END PAGE HEADER-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="portlet light bordered">
+                                <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
+                                    <div class="caption col-md-3">
+                                        Currency - Set Up
+                                    </div>
+                                </div>
+                                <div class="portlet-body form-horizontal">
+                                    <!--Code-->
+                                    <div class="row">
+                                        <label class="control-label col-md-4">Code<span class="required">*</span></label>
+                                        <div class="col-md-4">
+                                            <div class="form-group" ng-class="currencyForm.Code.$invalid && (currencyForm.Code.$dirty || formSubmitted) ? 'has-error' : ''">
+                                                <input type="text" class="form-control" name="Code" ng-model="currencyData.Code" ng-required="true" tabindex="1"
+                                                       ng-disabled="IsView" maxlength="100" alphanumeric-dash-only />
+                                                <span color="red" ng-show="currencyForm.Code.$error.required && (currencyForm.Code.$dirty || formSubmitted)" class="text-danger
+                                        field-validation-error"><small>Code is required.</small></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Currency-->
+                                    <div class="row">
+                                       
+                                    </div>
+                                    <!--International Code-->
+                                    <div class="row">
+                                        <label class="control-label col-md-4">International Code<span class="required">*</span></label>
+                                        <div class="col-md-4">
+                                            <div class="form-group" ng-class="currencyForm.InternationalCode.$invalid && (currencyForm.InternationalCode.$dirty || formSubmitted) ? 'has-error' : ''">
+                                                <input type="text" class="form-control" name="InternationalCode" ng-model="currencyData.InternationalCode" ng-required="true"
+                                                       ng-disabled="IsView" tabindex="3" maxlength="100" alphanumeric-dash-only />
+                                                <span color="red" ng-show="currencyForm.InternationalCode.$error.required && (currencyForm.InternationalCode.$dirty || formSubmitted)" class="text-danger
+                                        field-validation-error"><small>International Code is required.</small></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--International Description-->
+                                    <div class="row">
+                                        <label class="control-label col-md-4">International Description</label>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="InternationalDescription" ng-model="currencyData.InternationalDescription"
+                                                       ng-disabled="IsView" tabindex="4" maxlength="100" alphanumeric-dash-only />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Hundredth Name-->
+                                    <div class="row">
+                                        <label class="control-label col-md-4">Hundredth Name</label>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="HundredthName" ng-model="currencyData.HundredthName" ng-required="true"
+                                                       ng-disabled="IsView" tabindex="5" maxlength="100" alphanumeric-dash-only />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--English-->
+                                    <div class="row">
+                                        <label class="control-label col-md-4">English</label>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="English" ng-model="currencyData.English" ng-required="true"
+                                                       ng-disabled="IsView" tabindex="6" maxlength="100" alphanumeric-dash-only />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--English Hundredth Name-->
+                                    <div class="row">
+                                        <label class="control-label col-md-4">English Hundredth Name</label>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="EHN" ng-model="currencyData.EHN"
+                                                       ng-disabled="IsView" tabindex="7" maxlength="100" alphanumeric-dash-only />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--ISO Currency Code-->
+                                    <div class="row">
+                                        <label class="control-label col-md-4">ISO Currency Code</label>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div id="ISOCurrencyCodeIdDiv">
+                                                    <select select2 name="ISOCurrencyCodeId" class="form-control" ng-required="true" ng-model="currencyData.ISOCurrencyCodeId"
+                                                            ng-disabled="IsView" tabindex="-1" ng-options="s.Id as (s.Description) for s in isoCurrentCodes">
+                                                        <option value="">---Please select---</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Incoming Amt Diff. Allowed-->
+                                    <div class="row">
+                                        <label class="control-label col-md-4">Incoming Amt Diff. Allowed</label>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="IncAmtDffAllwd" ng-model="currencyData.IncAmtDffAllwd"
+                                                       ng-disabled="IsView" tabindex="8" maxlength="100" numbers-decimal-only />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Outgoing Amt Diff. Allowed-->
+                                    <div class="row">
+                                        <label class="control-label col-md-4">Outgoing Amt Diff. Allowed</label>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="OutAmtDffAllwd" ng-model="currencyData.OutAmtDffAllwd"
+                                                       ng-disabled="IsView" tabindex="9" maxlength="100" numbers-decimal-only />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Incoming % Diff. Allowed-->
+                                    <div class="row">
+                                        <label class="control-label col-md-4">Incoming % Diff. Allowed</label>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="IncPrcntDffAllwd" ng-model="currencyData.IncPrcntDffAllwd"
+                                                       ng-disabled="IsView" tabindex="9" maxlength="100" numbers-decimal-only />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Outgoing % Diff. Allowed-->
+                                    <div class="row">
+                                        <label class="control-label col-md-4">Outgoing % Diff. Allowed</label>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="OutPrcntDffAllwd" ng-model="currencyData.OutPrcntDffAllwd"
+                                                       ng-disabled="IsView" tabindex="10" maxlength="100" numbers-decimal-only />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Rounding-->
+                                    <div class="row">
+                                        <label class="control-label col-md-4">Rounding</label>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div id="RoundingIdDiv">
+                                                    <select select2 name="RoundingId" class="form-control" ng-required="true" ng-model="currencyData.RoundingId"
+                                                            ng-disabled="IsView" tabindex="-2" ng-options="r.Id as (r.Description) for r in roundings">
+                                                        <option value="">---Please select---</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Decimal-->
+                                    <div class="row">
+                                        <label class="control-label col-md-4">Decimal</label>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div id="DecimalIdDiv">
+                                                    <select select2 name="DecimalId" class="form-control" ng-required="true" ng-model="currencyData.DecimalId"
+                                                            ng-disabled="IsView" tabindex="-3" ng-options="d.Id as (d.Description) for d in decimals">
+                                                        <option value="">---Please select---</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Check Box-->
+                                    <div class="row">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-4">
+                                            <div class="form-group form-md-checkboxes">
+                                                <div class="md-checkbox-inline">
+
+                                                    <div class="md-checkbox">
+                                                        <input type="checkbox" class="md-check" ng-model="currencyData.IsRounding" ng-true-value="true" ng-false-value="false"
+                                                               id="isRoundingCheckbox">
+                                                        <label for="isRoundingCheckbox">
+                                                            <span class="inc"></span>
+                                                            <span class="check"></span>
+                                                            <span class="box"></span>
+                                                        </label>
+                                                        Rounding in Payment
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Actions -->
+                                    <div class="row" ng-hide="IsView">
+                                        <div class="col-md-12">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8">
+                                                <!--Actions -->
+                                                <a href="" class="btn btn-success" ng-click="saveCurrency()">
+                                                    <span class="glyphicon glyphicon-ok"></span> Save
+                                                </a>
+                                                <a href="" class="btn btn-default" ng-click="cancel()">
+                                                    <span class="glyphicon glyphicon-warning-sign"></span> Cancel
+                                                </a>
+                                                <a href="#!/View" id="cancel"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,283 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+<script type="text/ng-template" id="CreditCardIndexTemplate.html">
+    <h1 class="page-title">
+        Credit Card  <small>View, add, edit, search, delete, reactivate, deactivate  credit card</small>
+    </h1>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN PORTLET -->
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <h4 class="bold">Search</h4>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="expand"> </a>
+                    </div>
+                </div>
+                <!-- BEGIN FILTERS -->
+                <div class="portlet-body tabs-below" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Credit Card Name</label>
+                                <input type="text" name="creditcard" ng-model="creditCardName" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">G/L Account</label>
+                                <input type="text" name="glaccount" ng-model="GLAccount" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Company ID</label>
+                                <input type="text" name="companyid" ng-model="companyId" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Telephone No.</label>
+                                <input type="text" name="telephoneno" ng-model="telephoneNo" ng-keypress="searchWhenEnter($event)" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3" style="padding-top: 23px">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-success" ng-click="search()">
+                                    <i class="fa fa-search"></i>
+                                    <span class=""> Search </span>
+                                </button> &nbsp;&nbsp;
+                                <button type="button" class="btn btn-white" ng-click="reset()">
+                                    <i class="fa fa-rotate-left"></i>
+                                    <span class=""> Reset </span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        List
+                    </div>
+                    <div class="actions">
+                        <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportCreditCard)>
+                            <i class="fa fa-share-square-o"></i>
+                            <span class="">Export</span>
+                        </a>
+                        <a href="" class="btn btn-info" ng-click="addOrUpdate(0)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddCreditCard)>
+                            <i class="fa fa-plus"></i>
+                            <span class=""> New </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                            <table ng-table="creditCardTableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover @Html.UserHasPermission(userPermission:new List<string>() {PermissionData.UserCanActivateDeactivateCreditCard, PermissionData.UserCanDeleteCreditCard,PermissionData.UserCanUpdateCreditCard})">
+                                <tr ng-repeat="item in $data">
+                                    <!--ACTION BUTTONS -->
+                                    <td width="1%" header-class="'text-center'" class="text-center">
+                                        <div class="btn-group">
+                                            <button id="bars" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-bars"></i>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li @Html.UserHasPermission(userPermission: PermissionData.UserCanUpdateCreditCard)>
+                                                    <a ng-click="addOrUpdate(item.CreditCardId)">
+                                                        <i class="fa fa-edit"></i> Edit
+                                                    </a>
+                                                </li>
+                                                <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeleteCreditCard)>
+                                                    <a ng-click="deleteCreditCard(item.CreditCardId,item.CreditCardName)">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                    </a>
+                                                </li>
+                                                <li ng-show="item.IsActive" @Html.UserHasPermission(userPermission: PermissionData.UserCanActivateDeactivateCreditCard)>
+                                                    <a ng-click="activateOrDeactivate(item.CreditCardId,item.CreditCardName,item.IsActive)">
+                                                        <i class="fa fa-ban"></i> Deactivate
+                                                    </a>
+                                                </li>
+                                                <li ng-show="!item.IsActive" @Html.UserHasPermission(userPermission: PermissionData.UserCanActivateDeactivateCreditCard)>
+                                                    <a ng-click="activateOrDeactivate(item.CreditCardId,item.CreditCardName,item.IsActive)">
+                                                        <i class="fa fa-check"></i> Reactivate
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td width="8%" data-title="'CREDIT CARD NAME'" sortable="'CreditCardName'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.CreditCardName}}
+                                    </td>
+                                    <td width="7%" data-title="'G/L ACCOUNT'" sortable="'GLAccount'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.GLAccount}}
+                                    </td>
+                                    <td width="7%" data-title="'COMPANY ID'" sortable="'CompanyName'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.CompanyName}}
+                                    </td>
+                                    <td width="9%" data-title="'TELEPHONE NO'" sortable="'TelephoneNo'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.TelephoneNo}}
+                                    </td>
+                                    <td width="2%" data-title="'ACTIVE'" sortable="'IsActive'" header-class="'table-header text-center'" class="text-center">
+                                        <span class="label label-sm" ng-class="item.IsActive ? 'label-success' : 'label-danger'">{{item.IsActive ? 'Yes': 'No'}}</span>
+                                    </td>
+                                    <td width="9%" data-title="'ACTION BY'" sortable="'ActionBy'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.ActionBy}}
+                                    </td>
+                                    <td width="5%" data-title="'ACTION ON'" sortable="'ActionOn'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.ActionOn | date : 'MM/dd/yyyy hh:mm a'}}
+                                    </td>
+                                </tr>
+                                <tr ng-show="$data.length == 0">
+                                    <td colspan="10" class="text-center" style="font-style:unset">
+                                        No data available
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END PORTLET -->
+    </div>
+</script>
+<script type="text/ng-template" id="CreditCardAddOrUpdate.html">
+    <div class="modal-header">
+        <h4 class="form-sub-title">Credit Card - {{forUpdate ? 'Update':'Add'}}</h4>
+    </div>
+    <div class="modal-body" id="modal-body" ng-form="modalForm">
+        <!-- BEGIN FORM-->
+        <div class="form-body">
+            <div class="row">
+                <!--Code-->
+                <div class="row" style="padding-bottom:15px">
+                    <div class="form-group" ng-class="modalForm.Name.$error.required && (modalForm.Name.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="col-md-3 text-right">Credit Card Name <span class="required">*</span></label>
+                        <div class="col-md-8">
+                            <input type="text" name="Name" class="form-control" ng-required="true" ng-model="model.CreditCardName" placeholder="Credit Card Name" />
+                            <span ng-show="modalForm.Name.$error.required && (modalForm.Name.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Credit card name is required!</small></span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row" style="padding-bottom:15px">
+                    <div class="form-group">
+                        <label class="col-md-3 text-right">G/L Account <span class="required">*</span></label>
+                        <div class="col-md-8">
+                            <div class="input-group" ng-class="(GLAccountAlreadyExist|| GLAccountNotExist || modalForm.GLAccountCode.$error.required) && (modalForm.GLAccountCode.$dirty || formSubmitted) ? 'has-error' : ''">
+                                <input type="text" name="GLAccountCode" id="glAccount" class="form-control" ng-required="true" ng-model="GLAccountCode" placeholder="G/L Accounts" ng-keydown="getGLAccount(GLAccountCode)" />
+                                <span class="input-group-addon" style="cursor:pointer;background-color:#659BF4" ng-click="openModal(false)">
+                                    <span class="glyphicon glyphicon-search" style="color:White"></span>
+                                </span>
+
+                            </div>
+                            <span ng-show="modalForm.GLAccountCode.$error.required && (modalForm.GLAccountCode.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>G/L Account is required!</small></span>
+                            <span ng-show="GLAccountNotExist && !modalForm.GLAccountCode.$error.required  && (GLAccountNotExist || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>G/L Account doesn't exists!</small></span>
+                            <span ng-show="GLAccountAlreadyExist && !modalForm.GLAccountCode.$error.required  && (GLAccountNotExist || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>G/L Account already exists!</small></span>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row" style="padding-bottom:15px">
+                    <div class="form-group" ng-class="modalForm.CompanyName.$error.required && (modalForm.CompanyName.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="col-md-3 text-right">Company ID <span class="required">*</span></label>
+                        <div class="col-md-8">
+
+                            <input type="text" name="CompanyName" class="form-control" ng-required="true" ng-model="model.CompanyName" placeholder="Company ID" />
+
+                            <span ng-show="modalForm.CompanyName.$error.required && (modalForm.CompanyName.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small> Company ID is required!</small></span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row" style="padding-bottom:15px">
+                    <div class="form-group" ng-class="modalForm.TelephoneNo.$error.required  && (modalForm.TelephoneNo.$dirty || formSubmitted) ? 'has-error' : ''">
+                        <label class="col-md-3 text-right">Telephone No<span class="required">*</span></label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="TelephoneNo" ng-required="true" ng-model="model.TelephoneNo" placeholder="Telephone No." numbers-only />
+                            <span ng-show="modalForm.TelephoneNo.$error.required && (modalForm.TelephoneNo.$dirty || formSubmitted)"
+                                  class="text-danger field-validation-error"><small>Telephone No is required!</small></span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+    <!-- END FORM-->
+    <div class="modal-footer pull-left" style="padding-left:155px">
+        <!--Save-->
+        <button type="button" class="btn btn-success" style="width: 90px;" ng-click="saveChanges()">
+            <span class="glyphicon glyphicon-ok"> </span>&nbsp; {{forUpdate ? 'Update':'Save'}}
+        </button>
+        <!--Cancel-->
+        <button type="button" class="btn btn-default" style="width: 90px;" ng-click="cancel()">
+            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+        </button>
+    </div>
+
+
+    <div class="clearfix"></div>
+
+</script>
+
+<script type="text/ng-template" id="CompanyModal.html">
+    <!-- MODAL HEADER -->
+    <div class="modal-header">
+        <h4 class="form-sub-title">{{Tittle}}</h4>
+    </div>
+    <!-- MODAL BODY -->
+    <div id="modal-body" class="modal-body" ng-form="f">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label">Code</label>
+                    <input type="text" name="Name" class="form-control" autocomplete="off" maxlength="50"
+                           ng-model="SearchText" alphanumeric-dash-only>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table ng-table="tableParams" class="table table-bordered table-striped table-hover table-condensed">
+                    <tr ng-repeat="d in $data" ng-dblclick="onSelectDoubleClick(d)">
+                        <td data-title="'Account Code'">{{d.AcctCode}}</td>
+                        <td data-title="'Account Name'">{{d.AcctName}}</td>
+                    </tr>
+                    <tr ng-show="$data.length == 0">
+                        <td colspan="14" class="text-center" style="font-style:unset">
+                            No data available
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--Modal Footer-->
+    <div class="modal-footer pull-left">
+        <!--Actions -->
+        <button class="btn btn-success" style="width:90px;" ng-click="onbtnSelectClick()">
+            <span class="glyphicon glyphicon-ok"></span> Select
+        </button>
+        <button class="btn btn-default" style="width:90px;" ng-click="onbtnCancelClick()">
+            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+        </button>
+    </div>
+    <div class="clearfix"></div>
+</script>

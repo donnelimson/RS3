@@ -1,0 +1,268 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+@{
+    ViewBag.Title = "No of Units and KVA Rating";
+}
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>Management</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "NoOfUnitsAndKvaRating")">No of Units and KVA Rating</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    No of Units and KVA Rating  <small>view or search No of Units and KVA Rating</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="NoOfUnitsAndKvaRatingController as controller" ng-form="addNoOfUnitsAndKvaRatingForm">
+
+        <!-- BEGIN PORTLET -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET -->
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <h4 class="bold">Search</h4>
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="expand"> </a>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                    <div class="portlet-body tabs-below" style="display: none;">
+                        <!--SEARCH TABLE -->
+                        <div class="row">
+                            <!--NO OF UNITS SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">No Of Units</label>
+                                    <input type="number" name="NoOfUnits" ng-model="NoOfUnits" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--KVA RATING SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">KVA Rating</label>
+                                    <input id='numberbox1' positive type="number" name="KvaRating" ng-model="KvaRating" ng-keypress="searchWhenEnter($event)" class="form-control" step="0.01">
+                                </div>
+                            </div>
+                            <!--CREATED BY SEARCH TEXTBOX -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Created By</label>
+                                    <input type="text" name="CreatedBy" ng-model="CreatedBy" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <!--CREATED DATE SEARCH DATE PICKER -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Created Date</label>
+                                    <div class='input-group date'>
+                                        <input type="text" name="CreatedDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                               is-open="createdOnDatePicker.opened" close-text="Close"
+                                               id="drp" ng-model="createdDate" ng-click="openCreatedOnDatePicker()" ng-change="search()" readonly>
+                                        <span class="input-group-addon" onclick="$('#drp').focus()">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- BUTTONS -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="actions btn-set btn-filter">
+                                    <button type="button" class="btn btn-success" ng-click="search()">
+                                        <i class="fa fa-search"></i>
+                                        <span class=""> Search </span>
+                                    </button>
+                                    <button type="button" class="btn" ng-click="reset()">
+                                        <i class="fa fa-rotate-left"></i>
+                                        <span class=""> Reset </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET -->
+            </div>
+        </div>
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    List
+                </div>
+                <!--ADD NEW BUTTON -->
+                <div class="actions">
+                    <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportNoOfUnitsAndKVARatingViewList)>
+                        <i class="fa fa-share-square-o"></i>
+                        <span class="">Export</span>
+                    </a>
+                    <a href="" class="btn btn-info" ng-click="openNoOfUnitsAndKvaRatingSaveModal(0)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddNoOfUnitsAndKvaRatingData)>
+                        <i class="fa fa-plus"></i>
+                        <span class=""> New </span>
+                    </a>
+                </div>
+            </div>
+            <!--DATA TABLE -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                        <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover @Html.UserHasPermission(userPermission:new List<string>() {PermissionData.UserCanDeActivateReActivateNoOfUnitsAndKvaRating, PermissionData.UserCanDeleteNoOfUnitsAndKvaRatingData,PermissionData.UserCanEditNoOfUnitsAndKvaRatingData})">
+                            <tr ng-repeat="noOfUnitsAndKvaRating in $data">
+                                <td width="1%" header-class="'text-center'" class="text-center">
+                                    <!--ACTION BUTTONS -->
+                                    <div class="btn-group">
+                                        <button id="bars" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditNoOfUnitsAndKvaRatingData)>
+                                                <a ng-click="openNoOfUnitsAndKvaRatingSaveModal(noOfUnitsAndKvaRating.NoOfUnitsKvaId)">
+                                                    <i class="fa fa-edit"></i> Edit
+                                                </a>
+                                            </li>
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeleteNoOfUnitsAndKvaRatingData)>
+                                                <a ng-click="deleteNoOfUnitsAndKvaRating(noOfUnitsAndKvaRating.NoOfUnitsKvaId)">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </a>
+                                            </li>
+                                            <li ng-hide="!noOfUnitsAndKvaRating.IsActive" @Html.UserHasPermission(userPermission: PermissionData.UserCanDeActivateReActivateNoOfUnitsAndKvaRating)>
+                                                <a ng-click="toggleActiveStatus(noOfUnitsAndKvaRating.NoOfUnitsKvaId, false)">
+                                                    <i class="fa fa-ban"></i> Deactivate
+                                                </a>
+                                            </li>
+                                            <li ng-hide="noOfUnitsAndKvaRating.IsActive" @Html.UserHasPermission(userPermission: PermissionData.UserCanDeActivateReActivateNoOfUnitsAndKvaRating)>
+                                                <a ng-click="toggleActiveStatus(noOfUnitsAndKvaRating.NoOfUnitsKvaId, true)">
+                                                    <i class="fa fa-check-circle"></i> Reactivate
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="7%" data-title="'NO. OF UNITS'" sortable="'NoOfUnits'" header-class="'table-header text-left'" class="text-right">
+                                    {{noOfUnitsAndKvaRating.NoOfUnits}}
+                                </td>
+                                <td width="7%" data-title="'KVA RATING'" sortable="'KvaRating'" header-class="'table-header text-left'" class="text-right">
+                                    {{noOfUnitsAndKvaRating.KvaRating|number:2}}
+                                </td>
+                                <td width="8%" data-title="'ENERGY DEPOSIT'" sortable="'EnergyDeposit'" header-class="'table-header text-left'" class="text-right">
+                                    {{noOfUnitsAndKvaRating.EnergyDeposit|number:2}}
+                                </td>
+                                <td width="8%" data-title="'MONTHLY RENTAL'" sortable="'MonthlyRental'" header-class="'table-header text-left'" class="text-right">
+                                    {{noOfUnitsAndKvaRating.MonthlyRental|number:2}}
+                                </td>
+                                <td width="8%" data-title="'INSTALLATION FEE'" sortable="'InatallationFee'" header-class="'table-header text-left'" class="text-right">
+                                    {{noOfUnitsAndKvaRating.InatallationFee|number:2}}
+                                </td>
+                                <td width="9%" data-title="'TRANSFORMER LOSS'" sortable="'TransformerLoss'" header-class="'table-header text-left'" class="text-right">
+                                    {{noOfUnitsAndKvaRating.TransformerLoss|number:2}}
+                                </td>
+                                <td width="8%" data-title="'DEMAND ENERGY'" sortable="'DemandEnergy'" header-class="'table-header text-left'" class="text-right">
+                                    {{noOfUnitsAndKvaRating.DemandEnergy|number:2}}
+                                </td>
+                                <td width="6%" data-title="'CORE LOSS'" sortable="'CoreLoss'" header-class="'table-header text-left'" class="text-right">
+                                    {{noOfUnitsAndKvaRating.CoreLoss|number:2}}
+                                </td>
+                                <td width="5%" data-title="'ACTIVE'" sortable="'IsActive'" header-class="'table-header text-center'" class="text-center">
+                                    <span class="label label-sm" ng-class="noOfUnitsAndKvaRating.IsActive ? 'label-success' : 'label-danger'">{{noOfUnitsAndKvaRating.IsActive ? 'Yes': 'No'}}</span>
+                                </td>
+                                <td width="7%" data-title="'CREATED BY'" sortable="'CreatedBy'" header-class="'table-header text-left'" class="text-left">
+                                    {{noOfUnitsAndKvaRating.CreatedBy}}
+                                </td>
+                                <td width="5%" data-title="'CREATED DATE'" sortable="'CreatedDate'" header-class="'table-header text-left'" class="text-left">
+                                    {{noOfUnitsAndKvaRating.CreatedDate | date : 'MM/dd/yyyy hh:mm a'}}
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length == 0">
+                                <td colspan="12" class="text-center" style="font-style:unset">
+                                    No data available
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @Html.Partial("NoOfUnitsandKvaRatingSaveModal")
+        </div>
+    </div>
+</div>
+
+<!--SCRIPTS TABLE -->
+@section PageScripts {
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $('input[name="CreatedDate"]').daterangepicker({
+                    opens: 'left',
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                }, function (start, end, label) {
+                });
+            });
+
+            $('input[name="CreatedDate"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                $(this).trigger('change');
+            });
+
+            $('input[name="CreatedDate"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+                $(this).trigger('change');
+            });
+
+            $('#numberbox').keyup(function () {
+                if ($(this).val() > 100 || $(this).val() == 0) {
+                    document.getElementById('numberbox').value = "''";
+
+                }
+            });
+            //$('#numberbox1').keyup(function () {
+            //    if ($(this).val() > 100 || $(this).val() == 0) {
+            //        document.getElementById('numberbox1').value = "''";
+
+            //    }
+            //});
+
+});
+            function convertToTwoDecimal(input) {
+            var value = document.getElementById(input.id).value;
+            if (value != "" && value!=0) {
+                 input.value = parseFloat(input.value).toFixed(2);
+            }
+           
+           
+        }
+    </script>
+}
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+@section angularjspage {
+    @Scripts.Render("~/Scripts/ng-table.js")
+    @Scripts.Render("~/Scripts/App/Services/NoOfUnitsAndKvaRatingService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/NoOfUnitsAndKvaRating/NoOfUnitsAndKvaRatingSaveModalController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/NoOfUnitsAndKvaRating/NoOfUnitsAndKvaRatingController.js")
+}

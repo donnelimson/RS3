@@ -1,0 +1,220 @@
+﻿@model Web.Models.ViewModels.AppUsers.AppUsersCreateViewModel
+@{
+    ViewBag.Title = "Add Users";
+}
+<!-- BEGIN PAGE BAR -->
+<div class="row" ng-controller="AppUserFormController as controller">
+    <div class="col-md-12">
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "AppUsers")">Users</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>{{forUpdate ? 'Edit' : 'Add'}}</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            User Form
+        </h1>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12" ng-form="f">
+                <div class="portlet light bordered" style="margin-bottom:unset">
+                    @Html.Hidden("AppUserId")
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="form-sub-title">Employee Information</h5>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-horizontal">
+                                        <div class="form-group" ng-class="f.Employee.$invalid && (f.Employee.$dirty || formSubmitted) || invalidEmployee ? 'has-error' : ''">
+                                            <label class="control-label col-md-3 text-left">Employee<span class="required"> *</span></label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text"
+                                                           name="Employee"
+                                                           ng-model="m.EmployeeNo"
+                                                           class="form-control"
+                                                           ng-required="true"
+                                                           ng-disabled="forUpdate"
+                                                           ng-keydown="searchEmployeeByNo(m.EmployeeNo, $event)" />
+                                                    <span class="input-group-btn">
+                                                        <!--Search Employee-->
+                                                        <button class="btn btn-info btn" type="button" ng-click="searchEmployee(false,'')">
+                                                            <i class="fa fa-search"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                                <span ng-show="f.Employee.$invalid && (f.Employee.$dirty || formSubmitted) && !invalidEmployee"
+                                                      class="text-danger field-validation-error"><small>Employee is required!</small></span>
+                                                <span ng-show="invalidEmployee"
+                                                      class="text-danger field-validation-error"><small>Employee doesn't exist.</small></span>
+                                            </div>
+                                        </div>
+                                        <!--Employee Details-->
+                                        <div class="form-group" ng-show="employeeDetails != null">
+                                            <label class="control-label col-md-3 text-left"></label>
+                                            <div class="col-md-9">
+                                                <div class="m-heading-1 border-after-grey m-bordered" style="border-color: #c3c8ce!important; margin: 0 0 0px;">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="profile-userpic">
+                                                                <img ng-src="{{employeeDetails.MemberPhotoThumbnailUrl}}"
+                                                                     class="img-responsive thumbnail"
+                                                                     alt=""
+                                                                     style="width: 15% !important; float:left; margin-right:10px;">
+                                                                <h4 class="profile-usertitle-name text-capitalize" style="margin:auto; padding-left: 10px; padding-top:10px; font-size:medium;">
+                                                                    <b>{{employeeDetails.FullName}}</b></h4>
+                                                                <div class="profile-usertitle-job" style="margin:auto; padding-left: 10px;">{{employeeDetails.EmployeeNo}}</div>
+                                                                <div class="profile-usertitle-job text-capitalize" style="margin:auto; padding-left: 10px;">{{employeeDetails.PositionName}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style="padding-top: 10px">
+                                                        <div class="col-md-12">
+                                                            <table border="0" width="100%">
+                                                                <tr ng-show="employeeDetails.BadgeNo != null">
+                                                                    <td width="20%"><b>Badge No.&nbsp;:&nbsp;</b></td>
+                                                                    <td>{{employeeDetails.BadgeNo}}</td>
+                                                                </tr>
+                                                                <tr ng-show="employeeDetails.Email != null">
+                                                                    <td width="20%"><b>Email&nbsp;:&nbsp;</b></td>
+                                                                    <td>{{employeeDetails.Email}}</td>
+                                                                </tr>
+                                                                <tr ng-show="employeeDetails.Office != null">
+                                                                    <td width="20%"><b>Area/Office&nbsp;:&nbsp;</b></td>
+                                                                    <td>{{employeeDetails.Office}}</td>
+                                                                </tr>
+                                                                <tr ng-show="employeeDetails.DepartmentName != null">
+                                                                    <td width="20%"><b>Department&nbsp;:&nbsp;</b></td>
+                                                                    <td>{{employeeDetails.DepartmentName}}</td>
+                                                                </tr>
+                                                                <tr ng-show="employeeDetails.DivisionName != null">
+                                                                    <td width="20%"><b>Division&nbsp;:&nbsp;</b></td>
+                                                                    <td>
+                                                                        {{employeeDetails.DivisionName}}
+                                                                        <span ng-show="employeeDetails.DivisionCategoryName != ''"> - {{employeeDetails.DivisionCategoryName}}</span>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Employee Details-->
+                                        <div class="form-group" ng-class="f.Username.$invalid && (f.Username.$dirty || formSubmitted) ? 'has-error' : ''">
+                                            <label class="control-label col-md-3 text-left">Username<span class="required"> *</span></label>
+                                            <div class="col-md-9">
+                                                <input type="text"
+                                                       class="form-control"
+                                                       ng-model="m.Username"
+                                                       ng-required="true"
+                                                       name="Username"
+                                                       maxlength="50">
+                                                <span ng-show="f.Username.$error.required && (f.Username.$dirty || formSubmitted)"
+                                                      class="text-danger field-validation-error"><small> Username is required!</small></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 text-left">Is Active</label>
+                                            <div class="col-md-1">
+                                                <div class="form-md-checkboxes" style="padding:0px;">
+                                                    <div class="md-checkbox-inline">
+                                                        <div class="md-checkbox">
+                                                            <input type="checkbox"
+                                                                   class="md-check"
+                                                                   ng-model="m.IsActive"
+                                                                   ng-true-value="true"
+                                                                   ng-false-value="false"
+                                                                   id="isActive" />
+
+                                                            <label for="isActive">
+                                                                <span class="inc"></span>
+                                                                <span class="check"></span>
+                                                                <span class="box"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>
+                                <font style="color:#5b9bd1;"><b>User Groups</b></font>
+                                <label class="mt-checkbox mt-checkbox-outline" style="float:right">
+                                    <input id="checkall" name="SelectedAllUserGroups"
+                                           ng-true-value="true"
+                                           ng-model="selectAll"
+                                           ng-false-value="false"
+                                           ng-click="selectAllUserGroup(selectAll)"
+                                           type="checkbox" /> Select All
+                                    <span></span>
+                                </label>
+                            </h5>
+                            <hr />
+                            <div class="form-group form-md-checkboxes" style="overflow: auto; max-height:430px">
+                                <div class="md-checkbox-list">
+                                    <div class="md-checkbox" ng-repeat="userGroup in userGroups">
+                                        <input type="checkbox"
+                                               class="md-check"
+                                               ng-model="userGroup.IsSelected"
+                                               ng-click="selectUserGroup(userGroup)"
+                                               ng-true-value="true"
+                                               ng-false-value="false"
+                                               name="userGrupCheckBox{{$index}}"
+                                               id="userGrupCheckBox{{$index}}" />
+
+                                        <label for="userGrupCheckBox{{$index}}">
+                                            <span class="inc"></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span>
+                                            {{userGroup.Description}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light bordered">
+                    <div class="form-action">
+                        <div class="actions btn-set">
+                            <button class="btn btn-success" style="width: 90px;" ng-click="btnSave()">
+                                <span class="glyphicon glyphicon-ok"></span>&nbsp; {{forUpdate ? 'Update':'Save'}}
+                            </button>
+                            <button class="btn btn-default" style="width: 90px;" ng-click="cancel()">
+                                <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section AngularJSPage {
+    @Scripts.Render("~/Scripts/App/Services/AppUserService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/AppUser/AppUserFormController.js")
+    @Scripts.Render("~/Areas/Lookups/Scripts/Service/ChooseFromListDataService.js")
+    @Scripts.Render("~/Areas/Lookups/Scripts/Controller/ChooseFromListCtrl.js") 
+}

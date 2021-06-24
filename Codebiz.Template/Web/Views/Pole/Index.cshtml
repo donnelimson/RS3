@@ -1,0 +1,276 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+@{
+    ViewBag.Title = "Pole";
+}
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>Management</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Pole")">Pole</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Pole  <small>View, search , add, edit, delete, deactivate or reactivate pole</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="PoleController as controller">
+        <!-- BEGIN PORTLET -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET -->
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <h4 class="bold">Search</h4>
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="expand"> </a>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                    <div class="portlet-body tabs-below" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Pole ID</label>
+                                    <input type="text" name="poleNo" ng-model="poleNo" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Code</label>
+                                    <input type="text" name="code" ng-model="code" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Location</label>
+                                    <input type="text" name="name" ng-model="location" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Item</label>
+                                    <input type="text" name="municipality" ng-model="item" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Created by</label>
+                                    <input type="text" name="createdby" ng-model="createdBy" ng-keypress="searchWhenEnter($event)" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Created Date</label>
+                                    <div class='input-group date'>
+                                        <input type="text" name="CreatedDate" id="createdDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                               is-open="createdOnDatePicker.opened" close-text="Close"
+                                               ng-model="createdDate" ng-click="openCreatedOnDatePicker()" ng-change="search()" readonly>
+                                        <span class="input-group-addon" ng-click="openCreatedOnDatePicker()" onclick="$('#createdDate').focus()">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3" style="padding-top: 23px">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-success" ng-click="search(false)">
+                                        <i class="fa fa-search"></i>
+                                        <span class=""> Search </span>
+                                    </button> &nbsp;&nbsp;
+                                    <button type="button" class="btn btn-white" ng-click="reset()">
+                                        <i class="fa fa-rotate-left"></i>
+                                        <span class=""> Reset </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET -->
+            </div>
+        </div>
+
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    List
+                </div>
+                <div class="actions">
+                    <a href="javascript:;" class="btn btn-dark" ng-click="viewPoles()">
+                        <i class="fa fa-map-o"></i>
+                        <span class="">View Map</span>
+                    </a>
+                    <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportPoles)>
+                        <i class="fa fa-share-square-o"></i>
+                        <span class="">Export</span>
+                    </a>
+                    <a ng-click="goToCreateUpdate(0)" href="javascript:;" class="btn btn-info" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddPole)>
+                        <i class="fa fa-plus"></i>
+                        <span class=""> New </span>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                        <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover
+                                @Html.UserHasPermission(userPermission:new List<string>()
+                             { PermissionData.UserCanEditPole,
+                               PermissionData.UserCanDeletePole,
+                               PermissionData.UserCanDeactivateReactivatePole})">
+                            <tr ng-repeat="item in $data">
+                                <td width="1%">
+                                    <div class="btn-group">
+                                        <button id="account" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-list"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="">
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditPole)>
+                                                <a ng-click="goToCreateUpdate(item.PoleId)">
+                                                    <i class="glyphicon glyphicon-pencil"></i> Edit
+                                                </a>
+                                            </li>
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeletePole)>
+                                                <a ng-click="deletePole(item.PoleId,item.PoleNo)">
+                                                    <i class="glyphicon glyphicon-trash"></i> Delete
+                                                </a>
+                                            </li>
+                                            <li ng-hide="!item.IsActive" @Html.UserHasPermission(userPermission: PermissionData.UserCanDeactivateReactivatePole)>
+                                                <a ng-click="toggleActiveStatus(item.PoleId, false,item.PoleNo)">
+                                                    <i class="fa fa-ban"></i> Deactivate
+                                                </a>
+                                            </li>
+                                            <li ng-hide="item.IsActive" @Html.UserHasPermission(userPermission: PermissionData.UserCanDeactivateReactivatePole)>
+                                                <a ng-click="toggleActiveStatus(item.PoleId, true,item.PoleNo)">
+                                                    <i class="fa fa-check-circle"></i> Reactivate
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="10%" data-title="'POLE ID'" sortable="'PoleNo'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.PoleNo}}
+                                </td>
+                                <td width="10%" data-title="'CODE'" sortable="'Code'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.Code}}
+                                </td>
+                                <td width="10%" data-title="'LOCATION'" sortable="'Location'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.Location}}
+                                </td>
+                                <td width="10%" data-title="'ITEM'" sortable="'ItemCode'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.ItemName != null && item.ItemCode != null ? item.ItemName + ' - ' + item.ItemCode : ''}}
+                                </td>
+                                <td width="10%" data-title="'LATITUDE,LONGITUDE'" sortable="'Longhitude'" header-class="'table-header text-left'" class="text-left">
+                                    <a href="" ng-click="viewMap(item.Latitude,item.Longhitude)">{{item.Latitude != null && item.Longhitude != null ? item.Latitude + ',' + item.Longhitude : ''}}</a>
+                                </td>
+                                <td width="2%" data-title="'ACTIVE'" sortable="'IsActive'" header-class="'table-header text-center'" class="text-center">
+                                    <span class="label label-sm" ng-class="item.IsActive ? 'label-success' : 'label-danger'">{{item.IsActive ? 'Yes': 'No'}}</span>
+                                </td>
+                                <td width="10%" data-title="'CREATED BY'" sortable="'CreatedBy'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.CreatedBy}}
+                                </td>
+                                <td width="10%" data-title="'CREATED DATE'" sortable="'DateCreated'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.DateCreated |date : 'MM/dd/yyyy hh:mm a'}}
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length == 0">
+                                <td colspan="9" class="text-center" style="font-style:unset">
+                                    No data available
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_MapModal")
+</div>
+
+@section PageStyles{
+    <style>
+          .modal-xl {
+            position: fixed;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .main-modal-header {
+            position: unset;
+            top: 0;
+            left: 0;
+            right: 0;
+            border: none;
+        }
+
+        .modal-xl .modal-content {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+    </style>
+    }
+
+@section PageScripts {
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $('input[name="CreatedDate"]').daterangepicker({
+                    opens: 'right',
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                }, function (start, end, label) {
+                });
+            });
+
+            $('input[name="CreatedDate"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                $(this).trigger('change');
+            });
+
+            $('input[name="CreatedDate"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+                $(this).trigger('change');
+            });
+        })
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather,visualization,panoramio"></script>
+}
+
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/PoleService.js")
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Pole/PoleController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/MapController.js")
+}
+
+

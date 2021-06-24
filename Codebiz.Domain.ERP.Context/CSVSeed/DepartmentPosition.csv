@@ -1,0 +1,90 @@
+﻿POSITION,DEPARTMENT,DIVISION
+TSD Manager,TSD,
+PD & DA Div Chief,TSD,PDAM
+PDAM Section Head,TSD,PDAM
+Staff Engineer,TSD,PDAM
+PM & ROW Officer,TSD,PDAM
+Draftsman,TSD ,PDAM
+System Engineer,TSD,COMD
+AM/FM Officer,TSD,
+GSP DG/ Encoder,TSD,
+SEMT Division Chief,TSD,
+SET Section Head,TSD,
+SET Technician,TSD,COMD
+SubStation Tender,TSD,
+MTR Section Head,TSD,SEMTD
+Meter Technician,TSD,SEMTD
+Lineman,TSD,SEMTD
+COM Division Chief,TSD,
+COM Section Head,TSD,
+Records Officer,TSD,
+FSD Manager,FSD,
+Cashering Div. Chief,FSD,CD
+Finance Section Head,FSD,
+Teller,FSD,CD
+Acctg. Div Chief,FSD,AD
+GA Section Head,FSD,
+Bookkeeper,FSD,
+SA Section Head,FSD,
+Account Analyst,FSD,AD
+Accounts Coordinator,FSD,AD
+MRB Division Chief,FSD,MRBD
+MRB Section Head,FSD,MRBD
+RBComplaints Officer,FSD,MRBD
+Billing Officer,FSD,MRBD
+Meter Reader,FSD,MRBD
+Records Officer,FSD,
+ISD Manager ,ISD,
+MDD Chief,ISD,MDD
+MECP Section Head,ISD,
+MDT Officer,ISD,MDD
+CI & Info. Officer ,ISD,
+RM & Mem. Officer,ISD,
+CSPLD Section Head,ISD,
+PowerUse Coordinator,ISD,
+CW Officer,ISD,
+HW Inspector,ISD,
+Admin.Division Chief,ISD,ADV
+PW & HRM Sect. Head,ISD,ADV
+HR Management,ISD,ADV
+Payroll Officer,ISD,ADV
+GSMP Section Head,ISD,
+Purchasing Officer,ISD,
+Senior Mechanic,ISD,
+Driver/ Mechanic,ISD,
+Coop Nurse,ISD,
+WH Section Head,ISD,
+Store Keeper,ISD,
+WH Records Officer,ISD,
+CPIT Chief,OGM,CPIT
+CP Section Head,OGM,CPIT
+RC Officer,OGM,CPIT
+Corplan Section Head,OGM,CPIT
+LR Officer,OGM,CPIT
+Programmer,OGM,CPIT
+Network Controller,OGM,CPIT
+NS Technician,OGM,CPIT
+DP/Helpdesk Officer,OGM,CPIT
+Computer Technician,OGM,CPIT
+Data Controller,OGM,CPIT
+General Manager,OGM,
+GM`s Secretary,OGM,
+Board/Record Secretary,OGM,
+EC & System Operator,OGM,
+Energy Trading Chief,OGM,ETO
+Load Analyst,OGM,ETO
+Market Analyst,OGM,ETO
+RE Analyst,OGM,ETO
+Internal Auditor,OGM,ETO
+FIT Audit Sect. Head,OGM,ETO
+Financial Auditor,OGM,ETO
+Technical Auditor,OGM,ETO
+Institutional Auditor,OGM,ETO
+Area Manager,AREA,
+Finance Section Head,AREA,
+Teller,AREA,
+Meter Reader,AREA,
+MDT Officer,AREA,
+COM Section Head,AREA,
+Lineman,AREA,
+Records Officer,AREA,

@@ -1,0 +1,174 @@
+﻿
+@using Codebiz.Domain.ERP.Context.SeedData
+@{
+    ViewBag.Title = "Purpose";
+}
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>Management</span>
+            <i class="fa fa-circle"></i>
+            <a href="@Url.Action("Index", "Purpose")">Purpose</a>
+            <i class="fa fa-circle"></i>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Purpose  <small>view, search, export, add, edit and delete purpose</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="PurposeIndexController">
+        <!-- BEGIN FILTER PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="bold">Search</h4>
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="expand"> </a>
+                </div>
+            </div>
+            <div class="portlet-body tabs-below" style="display: none;">
+                <div class="row" style="margin-bottom:10px">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Transaction Type</label>
+                            <select select2 name="TransactionType" id="TransactionType" class="form-control not-allow-numbers"
+                                    ng-model="f.TransactionTypeId" ng-options="t.TransactionTypeId as (t.Description) for t in transactionTypes"
+                                    ng-change="search()">
+                                <option value="">---Please select---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label">Purpose</label>
+                        <input type="text" name="Purpose" ng-model="f.Purpose" ng-keypress="searchWhenEnter($event)" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Action On</label>
+                            <div class='input-group date'>
+                                <input date-range id="dr" name="CreatedDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                       is-open="createdOnDatePicker.opened" close-text="Close"
+                                       ng-model="f.ActionOn" ng-change="search()" readonly>
+                                <span class="input-group-addon" onclick="$('#dr').focus()">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="margin-top:13px">
+                        <div class="actions btn-set btn-filter">
+                            <button type="button" class="btn btn-success" ng-click="search()">
+                                <i class="fa fa-search"></i>
+                                <span class=""> Search </span>
+                            </button>
+                            <button type="button" class="btn" ng-click="reset()">
+                                <i class="fa fa-rotate-left"></i>
+                                <span class=""> Reset </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+        <!-- END FILTER PORTLET -->
+        <!-- BEGIN TABLE PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    List
+                </div>
+                <div class="actions">
+                    <div class="actions">
+                        <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()"
+                           @Html.UserHasPermission(userPermission: PermissionData.UserCanExportPurpose)>
+                            <i class="fa fa-share-square-o"></i>
+                            <span class="">Export</span>
+                        </a>
+                        <a href="@Url.Action("AddOrUpdate","Purpose")" class="btn btn-info" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddPurpose)>
+                            <i class="fa fa-plus"></i>
+                            <span class=""> New </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                        <table ng-table="tableParams" ng-class="{'loading': isLoading}"
+                               class="table table-bordered table-striped table-hover
+                               @Html.UserHasPermission(userPermission:new List<string>()
+                              {
+                                  PermissionData.UserCanEditPurpose,
+                              })">
+                            <tr ng-repeat="item in $data">
+                                <!--ACTION BUTTONS -->
+
+                                <td width="1%" class="text-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-list"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <a ng-click="edit(item.Id)"
+                                                   @Html.UserHasPermission(userPermission: PermissionData.UserCanEditPurpose)>
+                                                    <i class="glyphicon glyphicon-pencil"></i> Edit
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="15%" data-title="'TRANSACTION TYPE'" sortable="'TransactionType'" header-class="'table-header text-left'" class="text-left">{{item.TransactionType}}</td>
+                                <td width="15%" data-title="'PURPOSE/S'" header-class="'table-header text-left'" class="text-left">
+                                    <span ng-repeat="purpose in item.Purposes">
+                                        {{purpose+ ($index == item.Purposes.length-1 ? "" :", ")}}
+                                    </span>
+                              
+                                </td>
+                                <td width="15%" data-title="'ACTION ON'" sortable="'ActionOn'" header-class="'table-header text-left'" class="text-left">{{item.ActionOn |date : 'MM/dd/yyyy'}}</td>
+                            </tr>
+                            <tr ng-show="$data.length == 0">
+                                <td hidden></td>
+                                <td colspan="11" class="text-center" style="font-style:unset">
+                                    No data available
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</div>
+
+@section pagestyles {
+
+    <style>
+    </style>
+    @Styles.Render("~/css/datepicker")
+}
+
+@section PageScripts {
+
+    <script>
+
+    </script>
+}
+@section angularjspage {
+    <script src="~/Scripts/App/Services/PurposeService.js"></script>
+    <script src="~/Scripts/App/Controllers/Purpose/PurposeIndexController.js"></script>
+}
+

@@ -1,0 +1,36 @@
+Code,Name,Display Name,Category Code,Classification,Included To,Computed By,Zero when there is demand,IsICERA,IsGRAM,IsLifelineSubsidy,IsSeniorCitizenDiscount,For Vat,BillingUnbundledTransactionForVatId,For Discount,BillingUnbundledTransactionForDiscountId
+1,Generation VAT,Generation VAT Total,5,VAT,NET METERING,KWH,,,,,,,,,
+2,GRAM VAT,GRAM VAT Total,5,VAT,NET METERING,KWH,,,Yes,,,,,,
+3,ICERA VAT,ICERA VAT Total,5,VAT,NET METERING,KWH,,Yes,,,,,,,
+4,Transmission VAT,Transmission VAT Total,5,VAT,"NET METERING,CONTESTABLE",KWH,,,,,,,,,
+5,System Loss VAT,System Loss VAT Total,5,VAT,"NET METERING,CONTESTABLE",KWH,,,,,,,,,
+6,Distribution VAT,Distribution VAT Total,5,VAT,CONTESTABLE,KWH,,,,,,,,,
+7,Others VAT,Others VAT Total,5,VAT,CONTESTABLE,KWH,,,,,,,,,
+8,RFS Capex,RFS Capex,2,,"NET METERING,CONTESTABLE",KWH,,,,,,,,,
+9,Missionary Elec,Missionary Elec,3,,"NET METERING,CONTESTABLE",KWH,,,,,,,,,
+10,Incentive for RED,Incentive for RED,3,,"NET METERING,CONTESTABLE",KWH,,,,,,,,,
+11,Environmental,Environmental,3,,"NET METERING,CONTESTABLE",KWH,,,,,,,,,
+12,Stranded Debt,Stranded Debt,3,,NET METERING,KWH,,,,,,,,,
+13,Stranded Contr cost,Stranded Contr cost,3,,"NET METERING,CONTESTABLE",KWH,,,,,,,,,
+14,FIT-ALL (Renewable),FIT-ALL (Renewable),3,,NET METERING,KWH,,,,,,,,,
+15,FIT-ALL (Adjustment),FIT-ALL (Adjustment),3,,NET METERING,KWH,,,,,,,,,
+16,Loan Condonation,Loan Condonation,3,,"NET METERING,CONTESTABLE",KWH,,,,,,,,,
+17,Lifeline Subsidy,Lifeline Subsidy,4,DISCOUNT,"NET METERING,CONTESTABLE",KVA RATING,,,,Yes,,Yes,7,,
+18,Senior Citizen Subsidy,Senior Citizen Subsidy,4,DISCOUNT,"NET METERING,CONTESTABLE",KVA RATING,,,,,Yes,Yes,7,,
+19,Transformer Rental,Transformer Rental,4,TRANSFOMER RENTAL,,DKWH,,,,,,Yes,7,,
+20,Transformer Loss,Transformer Loss,4,TRANSFORMER LOSS,,DKWH,,,,,,Yes,7,,
+21,ICC Subsidy Adj ,ICC Subsidy Adj ,4,,,KWH,,,,,,,,,
+22,Reinstated PPD Adj, Reinstated PPD Adj,4,,,KWH,,,,,,,,,
+23,UC-SD,UC-SD,3,,"NET METERING,CONTESTABLE",KWH,,,,,,,,,
+24,Generation System,Generation System,1,,NET METERING,KWH,,,,,,,,Yes,17|18
+25,GRAM Charge,GRAM Charge,1,,NET METERING,KWH,,,Yes,,,,,,
+26,ICERA Charge,ICERA Charge,1,,NET METERING,KWH,,Yes,,,,,,,
+27,Transmission Demand,Transmission Demand,1,,"NET METERING,CONTESTABLE",DKWH,,,,,,,,Yes,17|18
+28,Transmission System,Transmission System,1,,"NET METERING,CONTESTABLE",KWH,Yes,,,,,,,Yes,17|18
+29,System Loss,System Loss,1,,"NET METERING,CONTESTABLE",KWH,,,,,,,,Yes,17|18
+30,Distribution Demand,Distribution Demand,2,,"NET METERING,CONTESTABLE",DKWH,,,,,,Yes,6,Yes,17|18
+31,Distribution System,Distribution System,2,,"NET METERING,CONTESTABLE",KWH,Yes,,,,,Yes,6,Yes,17|18
+32,Supply Retail,Supply Retail,2,,"NET METERING,CONTESTABLE",KWH,,,,,,Yes,6,Yes,17|18
+33,Supply System,Supply System,2,,"NET METERING,CONTESTABLE",KWH,,,,,,Yes,6,Yes,17|18
+34,Metering Retail,Metering Retail,2,,"NET METERING,CONTESTABLE",KWH,,,,,,Yes,6,Yes,17|18
+35,Metering System,Metering System,2,,"NET METERING,CONTESTABLE",KWH,,,,,,Yes,6,Yes,17|18

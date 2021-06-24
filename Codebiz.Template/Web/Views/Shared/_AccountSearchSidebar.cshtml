@@ -1,0 +1,184 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+
+<div class="col-lg-12" ng-form="form" ng-show="showAccount">
+    <div class="form-group"
+         ng-class="messages.length >= 1 || form.AccountNo.$error.required&& (form.AccountNo.$dirty || formSubmitted) ? 'has-error' : ''">
+        <label class="control-label">Account No.</label><span class="required" style="margin-right:3px;"> * </span>&nbsp;
+        <label style="position:relative; margin-bottom:unset">
+            @if (Html.UserHasPermission(userPermission: PermissionData.UserCanViewConsumerAccountDetails).ToString() == "")
+            {
+                <!--View account details-->
+                <a ng-click="viewAccountDetails(accountDetails.AccountId)"
+                   ng-hide="accountDetails.AccountId == null || messages.length >= 1 || !accountDetails.WithPermissionToViewDetails">
+                    <i class="fa-view glyphicon glyphicon-circle-arrow-right"></i>
+                </a>
+
+            }
+            <div class="input-group" style="position:unset">
+                <input type="text" name="AccountNo" ng-model="selectedAccountNo" class="form-control" ng-required="accountIsRequired"
+                       ng-style="{'padding-left': accountDetails.AccountId == null || messages.length >= 1 || !accountDetails.WithPermissionToViewDetails ? '7px' : '35px'}"
+                       style="background-color:#fff0; position:unset"
+                       tabindex="-1"
+                       ng-keydown="onTabEnterSearch($event,selectedAccountNo,false)"
+                       ng-disabled="forUpdate"
+                       ng-change="resetValidations()">
+                <span class="input-group-btn">
+                    <!--Search account-->
+                    <button class="btn btn-info btn" type="button" ng-click="searchAccount(false)" ng-disabled="forUpdate">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </label>
+        <span>
+            <div ng-show="(form.AccountNo.$error.required) && (form.AccountNo.$dirty || formSubmitted)">
+                <small class="text-danger field-validation-error">Account is required.</small>
+            </div>
+            <div ng-show="messages.length >= 1">
+                <small class="text-danger field-validation-error" ng-repeat="msg in messages">
+                    {{msg}}<br />
+                </small>
+            </div>
+        </span>
+    </div>
+</div>
+<div class="col-lg-12" ng-show="accountDetails.AccountId != null && messages.length <= 0">
+    <div class="profile-userpic">
+        <img ng-src="{{accountDetails.MemberPhotoThumbnailUrl}}" class="img-responsive thumbnail" alt="" style="width: 30% !important; float:left; margin-right:10px;">
+        <h4 class="profile-usertitle-name text-capitalize" style="margin:auto; padding-left: 10px; padding-top:10px; font-size:medium;"><b>{{accountDetails.Name}}</b></h4>
+        <div class="profile-usertitle-job" style="margin:auto; padding-left: 10px;" ng-if="!showAccount">{{accountDetails.AccountNo}}</div>
+        <div class="profile-usertitle-job" style="margin:auto; padding-left: 10px;">{{accountDetails.ConsumerNo}}</div>
+        <div class="profile-usertitle-job" style="margin:auto; padding-left: 10px; padding-top:10px;">
+            <span class="label label-sm label-info ng-binding" ng-show="accountDetails.Status=='Pending'">{{accountDetails.Status}}</span>
+            <span class="label label-sm label-primary ng-binding" ng-show="accountDetails.Status=='Connected'">{{accountDetails.Status}}</span>
+            <span class="label label-sm label-rejected ng-binding" ng-show="accountDetails.Status=='Rejected' || accountDetails.Status=='Terminated' || accountDetails.Status=='Apprehended'">{{accountDetails.Status}}</span>
+            <span class="label label-sm label-success ng-binding " ng-show="accountDetails.Status=='Active'">{{accountDetails.Status}}</span>
+            <span class="label label-sm label-warning ng-binding" ng-show="accountDetails.Status=='Disapproved'">{{accountDetails.Status}}</span>
+            <span class="label label-sm label-danger ng-binding" ng-show="accountDetails.Status=='Disconnected'">{{accountDetails.Status}}</span>
+            <span class="label label-sm label-default ng-binding" ng-show="accountDetails.Status=='Close And Transfer'">{{accountDetails.Status}}</span>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="row" ng-show="accountDetails.AccountId != null && messages.length <= 0">
+        <div class="col-lg-12">
+            <div class="mt-actions">
+                <div class="mt-action">
+                    <div class="mt-action-body">
+                        <div class="mt-action-row" ng-show="accountDetails.MembershipType === 'Juridical'">
+                            <div class="mt-action-info ">
+                                <div class="mt-action-icon ">
+                                    <i class="fa fa-institution icons" data-toggle="tooltip" data-placement="right" title="Institution Name"></i>
+                                </div>
+                                <div class="mt-action-details">
+                                    <p class="mt-action-desc">
+                                        {{accountDetails.InsitutionName}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-action-row" ng-show="accountDetails.MembershipType != null && accountDetails.MembershipType != ''">
+                            <div class="mt-action-info ">
+                                <div class="mt-action-icon ">
+                                    <i class="fa fa-bookmark icons" data-toggle="tooltip" data-placement="right" title="Membership Type"></i>
+                                </div>
+                                <div class="mt-action-details">
+                                    <p class="mt-action-desc">
+                                        {{accountDetails.MembershipType}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-action-row">
+                            <div class="mt-action-info ">
+                                <div class="mt-action-icon ">
+                                    <i class="fa fa-user icons" data-toggle="tooltip" data-placement="right" title="Consumer Type"></i>
+                                </div>
+                                <div class="mt-action-details">
+                                    <p class="mt-action-desc">
+                                        {{accountDetails.ConsumerType}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-action-row">
+                            <div class="mt-action-info ">
+                                <div class="mt-action-icon">
+                                    <i class="fa fa-map-marker icons" data-toggle="tooltip" data-placement="right" title="Address"></i>
+                                </div>
+                                <div class="mt-action-details">
+                                    <p class="mt-action-desc">
+                                        {{accountDetails.Address}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-action-row" ng-show="accountDetails.MeterSerialNo != null">
+                            <div class="mt-action-info ">
+                                <div class="mt-action-icon">
+                                    <i class="fa fa-dashboard icons" data-toggle="tooltip" data-placement="right" title="Meter Serial No"></i>
+                                </div>
+                                <div class="mt-action-details">
+                                    <p class="mt-action-desc">
+                                        {{accountDetails.MeterSerialNo}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-action-row">
+                            <div class="mt-action-info ">
+                                <div class="mt-action-icon">
+                                    <i class="fa fa-map icons" data-toggle="tooltip" data-placement="right" title="Route"></i>
+                                </div>
+                                <div class="mt-action-details">
+                                    <p class="mt-action-desc">
+                                        {{accountDetails.RouteName}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-action-row" ng-show="accountDetails.PoleNo != null && accountDetails.PoleNo != 'NULL'">
+                            <div class="mt-action-info ">
+                                <div class="mt-action-icon">
+                                    <i class="fa fa-map-signs icons" data-toggle="tooltip" data-placement="right" title="Pole Id"></i>
+                                </div>
+                                <div class="mt-action-details">
+                                    <p class="mt-action-desc">
+                                        {{accountDetails.PoleNo}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-action-row" ng-show="transactionType=='Burial Assistance'">
+                            <div class="mt-action-info ">
+                                <div class="mt-action-icon">
+                                    <i class="fa fa-calendar icons" data-toggle="tooltip" data-placement="right" title="Membership Date"></i>
+                                </div>
+                                <div class="mt-action-details">
+                                    <p class="mt-action-desc">
+                                        {{accountDetails.MembershipDate |  date:'MM/dd/yyyy'}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    ul.accSearch {
+        list-style: none;
+    }
+
+        ul.accSearch li::before {
+            content: "\2022";
+            color: red;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+</style>

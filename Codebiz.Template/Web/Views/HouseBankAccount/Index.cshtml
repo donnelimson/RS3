@@ -1,0 +1,108 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+
+@{
+    ViewBag.Title = "House Bank Account";
+}
+
+<!-- BEGIN PAGE BAR -->
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET -->
+        <ng-view></ng-view>
+
+        @Html.Partial("_houseBankAccountTemplate")
+
+        @*@Html.Partial("~/Areas/Lookups/Views/Shared/_ChooseFromListPartial.cshtml", "BNK")*@
+        @Html.Partial("~/Areas/Lookups/Views/Shared/_ChooseFromListPartial.cshtml", new Dictionary<string, object> { { "ObjectType", "BNK" } })
+
+    </div>
+</div>
+
+</div>
+@section pagestyles {
+    <style>
+        .selected {
+            background-color: skyblue;
+            color: black;
+            font-weight: bold;
+        }
+    </style>
+    @Styles.Render("~/assets/global/plugins/fancybox/source/jquery.fancybox.css")
+    @Styles.Render("~/Content/ng-table.min.css")
+    @Styles.Render("~/Scripts/moment.min.js")
+}
+
+
+@section PageScripts {
+    <script>
+        (function () {
+            var app = angular.module('MetronicApp');
+            app.requires.push.apply(app.requires, ['ngRoute'])
+
+            app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+                $routeProvider.when('/HouseBankAccountIndexTemplate', {
+                    templateUrl: 'HouseBankAccountIndexTemplate.html',
+                    controller: 'HouseBankAccountController'
+                })
+                    .when('/AddOrUpdate', {
+                        templateUrl: 'HouseBankAccountAddOrUpdateTemplate.html',
+                        controller: 'HouseBankAccountAddOrUpdateController',
+                        params: { isView: false }
+                    })
+                    .when('/AddOrUpdate/:id', {
+                        templateUrl: 'HouseBankAccountAddOrUpdateTemplate.html',
+                        controller: 'HouseBankAccountAddOrUpdateController',
+                        params: { isView: false }
+                    })
+                    .otherwise({
+                        templateUrl: 'HouseBankAccountIndexTemplate.html',
+                        controller: 'HouseBankAccountController'
+                    })
+                $locationProvider.html5Mode(false).hashPrefix('!');
+                $(document).ready(function () {
+                    $(function () {
+                        $('input[name="CreatedDate"]').daterangepicker({
+                            opens: 'left',
+                            autoUpdateInput: false
+                        }, function (start, end, label) {
+                        });
+                    });
+                    $('input[name="CreatedDate"]').on('apply.daterangepicker', function (ev, picker) {
+                        $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                        $(this).trigger('change');
+                    });
+
+                    $('input[name="CreatedDate"]').on('cancel.daterangepicker', function (ev, picker) {
+                        $(this).val('');
+                        $(this).trigger('change');
+                    });
+
+                });
+                // on first focus (bubbles up to document), open the menu
+
+
+            }]);
+
+        }());
+    </script>
+    @Scripts.Render("~/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js")
+    @Scripts.Render("~/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js")
+    @Scripts.Render("~/assets/pages/scripts/ui-extended-modals.min.js")
+    @Scripts.Render("~/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js")
+    @Scripts.Render("~/bundles/fileupload")
+}
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+
+    @Scripts.Render("~/Areas/Lookups/Scripts/Service/ChooseFromListDataService.js")
+    @Scripts.Render("~/Areas/Lookups/Scripts/Controller/ChooseFromListCtrl.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Banking/HouseBankAccount/HouseBankAccountController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/Banking/HouseBankAccount/HouseBankAccountAddOrUpdateController.js")
+    @Scripts.Render("~/Scripts/App/Services/Banking/HouseBankAccountService.js")
+    @Scripts.Render("~/Scripts/App/Services/Banking/BankService.js")
+
+}

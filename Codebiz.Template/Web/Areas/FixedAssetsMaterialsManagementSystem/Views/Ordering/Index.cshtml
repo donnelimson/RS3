@@ -1,0 +1,280 @@
+﻿@model Web.Areas.FixedAssetsMaterialsManagementSystem.Models.ViewModels.Ordering.OrderingIndexViewModel
+
+@{
+    ViewBag.Title = "Replenishment Order";
+}
+
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="@Url.Action("Index", "Order")">Ordering</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Order
+    <small>View, add, edit Orders</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div ng-app="MetronicApp" ng-controller="OrderingIndexController">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN PORTLET -->
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        Search
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Order Code</label>
+                                @Html.TextBoxFor(m => m.OrderCode, new { @class = "form-control", ng_model = "orderCode" })
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Status</label>
+                                <select class="form-control" name="Status" ng-model="status">
+                                    <option></option>
+                                    <option>CREATED</option>
+                                    <option>COMPLETED</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Created by</label>
+                                <input type="text" class="form-control" name="CreatedBy" ng-model="createdBy" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Date</label>
+                                <input date-range-picker class="form-control date-picker" type="text" ng-model="datePicker.date" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 text-left">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <div>
+
+                                    <button ng-click="search()" class="btn btn-success">
+                                        <i class="fa fa-search"></i>
+                                        <span class=""> Search </span>
+                                    </button>
+                                    &nbsp;&nbsp; <a ng-click="reset()" class="btn btn-white">
+                                        <i class="fa fa-rotate-left"></i>
+                                        <span class=""> Reset </span>
+                                    </a>
+                                    <br />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- END PORTLET -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN PORTLET -->
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        @*<i class="fa fa-user"></i>*@List
+
+
+                    </div>
+                    <div class="actions">
+                        <a href="@Url.Action("Create")" class="btn btn-info">
+                            <i class="fa fa-plus"></i>
+                            <span class=""> Generate New Order </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="no-padding loading-container" loading-container="tableParams.settings().$loading">
+                                <table ng-table="tableParamsOrder" ng-class="{'loading': isLoading}" class="table table-bordered table-striped">
+                                    <tbody>
+
+                                        <tr ng-repeat="item in $data">
+
+                                            <td width="1%" data-title="'ORDER CODE'" sortable="'OrderCode'" header-class="'text-left'">
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <button id="OrderCode" type="button" class="btn btn-info btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="margin-left:10px;">
+                                                            {{item.OrderCode}}
+                                                            <i class="fa fa-angle-down"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu" role="menu" aria-labelledby="goodsReceiptCode">
+                                                            <li>
+                                                                <a ng-href="@Url.Action("Draft")?orderId={{item.OrderId}}&orderCode={{item.OrderCode}}">
+                                                                    <i class="fa fa-search"></i> View details
+                                                                </a>
+                                                            </li>
+                                                            <li ng-show="item.Status=='CREATED'">
+                                                                <a ng-href="@Url.Action("EditDraft")?orderId={{item.OrderId}}&orderCode={{item.OrderCode}}">
+                                                                    <i class="fa fa-edit"></i> Edit
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                            </td>
+
+                                            <td width="15%" data-title="'TOTAL QUANTITY'" header-class="'text-left'">
+                                                {{item.TotalQuantity}}
+                                            </td>
+                                            <td width="15%" data-title="'TOTAL COST'" sortable="'TotalCost'" header-class="'text-left'">
+                                                {{item.TotalCost|number:2}}
+                                            </td>
+                                            <td width="15%" data-title="'CREATED BY'" sortable="'FullName'" header-class="'text-left'">
+
+                                                {{item.FullName}}
+                                            </td>
+                                            <td width="15%" data-title="'CREATED ON'" sortable="'CreatedOn'" header-class="'text-left'">
+                                                {{item.CreatedOn | date:'MM/dd/yyyy hh:mm:ss'}}
+                                            </td>
+                                            <td width="15%" data-title="'STATUS'" sortable="'IsActive'" header-class="'text-left'">
+                                                <span class="badge badge-warning" ng-show="item.Status=='CREATED'">{{item.Status}}</span>
+                                                <span class="badge badge-success" ng-show="item.Status=='COMPLETED'">{{item.Status}}</span>
+                                            </td>
+
+
+
+                                        </tr>
+                                        <tr ng-show="$data.length == 0">
+                                            <td colspan="8" class="text-center" style="font-style:unset">
+                                                No data available
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PORTLET -->
+        </div>
+    </div>
+    <div id="modalContainer">
+
+    </div>
+</div>
+@section pagestyles {
+    <link href="~/Content/ng-table.min.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/global/css/plugins.css" rel="stylesheet" />
+    <link href="~/assets/global/css/plugins.min.css" rel="stylesheet" />
+    <style>
+        .modal_style {
+            z-index: 99000 !important;
+        }
+
+        .pagination {
+            margin-top: 0 !important;
+        }
+
+        .supportingDocuments_img {
+            width: 80px;
+            height: 70px;
+        }
+
+        .ng-table-counts > .btn {
+            padding: 6px 12px !important;
+            font-weight: 400 !important;
+            font-size: 14px !important;
+            line-height: 1.42857143 !important;
+            user-select: none !important;
+            border: 1px solid transparent !important;
+        }
+
+        .select2 > .select2-choice.ui-select-match {
+            /* Because of the inclusion of Bootstrap */
+            height: 29px;
+        }
+
+        .select2-container--bootstrap .select2-selection--multiple .select2-selection__rendered {
+            display: inline-flex !important;
+            overflow: auto !important;
+        }
+    </style>
+}
+
+@section PageScripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+
+
+        $(document).ready(function () {
+            $('#pageSizeDropDown').change(function () {
+                var value = $(this).val();
+                var tempUrl = $(this).data("url");
+                var newUrl = tempUrl.replace("pageSizeHolder", value);
+
+                window.location = newUrl;
+            });
+        });
+
+    </script>
+}
+
+
+
+@section AngularJSPlugins {
+    @Scripts.Render("~/assets/global/plugins/angularjs/angular.min.js")
+    @Scripts.Render("~/assets/global/plugins/angularjs/angular-sanitize.min.js")
+    @Scripts.Render("~/assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js")
+    @Scripts.Render("~/Scripts/angular-ui-validate.min.js")
+    @Scripts.Render("~/Scripts/ng-table.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js")
+    @*@Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/tmpl.min.js")*@
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/load-image.min.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/blueimp-gallery/jquery.blueimp-gallery.min.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.iframe-transport.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-process.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-image.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-audio.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-video.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-validate.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-ui.js")
+    @Scripts.Render("~/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-angular.js")
+    @Scripts.Render("~/assets/global/plugins/hotkeys/hotkeys.js")
+}
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/app.js")
+    @Scripts.Render("~/Scripts/App/Directives/NgTableDirective.js")
+    @Scripts.Render("~/Scripts/App/Services/OrderingService.js")
+    @Scripts.Render("~/Scripts/App/Services/CommonService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/OrderingIndexController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/ItemDetailsController.js")
+
+}

@@ -1,0 +1,218 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData
+<!--Division List Template-->
+<script type="text/ng-template" id="DivisionTemplate.html">
+    <div class="row">
+        <!-- BEGIN PORTLET -->
+        <div class="col-md-12" ng-controller="DivisionController as controller">
+            <!-- BEGIN PAGE BAR -->
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <span>Management</span>
+                        <i class="fa fa-circle"></i>
+                        <a href="@Url.Action("Index", "Division")">Division</a>
+                        <i class="fa fa-circle"></i>
+                        <span>List</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- END PAGE BAR -->
+            <!-- BEGIN PAGE TITLE-->
+            <h1 class="page-title">
+                Divisions  <small>View, search, add, edit, reactivate, deactivate, delete divisions</small>
+            </h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN PORTLET -->
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <h4 class="bold">Search</h4>
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="expand"> </a>
+                            </div>
+                        </div>
+                        <!-- BEGIN FILTERS -->
+                        <div class="portlet-body tabs-below" style="display: none;">
+                            <!--SEARCH TABLE -->
+                            <div class="row">
+                                <!--CODE SEARCH TEXTBOX -->
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Name</label>
+                                        <input type="text" name="DivisionName" ng-model="DivisionName" ng-keypress="searchWhenEnter($event)" class="form-control" maxlength="300" alphanumeric-slash-dash-only>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Code</label>
+                                        <input type="text" name="DivisionCode" ng-model="DivisionCode" ng-keypress="searchWhenEnter($event)" class="form-control" maxlength="300" alphanumeric-slash-dash-only>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Category</label>
+                                        <div id="OfficeIdDiv">
+                                            <select select2 name="CategoryId"
+                                                    ng-model="CategoryId" ng-options="category.Id as (category.Description) for category in Categories"
+                                                    ng-change="search()">
+                                                <option value="">---Please select---</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Positions</label>
+                                        <div id="PositionIdDiv">
+                                            <select select2 name="PositionId"
+                                                    ng-model="PositionId" ng-options="post.PositionId as (post.Name) for post in Positions"
+                                                    ng-change="search()">
+                                                <option value="">---Please select---</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Created Date</label>
+                                        <div class='input-group date'>
+                                            <input type="text" name="CreatedDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                                   is-open="createdOnDatePicker.opened" close-text="Close"
+                                                   id="drp" ng-model="createdDate" ng-click="openCreatedOnDatePicker()" ng-change="search()" readonly>
+                                            <span class="input-group-addon" onclick="$('#drp').focus()">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- BUTTONS -->
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="actions btn-set btn-filter">
+                                        <button type="button" class="btn btn-success" ng-click="search()">
+                                            <i class="fa fa-search"></i>
+                                            <span class=""> Search </span>
+                                        </button>
+                                        <button type="button" class="btn" ng-click="reset()">
+                                            <i class="fa fa-rotate-left"></i>
+                                            <span class=""> Reset </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PORTLET -->
+                </div>
+            </div>
+
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        List
+                    </div>
+                    <!--ADD NEW BUTTON -->
+                    <div class="actions">
+                        <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportDivision)>
+                            <i class="fa fa-share-square-o"></i>
+                            <span class="">Export</span>
+                        </a>
+                        <a href="" class="btn btn-info" ng-click="goToCreateOrEdit(0 , false)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddDivision)>
+                            <i class="fa fa-plus"></i>
+                            <span class=""> New </span>
+                        </a>
+                    </div>
+                </div>
+                <!--DATA TABLE -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                            <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover
+                               @Html.UserHasPermission(userPermission:new List<string>() {
+                                PermissionData.UserCanDeleteDivision,
+                                PermissionData.UserCanEditDivision,
+                                PermissionData.UserCanDeActivateReActivateDivision})">
+                                <tr ng-repeat="item in Division">
+                                    <!--ACTION BUTTONS -->
+                                    <td width="1%" header-class="'text-center'" class="text-center">
+                                        <div class="btn-group">
+                                            <button id="bars" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-bars"></i>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditDivision)>
+                                                    <a ng-click="goToCreateOrEdit(item.DivisionId, false)">
+                                                        <i class="fa fa-edit"></i> Edit
+                                                    </a>
+                                                </li>
+                                                <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeleteDivision)>
+                                                    <a ng-click="deleteDivision(item.DivisionId,item.Name)">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                    </a>
+                                                </li>
+                                                <li ng-hide="!item.IsActive" @Html.UserHasPermission(userPermission: PermissionData.UserCanDeActivateReActivateDivision)>
+                                                    <a ng-click="toggleActiveStatus(item.DivisionId, false,item.Name)">
+                                                        <i class="fa fa-ban"></i> Deactivate
+                                                    </a>
+                                                </li>
+                                                <li ng-hide="item.IsActive" @Html.UserHasPermission(userPermission: PermissionData.UserCanDeActivateReActivateDivision)>
+                                                    <a ng-click="toggleActiveStatus(item.DivisionId, true,item.Name)">
+                                                        <i class="fa fa-check-circle"></i> Reactivate
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a ng-click="goToCreateOrEdit(item.DivisionId, true)">
+                                                        <i class="fa fa-eye"></i> View
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td width="15%" data-title="'DIVISION'" sortable="'Name'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.Name}} ({{item.Code}})
+                                    </td>
+                                    <td width="15%" data-title="'CATEGORIES'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.Categories}}
+                                    </td>
+                                    @*<td width="8%" data-title="'DEPARTMENT'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.Department}}
+                                    </td>
+                                    <td width="8%" data-title="'AREA OFFICE'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.Office}}
+                                    </td>*@
+                                    <td width="15%" data-title="'POSITIONS'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.Position}}
+                                    </td>
+                                    <td width="2%" data-title="'ACTIVE'" sortable="'IsActive'" header-class="'table-header text-center'" class="text-center">
+                                        <span class="label label-sm" ng-class="item.IsActive ? 'label-success' : 'label-danger'">{{item.IsActive ? 'Yes': 'No'}}</span>
+                                    </td>
+                                    <td width="12%" data-title="'CREATED BY'" sortable="'CreatedBy'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.CreatedBy}}
+                                    </td>
+                                    <td width="10%" data-title="'CREATED DATE'" sortable="'CreatedDate'" header-class="'table-header text-left'" class="text-left">
+                                        {{item.CreatedDate | date : 'MM/dd/yyyy hh:mm a'}}
+                                    </td>
+                                </tr>
+                                <tr ng-show="Division.length == 0">
+                                    <td colspan="10" class="text-center" style="font-style:unset">
+                                        No data available
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!--Division Add/Update Template-->
+@Html.Partial("_DivisionSaveTmpl")
+

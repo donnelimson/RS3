@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Search Billing Unbundled Transaction";
+}
+
+<!--Search Billing Unbundled Transaction Modal-->
+<script type="text/ng-template" id="_SearchBillingUnbundledTransactionModal.html">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title" style="color:#67809f;float:left">Search Billing Unbundled Transaction</h4>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+              <h4 class="form-sub-title ng-binding" style="float:left">{{billingUnbundledTransactionCategoryDetails.Name}}</h4>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive padding-bottom-50" loading-container="tableParams.settings().$loading">
+                    <table ng-table="tableParams" show-filter="true" class="table table-bordered table-responsive">
+                        <tr ng-click="getBillingUnbundledTransactionId(item.BillingUnbundledTransactionId)" ng-dblclick="selectBillingUnbundledTransaction()" ng-repeat="item in $data" ng-class="selectedBillingUnbundledTransactionId == item.BillingUnbundledTransactionId ? 'selectedRow':''" ng-hide="item.Selected"    >
+                            
+                                <td width="3%" data-title="'CODE'" filter="{Code: 'text'}" sortable="'Code'" header-class="'table-header text-left'" class="text-right" >
+                                    {{item.Code}}
+                                </td>
+                                <td width="9%" data-title="'NAME'" filter="{Name: 'text'}" sortable="'Name'" header-class="'table-header text-left'" class="text-left" >
+                                    {{item.Name}}
+                                </td>
+                        </tr>
+                        <tr ng-show="data.length == 0">
+                            <td colspan="8" class="text-center" style="font-style:unset">
+                                No data available
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <button class="btn btn-info" type="button" style="float:left" ng-click="selectBillingUnbundledTransaction()">Select</button>
+                <button class="btn grey-cascade" type="button" style="float:left; margin-left:4px;" ng-click="clear()">Clear</button>
+                <button class="btn btn-warning" style="float:left; margin-left: 4px" type="button" ng-click="cancel()"> Close</button>
+            </div>
+        </div>
+    </div>
+
+</script>
+<style>
+
+    .style {
+        display: block;
+        margin-top: -154px;
+    }
+    .style {
+        z-index: 10061!important;
+    }
+    .style {
+        width: auto;
+        height: auto;
+        border-radius: 5px;
+        text-align: center;
+        position: fixed;
+        top: 20%;
+        margin:auto;
+        margin-top: -150px;
+        overflow: hidden;
+        display: none;
+        z-index: 2000;
+    }
+</style>

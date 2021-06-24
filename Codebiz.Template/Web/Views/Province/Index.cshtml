@@ -1,0 +1,171 @@
+﻿@{
+    ViewBag.Title = "Province";
+}
+@using Codebiz.Domain.ERP.Context.SeedData
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>
+                Management
+            </span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>
+                Address
+            </span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Province")">Province</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Province  <small>View, search , add, edit, deactivate or reactivate province</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row" ng-app="MetronicApp">
+    <div class="col-md-12" ng-controller="ProvinceController as controller" ng-form="addProvinceForm">
+
+        <!-- BEGIN PORTLET -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET -->
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <h4 class="bold">Search</h4>
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="expand"> </a>
+                        </div>
+                    </div>
+                    <!-- BEGIN FILTERS -->
+                    <div class="portlet-body tabs-below" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Search Keyword</label>
+                                    <input type="text" name="SearchTerm" ng-model="SearchTerm" ng-keypress="searchWhenEnter($event)" class="form-control" maxlength="100" alphanumeric-dash-only>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="actions btn-set btn-filter">
+                                    <button type="button" class="btn btn-success" ng-click="search()">
+                                        <i class="fa fa-search"></i>
+                                        <span class=""> Search </span>
+                                    </button>
+                                    <button type="button" class="btn" ng-click="reset()">
+                                        <i class="fa fa-rotate-left"></i>
+                                        <span class=""> Reset </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET -->
+            </div>
+        </div>
+        <!-- BEGIN PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    List
+                </div>
+                <div class="actions">
+                    <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportProvinces)>
+                        <i class="fa fa-share-square-o"></i>
+                        <span class="">Export</span>
+                    </a>
+                    <a href="" class="btn btn-info" ng-click="openProvinceAddModal(0)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddProvince)>
+                        <i class="fa fa-plus"></i>
+                        <span class=""> New </span>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive padding-bottom-10" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                        <table ng-table="tableParams" ng-class="{'loading': isLoading}" class="table table-bordered table-striped table-hover @Html.UserHasPermission(userPermission:new List<string>() {PermissionData.UserCanEditProvince, PermissionData.UserCanDeActivateReActivateProvince})">
+                            <tr ng-repeat="province in $data">
+                                <td width="1%" header-class="'text-center'" class="text-center">
+                                    <div class="btn-group">
+                                        <button id="bars" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="provinceId">
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanEditProvince)>
+                                                <a ng-click="openProvinceAddModal(province.ProvinceId)">
+                                                    <i class="glyphicon glyphicon-pencil"></i> Edit
+                                                </a>
+                                            </li>
+
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeActivateReActivateProvince)>
+                                                <a ng-click="toggleActiveStatus(province)" ng-hide="!province.IsActive">
+                                                    <i class="glyphicon glyphicon-remove"></i> Deactivate
+                                                </a>
+                                            </li>
+                                            <li @Html.UserHasPermission(userPermission: PermissionData.UserCanDeActivateReActivateProvince)>
+                                                <a  ng-click="toggleActiveStatus(province)" ng-hide="province.IsActive">
+                                                    <i class="glyphicon glyphicon-ok"></i> Reactivate
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="4%" data-title="'NAME'" sortable="'Name'" header-class="'table-header text-left'" class="text-left">
+                                    {{province.Name}}
+                                </td>
+                                <td width="3%" data-title="'ABBREVIATION'" sortable="'Abbreviation'" header-class="'table-header text-left'" class="text-left">
+                                    {{province.Abbreviation}}
+                                </td>
+                                <td width="13%" data-title="'REGION'" sortable="'Region'" header-class="'table-header text-left'" class="text-left">
+                                    {{province.Region}}
+                                </td>
+                                <td width="2%" data-title="'ACTIVE'" sortable="'IsActive'" header-class="'table-header text-center'" class="text-center">
+                                    <span class="label label-sm" ng-class="province.IsActive ? 'label-success' : 'label-danger'">{{province.IsActive ? 'Yes': 'No'}}</span>
+                                </td>
+                                <td width="4%" data-title="'CREATED BY'" sortable="'CreatedBy'" header-class="'table-header text-left'" class="text-left">
+                                    {{province.CreatedBy}}
+                                </td>
+                                <td width="5%" data-title="'CREATED DATE'" sortable="'CreatedDate'" header-class="'table-header text-left'" class="text-left">
+                                    {{province.CreatedDate | date : 'MM/dd/yyyy hh:mm a' }}
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length == 0">
+                                <td colspan="8" class="text-center" style="font-style:unset">
+                                    No data available
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @Html.Partial("ProvinceSaveModal")
+        </div>
+    </div>
+</div>
+
+<!--SCRIPTS TABLE -->
+@section angularjspage {
+    @Scripts.Render("~/Scripts/App/Services/ProvinceService.js")
+    @Scripts.Render("~/Scripts/App/Controllers/ProvinceModalController.js")
+    @Scripts.Render("~/Scripts/App/Controllers/ProvinceController.js")
+
+
+}
+
