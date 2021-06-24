@@ -913,6 +913,16 @@ angular.module("MetronicApp").factory('CommonService', ['$http', '$q','$window',
         },
 
         //#region App User
+
+        //RS3
+        GetRolesForSelect2LookUp: function (args) {
+            return this.GetData(args, document.Role + 'GetRolesForSelect2LookUp', null);
+        },
+        //
+
+
+
+
         GetAllPermissionsByPermissionGroupNames: function (args) {
             return this.GetData(args, document.AppUsers + 'GetAllPermissionsByPermissionGroupNames', null);
         },

@@ -146,9 +146,12 @@ namespace Infrastructure.Services
             var appUser = GetById(model.AppUserId) ?? new AppUser();
 
             appUser.Username = model.Username;
-            appUser.EmployeeId = model.EmployeeId;
+            appUser.RoleId = model.RoleId;
             appUser.IsActive = model.IsActive;
-
+            appUser.FirstName = model.FirstName;
+            appUser.MiddleName = model.MiddleName;
+            appUser.LastName = model.LastName;
+            appUser.Email = model.Email;
             if (appUser.UserGroups != null)
             {
                 appUser.UserGroups.Clear();
@@ -469,7 +472,12 @@ namespace Infrastructure.Services
                     EmployeeNo = appUser.Employee != null ? appUser.Employee.EmployeeNo : "",
                     Username = appUser.Username,
                     IsActive = appUser.IsActive,
-                    SelectedUserGroups = appUser.UserGroups.Select(a => a.UserGroupId).ToList()
+                    SelectedUserGroups = appUser.UserGroups.Select(a => a.UserGroupId).ToList(),
+                    RoleId = appUser.RoleId.Value,
+                    FirstName = appUser.FirstName,
+                    MiddleName = appUser.MiddleName,
+                    LastName = appUser.LastName,
+                    Email = appUser.Email
                 };
 
                 return data;

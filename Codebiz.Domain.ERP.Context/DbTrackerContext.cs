@@ -156,8 +156,19 @@ namespace Codebiz.Domain.ERP.Context
 
 
         #endregion
+        #region RS3
+        #region user related
+        public IDbSet<Role> Roles { get; set; }
 
-
+        #endregion
+        #region ticket
+        public IDbSet<Ticket> Tickets { get; set; }
+        public IDbSet<Subticket> Subtickets { get; set; }
+        public IDbSet<TicketComment> TicketComments { get; set; }
+        public IDbSet<TicketAttachment> TicketAttachments { get; set; }
+        #endregion
+        #endregion
+        #region to verify models
         public IDbSet<ApprovalStatus> ApprovalStatuses { get; set; }
         public IDbSet<LeaveApprovalStatus> LeaveApprovalStatuses { get; set; }
         public IDbSet<ContentFileType> ContentFileType { get; set; }
@@ -186,6 +197,8 @@ namespace Codebiz.Domain.ERP.Context
         public IDbSet<TemplateName> TemplateNames { get; set; }
         public IDbSet<PaperType> PaperTypes { get; set; }
         public IDbSet<DocumentHistory> DocumentHistories { get; set; }
+        #endregion
+
         #endregion
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

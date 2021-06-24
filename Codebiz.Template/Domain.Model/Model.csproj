@@ -134,8 +134,10 @@
     <Compile Include="DataModel\ReportSignatory\ReportSignatory.cs" />
     <Compile Include="DataModel\ReportSignatory\ReportCategory.cs" />
     <Compile Include="DataModel\ReportSignatory\Report.cs" />
+    <Compile Include="DataModel\Role.cs" />
     <Compile Include="DataModel\SalesEmployee\CommisionGroups.cs" />
     <Compile Include="DataModel\SalesEmployee\SalesEmployee.cs" />
+    <Compile Include="DataModel\Ticket.cs" />
     <Compile Include="DataModel\TransactionNumbering.cs" />
     <Compile Include="DataModel\Transaction\TransactionSubType.cs" />
     <Compile Include="DTOs\AccountStatusHistoryDTO.cs" />
@@ -245,6 +247,7 @@
     <Compile Include="DTOs\ProvinceDTO.cs" />
     <Compile Include="DTOs\Purok\PurokDTO.cs" />
     <Compile Include="DTOs\BusinessPartners\ShippingTypesDTO.cs" />
+    <Compile Include="DTOs\Select2LookUpDTO.cs" />
     <Compile Include="DTOs\Sitio\SitioDTO.cs" />
     <Compile Include="DTOs\SubStationDetailsForUpdateDTO.cs" />
     <Compile Include="DTOs\SubStation\SubStationDTO.cs" />

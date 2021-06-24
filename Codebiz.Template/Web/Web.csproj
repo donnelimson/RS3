@@ -365,6 +365,7 @@
     <Compile Include="App_Helpers\RazorHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\User\AppUserFileUploadController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\Admin\PermissionController.cs" />
@@ -704,6 +705,7 @@
     <Content Include="App_Data\DefaultPhoto\txt.png" />
     <Content Include="App_Data\DefaultPhoto\xls.png" />
     <Content Include="App_Data\MIGRATE-REGION-PROVINCE.sql" />
+    <Content Include="Content\Image\ticket.png" />
     <Content Include="Scripts\angular-animate\angular-animate.js" />
     <Content Include="Scripts\angular-animate\angular-animate.min.js" />
     <Content Include="Scripts\angular-animate\index.js" />
@@ -8338,6 +8340,7 @@
     <Folder Include="Scripts\INVNTRY\Templates\" />
     <Folder Include="SqlServerTypes\x64\" />
     <Folder Include="SqlServerTypes\x86\" />
+    <Folder Include="Views\Role\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

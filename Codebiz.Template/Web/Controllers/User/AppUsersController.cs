@@ -169,20 +169,16 @@ namespace Web.Controllers
             {
                 AppUserId = appUser.AppUserId,
                 ForFrofile = false,
-                Email = appUser.Employee.Email,
+               // Email = appUser.Employee.Email,
                 Username = appUser.Username,
-                FirstName = appUser.Employee.FirstName,
+                FirstName = appUser.FirstName,
                 IsLocalNetworkUser = appUser.IsLocalNetworkUser,
                 IsActive = appUser.IsActive,
-                LastName = appUser.Employee.LastName,
-                MiddleName = appUser.Employee.MiddleName,
+                LastName = appUser.LastName,
+                MiddleName = appUser.MiddleName,
                 SelectedUserGroups = appUser.UserGroups.Select(a => a.UserGroupId).ToList(),
                 UserGroupsLookUp = userGroupsLookUp,
-                SelectedPositionId = appUser.Employee.PositionId,
-                SelectedOfficeId = appUser.Employee.OfficeId,
-                SelectedDepartmentId = appUser.Employee.DepartmentId,
-                SelectedDivisionId = appUser.Employee.DivisionId,
-
+                RoleId = appUser.RoleId.Value
             };
 
             return View("Form", viewModel);
@@ -553,7 +549,6 @@ namespace Web.Controllers
         }
 
         #endregion
-
         [HttpGet]
         public JsonResult GetAppUserStatuses()
         {

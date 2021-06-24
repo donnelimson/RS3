@@ -1,4 +1,5 @@
-﻿using Codebiz.Domain.Common.Model.DataModel.CSA;
+﻿using Codebiz.Domain.Common.Model.DataModel;
+using Codebiz.Domain.Common.Model.DataModel.CSA;
 using Codebiz.Domain.Common.Model.Enums;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,15 @@ namespace Codebiz.Domain.Common.Model
 
         [Key]
         public int AppUserId { get; set; }
+
+        [MaxLength(50)]
+        public string LastName { get; set; }
+
+        [MaxLength(50)]
+        public string FirstName { get; set; }
+
+        [MaxLength(50)]
+        public string MiddleName { get; set; }
 
         [ForeignKey("Employee")]
         public int? EmployeeId { get; set; }
@@ -54,6 +64,10 @@ namespace Codebiz.Domain.Common.Model
         public bool? IsLocalNetworkUser { get; set; }
         public bool EmailConfirmed { get; set; }
         public int AppUserStatus { get; set; }
+        [ForeignKey("Role")]
+        public int? RoleId { get; set; }
+        public virtual Role Role { get; set; }
+        public string Email { get; set; }
 
         public virtual ICollection<UserGroup> UserGroups { get; set; }
         public virtual ICollection<ApprovalStage> ApprovalStages { get; set; }   

@@ -26,18 +26,13 @@ namespace Web.Models.ViewModels.AppUsers
         [RegularExpression("^([ña-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$", ErrorMessage = "Invalid email format.")]
         public string Email { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        [Display(Name = "Last Name")]
+
         public string LastName { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        [Display(Name = "First Name")]
+
         public string FirstName { get; set; }
 
-        [MaxLength(50)]
-        [Display(Name = "Middle Name")]
+
         public string MiddleName { get; set; }
 
         [Display(Name = "Is Active")]
@@ -66,5 +61,6 @@ namespace Web.Models.ViewModels.AppUsers
         public int? SelectedDivisionId { get; set; }
         public virtual List<KeyValuePair<int, string>> DivisionLookUp { get; set; }
         public bool ForFrofile { get; set; }
+        public int RoleId { get; set; }
     }
 }

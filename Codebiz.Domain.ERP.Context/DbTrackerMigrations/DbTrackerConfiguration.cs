@@ -203,15 +203,15 @@ namespace Codebiz.Domain.ERP.Context.DbTrackerMigrations
             /*exec only once /smallkid */
             //CleanTablesForModelBaseMigration(context);
             /*exec only once /donnel */ //for approval with no reference
-            //UpdateApprovalReference(context);
+                                        //UpdateApprovalReference(context);
             /*exec only once /donnel */ // Error : OutOfMemoryException
-            //UpdateAccountTypes(context);
+                                        //UpdateAccountTypes(context);
 
             //ExecuteCustomSQLForDefaultConstraint(context);
-           // SeedTransactionNumbering(context);
-         //   ExecCustomSQL(context);
+            // SeedTransactionNumbering(context);
+            //   ExecCustomSQL(context);
             //Report Signatories
-           // ReportSignatoryData.Seed_Reports(context);
+            // ReportSignatoryData.Seed_Reports(context);
 
             //Migrations
             //ConsumerAccountMigrateData.Seed_Consumers(context);
@@ -220,9 +220,21 @@ namespace Codebiz.Domain.ERP.Context.DbTrackerMigrations
 
             //Vehicle
             //SeedCoopVehicles(context);
+            #region RS3
+            SeedRoles(context);
+            #endregion
             context.SaveChanges();
         }
-
+        #region RS3
+        private void SeedRoles(DbTrackerContext context)
+        {
+            context.Roles.AddOrUpdate(a=>a.Code, new Role{Id=1, Code="ADM", Description="Administrator" });
+            context.Roles.AddOrUpdate(a => a.Code, new Role { Id = 2, Code = "CC", Description = "Call Center" });
+            context.Roles.AddOrUpdate(a => a.Code, new Role { Id = 3, Code = "TCH", Description = "Technician" });
+            context.Roles.AddOrUpdate(a => a.Code, new Role { Id = 4, Code = "CLN", Description = "Client" });
+            context.SaveChanges();
+        }
+        #endregion
         #region Configuration Setting
 
         private void SeedFileType(DbTrackerContext context)

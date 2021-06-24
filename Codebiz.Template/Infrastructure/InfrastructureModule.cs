@@ -109,14 +109,14 @@ namespace Infrastructure
             builder.RegisterType<ContentFileService>().As<IContentFileService>().InstancePerLifetimeScope();
             builder.RegisterType<FileTypeService>().As<IFileTypeService>().InstancePerLifetimeScope();
             builder.RegisterType<FileServices>().As<IFileServices>().InstancePerLifetimeScope();
-  
+
             /*ERP*/
             //builder.RegisterType<FinanceDataService>().As<IFinanceDataService>().InstancePerLifetimeScope();
             //builder.RegisterType< ERP.InventoryDataService >().As<ERP.IInventoryDataService>().InstancePerLifetimeScope();
             //builder.RegisterType<SalesTransactionDataService>().As<ISalesTransactionDataService>().InstancePerLifetimeScope();
             //builder.RegisterType<BusinessPartnerDataService>().As<IBusinessPartnerDataService>().InstancePerLifetimeScope();
 
-        
+
 
 
 
@@ -125,6 +125,10 @@ namespace Infrastructure
 
             #endregion
 
+            #region RS3
+            builder.RegisterType<RoleService>().As<IRoleService>().InstancePerLifetimeScope();
+
+            #endregion
 
         }
 
@@ -193,12 +197,15 @@ namespace Infrastructure
             builder.RegisterType<FileTypeRepository>().As<IFileTypeRepository>().InstancePerLifetimeScope();
             builder.RegisterType<LoginHistoryRepository>().As<ILoginHistoryRepository>().InstancePerLifetimeScope();
 
+            #region RS3
+            builder.RegisterType<RoleRepository>().As<IRoleRepository>().InstancePerLifetimeScope();
+
+            #endregion
 
 
 
 
 
-       
         }
     }
 }

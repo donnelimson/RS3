@@ -7,10 +7,10 @@
 <!-- BEGIN LOGO -->
 <div class="logo" style="margin-bottom: -40px;">
     <div style="display: inline-block; height: 150px; vertical-align: top;">
-        <img src="@Url.Content("~/Content/Image/Tarelco.png")" alt="" height="150" />
+        @*<img src="@Url.Content("~/Content/Image/Tarelco.png")" alt="" height="150" />*@
     </div>
     <div class="logo-container">
-        <img src="@Url.Content("~/Content/Image/tarelco1logo.png")" alt="" />
+        @*<img src="@Url.Content("~/Content/Image/tarelco1logo.png")" alt="" />*@
     </div>
 </div>
 <!-- END LOGO -->
@@ -132,7 +132,7 @@
     }
 
 </script>
-<div class="copyright"> @DateTime.Now.Year © TARELCO 1 (@AppVersion.BuildVersion)</div>
+<div class="copyright"> @DateTime.Now.Year © RS3 @*(@AppVersion.BuildVersion)*@</div>
 @section PageScripts {  
     @Scripts.Render("~/bundles/jqueryval")
 }

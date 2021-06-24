@@ -1,6 +1,6 @@
 ﻿@model Web.Models.ViewModels.AppUsers.AppUsersCreateViewModel
 @{
-    ViewBag.Title = "Add Users";
+    ViewBag.Title = "Form Users";
 }
 <!-- BEGIN PAGE BAR -->
 <div class="row" ng-controller="AppUserFormController as controller">
@@ -32,63 +32,12 @@
                     @Html.Hidden("AppUserId")
                     <div class="row">
                         <div class="col-md-6">
-                            <h5 class="form-sub-title">Employee Information</h5>
+                            <h5 class="form-sub-title">User Information</h5>
                             <hr />
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-horizontal">
-                 
-                                        <!--Employee Details-->
-                                        <div class="form-group" ng-show="employeeDetails != null">
-                                            <label class="control-label col-md-3 text-left"></label>
-                                            <div class="col-md-9">
-                                                <div class="m-heading-1 border-after-grey m-bordered" style="border-color: #c3c8ce!important; margin: 0 0 0px;">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="profile-userpic">
-                                                                <img ng-src="{{employeeDetails.MemberPhotoThumbnailUrl}}"
-                                                                     class="img-responsive thumbnail"
-                                                                     alt=""
-                                                                     style="width: 15% !important; float:left; margin-right:10px;">
-                                                                <h4 class="profile-usertitle-name text-capitalize" style="margin:auto; padding-left: 10px; padding-top:10px; font-size:medium;">
-                                                                    <b>{{employeeDetails.FullName}}</b></h4>
-                                                                <div class="profile-usertitle-job" style="margin:auto; padding-left: 10px;">{{employeeDetails.EmployeeNo}}</div>
-                                                                <div class="profile-usertitle-job text-capitalize" style="margin:auto; padding-left: 10px;">{{employeeDetails.PositionName}}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row" style="padding-top: 10px">
-                                                        <div class="col-md-12">
-                                                            <table border="0" width="100%">
-                                                                <tr ng-show="employeeDetails.BadgeNo != null">
-                                                                    <td width="20%"><b>Badge No.&nbsp;:&nbsp;</b></td>
-                                                                    <td>{{employeeDetails.BadgeNo}}</td>
-                                                                </tr>
-                                                                <tr ng-show="employeeDetails.Email != null">
-                                                                    <td width="20%"><b>Email&nbsp;:&nbsp;</b></td>
-                                                                    <td>{{employeeDetails.Email}}</td>
-                                                                </tr>
-                                                                <tr ng-show="employeeDetails.Office != null">
-                                                                    <td width="20%"><b>Area/Office&nbsp;:&nbsp;</b></td>
-                                                                    <td>{{employeeDetails.Office}}</td>
-                                                                </tr>
-                                                                <tr ng-show="employeeDetails.DepartmentName != null">
-                                                                    <td width="20%"><b>Department&nbsp;:&nbsp;</b></td>
-                                                                    <td>{{employeeDetails.DepartmentName}}</td>
-                                                                </tr>
-                                                                <tr ng-show="employeeDetails.DivisionName != null">
-                                                                    <td width="20%"><b>Division&nbsp;:&nbsp;</b></td>
-                                                                    <td>
-                                                                        {{employeeDetails.DivisionName}}
-                                                                        <span ng-show="employeeDetails.DivisionCategoryName != ''"> - {{employeeDetails.DivisionCategoryName}}</span>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                         <!--Employee Details-->
                                         <div class="form-group" ng-class="f.Username.$invalid && (f.Username.$dirty || formSubmitted) ? 'has-error' : ''">
                                             <label class="control-label col-md-3 text-left">Username<span class="required"> *</span></label>
@@ -101,6 +50,68 @@
                                                        maxlength="50">
                                                 <span ng-show="f.Username.$error.required && (f.Username.$dirty || formSubmitted)"
                                                       class="text-danger field-validation-error"><small> Username is required!</small></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="f.Email.$invalid && (f.Email.$dirty || formSubmitted) ? 'has-error' : ''">
+                                            <label class="control-label col-md-3 text-left">Email<span class="required"> *</span></label>
+                                            <div class="col-md-9">
+                                                <input type="email"
+                                                       class="form-control"
+                                                       ng-model="m.Email"
+                                                       ng-required="true"
+                                                       name="Email"
+                                                       maxlength="50">
+                                                <span ng-show="f.Email.$error.required && (f.Email.$dirty || formSubmitted)"
+                                                      class="text-danger field-validation-error"><small> Email is required!</small></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="f.FirstName.$invalid && (f.FirstName.$dirty || formSubmitted) ? 'has-error' : ''">
+                                            <label class="control-label col-md-3 text-left">First Name<span class="required"> *</span></label>
+                                            <div class="col-md-9">
+                                                <input type="text"
+                                                       class="form-control"
+                                                       ng-model="m.FirstName"
+                                                       ng-required="true"
+                                                       name="FirstName"
+                                                       maxlength="50" alpha-dash-only>
+                                                <span ng-show="f.FirstName.$error.required && (f.FirstName.$dirty || formSubmitted)"
+                                                      class="text-danger field-validation-error"><small> First Name is required!</small></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 text-left">Middle Name</label>
+                                            <div class="col-md-9">
+                                                <input type="text"
+                                                       class="form-control"
+                                                       ng-model="m.MiddleName"
+                                                       name="MiddleName"
+                                                       maxlength="50" alpha-dash-only>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="f.LastName.$invalid && (f.LastName.$dirty || formSubmitted) ? 'has-error' : ''">
+                                            <label class="control-label col-md-3 text-left">Last Name<span class="required"> *</span></label>
+                                            <div class="col-md-9">
+                                                <input type="text"
+                                                       class="form-control"
+                                                       ng-model="m.LastName"
+                                                       ng-required="true"
+                                                       name="LastName"
+                                                       maxlength="50" alpha-dash-only>
+                                                <span ng-show="f.LastName.$error.required && (f.LastName.$dirty || formSubmitted)"
+                                                      class="text-danger field-validation-error"><small> Last Name is required!</small></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-class="f.Role.$invalid && (f.Role.$dirty || formSubmitted) ? 'has-error' : ''">
+                                            <label class="control-label col-md-3 text-left">Role<span class="required"> *</span></label>
+                                            <div class="col-md-9">
+                                                <select select2 name="Role"
+                                                        ng-model="m.RoleId"
+                                                        class="form-control"
+                                                        ng-options="r.Id as r.Description for r in roles"
+                                                        ng-required="true">
+                                                </select>
+                                                <span ng-show="f.Role.$error.required && (f.Role.$dirty || formSubmitted)"
+                                                      class="text-danger field-validation-error"><small> Role is required!</small></span>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -132,7 +143,8 @@
                         </div>
                         <div class="col-md-6">
                             <h5>
-                                <font style="color:#5b9bd1;"><b>User Groups</b></font>
+                                <h5 class="form-sub-title">User Groups</h5>
+                             
                                 <label class="mt-checkbox mt-checkbox-outline" style="float:right">
                                     <input id="checkall" name="SelectedAllUserGroups"
                                            ng-true-value="true"
@@ -192,6 +204,4 @@
 @section AngularJSPage {
     @Scripts.Render("~/Scripts/App/Services/AppUserService.js")
     @Scripts.Render("~/Scripts/App/Controllers/AppUser/AppUserFormController.js")
-    @Scripts.Render("~/Areas/Lookups/Scripts/Service/ChooseFromListDataService.js")
-    @Scripts.Render("~/Areas/Lookups/Scripts/Controller/ChooseFromListCtrl.js") 
 }
