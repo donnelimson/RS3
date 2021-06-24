@@ -1325,7 +1325,6 @@
     <Content Include="Scripts\App\Controllers\ApprovalLabel\ApproverLabelFormController.js" />
     <Content Include="Scripts\App\Controllers\ApprovalStage\ApprovalStageDetailController.js" />
     <Content Include="Scripts\App\Controllers\AttachmentViewController.js" />
-    <Content Include="Scripts\App\Controllers\NotificationController.js" />
     <Content Include="Scripts\App\Controllers\Purpose\PurposeAddOrUpdateController.js" />
     <Content Include="Scripts\App\Controllers\Purpose\PurposeIndexController.js" />
     <Content Include="Scripts\App\Controllers\SearchItemController.js" />

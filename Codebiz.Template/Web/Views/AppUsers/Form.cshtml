@@ -32,7 +32,7 @@
                     @Html.Hidden("AppUserId")
                     <div class="row">
                         <div class="col-md-6">
-                            <h5 class="form-sub-title">Employee Information</h5>
+                            <h5 class="form-sub-title">User Information</h5>
                             <hr />
                             <div class="row">
                                 <div class="col-md-12">
@@ -192,6 +192,4 @@
 @section AngularJSPage {
     @Scripts.Render("~/Scripts/App/Services/AppUserService.js")
     @Scripts.Render("~/Scripts/App/Controllers/AppUser/AppUserFormController.js")
-    @Scripts.Render("~/Areas/Lookups/Scripts/Service/ChooseFromListDataService.js")
-    @Scripts.Render("~/Areas/Lookups/Scripts/Controller/ChooseFromListCtrl.js") 
 }

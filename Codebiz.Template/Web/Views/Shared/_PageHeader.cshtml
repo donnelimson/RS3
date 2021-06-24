@@ -25,36 +25,7 @@
                 {
                     <!-- BEGIN USER LOGIN DROPDOWN -->
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar" ng-controller="NotificationController as controller">
-                    <a href="javascript:;" ng-click="readNotification()" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <i class="icon-bell"></i>
-                        <span class="badge badge-default">{{unreadCount == null || unreadCount === 0 ? mull : unreadCount}}</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="external">
-                            <h3>
-                                You have
-                                <span class="bold">{{unreadCount == null || unreadCount === 0 ? mull : unreadCount}} {{unreadCount == null || unreadCount === 0 ? 'No' : 'New'}}</span> Notification
-                            </h3>
-                        </li>
-                        <li>
-                            <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
-                                <li ng-repeat="item in Notifications | orderBy: 'NotificationId' : 'reverse'" ng-style="{'background-color': !item.IsProcessed ? 'lightgray' : 'white'}">
-                                    <a ng-click="process(item)">
-                                        <span class="photo">
-                                            <img ng-src="{{item.AppUserPhotoThumbnailUrl}}" class="img-circle">
-                                        </span>
-                                        <span class="subject">
-                                            <span class="from"> {{item.Name}} </span>
-                                            <span class="time">{{item.TimeInterval}}</span>
-                                        </span>
-                                        <span class="message"> {{item.Message}} </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+        
                     <!-- END INBOX DROPDOWN -->
                     <!-- END NOTIFICATION DROPDOWN -->
                     <li class="dropdown dropdown-user">
