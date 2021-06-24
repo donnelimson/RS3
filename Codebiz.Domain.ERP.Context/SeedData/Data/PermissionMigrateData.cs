@@ -90,45 +90,10 @@ namespace Codebiz.Domain.ERP.Context.SeedData
 
             #endregion
 
-            #region Office
+   
 
-            var officePermissionGroupId = context.PermissionGroups.Where(a => a.Name == PermissionGroupData.Office).Select(a => a.PermissionGroupId).FirstOrDefault();
-            var officeIndexNavLink = context.NavLinks.FirstOrDefault(a => a.Name == NavLinkData.Offices);
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = officeIndexNavLink.NavLinkId, PermissionGroupId = officePermissionGroupId, Code = PermissionData.UserCanViewOfficeData, Description = PermissionDataDescription.UserCanViewOfficeData.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = officeIndexNavLink.NavLinkId, PermissionGroupId = officePermissionGroupId, Code = PermissionData.UserCanAddOfficeData, Description = PermissionDataDescription.UserCanAddOfficeData.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = officeIndexNavLink.NavLinkId, PermissionGroupId = officePermissionGroupId, Code = PermissionData.UserCanEditOfficeData, Description = PermissionDataDescription.UserCanEditOfficeData.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = officeIndexNavLink.NavLinkId, PermissionGroupId = officePermissionGroupId, Code = PermissionData.UserCanDeleteOfficeData, Description = PermissionDataDescription.UserCanDeleteOfficeData.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = officeIndexNavLink.NavLinkId, PermissionGroupId = officePermissionGroupId, Code = PermissionData.UserCanDeActivateReactivateOffice, Description = PermissionDataDescription.UserCanDeActivateReactivateOffice.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = officeIndexNavLink.NavLinkId, PermissionGroupId = officePermissionGroupId, Code = PermissionData.UserCanExportOfficesViewList, Description = PermissionDataDescription.UserCanExportOfficesViewList.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
 
-            #endregion
-
-            #region Department
-
-            var departmentPermissionGroupId = context.PermissionGroups.Where(a => a.Name == PermissionGroupData.Department).Select(a => a.PermissionGroupId).FirstOrDefault();
-            var departmentIndexNavLink = context.NavLinks.FirstOrDefault(a => a.Name == NavLinkData.Departments);
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = departmentIndexNavLink.NavLinkId, PermissionGroupId = departmentPermissionGroupId, Code = PermissionData.UserCanViewDepartmentData, Description = PermissionDataDescription.UserCanViewDepartmentData.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = departmentIndexNavLink.NavLinkId, PermissionGroupId = departmentPermissionGroupId, Code = PermissionData.UserCanAddDepartmentData, Description = PermissionDataDescription.UserCanAddDepartmentData.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = departmentIndexNavLink.NavLinkId, PermissionGroupId = departmentPermissionGroupId, Code = PermissionData.UserCanEditDepartmentData, Description = PermissionDataDescription.UserCanEditDepartmentData.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = departmentIndexNavLink.NavLinkId, PermissionGroupId = departmentPermissionGroupId, Code = PermissionData.UserCanDeleteDepartmentData, Description = PermissionDataDescription.UserCanDeleteDepartmentData.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = departmentIndexNavLink.NavLinkId, PermissionGroupId = departmentPermissionGroupId, Code = PermissionData.UserCanDeActivateReActivateDepartmentData, Description = PermissionDataDescription.UserCanDeActivateReActivateDepartmentData.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = departmentIndexNavLink.NavLinkId, PermissionGroupId = departmentPermissionGroupId, Code = PermissionData.UserCanExportDepartmentViewList, Description = PermissionDataDescription.UserCanExportDepartmentViewList.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-
-            #endregion
-
-            #region Division
-
-            var divisionPermissionGroupId = context.PermissionGroups.Where(a => a.Name == PermissionGroupData.Division).Select(a => a.PermissionGroupId).FirstOrDefault();
-            var divisionIndexNavLink = context.NavLinks.FirstOrDefault(a => a.Name == NavLinkData.Divisions);
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = divisionIndexNavLink.NavLinkId, PermissionGroupId = divisionPermissionGroupId, Code = PermissionData.UserCanViewDivision, Description = PermissionDataDescription.UserCanViewDivision.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = divisionIndexNavLink.NavLinkId, PermissionGroupId = divisionPermissionGroupId, Code = PermissionData.UserCanAddDivision, Description = PermissionDataDescription.UserCanAddDivision.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = divisionIndexNavLink.NavLinkId, PermissionGroupId = divisionPermissionGroupId, Code = PermissionData.UserCanEditDivision, Description = PermissionDataDescription.UserCanEditDivision.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = divisionIndexNavLink.NavLinkId, PermissionGroupId = divisionPermissionGroupId, Code = PermissionData.UserCanDeleteDivision, Description = PermissionDataDescription.UserCanDeleteDivision.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = divisionIndexNavLink.NavLinkId, PermissionGroupId = divisionPermissionGroupId, Code = PermissionData.UserCanDeActivateReActivateDivision, Description = PermissionDataDescription.UserCanDeActivateReActivateDivision.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = divisionIndexNavLink.NavLinkId, PermissionGroupId = divisionPermissionGroupId, Code = PermissionData.UserCanExportDivision, Description = PermissionDataDescription.UserCanExportDivision.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            //context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = divisionIndexNavLink.NavLinkId, PermissionGroupId = divisionPermissionGroupId, Code = PermissionData.UserCanViewDivisionDetails, Description = PermissionDataDescription.UserCanViewDivisionDetails.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-
-            #endregion
+     
 
             #region Position
 
@@ -240,19 +205,6 @@ namespace Codebiz.Domain.ERP.Context.SeedData
             #endregion
 
 
-            
-            #region Work Order
-
-            //var workOrderPermissionGroupId = context.PermissionGroups.Where(a => a.Name == PermissionGroupData.WorkOrder).Select(a => a.PermissionGroupId).FirstOrDefault();
-            //var workOrderIndexNavLink = context.NavLinks.FirstOrDefault(a => a.Name == "Work Order");
-            //context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = workOrderIndexNavLink.NavLinkId, PermissionGroupId = workOrderPermissionGroupId, Code = PermissionData.UserCanViewWorkOrder, Description = PermissionDataDescription.UserCanViewWorkOrder.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            //context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = workOrderIndexNavLink.NavLinkId, PermissionGroupId = workOrderPermissionGroupId, Code = PermissionData.UserCanAddWorkOrder, Description = PermissionDataDescription.UserCanAddWorkOrder.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            //context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = workOrderIndexNavLink.NavLinkId, PermissionGroupId = workOrderPermissionGroupId, Code = PermissionData.UserCanEditWorkOrder, Description = PermissionDataDescription.UserCanEditWorkOrder.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            //context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = workOrderIndexNavLink.NavLinkId, PermissionGroupId = workOrderPermissionGroupId, Code = PermissionData.UserCanDeleteWorkOrder, Description = PermissionDataDescription.UserCanDeleteWorkOrder.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            //context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = workOrderIndexNavLink.NavLinkId, PermissionGroupId = workOrderPermissionGroupId, Code = PermissionData.UserCanDeActivateReActivateWorkOrder, Description = PermissionDataDescription.UserCanDeActivateReActivateWorkOrder.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            //context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = workOrderIndexNavLink.NavLinkId, PermissionGroupId = workOrderPermissionGroupId, Code = PermissionData.UserCanExportWorkOrder, Description = PermissionDataDescription.UserCanExportWorkOrder.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-
-            #endregion
 
             #region Supporting Documents
 
@@ -266,33 +218,8 @@ namespace Codebiz.Domain.ERP.Context.SeedData
 
             #endregion
 
-            #region Document Numbering
 
-            var documentNumberingNavlink = context.NavLinks.FirstOrDefault(a => a.Name == NavLinkData.DocumentNumberings);
-            var documentNumberGroupId = context.PermissionGroups.Where(a => a.Name == PermissionGroupData.DocumentNumbering).Select(a => a.PermissionGroupId).FirstOrDefault();
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = documentNumberingNavlink.NavLinkId, PermissionGroupId = documentNumberGroupId, Code = PermissionData.UserCanViewDocumentNumberingData, Description = PermissionDataDescription.UserCanViewDocumentNumberingData.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { PermissionGroupId = documentNumberGroupId, Code = PermissionData.UserCanAddDocumentNumberingData, Description = PermissionDataDescription.UserCanAddDocumentNumberingData.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { PermissionGroupId = documentNumberGroupId, Code = PermissionData.UserCanEditDocumentNumberingData, Description = PermissionDataDescription.UserCanEditDocumentNumberingData.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { PermissionGroupId = documentNumberGroupId, Code = PermissionData.UserCanExportDocumentNumberingViewList, Description = PermissionDataDescription.UserCanExportDocumentNumberingViewList.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-
-            #endregion
-
-     
-
-        
-
-
-            #region Purpose
-
-            var purposePermissionGroupId = context.PermissionGroups.Where(a => a.Name == PermissionGroupData.Purpose).Select(a => a.PermissionGroupId).FirstOrDefault();
-            var purposeNavLink = context.NavLinks.FirstOrDefault(a => a.Name == NavLinkData.Purpose);
-
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = purposeNavLink.NavLinkId, PermissionGroupId = purposePermissionGroupId, Code = PermissionData.UserCanViewPurpose, Description = PermissionDataDescription.UserCanViewPurpose.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = purposeNavLink.NavLinkId, PermissionGroupId = purposePermissionGroupId, Code = PermissionData.UserCanAddPurpose, Description = PermissionDataDescription.UserCanAddPurpose.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = purposeNavLink.NavLinkId, PermissionGroupId = purposePermissionGroupId, Code = PermissionData.UserCanExportPurpose, Description = PermissionDataDescription.UserCanExportPurpose.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = purposeNavLink.NavLinkId, PermissionGroupId = purposePermissionGroupId, Code = PermissionData.UserCanEditPurpose, Description = PermissionDataDescription.UserCanEditPurpose.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
-
-            #endregion
+       
 
 
             context.SaveChanges();

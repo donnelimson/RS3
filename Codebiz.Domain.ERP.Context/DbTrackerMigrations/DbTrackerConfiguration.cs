@@ -184,7 +184,7 @@ namespace Codebiz.Domain.ERP.Context.DbTrackerMigrations
             //ManagementMigrateData.Seed_PY_Transactions(context);
             //ManagementMigrateData.Seed_Material_Transaction(context);
 
-            ManagementMigrateData.Seed_SupportingDocument(context);
+            //ManagementMigrateData.Seed_SupportingDocument(context);
         //    ManagementMigrateData.Seed_Approval_Setup(context);
          //   ManagementMigrateData.SeedApproverLabel(context);
 

@@ -210,13 +210,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Migrations\AccountContext\" />
-    <Folder Include="Migrations\DocumentContext\" />
-    <Folder Include="Migrations\FinanceContext\" />
-    <Folder Include="Migrations\GeneralContext\" />
-    <Folder Include="Migrations\ItemContext\" />
-    <Folder Include="Migrations\PaymentContext\" />
-    <Folder Include="Migrations\PurchaseContext\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MigrationTemplate\DocFormGrid.txt" />

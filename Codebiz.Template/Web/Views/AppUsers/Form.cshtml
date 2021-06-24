@@ -37,30 +37,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-horizontal">
-                                        <div class="form-group" ng-class="f.Employee.$invalid && (f.Employee.$dirty || formSubmitted) || invalidEmployee ? 'has-error' : ''">
-                                            <label class="control-label col-md-3 text-left">Employee<span class="required"> *</span></label>
-                                            <div class="col-md-9">
-                                                <div class="input-group">
-                                                    <input type="text"
-                                                           name="Employee"
-                                                           ng-model="m.EmployeeNo"
-                                                           class="form-control"
-                                                           ng-required="true"
-                                                           ng-disabled="forUpdate"
-                                                           ng-keydown="searchEmployeeByNo(m.EmployeeNo, $event)" />
-                                                    <span class="input-group-btn">
-                                                        <!--Search Employee-->
-                                                        <button class="btn btn-info btn" type="button" ng-click="searchEmployee(false,'')">
-                                                            <i class="fa fa-search"></i>
-                                                        </button>
-                                                    </span>
-                                                </div>
-                                                <span ng-show="f.Employee.$invalid && (f.Employee.$dirty || formSubmitted) && !invalidEmployee"
-                                                      class="text-danger field-validation-error"><small>Employee is required!</small></span>
-                                                <span ng-show="invalidEmployee"
-                                                      class="text-danger field-validation-error"><small>Employee doesn't exist.</small></span>
-                                            </div>
-                                        </div>
+                 
                                         <!--Employee Details-->
                                         <div class="form-group" ng-show="employeeDetails != null">
                                             <label class="control-label col-md-3 text-left"></label>
