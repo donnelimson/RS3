@@ -17,7 +17,7 @@
                     FirstName: "",
                     MiddleName: "",
                     LastName: "",
-                    Email
+                    Email:""
                 }
 
                 $scope.employeeDetails = null;

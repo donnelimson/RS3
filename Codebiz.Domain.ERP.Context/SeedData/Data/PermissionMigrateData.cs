@@ -219,7 +219,19 @@ namespace Codebiz.Domain.ERP.Context.SeedData
             #endregion
 
 
-       
+            #region rs3
+            var ticketPermissionGroupId = context.PermissionGroups.Where(a => a.Name == PermissionGroupData.Ticket).Select(a => a.PermissionGroupId).FirstOrDefault();
+            var ticketIndexNavLink = context.NavLinks.FirstOrDefault(a => a.Name == NavLinkData.Tickets);
+            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = ticketIndexNavLink.NavLinkId, PermissionGroupId = ticketPermissionGroupId, Code = PermissionData.UserCanCreateTicket, Description = PermissionDataDescription.UserCanCreateTicket.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = ticketIndexNavLink.NavLinkId, PermissionGroupId = ticketPermissionGroupId, Code = PermissionData.UserCanEditTicket, Description = PermissionDataDescription.UserCanEditTicket.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = ticketIndexNavLink.NavLinkId, PermissionGroupId = ticketPermissionGroupId, Code = PermissionData.UserCanDeleteTicket, Description = PermissionDataDescription.UserCanDeleteTicket.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = ticketIndexNavLink.NavLinkId, PermissionGroupId = ticketPermissionGroupId, Code = PermissionData.UserCanAssignTicket, Description = PermissionDataDescription.UserCanAssignTicket.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = ticketIndexNavLink.NavLinkId, PermissionGroupId = ticketPermissionGroupId, Code = PermissionData.UserCanMoveTicket, Description = PermissionDataDescription.UserCanMoveTicket.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = ticketIndexNavLink.NavLinkId, PermissionGroupId = ticketPermissionGroupId, Code = PermissionData.UserCanTakeTicket, Description = PermissionDataDescription.UserCanTakeTicket.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = ticketIndexNavLink.NavLinkId, PermissionGroupId = ticketPermissionGroupId, Code = PermissionData.UserCanViewTicketList, Description = PermissionDataDescription.UserCanViewTicketList.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = ticketIndexNavLink.NavLinkId, PermissionGroupId = ticketPermissionGroupId, Code = PermissionData.UserCanViewTicket, Description = PermissionDataDescription.UserCanViewTicket.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+
+            #endregion
 
 
             context.SaveChanges();
@@ -270,7 +282,10 @@ namespace Codebiz.Domain.ERP.Context.SeedData
 
             #endregion
 
-    
+            #region RS3
+            context.PermissionGroups.AddOrUpdate(a => a.Name, new PermissionGroup { Name = PermissionGroupData.Ticket, Description = PermissionGroupData.Ticket, IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+
+            #endregion
 
 
             context.SaveChanges();

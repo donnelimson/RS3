@@ -242,6 +242,7 @@
     <Compile Include="DTOs\ReconnectionContentFileDTO.cs" />
     <Compile Include="DTOs\RegionDTO.cs" />
     <Compile Include="DTOs\Route\RouteModalDTO.cs" />
+    <Compile Include="DTOs\RS3\TicketDTO.cs" />
     <Compile Include="DTOs\SalesEmployee\SalesEmployeeDTO.cs" />
     <Compile Include="DTOs\SearchAppUserDTO.cs" />
     <Compile Include="DTOs\ProvinceDTO.cs" />
@@ -372,6 +373,7 @@
     <Compile Include="Filter\Request\DisconnectionFilter.cs" />
     <Compile Include="Filter\Request\DiscountApplicationSupportingHistoryFilter.cs" />
     <Compile Include="Filter\Request\ReconnectionFilter.cs" />
+    <Compile Include="Filter\RS3\TicketFilter.cs" />
     <Compile Include="Filter\SalesEmployeeFilter.cs" />
     <Compile Include="Filter\SearchMemberFilter.cs" />
     <Compile Include="Filter\SearchAccountFilter.cs" />

@@ -30,11 +30,6 @@ namespace Web.Controllers.User
         }
 
 
-        [ClaimsAuthorize(ClaimCustomTypes.UserPermissions, PermissionData.UserCanViewEmployeeWithLicenseNoList)]
-        public ActionResult EmployeeDriversLicense()
-        {
-            return View();
-        }
 
         #region Get Employee Details
 

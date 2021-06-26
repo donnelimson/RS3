@@ -158,8 +158,8 @@ namespace Codebiz.Domain.ERP.Context.DbTrackerMigrations
 
 
             //UserMigrateData.Seed_Users(context);
-            UserMigrateData.Seed_UserGroups(context);
-            UserMigrateData.Seed_User_PermissionGroup(context);
+          //  UserMigrateData.Seed_UserGroups(context);
+            //UserMigrateData.Seed_User_PermissionGroup(context);
 
             UserMigrateData.Seed_Employees(context);
 

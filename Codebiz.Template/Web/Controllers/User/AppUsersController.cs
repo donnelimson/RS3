@@ -178,7 +178,7 @@ namespace Web.Controllers
                 MiddleName = appUser.MiddleName,
                 SelectedUserGroups = appUser.UserGroups.Select(a => a.UserGroupId).ToList(),
                 UserGroupsLookUp = userGroupsLookUp,
-                RoleId = appUser.RoleId.Value
+                RoleId = appUser.RoleId
             };
 
             return View("Form", viewModel);

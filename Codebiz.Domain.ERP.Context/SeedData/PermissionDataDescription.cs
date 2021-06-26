@@ -238,7 +238,16 @@
 
 
         #endregion
-
+        #region rs3
+        public const string UserCanCreateTicket = "UserCanCreateTicket";
+        public const string UserCanEditTicket = "UserCanEditTicket";
+        public const string UserCanDeleteTicket = "UserCanDeleteTicket";
+        public const string UserCanAssignTicket = "UserCanAssignTicket";
+        public const string UserCanMoveTicket = "UserCanMoveTicket";
+        public const string UserCanTakeTicket = "UserCanTakeTicket";
+        public const string UserCanViewTicketList = "UserCanViewTicketList";
+        public const string UserCanViewTicket = "UserCanViewTicket";
+        #endregion
 
 
     }

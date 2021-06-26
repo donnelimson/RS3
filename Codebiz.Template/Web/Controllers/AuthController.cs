@@ -78,11 +78,6 @@ namespace Web.Controllers
 
 
 
-        [JwtAuthorize(ClaimCustomTypes.UserPermissions, PermissionData.UserCanEditFinancial)]
-        [Route("api/Auth/GetData")]
-        public IHttpActionResult GetData()
-        {
-            return Ok("test");
-        }
+
     }
 }

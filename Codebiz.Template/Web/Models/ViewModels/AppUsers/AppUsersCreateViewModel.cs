@@ -61,6 +61,6 @@ namespace Web.Models.ViewModels.AppUsers
         public int? SelectedDivisionId { get; set; }
         public virtual List<KeyValuePair<int, string>> DivisionLookUp { get; set; }
         public bool ForFrofile { get; set; }
-        public int RoleId { get; set; }
+        public int? RoleId { get; set; }
     }
 }

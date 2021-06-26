@@ -287,41 +287,9 @@ namespace Codebiz.Domain.ERP.Context.SeedData
                 var usergroups = new List<string>{
                     "Dashboard",
                     "Administrator",
-                    "Account",
-                    "View account details",
-                    "Applicant",
-                    "Member",
-                    "View consumer details",
-                    "PMOS",
-                    "HW Inspector",
-                    "Issue for connection",
-                    "For Connection",
-                    "For Disconnection",
-                    "Burial Assistance",
-                    "Change of Name",
-                    "Discount application",
-                    "Job order request",
-                    "Job order request view",
-                    "Job order request can change acted upon",
-                    "Job order request create direct",
-                    "Job order request create indirect",
-                    "Job order request receive",
-                    "Job order request assigned/endorse",
-                    //"Job order request forward",
-                    "Job order request view details",
-                    "Job order complaint",
-                    "Job order complaint view",
-                    "Job order complaint can change acted upon",
-                    "Job order complaint create direct",
-                    "Job order complaint create indirect",
-                    "Job order complaint receive",
-                    "Job order complaint assigned/endorse",
-                    "Job order complaint view details",
-                    //"Job order complaint forward",
-                    "Job order for assigned to employee",
-                    "Job order for process",
-                    "Approval",
-                    "Payment",
+                    "Call Center",
+                    "Technician",
+                    "Client"
                 };
 
                 foreach (var item in usergroups)
@@ -348,168 +316,18 @@ namespace Codebiz.Domain.ERP.Context.SeedData
                     UserGroup = "Dashboard",
                     Permissions = context.Permissions
                         .Where(p =>p.PermissionGroup.Name == PermissionGroupData.Dashboard).ToList() },
-                new { UserGroup = "Administrator", Permissions = context.Permissions.ToList() },
-                new {
-                    UserGroup = "Account",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanViewConsumerAccountsData ||
-                                    p.Code == PermissionData.UserCanAddConsumerAccountData ||
-                                    p.Code == PermissionData.UserCanEditConsumerAccountData ||
-                                    p.Code == PermissionData.UserCanEndorseReassignToForHWInspection ||
-                                    p.Code == PermissionData.UserCanRecommendAccountForApproval ||
-                                    p.Code == PermissionData.UserCanAddSubstationAndFeederToAccountData ||
-                                    p.Code == PermissionData.UserCanExportAccountsViewList ||
-                                    p.Code == PermissionData.UserCanRecommendForPaymentMemberAccountApplication ||
-                                    p.Code == PermissionData.UserCanViewConsumerAccountDetails).ToList() },
-                new {
-                    UserGroup = "View account details",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanViewConsumerAccountDetails).ToList() },
-                new {
-                    UserGroup = "Applicant",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanViewApplicantsData ||
-                                    p.Code == PermissionData.UserCanExportApplicantViewList ||
-                                    p.Code == PermissionData.UserCanAddApplicantData ||
-                                    p.Code == PermissionData.UserCanEditApplicantData ||
-                                    p.Code == PermissionData.UserCanViewApplicantConsumerDetails).ToList() },
-                new {
-                    UserGroup = "Member",
-                    Permissions = context.Permissions
-                        .Where(p =>p.PermissionGroup.Name == PermissionGroupData.Member).ToList() },
-                    new {
-                    UserGroup = "View consumer details",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanViewApplicantConsumerDetails).ToList() },
-                new {
-                    UserGroup = "PMOS",
-                    Permissions = context.Permissions
-                        .Where(p =>p.PermissionGroup.Name == PermissionGroupData.PreMembershipOrientationSeminar).ToList() },
-                new {
-                    UserGroup = "HW Inspector",
-                    Permissions = context.Permissions
-                        .Where(p =>p.PermissionGroup.Name == PermissionGroupData.HouseWiringInspection).ToList() },
-                new {
-                    UserGroup = "Issue for connection",
-                    Permissions = context.Permissions
-                        .Where(p => p.PermissionGroup.Name == PermissionGroupData.IssueForConnection).ToList() },
-                new {
-                    UserGroup = "For Connection",
-                    Permissions = context.Permissions
-                        .Where(p => p.PermissionGroup.Name == PermissionGroupData.ForConnection).ToList() },
-                new {
-                    UserGroup = "For Disconnection",
-                    Permissions = context.Permissions
-                        .Where(p => p.PermissionGroup.Name == PermissionGroupData.ForDisconnection).ToList() },
-                new {
-                    UserGroup = "Burial Assistance",
-                    Permissions = context.Permissions
-                        .Where(p => p.PermissionGroup.Name == PermissionGroupData.BurialAssistance).ToList() },
-                new {
-                    UserGroup = "Change of Name",
-                    Permissions = context.Permissions
-                        .Where(p => p.PermissionGroup.Name == PermissionGroupData.ChangeOfName).ToList() },
-                new {
-                    UserGroup = "Discount application",
-                    Permissions = context.Permissions
-                        .Where(p => p.PermissionGroup.Name == PermissionGroupData.DiscountApplication).ToList() },
-                new {
-                    UserGroup = "Approval",
-                    Permissions = context.Permissions
-                        .Where(p => p.PermissionGroup.Name == PermissionGroupData.Approval).ToList() },
-                new {
-                    UserGroup = "Payment",
-                    Permissions = context.Permissions
-                        .Where(p => p.PermissionGroup.Name == PermissionGroupData.Payment ||
-                                    p.PermissionGroup.Name == PermissionGroupData.PaymentEntry).ToList() },
-                new {
-                    UserGroup = "Job order request",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanCreateJobOrderRequestDirect ||
-                                    p.Code == PermissionData.UserCanCreateJobOrderRequestIndirect ||
-                                    p.Code == PermissionData.UserCanEditJobOrderRequest ||
-                                    p.Code == PermissionData.UserCanDeleteJobOrderRequest).ToList() },
+                new { UserGroup = "Administrator", Permissions = context.Permissions.ToList()},
                  new {
-                    UserGroup = "Job order request view",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanViewJobOrderRequest ||
-                                    p.Code == PermissionData.UserCanExportJobOrderRequest).ToList() },
-                 new {
-                    UserGroup = "Job order request can change acted upon",
-                    Permissions = context.Permissions
-                        .Where(p =>  p.Code == PermissionData.UserCanEditJobOrderRequestApplicationActedUponField).ToList() },
-                new {
-                    UserGroup = "Job order request create direct",
-                    Permissions = context.Permissions
-                        .Where(p =>  p.Code == PermissionData.UserCanCreateJobOrderRequestDirect).ToList() },
-                new {
-                    UserGroup = "Job order request create indirect",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanCreateJobOrderRequestIndirect).ToList() },
-                new {
-                    UserGroup = "Job order request receive",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanReceiveJobOrderRequest).ToList() },
-                new {
-                    UserGroup = "Job order request assigned/endorse",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanAssignJobOrderRequestToDivision).ToList() },
-                //new {
-                //    UserGroup = "Job order request forward",
-                //    Permissions = context.Permissions
-                //        .Where(p => p.Code == PermissionData.UserCanForwardJobOrderRequest).ToList() },
-                new {
-                    UserGroup = "Job order complaint",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanCreateJobOrderComplaintDirect ||
-                                    p.Code == PermissionData.UserCanCreateJobOrderComplaintIndirect ||
-                                    p.Code == PermissionData.UserCanEditJobOrderComplaintData ||
-                                    p.Code == PermissionData.UserCanDeleteJobOrderComplaintData).ToList() },
-                new {
-                    UserGroup = "Job order complaint view",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanViewJobOrderComplaintData ||
-                                    p.Code == PermissionData.UserCanExportJobOrderComplaintData).ToList() },
-                 new {
-                    UserGroup = "Job order complaint can change acted upon",
-                    Permissions = context.Permissions
-                        .Where(p =>  p.Code == PermissionData.UserCanEditJobOrderComplaintActedUponField).ToList() },
-                new {
-                    UserGroup = "Job order complaint create direct",
-                    Permissions = context.Permissions
-                        .Where(p =>  p.Code == PermissionData.UserCanCreateJobOrderComplaintDirect).ToList() },
-                new {
-                    UserGroup = "Job order complaint create indirect",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanCreateJobOrderComplaintIndirect).ToList() },
-                new {
-                    UserGroup = "Job order complaint receive",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanReceiveJobOrderComplaint).ToList() },
-                new {
-                    UserGroup = "Job order complaint assigned/endorse",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanAssignJobOrderComplaintDataToDivision).ToList() },
-                //new {
-                //    UserGroup = "Job order complaint forward",
-                //    Permissions = context.Permissions
-                //        .Where(p => p.Code == PermissionData.UserCanForwardJobOrderComplaint).ToList() },
-                 new {
-                    UserGroup = "Job order for assigned to employee",
-                    Permissions = context.Permissions
-                        .Where(p => p.PermissionGroup.Name == PermissionGroupData.AssignedJobOrderToEmployee).ToList() },
-                 new {
-                    UserGroup = "Job order for process",
-                    Permissions = context.Permissions
-                        .Where(p => p.PermissionGroup.Name == PermissionGroupData.ProcessJobOrder).ToList() },
-                 new {
-                    UserGroup = "Job order request view details",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanViewJobOrderComplaintDetails).ToList() },
-                 new {
-                    UserGroup = "Job order complaint view details",
-                    Permissions = context.Permissions
-                        .Where(p => p.Code == PermissionData.UserCanViewJobOrderRequestDetails).ToList() },
+                      UserGroup = "CallCenter",
+                 Permissions = context.Permissions
+                .Where(p => p.Code == PermissionData.UserCanAssignTicket ||
+                            p.Code == PermissionData.UserCanCreateTicket ||
+                            p.Code == PermissionData.UserCanMoveTicket ||
+                            p.Code == PermissionData.UserCanEditTicket ||
+                            p.Code == PermissionData.UserCanDeleteTicket || 
+                            p.Code == PermissionData.UserCanMoveTicket||
+                            p.Code == PermissionData.UserCanViewTicketList ||
+                            p.Code == PermissionData.UserCanViewTicket).ToList() },
             };
 
             foreach (var item in permissions)

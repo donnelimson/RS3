@@ -28,6 +28,8 @@ namespace Codebiz.Domain.Common.Model
 
         [MaxLength(50)]
         public string MiddleName { get; set; }
+        [MaxLength(50)]
+        public string Suffix { get; set; }
 
         [ForeignKey("Employee")]
         public int? EmployeeId { get; set; }

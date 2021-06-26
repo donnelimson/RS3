@@ -240,6 +240,7 @@
 
     //RS3
     document.Role = '@Url.Action("Index", "Role", new { area = "" })'+'/';
+    document.Ticket = '@Url.Action("Index", "Ticket", new { area = "" })'+'/';
 
      window.onkeydown = function(e) {
         if (e.keyCode == 8 && e.target == document.body)
@@ -440,7 +441,9 @@
         return true;
     }
 
-
+    function resetValues(origData) {
+        return origData;
+    }
 
     function getUnique(arr, comp) {
         const unique = arr

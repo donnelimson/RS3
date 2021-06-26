@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Codebiz.Domain.Common.Model.DTOs.RS3
+{
+    public class TicketIndexDTO
+    {
+        [DisplayName("TICKET NO.")]
+        public string TicketNo { get; set; }
+        [DisplayName("PRIORITY")]
+        public int Priority { get; set; }
+        [DisplayName("TITLE")]
+        public string Title { get; set; }
+        [DisplayName("CONCERN WHOM")]
+        public string ClientName { get; set; }
+        [DisplayName("CREATED")]
+        public string Created { get; set; }
+        [DisplayName("STATUS")]
+        public string Status { get; set; }
+        [DisplayName("LAST UPDATED")]
+        public string LastUpdated { get; set; }
+        [DisplayName("ASSIGNED TO")]
+        public string AssignedTo { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+        public string CreatedBy { get; set; }
+        public string LastUpdatedBy { get; set; }
+        public DateTime? LastUpdatedOn { get; set; }
+
+    }
+}

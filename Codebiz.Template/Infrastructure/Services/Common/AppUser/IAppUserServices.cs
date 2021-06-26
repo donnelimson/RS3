@@ -473,7 +473,7 @@ namespace Infrastructure.Services
                     Username = appUser.Username,
                     IsActive = appUser.IsActive,
                     SelectedUserGroups = appUser.UserGroups.Select(a => a.UserGroupId).ToList(),
-                    RoleId = appUser.RoleId.Value,
+                    RoleId = appUser.RoleId,
                     FirstName = appUser.FirstName,
                     MiddleName = appUser.MiddleName,
                     LastName = appUser.LastName,

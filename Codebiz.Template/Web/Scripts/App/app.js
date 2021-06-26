@@ -146,6 +146,16 @@ var UOM_TYPE = {
     Inventory: { Value: 3, Desc: "INVNTRY" },
 }
 
+//RS3
+var PRIORITIES = [
+    { 'Description': '1' },
+    { 'Description': '2' },
+    { 'Description': '3' },
+];
+var TICKETSTATUSES = [
+    { 'Description': 'Open', 'Code':'O' },
+    { 'Description': 'Resolved', 'Code':'R' },
+];
 /* Metronic App */
 var MetronicApp = angular.module("MetronicApp", [
     "ngSanitize",

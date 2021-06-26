@@ -179,6 +179,7 @@
     <Compile Include="Repository\Common\Permission\PermissionRepository.cs" />
     <Compile Include="Repository\Common\AppUser\EmployeePhotoRepository.cs" />
     <Compile Include="Repository\Common\RoleRepository.cs" />
+    <Compile Include="Repository\Common\TicketRepository.cs" />
     <Compile Include="Repository\ERepositoryBase.cs" />
     <Compile Include="Models\CustomPostedFileBase\MemoryPostedFile.cs" />
     <Compile Include="InfrastructureModule.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="Services\Common\Employee\IEmployeePhotoService.cs" />
     <Compile Include="Services\Common\Address\IBarangayService.cs" />
     <Compile Include="Services\Common\RoleService.cs" />
+    <Compile Include="Services\Common\TicketService.cs" />
     <Compile Include="Services\IExportToExcelFileService.cs" />
     <Compile Include="Services\Common\File\IContentFileService.cs" />
     <Compile Include="Services\Common\File\IFileServices.cs" />
