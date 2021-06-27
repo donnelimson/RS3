@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Codebiz.Domain.Common.Model.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -31,5 +32,23 @@ namespace Codebiz.Domain.Common.Model.DTOs.RS3
         public string LastUpdatedBy { get; set; }
         public DateTime? LastUpdatedOn { get; set; }
 
+    }
+    public class TicketAddOrUpdateDTO
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public int Priority { get; set; }
+        public int? ClientId { get; set; }
+        public string Client { get; set; }
+        public string ClientEmail { get; set; }
+        public string ClientAddress { get; set; }
+
+        public int? TechnicianId { get; set; }
+        public List<TicketAttachmentDTO> Attachments { get; set; } = new List<TicketAttachmentDTO>();
+    }
+    public class TicketAttachmentDTO : AttachmentViewModel
+    {
+        public int TicketAttachmentId { get; set; }
     }
 }

@@ -1,141 +1,207 @@
-﻿angular.module('MetronicApp')
-    .controller('SupportingDocumentsController',
-        ['$scope', 'SupportingDocumentsService', 'NgTableParams', '$uibModal', '$window', 'CommonService', '$timeout', '$q',
-            function ($scope, SupportingDocumentsService, NgTableParams, $uibModal, $window, CommonService, $timeout, $q) {
+﻿angular.module('MetronicApp').controller('SupportingDocumentController',
+    ['$scope', 'CommonService', '$location', '$timeout',
+        function ($scope, CommonService, $location, $timeout) {
 
-                //#region Variable Defaults
+            //#region Variable Defaults
 
-                $scope.requestTransactionTypes = {};
+            $scope.fromApplicant = false;
+            $scope.isAttachmentsIsValid = false;
+            $scope.hasRequiredDocuments = false;
+            $scope.withdocumentType = true;
+            $scope.documentTypes = [];
+            $scope.queue = [];
+            $scope.isUpdate = $location.absUrl().includes('Edit');
 
-                //#endregion
+            //#endregion
 
-                //#region Init
+            //#region Init
 
-                this.$onInit = function () {
-                    $scope.reset();
-                    getRequestTransactionTypes();
-                };
+            this.$onInit = function () {
 
-                //#endregion
+            };
 
-                //#region Scope functions
+            //#endregion
 
-                $scope.exportDataToExcelFile = function () {
-                    if ($scope.resultsLength > 0) {
-                        CommonService.showLoading();
-                        SupportingDocumentsService.ExportDataToExcelFile({
-                            TransactionTypeId: $scope.transactionTypeId,
-                            SortDirection: $scope.sortOrder,
-                            SortColumn: $scope.sortColumn,
-                            CreatedBy: $scope.createdBy,
-                            CreatedOnFrom: getDateRangePickerValue(1, $scope.createdDate),
-                            CreatedOnTo: getDateRangePickerValue(2, $scope.createdDate)
-                        }).then(function (data) {
-                            CommonService.hideLoading();
-                            window.location.href = document.FileUpload + "DownloadExcelFile?fileName=" + data.data.FileName;
+            //#region Scope functions
 
-                        }, function (error /*Error event should handle here*/) {
-                            console.log("Error");
-                        }, function (data /*Notify event should handle here*/) {
-                            console.log("Error");
-                        });
+            $scope.removeTagIfExisting = function (file) {
+                $scope.formTouched = true;
+                var documentCount = 0;
+                if (file.documentTypeId != null) {
+                    for (var i = 0; i < $scope.queue.length; i++) {
+                        if ($scope.queue[i].documentTypeId == file.documentTypeId) {
+                            documentCount++;
+
+                            if (documentCount > 1)
+                                break;
+                        }
                     }
-                };
-
-                $scope.search = function () {
-                    var initialSettings = {
-                        getData: function (params) {
-                            for (var i in params.sorting()) {
-                                $scope.sortColumn = i;
-                                $scope.sortOrder = params.sorting()[i];
-                            }
-
-                            var d = $q.defer();
-
-                            SupportingDocumentsService.SearchSupportingDocument({
-                                TransactionTypeId: $scope.transactionTypeId,
-                                Page: params.page(),
-                                PageSize: params.count(),
-                                SortDirection: $scope.sortOrder,
-                                SortColumn: $scope.sortColumn,
-                                CreatedBy: $scope.createdBy,
-                                CreatedOnFrom: getDateRangePickerValue(1, $scope.createdDate),
-                                CreatedOnTo: getDateRangePickerValue(2, $scope.createdDate)
-                            }).then(function (data) {
-                                $scope.resultsLength = data.totalRecordCount;
-                                params.total($scope.resultsLength);
-                                d.resolve(data.data);
-                            });
-                            return d.promise;
-                        }
-                    };
-
-                    $scope.tableParams = new NgTableParams(10, initialSettings);
-                };
-
-                $scope.reset = function () {
-                    $scope.transactionTypeId = null;
-                    $scope.createdBy = "";
-                    $scope.createdDate = null;
-
-                    $scope.sortOrder = "desc";
-                    $scope.sortColumn = "CreatedDate";
-
-                    $scope.search();
-                };
-
-                $scope.searchWhenEnter = function ($event) {
-                    var keyCode = $event.which || $event.keyCode;
-                    if (keyCode === 13) {
-                        $scope.search();
-                    }
-                };
-
-                $scope.addOrUpdate = function (id) {
-                    CommonService.showLoading();
-                    $timeout(function () {
-                        if (id === 0) {
-                            $window.location.href = document.SupportingDocuments + "Create";
-                        }
-                        else {
-                            $window.location.href = document.SupportingDocuments + "Edit/" + id;
-                        }
-                    }, 500);
-                };
-
-                $scope.delete = function (id,name) {
-                    CommonService.deleteChanges(function () {
-                        SupportingDocumentsService.DeleteSupportingDocumentById({ id: id, name: name })
-                            .then(function (data) {
-                                CommonService.successMessage(data.message);
-                                $scope.search();
-
-                            }), function (error /*Error event should handle here*/) {
-                                console.log(error);
-                                CommonService.errorMessage("Unexpected error occured.");
-                            }, function (data /*Notify event should handle here*/) {
-                            };
-                    },name);
-                };
-
-                $scope.viewDetails = function (supportingDocumentId) {
-                    $window.location.href = document.SupportingDocuments + "Details/" + supportingDocumentId;
-                };
-
-                //#endregion
-
-                //#region Private functions
-
-                function getRequestTransactionTypes() {
-                    CommonService.GetRequestTransactionTypes({
-                    }).then(function (data) {
-                        $scope.requestTransactionTypes = data.data;
-
-                    }, function (error /*Error event should handle here*/) {
-                        console.log("Error");
-                    }, function (data /*Notify event should handle here*/) {
-                    });
                 }
 
-                //#endregion
-            }]);
+                if (documentCount > 1) {
+                    CommonService.warningMessage("Duplicate document type!");
+                    file.documentTypeId = null;
+                }
+
+                $scope.validateType();
+                $scope.checkIfHasInvalidFile();
+            };
+
+            $scope.$watch("queue.length", function (newVal, oldVal) {
+                var newOldDiff = newVal - oldVal;
+                if (newOldDiff === 1) {
+                    $scope.formTouched = true;
+                    var lastIndex = $scope.queue.length - 1;
+                    var nameCount = $scope.queue.filter(a => a.name === $scope.queue[lastIndex].name).length;
+
+                    if (nameCount > 1) {
+                        CommonService.warningMessage("File already exists!");
+                        $scope.queue.splice(lastIndex, 1);
+                    }
+
+                    validateForm();
+                }
+                else if (newOldDiff > 1) {
+
+                    if (oldVal > 0) {
+                        $scope.formTouched = true;
+                        var originalLength = $scope.queue.length;
+                        var uniqueIndex = [];
+                        for (var i = 0; i <= $scope.queue.length - 1; i++) {
+                            var name = $scope.queue[i].name;
+                            var duplicateDocs = $scope.queue.map(function (x) {
+                                return x.name
+                            }).indexOf(name);
+                            uniqueIndex.push(duplicateDocs)
+                        }
+                        Array.prototype.multiIndexOf = function (el) {
+                            var idxs = [];
+                            for (var i = this.length - 1; i >= 0; i--) {
+                                if (this[i] === el) {
+                                    idxs.unshift(i);
+                                }
+                            }
+                            return idxs;
+                        };
+                        for (var i = 0; i <= uniqueIndex.length - 1; i++) {
+                            var sameDoc = uniqueIndex.multiIndexOf(i);
+                            if (sameDoc.length >= 2) {
+                                $scope.queue.splice(sameDoc[1], 1);
+                                uniqueIndex.splice(sameDoc[1], 1);
+                            }
+                        }
+                        var newLength = $scope.queue.length;
+                        if (newLength < originalLength) {
+                            CommonService.warningMessage("File(s) already exists!");
+                        }
+                    }
+
+                    validateForm();
+                }
+            });
+
+            $scope.removeDocument = function (index, isCancel, file) {
+                $scope.formTouched = true;
+                $scope.queue.splice(index, 1);
+
+                if (isCancel) {
+                    file.$cancel();
+
+                }
+                else {
+                    file.$destroy();
+                }
+                $scope.checkIfHasInvalidFile();
+                $scope.validateType();
+
+                validateForm();
+            };
+
+            $scope.validateType = function () {
+                var documentTypes = $scope.documentTypes;
+                var queue = $scope.queue;
+                $scope.hasdocumentIsNotValid = false;
+                for (var i = 0; i < queue.length; i++) {
+                    queue[i].documentIsNotValid = (queue[i].documentTypeId == undefined || queue[i].documentTypeId == null) ?
+                        true : false;
+
+                    if (queue[i].documentIsNotValid) {
+                        $scope.hasdocumentIsNotValid = true;
+                    }
+                }
+
+                //Required
+                var requiredFields = documentTypes.filter((document) => document.IsRequired);
+                $scope.hasRequiredDocuments = requiredFields.length > 0;
+                if ($scope.withDocumentType && documentTypes.length == 0) {
+                    $scope.noSetupFound = true;
+                }
+                for (var i = 0; i < requiredFields.length; i++) {
+
+                    var documentType = requiredFields[i];
+                    documentType.IsAttached = documentType.IsRequired && queue.filter((queue) => queue.documentTypeId === documentType.DocumentId).length > 0;
+                }
+
+                //Either
+                var groupDocuments = _.mapValues(_.groupBy(documentTypes.filter((document) => !document.IsRequired), 'Group'),
+                    clist => clist.map(document => _.omit(document, 'Group')));
+
+                for (const [key, value] of Object.entries(groupDocuments)) {
+                    var isCompleteAttached = false;
+                    for (var i = 0; i < value.length; i++) {
+                        if (!isCompleteAttached)
+                            isCompleteAttached = queue.filter((queue) => queue.documentTypeId === value[i].DocumentId).length > 0;
+                    }
+
+                    for (var i = 0; i < value.length; i++) {
+                        var documentType = documentTypes.filter((data) => data.DocumentId === value[i].DocumentId);
+                        if (documentType != undefined && documentType != null) {
+                            documentType[0].IsAttached = isCompleteAttached;
+                        }
+                    }
+                }
+
+                var requiredDocCount = documentTypes.filter((data) => (data.IsRequired || (data.Group != '' && data.Group != null && data.Group != undefined))).length;
+                var requiredDocAttachCount = documentTypes.filter((data) => (data.IsRequired || (data.Group != '' && data.Group != null && data.Group != undefined)) && data.IsAttached).length;
+                $scope.isAttachmentsIsValid = requiredDocAttachCount == requiredDocCount;
+            };
+
+            $scope.checkIfHasInvalidFile = function () {
+                if ($scope.queue.length != 0) {
+                    var cont = true;
+                    angular.forEach($scope.queue, function (file) {
+                        if (cont) {
+                            if (file.error) {
+                                $scope.hasInvalidFile = true;
+                                cont = false;
+                            }
+                            else {
+                                $scope.hasInvalidFile = false;
+                            }
+                        }
+                        else {
+                            return;
+                        }
+                    });
+                }
+                else {
+                    $scope.hasInvalidFile = false;
+                }
+            }
+
+            function validateForm() {
+                if (angular.isFunction($scope.setFormDirty))
+                    $scope.setFormDirty()
+            }
+
+            function init() {
+
+                $timeout(function () {
+                    $scope.validateType();
+                }, 1000)
+            }
+
+            init();
+
+            //#endregion
+        }]);

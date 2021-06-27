@@ -95,7 +95,7 @@
                                             <div class="form-group" ng-class="f.Client.$error.required && formSubmitted ? 'has-error':''">
                                                 <label class="control-label col-md-1">Client <span class="required">*</span></label>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="Client" ng-model="m.Client" class="form-control" alphanumeric-dash-only ng-required="true" ng-disabled="!IsGuess" />
+                                                    <input type="text" name="Client" ng-model="m.Client" class="form-control" alphanumeric-dash-only ng-required="true" ng-disabled="!IsGuess" maxlength="100" />
                                                     <span ng-show="f.Client.$error.required && formSubmitted"
                                                           class="text-danger field-validation-error"><small> Client is required!</small></span>
                                                 </div>
@@ -105,8 +105,18 @@
 
                                             </div>
                                         </div>
-
-
+                                    </div>
+                                    <div class="row" style="margin-bottom:10px;">
+                                        <div class="col-md-12">
+                                            <div class="form-group" ng-class="f.ClientEmail.$error.required && formSubmitted ? 'has-error':''">
+                                                <label class="control-label col-md-1">Email <span class="required" ng-show="IsGuess">*</span></label>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="ClientEmail" ng-model="m.ClientEmail" class="form-control" ng-required="IsGuess" ng-disabled="!IsGuess" maxlength="100" />
+                                                    <span ng-show="f.ClientEmail.$error.required && formSubmitted"
+                                                          class="text-danger field-validation-error"><small> Email is required!</small></span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row" style="margin-bottom:10px;">
                                         <div class="col-md-12">
@@ -131,6 +141,17 @@
                                                 </div>
 
 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom:10px;">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-1">Email</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="TechnicianlEmail" ng-model="m.TechnicianlEmail" class="form-control" disabled />
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -315,6 +336,8 @@
 @section PageScripts {
     <script src="~/Scripts/App/Services/RS3/TicketService.js"></script>
     <script src="~/Scripts/App/Controllers/RS3/TicketController.js"></script>
+    <script src="~/Scripts/App/Controllers/FileDestroyController.js"></script>
+    <script src="~/Scripts/App/Controllers/SupportingDocumentsController.js"></script>
     @Scripts.Render("~/bundles/fileupload")
     @Scripts.Render("~/assets/global/plugins/jcrop/js/jquery.Jcrop.min.js")
     @Scripts.Render("~/Content/jquery.mloading.js")

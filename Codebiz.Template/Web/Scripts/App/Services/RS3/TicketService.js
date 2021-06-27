@@ -5,5 +5,8 @@ angular.module("MetronicApp").
             Search: function (args) {
                 return commonService.PostData(args, document.Ticket + 'Search', null);
             },
+            AddOrUpdate: function (args) {
+                return commonService.PostData(args, document.Ticket + 'AddOrUpdate', null);
+            },
         }
     }]);

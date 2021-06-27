@@ -620,7 +620,14 @@ namespace Codebiz.Domain.ERP.Context.DbTrackerMigrations
                 Name = ContentFileTypes.CoopVehicleSupportingDocumentsFolder.GetEnumDescription(),
                 Description = ContentFileTypes.CoopVehicleSupportingDocumentsFolder.GetEnumDescription(),
                 ConfigSettingFolderId = (int)ConfigurationSettings.CoopVehicleSupportingDocumentsFolder
-            });
+            }); context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
+             new ContentFileType
+             {
+                 ContentFileTypeId = (int)ContentFileTypes.TicketAttachmentFolder,
+                 Name = ContentFileTypes.TicketAttachmentFolder.GetEnumDescription(),
+                 Description = ContentFileTypes.TicketAttachmentFolder.GetEnumDescription(),
+                 ConfigSettingFolderId = (int)ConfigurationSettings.TicketAttachmentFolder
+             });
             context.SaveChanges();
         }
         private void ConfigurePermissionUserGroup(DbTrackerContext context)
@@ -1350,6 +1357,18 @@ namespace Codebiz.Domain.ERP.Context.DbTrackerMigrations
                 Name = ConfigurationSettings.CoopVehicleSupportingDocumentsFolder.ToString(),
                 Description = ConfigurationSettings.CoopVehicleSupportingDocumentsFolder.GetEnumDescription(),
                 Value = @"C:\Tarelco\CoopVehicleSupportingDocumentsFolder",
+                ConfigSettingGroupId = 5,
+                IsActive = true,
+                ConfigSettingDataTypeId = 2,
+                CreatedByAppUserId = AdminUser.AppUserId,
+                CreatedOn = DateTime.Now
+            });
+            context.ConfigSettings.AddOrUpdate(a => a.Name, new ConfigSetting
+            {
+                ConfigSettingId = (int)ConfigurationSettings.TicketAttachmentFolder,
+                Name = ConfigurationSettings.TicketAttachmentFolder.ToString(),
+                Description = ConfigurationSettings.TicketAttachmentFolder.GetEnumDescription(),
+                Value = @"C:\RS3\TicketAttachmentFolder",
                 ConfigSettingGroupId = 5,
                 IsActive = true,
                 ConfigSettingDataTypeId = 2,

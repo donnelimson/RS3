@@ -134,6 +134,9 @@ namespace Codebiz.Domain.Common.Model.Enums
 
         [Description("Coop Vehicle Supporting Documents Folder")]
         CoopVehicleSupportingDocumentsFolder = 42,
+
+        [Description("Ticket Attachment Folder")]
+        TicketAttachmentFolder = 43,
     }
 
     public enum ConfigurationSettings : int
@@ -324,7 +327,13 @@ namespace Codebiz.Domain.Common.Model.Enums
 
         [Description("Coop Vehicle Supporting Documents Folder")]
         CoopVehicleSupportingDocumentsFolder = 62,
+        #region rs3
+
+        [Description("Ticket Attachment Folder")]
+        TicketAttachmentFolder = 63,
 
         #endregion
+        #endregion
+
     }
 }

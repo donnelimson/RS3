@@ -56,17 +56,37 @@
 MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService', 'CommonService', '$window', '$timeout', 'NgTableParams', '$q',
     function ($scope, TicketService, CommonService, $window, $timeout, NgTableParams, $q) {
         $scope.priorities = PRIORITIES;
+        $scope.options = {
+            url: document.FileUpload + "UploadTicketAttachments"
+        };
         this.$onInit = function () {
           
         }
         $scope.save = function () {
             $scope.formSubmitted = true;
+            if ($scope.f.$valid) {
+                CommonService.saveOrUpdateChanges(function () {
+                    $scope.m.Attachments = $scope.queue;
+                    TicketService.AddOrUpdate({ viewModel: $scope.m }).then(function (d) {
+                        if (d.Success) {
+                            CommonService.successMessage(d.Message);
+                            $timeout(function () {
+                                window.location.href = document.Ticket;
+                            }, 1000);
+                        }
+                        else {
+                            CommonService.warningMessage(d.Message);
+                        }
+                    })
+                }, $scope.m.Id == null ? 0 : $scope.m.Id);
+            }
         }
         $scope.guessChange = function () {
             if (!$scope.IsGuess) {
                 $scope.m.Address = "";
                 $scope.m.Client = "";
+                $scope.m.ClientEmail = "";
             }
         }
-
+        
     }]);

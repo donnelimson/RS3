@@ -38,6 +38,13 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        public JsonResult UploadTicketAttachments()
+        {
+            _folderPath = _configSettingService.GetByName(ConfigurationSettings.TicketAttachmentFolder.ToString()).Value;
+
+            return Upload();
+        }
+        [HttpPost]
         public JsonResult UploadConsumerAccountsSupportingDocuments()
         {
             _folderPath = _configSettingService.GetByName(ConfigurationSettings.MemberSupportingDocumentsFolder.ToString()).Value;

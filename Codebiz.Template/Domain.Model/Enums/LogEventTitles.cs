@@ -1601,5 +1601,11 @@ namespace Codebiz.Domain.Common.Model
         [Description("Sales Invoice Deleted")]
         SalesQuotationDeleted = 514,
         #endregion
+        #region RS3
+        [Description("Ticket Created")]
+        TicketCreated = 508,
+        [Description("Ticket Updated")]
+        TicketUpdated = 509,
+        #endregion
     }
 }

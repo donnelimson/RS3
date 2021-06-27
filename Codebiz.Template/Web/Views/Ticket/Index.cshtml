@@ -168,12 +168,12 @@
                                         <span class="label label-sm" ng-class="item.Status=='R' ? 'label-success' : ''" ng-show="item.Status=='R'">RESOLVED</span>
                                     </td>
 
-                                    <td width="7%" data-title="'CREATED'" sortable="'CreatedBy'" header-class="'table-header text-left'">
+                                    <td width="7%" data-title="'CREATED'" sortable="'CreatedOn'" header-class="'table-header text-left'">
                                         {{item.CreatedBy}}<br />
                                         {{item.CreatedOn | date : 'MM/dd/yyyy hh:mm a' }}
                                     </td>
 
-                                    <td width="7%" data-title="'LAST UPDATED'" sortable="'LastUpdatedBy'" header-class="'table-header text-left'">
+                                    <td width="7%" data-title="'LAST UPDATED'" sortable="'LastUpdatedOn'" header-class="'table-header text-left'">
                                         {{item.LastUpdatedBy}}<br />
                                         {{item.LastUpdatedOn | date : 'MM/dd/yyyy hh:mm a'}}
                                     </td>

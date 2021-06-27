@@ -10,6 +10,11 @@ namespace Codebiz.Domain.Common.Model.DataModel
 {
     public class Ticket:ModelBase
     {
+        public Ticket()
+        {
+            this.Attachments = new HashSet<TicketAttachment>();
+            this.Logs = new HashSet<TicketLog>();
+        }
         [Key]
         public int Id { get; set; }
         [MaxLength(14)]
@@ -31,6 +36,13 @@ namespace Codebiz.Domain.Common.Model.DataModel
         public string Description { get; set; }
         [MaxLength(100)]
         public string GuessClientName { get; set; }
+        [MaxLength(100)]
+        public string GuessClientEmail { get; set; }
+        [MaxLength(200)]
+        public string GuessClientAddress { get; set; }
+
+        public virtual ICollection<TicketAttachment> Attachments { get; set; }
+        public virtual ICollection<TicketLog> Logs { get; set; }
     }
     public class Subticket:ModelBase
     {
@@ -61,5 +73,14 @@ namespace Codebiz.Domain.Common.Model.DataModel
         [ForeignKey("Ticket")]
         public int? TicketId { get; set; }
         public virtual Ticket Ticket { get; set; }
+    }
+    public class TicketLog
+    {
+        [Key]
+        public int Id { get; set; }
+        [ForeignKey("Ticket")]
+        public int TicketId { get; set; }
+        public virtual Ticket Ticket { get; set; }
+        public string Message { get; set; }
     }
 }

@@ -17,17 +17,23 @@ namespace Infrastructure.Repository.Common
     public interface ITicketRepository : IRepositoryBase<Ticket>
     {
         IPagedList<TicketIndexDTO> GetAllOpenTickets(TicketFilter filter);
+        Ticket GetById(int id);
     }
     public class TicketRepository : RepositoryBase<Ticket>, ITicketRepository
     {
         public TicketRepository(AppCommonContext context) : base(context)
         {
         }
+        public Ticket GetById(int id)
+        {
+            return GetAll.Where(x => x.Id == id).FirstOrDefault();
+        }
         public override void InsertOrUpdate(Ticket entity)
         {
             if (entity.Id.Equals(0))
             {
                 entity.TicketNo = GenerateTicketNo();
+                entity.TicketStatus = "O";
                 this.Context.Entry(entity).State = EntityState.Added;
             }
             else
@@ -46,7 +52,7 @@ namespace Infrastructure.Repository.Common
                 Status = a.TicketStatus,
                 ClientName = a.AppUserClient != null
                     ? a.AppUserClient.LastName + ", " + a.AppUserClient.FirstName + (a.AppUserClient.MiddleName == null ? "" : " " + a.AppUserClient.MiddleName) + (a.AppUserClient.Suffix == null ? "" : " " + a.AppUserClient.Suffix)
-                    :"N/A",
+                    : a.GuessClientName,
                 AssignedTo = a.AppUserTechnician != null
                     ? a.AppUserTechnician.LastName + ", " + a.AppUserTechnician.FirstName + (a.AppUserTechnician.MiddleName == null ? "" : " " + a.AppUserTechnician.MiddleName) + (a.AppUserTechnician.Suffix == null ? "" : " " + a.AppUserTechnician.Suffix)
                     : "N/A",
@@ -112,7 +118,8 @@ namespace Infrastructure.Repository.Common
         }
         private string GenerateTicketNo()
         {
-            return GetAll.OrderByDescending(x => x.Id).FirstOrDefault().Id.ToString().PadLeft(7,'0');
+            var latestId = GetAll.OrderByDescending(x => x.Id).FirstOrDefault()?.Id;
+            return (latestId == null ? "1":(latestId+1).ToString()).PadLeft(7,'0');
         }
     }
 }

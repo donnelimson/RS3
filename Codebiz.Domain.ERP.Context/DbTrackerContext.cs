@@ -166,6 +166,8 @@ namespace Codebiz.Domain.ERP.Context
         public IDbSet<Subticket> Subtickets { get; set; }
         public IDbSet<TicketComment> TicketComments { get; set; }
         public IDbSet<TicketAttachment> TicketAttachments { get; set; }
+        public IDbSet<TicketLog> TicketLogs { get; set; }
+
         #endregion
         #endregion
         #region to verify models
