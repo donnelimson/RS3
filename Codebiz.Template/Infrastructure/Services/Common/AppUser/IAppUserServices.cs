@@ -4,6 +4,7 @@ using Codebiz.Domain.Common.Model.DTOs;
 using Codebiz.Domain.Common.Model.DTOs.AppUser;
 using Codebiz.Domain.Common.Model.DTOs.BillingUnits;
 using Codebiz.Domain.Common.Model.DTOs.ExportToExcel;
+using Codebiz.Domain.Common.Model.DTOs.RS3;
 using Codebiz.Domain.Common.Model.Enums;
 using Codebiz.Domain.Common.Model.Filter;
 using Codebiz.Domain.Repository;
@@ -78,6 +79,7 @@ namespace Infrastructure.Services
         string RandomPassword();
         int RandomNumber(int min, int max);
         string RandomString(int size, bool lowerCase);
+        IPagedList<AppuserDTOForCFL> GetAllAppuserForCFL(LookUpFilter filter, int? roleId);
 
     }
 
@@ -543,6 +545,10 @@ namespace Infrastructure.Services
             if (lowerCase)
                 return builder.ToString().ToLower();
             return builder.ToString();
+        }
+        public IPagedList<AppuserDTOForCFL> GetAllAppuserForCFL(LookUpFilter filter, int? roleId)
+        {
+            return _appUserRepository.GetAllAppuserForCFL(filter, roleId);
         }
     }
 }

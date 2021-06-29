@@ -247,6 +247,8 @@
         public const string UserCanTakeTicket = "UserCanTakeTicket";
         public const string UserCanViewTicketList = "UserCanViewTicketList";
         public const string UserCanViewTicket = "UserCanViewTicket";
+        public const string UserCanSetTicketPriority = "UserCanSetTicketPriority";
+
         #endregion
 
 

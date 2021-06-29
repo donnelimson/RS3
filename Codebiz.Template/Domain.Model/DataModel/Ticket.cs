@@ -21,7 +21,7 @@ namespace Codebiz.Domain.Common.Model.DataModel
         public string TicketNo { get; set; }
         [MaxLength(100)]
         public string Title { get; set; }
-        public int Priority { get; set; } //1,2,3,4 so forth
+        public int? Priority { get; set; } //1,2,3,4 so forth
         public bool IsParent { get; set; }
         public bool IsChild { get; set; }
         [ForeignKey("AppUserClient")]

@@ -562,5 +562,12 @@ namespace Web.Controllers
             },
          JsonRequestBehavior.AllowGet); ;
         }
+
+        #region RS3
+        public JsonResult GetAllAppuserForCFL(LookUpFilter filter, int? roleId)
+        {
+            return Json(new { result = _appUserServices.GetAllAppuserForCFL(filter, roleId), totalRecordCount = filter.FilteredRecordCount }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }

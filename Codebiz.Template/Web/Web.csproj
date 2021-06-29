@@ -363,6 +363,7 @@
     <Compile Include="App_Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="App_Helpers\ModelStateExtension.cs" />
     <Compile Include="App_Helpers\RazorHelper.cs" />
+    <Compile Include="Controllers\ChooseFromListController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -711,11 +712,13 @@
     <Content Include="Scripts\angular-animate\angular-animate.min.js" />
     <Content Include="Scripts\angular-animate\index.js" />
     <Content Include="Scripts\App\Controllers\Approval\ApprovalFormController.js" />
+    <Content Include="Scripts\App\Controllers\ChooseFromListController.js" />
     <Content Include="Scripts\App\Controllers\Employee\EmployeeDriversLicenseCtrl.js" />
     <Content Include="Scripts\App\Controllers\Employee\RestrictionController.js" />
     <Content Include="Scripts\App\Controllers\Employee\SaveFormController.js" />
     <Content Include="Scripts\App\Controllers\RS3\TicketController.js" />
     <Content Include="Scripts\App\Models\CommonJsModels.js" />
+    <Content Include="Scripts\App\Services\ChooseFromListService.js" />
     <Content Include="Scripts\App\Services\EmployeeService.js" />
     <Content Include="assets\global\css\consumer-account-details.css" />
     <Content Include="assets\global\css\consumer-details.css" />
@@ -769,6 +772,8 @@
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\Create.cshtml" />
+    <Content Include="Views\Shared\_ChooseFromList.cshtml" />
+    <Content Include="Views\ChooseFromList\GetLookup.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

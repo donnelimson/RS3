@@ -404,6 +404,7 @@
         public const string UserCanTakeTicket = "TCK6";
         public const string UserCanViewTicketList = "TCK7";
         public const string UserCanViewTicket = "TCK8";
+        public const string UserCanSetTicketPriority = "TCK9";
         #region ticket
         #endregion
         #endregion

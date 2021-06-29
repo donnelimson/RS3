@@ -1,0 +1,53 @@
+﻿@model Dictionary<string, object>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title" style="color:#67809f">List ({{module}})</h4>
+    </div>
+
+    <div class="modal-body" id="modal-body">
+        <div class="body" ng-form="cForm">
+            <div class="row" style="padding-bottom:10px">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">Search</label>
+                        <input type="text" name="Name" class="form-control" autocomplete="off" maxlength="50"
+                               ng-model="f.Searcher" ng-keydown="search(SearchText,$event)" ng-change="navigate()">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table ng-table="tableParams" class="table table-bordered">
+                        <tr ng-repeat="d in $data" ng-dblclick="onSelectDoubleClick(d)" ng-click="onSelectClick(d,$index)" style="cursor:pointer" ng-class="{'selected':$index == selectedRow}">
+                            @if (Model["ObjectType"].ToString() == "APU")
+                            {
+                                <td data-title="'NAME'" header-class="'table-header text-left'" class="text-left">{{d.Name}}</td>
+                                <td data-title="'EMAIL'" header-class="'table-header text-left'" class="text-left">{{d.Email}}</td>
+                            }
+
+                        </tr>
+                        <tr ng-show="$data.length == 0">
+                            <td colspan="14" class="text-center" style="font-style:unset">
+                                No data available
+                            </td>
+                        </tr>
+                    </table>
+                    <span ng-show="offSetCount!=0"> Showing {{currentPage * tableCount-9}} to {{(currentPage * tableCount)-(tableCount-offSetCount)}} of {{totalRecordCount | number}} entries</span>
+                    <span ng-show="offSetCount==0"> No result found</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer pull-left">
+        <!--Save-->
+        <button type="button" class="btn btn-success" style="width: 90px;" ng-click="select()">
+            <span class="glyphicon glyphicon-ok"> </span>&nbsp; Select
+        </button>
+        <!--Cancel-->
+        <button type="button" class="btn btn-default" style="width: 90px;" ng-click="close()">
+            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Close
+        </button>
+    </div>
+    <div class="clearfix"></div>
+

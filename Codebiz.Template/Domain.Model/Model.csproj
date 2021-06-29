@@ -242,6 +242,7 @@
     <Compile Include="DTOs\ReconnectionContentFileDTO.cs" />
     <Compile Include="DTOs\RegionDTO.cs" />
     <Compile Include="DTOs\Route\RouteModalDTO.cs" />
+    <Compile Include="DTOs\RS3\AppuserDTO.cs" />
     <Compile Include="DTOs\RS3\TicketDTO.cs" />
     <Compile Include="DTOs\SalesEmployee\SalesEmployeeDTO.cs" />
     <Compile Include="DTOs\SearchAppUserDTO.cs" />

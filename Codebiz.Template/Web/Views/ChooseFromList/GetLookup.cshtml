@@ -1,0 +1,10 @@
+﻿@model string
+@{
+    Layout = "";
+}
+
+@Html.Partial("_ChooseFromList", new Dictionary<string, object>()
+{
+    { "ObjectType",Model }
+})
+

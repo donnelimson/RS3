@@ -13,7 +13,7 @@ namespace Codebiz.Domain.Common.Model.DTOs.RS3
         [DisplayName("TICKET NO.")]
         public string TicketNo { get; set; }
         [DisplayName("PRIORITY")]
-        public int Priority { get; set; }
+        public int? Priority { get; set; }
         [DisplayName("TITLE")]
         public string Title { get; set; }
         [DisplayName("CONCERN WHOM")]
@@ -38,7 +38,7 @@ namespace Codebiz.Domain.Common.Model.DTOs.RS3
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public int Priority { get; set; }
+        public int? Priority { get; set; }
         public int? ClientId { get; set; }
         public string Client { get; set; }
         public string ClientEmail { get; set; }

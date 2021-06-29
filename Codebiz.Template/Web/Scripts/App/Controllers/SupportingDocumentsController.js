@@ -101,6 +101,7 @@
             });
 
             $scope.removeDocument = function (index, isCancel, file) {
+       
                 $scope.formTouched = true;
                 $scope.queue.splice(index, 1);
 
