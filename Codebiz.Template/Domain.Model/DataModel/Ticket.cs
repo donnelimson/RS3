@@ -74,7 +74,7 @@ namespace Codebiz.Domain.Common.Model.DataModel
         public int? TicketId { get; set; }
         public virtual Ticket Ticket { get; set; }
     }
-    public class TicketLog
+    public class TicketLog:ModelBase
     {
         [Key]
         public int Id { get; set; }

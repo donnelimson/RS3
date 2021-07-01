@@ -16,5 +16,8 @@ namespace Codebiz.Domain.Common.Model.ViewModel
         public string deleteUrl { get; set; }
         public string downloadUrl { get; set; }
         public string deleteType { get; set; }
+        public bool isOriginal { get; set; } = true;
+        public bool isPdf { get; set; }
+        public bool isWord { get; set; }
     }
 }

@@ -148,9 +148,9 @@ var UOM_TYPE = {
 
 //RS3
 var PRIORITIES = [
-    { 'Description': '1' },
-    { 'Description': '2' },
-    { 'Description': '3' },
+    { 'Description': 1 },
+    { 'Description': 2 },
+    { 'Description': 3 },
 ];
 var TICKETSTATUSES = [
     { 'Description': 'Open', 'Code':'O' },

@@ -31,6 +31,7 @@ namespace Codebiz.Domain.Common.Model.DTOs.RS3
         public string CreatedBy { get; set; }
         public string LastUpdatedBy { get; set; }
         public DateTime? LastUpdatedOn { get; set; }
+        public int Id { get; set; }
 
     }
     public class TicketAddOrUpdateDTO
@@ -46,9 +47,29 @@ namespace Codebiz.Domain.Common.Model.DTOs.RS3
 
         public int? TechnicianId { get; set; }
         public List<TicketAttachmentDTO> Attachments { get; set; } = new List<TicketAttachmentDTO>();
+        public string LogComment { get; set; }
+        public bool IsReply { get; set; }
+
+        public int? UserIdReplied { get; set; } // user replid
     }
     public class TicketAttachmentDTO : AttachmentViewModel
     {
         public int TicketAttachmentId { get; set; }
+    }
+    public class ViewTicketDTO
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public int? Priority { get; set; }
+        public int? ClientId { get; set; }
+        public string Client { get; set; }
+        public string ClientEmail { get; set; }
+        public string ClientAddress { get; set; }
+        public int? TechnicianId { get; set; }
+        public List<string> Logs { get; set; }
+        public string Technician { get; set; }
+        public string TechnicianEmail { get; set; }
+        public List<AttachmentViewModel> Attachments { get; set; }
     }
 }

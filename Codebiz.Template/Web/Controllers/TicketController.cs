@@ -42,7 +42,11 @@ namespace Web.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View("ViewTicket");
+        }
+        public ActionResult ViewTicket(int? id)
+        {
+            return View("ViewTicket",id);
         }
         #region JSON
         public JsonResult Search(TicketFilter filter)
@@ -57,6 +61,18 @@ namespace Web.Controllers
                 LogEventTitles.TicketCreated : LogEventTitles.TicketUpdated;
             try
             {
+                if (viewModel.Id == 0)
+                {
+                    viewModel.LogComment = "Ticket is created by " + CurrentUser.Username;
+                }
+                else if(viewModel.Id != 0 && !viewModel.IsReply)
+                {
+                    viewModel.LogComment = "Ticket is updated by " + CurrentUser.Username;
+                }
+                else
+                {
+                    viewModel.LogComment = "User " + CurrentUser.Username +" commented on this ticket";
+                }
                 _ticketService.AddOrUpdate(viewModel, CurrentUser.AppUserId);
                 _unitOfWork.SaveChanges();
                 ajaxResult.Message = "Ticket has been successfully " + action + "d" + "!";
@@ -79,6 +95,10 @@ namespace Web.Controllers
                 ajaxResult.Success,
                 ajaxResult.Message
             }, JsonRequestBehavior.AllowGet);
+        }
+        public  JsonResult GetTicketDetailsById(int id)
+        {
+            return Json(new { result = _ticketService.GetTicketDetailsById(id, Url) }, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

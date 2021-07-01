@@ -771,7 +771,7 @@
     </Content>
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <Content Include="Views\Ticket\Index.cshtml" />
-    <Content Include="Views\Ticket\Create.cshtml" />
+    <Content Include="Views\Ticket\ViewTicket.cshtml" />
     <Content Include="Views\Shared\_ChooseFromList.cshtml" />
     <Content Include="Views\ChooseFromList\GetLookup.cshtml" />
     <None Include="Web.Debug.config">

@@ -68,7 +68,7 @@
                         <div class="table-responsive" style="overflow-x:auto; margin-bottom:unset" loading-container="tableParams.settings().$loading">
                             <table class="table table-striped files ng-cloak" style="margin-bottom:unset">
                                 <tr>
-                                    <th class="table-header" width="1%" style="border-right:solid thin #e7ecf1" ng-show="!viewOnly"></th>
+                                    <th class="table-header" width="1%" style="border-right:solid thin #e7ecf1"></th>
                                     <th class="table-header" width="10%">PREVIEW</th>
                                     <th class="table-header" width="40%">FILE NAME</th>
                                     <th class="table-header" width="15%">FILE SIZE</th>
@@ -79,18 +79,18 @@
                                     <th class="table-header text-center" ng-show="mediaOnly">IS PLAYING</th>
                                 </tr>
                                 <tr data-ng-repeat="(fileIndex, file) in queue" data-ng-class="{'processing': file.$processing()}" set-request-document-tags-to>
-                                    <td data-ng-controller="FileDestroyController" class="text-center" style="border-right:solid thin #e7ecf1" ng-show="!viewOnly">
+                                    <td data-ng-controller="FileDestroyController" class="text-center" style="border-right:solid thin #e7ecf1">
                                         <button type="button" class="btn btn-xs btn-warning cancel removeFile" data-ng-click="removeDocument(fileIndex, true, file);" data-ng-hide="!file.$cancel">
                                             <i class="glyphicon glyphicon-ban-circle"></i>
                                         </button>
 
-                                        <button type="button" class="btn btn-xs btn-danger destroy removeFile" data-ng-click="removeDocument(fileIndex, false, file);" data-ng-hide="!file.$destroy && file.$cancel" ng-show="file.error">
+                                        <button ng-show="!file.isOriginal || file.error" type="button" class="btn btn-xs btn-danger destroy removeFile" data-ng-click="removeDocument(fileIndex, false, file);">
                                             <i class="glyphicon glyphicon-trash"></i>
                                         </button>
                                     </td>
                                     <td data-ng-switch data-on="!!file.thumbnailUrl">
                                         <div class="preview" data-ng-switch-when="true">
-                                            <img class="style" ng-src="{{file.thumbnailUrl}}" alt="" ng-style="{'cursor': viewOnly && !file.IsWord ? 'pointer':'default'}" ng-click="openSupportingDocumentPreview(file.thumbnailUrl, file.name, file.previewUrl, file.IsPdf, file.IsWord)">
+                                            <img class="style" ng-src="{{file.thumbnailUrl}}" alt="" ng-style="{'cursor':  !file.IsWord ? 'pointer':'default'}" ng-click="openSupportingDocumentPreview(file.thumbnailUrl, file.name, file.downloadUrl, file.isPdf, file.isWord)">
                                         </div>
                                         <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
                                     </td>

@@ -10,6 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Codebiz.Domain.Common.Model;
 using Codebiz.Domain.Common.Model.Enums;
+using Codebiz.Domain.Common.Model.ViewModel;
+using System.Web.Mvc;
+using System.IO;
 
 namespace Infrastructure.Services.Common
 {
@@ -17,6 +20,7 @@ namespace Infrastructure.Services.Common
     {
         IPagedList<TicketIndexDTO> GetAllOpenTickets(TicketFilter filter);
         void AddOrUpdate(TicketAddOrUpdateDTO viewModel, int currentAppUserId);
+        ViewTicketDTO GetTicketDetailsById(int id, UrlHelper Url);
     }
     public class TicketService : ITicketService
     {
@@ -42,6 +46,11 @@ namespace Infrastructure.Services.Common
             {
                 ticket = new Ticket();
             }
+            ticket.Logs.Add(new TicketLog
+            {
+                Message = viewModel.LogComment,
+                CreatedByAppUserId = currentAppUserId,
+            });
             ticket.Title = viewModel.Title;
             ticket.Description = viewModel.Description;
             ticket.Priority = viewModel.Priority;
@@ -52,6 +61,61 @@ namespace Infrastructure.Services.Common
             ticket.TechnicianId = viewModel.TechnicianId;
             _ticketRepository.InsertOrUpdate(ticket);
             AddOrUpdateTicketAttachment(ticket.Attachments, viewModel.Attachments, ticket, currentAppUserId);
+        }
+        public ViewTicketDTO GetTicketDetailsById(int id, UrlHelper Url)
+        {
+            var ticket = _ticketRepository.GetById(id);
+            var data = new ViewTicketDTO();
+            if (ticket != null)
+            {
+                data.Id = ticket.Id;
+                data.ClientId = ticket.AppUserClient == null ? (int?)null : ticket.ClientId;
+                data.Client = ticket.AppUserClient == null ? ticket.GuessClientName : ticket.AppUserClient.FullName;
+                data.ClientAddress = ticket.AppUserClient == null ? ticket.GuessClientAddress : "test";
+                data.ClientEmail = ticket.AppUserClient == null ? ticket.GuessClientEmail : "test";
+                data.TechnicianId = ticket.AppUserTechnician == null ? (int?)null : ticket.TechnicianId;
+                data.Title = ticket.Title;
+                data.Description = ticket.Description;
+                data.Technician = ticket.AppUserTechnician.FullName;
+                data.TechnicianEmail = ticket.AppUserTechnician.Email;
+                data.Priority = ticket.Priority;
+                data.Logs = ticket.Logs.Select(a => a.CreatedOn.ToString("yyyy-MM-dd hh:mm tt")+" "+ a.Message).ToList();
+                data.Attachments = ticket.Attachments
+               .Where(p => p.IsActive)
+               .Select(p => new AttachmentViewModel
+               {
+                   tempName = p.ContentFile.FileName,
+                   name = p.ContentFile.OrigFileName,
+                   url = Path.Combine(p.ContentFile.ContentFileType.ConfigSettingFolder.Value, "temp", p.ContentFile.FileName),
+                   type = p.ContentFile.FileType.MimeType,
+                   size = p.ContentFile.Size,
+                   thumbnailUrl = Url.Action("CheckThumbUpload", "FileUpload", new
+                   {
+                       area = "",
+                       type = p.ContentFile.FileType.MimeType,
+                       p.ContentFile.FileName,
+                       Folder = p.ContentFile.ContentFileType.ConfigSettingFolder.Value
+                   }),
+                   deleteUrl = Url.Action("DeleteFile", "FileUpload", new
+                   {
+                       area = "",
+                       file = p.ContentFile.FileName,
+                       folderPath = Path.Combine(p.ContentFile.ContentFileType.ConfigSettingFolder.Value, "temp")
+                   }),
+                   deleteType = "GET",
+                   isPdf = p.ContentFile.FileType.MimeType == "application/pdf",
+                   isWord = p.ContentFile.FileType.MimeType == "application/msword",
+                   downloadUrl = Url.Action("DownloadAttachment", "FileUpload", new
+                   {
+                       area = "",
+                       filename = p.ContentFile.FileName,
+                       folder = p.ContentFile.ContentFileType.ConfigSettingFolder.Value
+                   }),
+               }).ToList();
+            }
+            else
+                data = null;
+            return data;
         }
         private void AddOrUpdateTicketAttachment(ICollection<TicketAttachment> ticketAttachment,
         List<TicketAttachmentDTO> modelAttachments, Ticket ticket, int appuserId)
@@ -80,7 +144,7 @@ namespace Infrastructure.Services.Common
                     attachments.ContentFile.FileName = attachment.tempName;
                     attachments.ContentFile.OrigFileName = attachment.name;
                     attachments.ContentFile.Size = attachment.size;
-                    attachments.ContentFile.ContentFileTypeId = (int)ContentFileTypes.ItemMasterDataAttachment;
+                    attachments.ContentFile.ContentFileTypeId = (int)ContentFileTypes.TicketAttachmentFolder;
 
                     _contentFileService.MoveAttachment(folderPath, attachment.tempName);
                 }
@@ -90,7 +154,7 @@ namespace Infrastructure.Services.Common
                 var attachmenForDelete = ticketAttachment.Where(a => !attachmentIds.Contains(a.Id));
                 foreach (var item in attachmenForDelete.ToList())
                 {
-                    _contentFileService.DeleteFile(folderPath, item.ContentFile.FileName);
+                   // _contentFileService.DeleteFile(folderPath, item.ContentFile.FileName);
                     item.ContentFile.IsActive = false;
                     item.IsActive = false;
                 }

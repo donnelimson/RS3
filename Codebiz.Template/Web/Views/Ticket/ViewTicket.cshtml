@@ -1,0 +1,478 @@
+﻿@using Codebiz.Domain.ERP.Context.SeedData;
+@{
+    ViewBag.Title = "Ticket Form";
+}
+
+<div class="row" ng-app="MetronicApp"
+     ng-controller="TicketAddOrUpdateController" file-upload="options">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ng-click="cancelChanges()">Tickets</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Create</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <a class="btn btn-sm btn-default" ng-click="cancelChanges()" ng-if="!isUpdate">Back to List</a>
+                <div class="btn-group dropdown" ng-if="isUpdate">
+                    <button id="actions" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="line-height:24px">
+                        ACTIONS &nbsp;&nbsp;▼
+                    </button>
+                    <ul class="dropdown-menu dropdown-left-manual" role="menu" aria-labelledby="actions">
+                        <li>
+                            <a ng-click="cancelChanges()">
+                                Back to List
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="takeTicket()" @Html.UserHasPermission(userPermission: PermissionData.UserCanTakeTicket)>
+                                Take Ticket
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h1 class="page-title">
+            <span>Ticket <small>Form</small></span>
+        </h1>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div ng-form="f" class="col-md-12 loading-container" loading-container="isDataLoading">
+                <!-- BEGIN PORTLET -->
+                <div class="portlet light bordered" id="applicant-add">
+                    <div class="portlet-body">
+
+                        <fieldset>
+                            <div class="row">
+                                <div ng-class="isUpdate ? 'col-md-6':'col-md-12'">
+                                    <div class="portlet box blue-hoki">
+                                        <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
+                                            <div class="caption col-md-3">
+                                                Ticket Information
+                                            </div>
+                                            <div class="tools">
+                                                <a href="javascript:;" class="collapse"> </a>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body">
+                                            <div class="row" style="margin-bottom:30px;">
+                                                <div class="col-md-12">
+                                                    <div class="form-group" ng-class="f.Title.$error.required && formSubmitted ? 'has-error':''">
+                                                        <label class="control-label col-md-1" ng-if="!isUpdate">Title <span class="required">*</span></label>
+                                                        <div class="col-md-6">
+                                                            <label class="control-label" ng-if="isUpdate">Title <span class="required">*</span></label>
+                                                            <input type="text" name="Title" ng-model="m.Title" class="form-control" alphanumeric-dash-only ng-required="true" />
+                                                            <span ng-show="f.Title.$error.required && formSubmitted"
+                                                                  class="text-danger field-validation-error"><small> Title is required!</small></span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="row" style="margin-bottom:10px;">
+                                                <div class="col-md-12">
+                                                    <div class="form-group" ng-class="f.Description.$error.required && formSubmitted ? 'has-error':''">
+                                                        <label class="control-label col-md-1" ng-if="!isUpdate">Description <span class="required">*</span></label>
+                                                        <div class="col-md-6">
+                                                            <label class="control-label" ng-if="isUpdate">Description <span class="required">*</span></label>
+                                                            <textarea name="Description" ng-model="m.Description" class="form-control" alphanumeric-dash-only ng-required="true" maxlength="500" rows="7"></textarea>
+                                                            <span style="float:right;">{{m.Description.length == null ? 0 : m.Description.length}}/500</span>
+                                                            <span ng-show="f.Description.$error.required && formSubmitted"
+                                                                  class="text-danger field-validation-error"><small> Description is required!</small></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" @Html.UserHasPermission(userPermission: PermissionData.UserCanSetTicketPriority)>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-1" ng-if="!isUpdate">Priority</label>
+                                                        <div ng-class="isUpdate ? 'col-md-3':'col-md-2'">
+                                                            <label class="control-label " ng-if="isUpdate">Priority</label>
+                                                            <select select2 name="Priority" id="Priority" class="form-control not-allow-numbers"
+                                                                    ng-model="m.Priority" ng-options="p.Description as (p.Description) for p in priorities">
+                                                                <option value="">---Please select---</option>
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" ng-if="isUpdate">
+                                    <div class="portlet box blue-hoki">
+                                        <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
+                                            <div class="caption col-md-3">
+                                                Logs
+                                            </div>
+                                            <div class="tools">
+                                                <a href="javascript:;" class="collapse"> </a>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body">
+                                            <div class="row" style="margin-bottom:30px;">
+                                                <div class="col-md-12">
+                                                    <ul ng-repeat="log in m.Logs track by $index">
+                                                        <li>
+                                                            {{log}}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div ng-class="isUpdate ? 'col-md-6':'col-md-12'">
+                                    <div class="portlet box blue-hoki">
+                                        <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
+                                            <div ng-class="isUpdate ? 'caption col-md-6':'caption col-md-3'">
+                                                Client and Tech Information
+                                            </div>
+                                            <div class="tools">
+                                                <a href="javascript:;" class="collapse"> </a>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body">
+                                            <div class="row" style="margin-bottom:10px;">
+                                                <div class="col-md-12">
+                                                    <div class="form-group" ng-class="f.Client.$error.required && formSubmitted ? 'has-error':''">
+                                                        <label class="control-label col-md-1" ng-if="!isUpdate">Client <span class="required">*</span></label>
+                                                        <div ng-class="isUpdate ? 'col-md-8':'col-md-6'">
+                                                            <label class="control-label" ng-if="isUpdate">
+                                                                Client <span class="required">*</span>
+                                                            </label>
+                                                            <input type="checkbox" ng-model="IsGuess" ng-show="isUpdate" ng-change="guessChange()" /><span ng-show="isUpdate">G.C</span>
+
+                                                            <div ng-class="!IsGuess ? 'input-group' : ''" style="position:unset">
+                                                                <input type="text" name="Client" class="form-control" autocomplete="off"
+                                                                       ng-model="m.Client"
+                                                                       autofocus
+                                                                       alphanumeric-dash-only
+                                                                       ng-readonly="!IsGuess">
+                                                                <span class="input-group-btn" ng-show="!IsGuess">
+                                                                    <button class="btn btn-info btn" type="button" ng-click="searchUser(true)">
+                                                                        <i class="fa fa-search"></i>
+                                                                    </button>
+                                                                </span>
+
+                                                            </div>
+                                                            <span ng-show="f.Client.$error.required && formSubmitted"
+                                                                  class="text-danger field-validation-error"><small> Client is required!</small></span>
+                                                        </div>
+                                                        <div class="col-md-2" ng-show="!isUpdate">
+                                                            <input type="checkbox" ng-model="IsGuess" ng-change="guessChange()" />G.C
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom:10px;">
+                                                <div class="col-md-12">
+                                                    <div class="form-group" ng-class="f.ClientEmail.$error.required && formSubmitted ? 'has-error':''">
+                                                        <label class="control-label col-md-1" ng-if="!isUpdate">Email <span class="required" ng-show="IsGuess">*</span></label>
+                                                        <div class="col-md-6">
+                                                            <label class="control-label" ng-if="isUpdate">Email <span class="required">*</span></label>
+                                                            <input type="text" name="ClientEmail" ng-model="m.ClientEmail" class="form-control" ng-required="IsGuess" ng-disabled="!IsGuess" maxlength="100" />
+                                                            <span ng-show="f.ClientEmail.$error.required && formSubmitted"
+                                                                  class="text-danger field-validation-error"><small> Email is required!</small></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom:10px;">
+                                                <div class="col-md-12">
+                                                    <div class="form-group" ng-class="f.ClientAddress.$error.required && formSubmitted ? 'has-error':''">
+                                                        <label class="control-label col-md-1" ng-if="!isUpdate">Address <span class="required" ng-show="IsGuess">*</span></label>
+                                                        <div class="col-md-6">
+                                                            <label class="control-label" ng-if="isUpdate">Address <span class="required" ng-show="IsGuess">*</span></label>
+                                                            <input type="text" name="ClientAddress" ng-model="m.ClientAddress" class="form-control" alphanumeric-dash-only ng-required="IsGuess" ng-disabled="!IsGuess" />
+                                                            <span ng-show="f.Address.$error.required && formSubmitted"
+                                                                  class="text-danger field-validation-error"><small> Address is required!</small></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom:10px;">
+                                                <div class="col-md-12">
+                                                    <div class="form-group" ng-class="f.Technician.$error.required && formSubmitted ? 'has-error':''">
+                                                        <label class="control-label col-md-1" ng-if="!isUpdate">Assign to <span class="required">*</span></label>
+                                                        <div class="col-md-6">
+                                                            <label class="control-label" ng-if="isUpdate">Assign to <span class="required" ng-show="IsGuess">*</span></label>
+                                                            <div class="input-group" style="position:unset">
+                                                                <input type="text" name="Technician" class="form-control" autocomplete="off"
+                                                                       ng-model="m.Technician"
+                                                                       autofocus
+                                                                       alphanumeric-dash-only readonly
+                                                                       ng-required="true">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-info btn" type="button" ng-click="searchUser(false)">
+                                                                        <i class="fa fa-search"></i>
+                                                                    </button>
+                                                                </span>
+
+                                                            </div>
+                                                            <span ng-show="f.Technician.$error.required && formSubmitted"
+                                                                  class="text-danger field-validation-error"><small> Technician is required!</small></span>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom:10px;">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-1" ng-if="!isUpdate">Email</label>
+                                                        <div class="col-md-6">
+                                                            <label class="control-label" ng-if="isUpdate">Email</label>
+                                                            <input type="text" name="TechnicianlEmail" ng-model="m.TechnicianEmail" class="form-control" disabled />
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom:10px;">
+                                                <div class="col-md-12">
+                                                    <div class="form-group" ng-class="f.TechnicianAddress.$error.required && formSubmitted ? 'has-error':''">
+                                                        <label class="control-label col-md-1" ng-if="!isUpdate">Adress</label>
+                                                        <div class="col-md-6">
+                                                            <label class="control-label" ng-if="isUpdate">Address</label>
+                                                            <input type="text" name="TechnicianAddress" ng-model="m.TechnicianAddress" class="form-control" alphanumeric-dash-only disabled />
+                                                            <span ng-show="f.TechnicianAddress.$error.required && formSubmitted"
+                                                                  class="text-danger field-validation-error"><small> address is required!</small></span>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-class="isUpdate ? 'col-md-6':'col-md-12'">
+                                    @Html.Partial("_SupportingDocument")
+                                </div>
+
+                            </div>
+
+
+                            <div class="portlet box blue-hoki" style="margin-top:10px;" ng-show="isUpdate">
+                                <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
+                                    <div class="caption col-md-3">
+                                        Reply/s
+                                    </div>
+                                    <div class="tools">
+                                        <a href="javascript:;" class="collapse"> </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END SUPPORTING DOCUMENTS -->
+                            <!-- START SAVE AND CANCEL BUTTONS -->
+                            <div class="row" style="margin-top:20px">
+                                <div class="col-md-12">
+                                    <div class="actions btn-set">
+                                        <button class="btn btn-success" id="addbtn" style="width: 90px;" ng-click="save()">
+                                            <span class="glyphicon glyphicon-ok"></span>&nbsp; {{isUpdate ? 'Update':'Create'}}
+                                        </button>
+                                        <button class="btn btn-default actionbtns" style="width: 90px;" ng-click="cancelChanges()">
+                                            <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END SAVE AND CANCEL BUTTONS -->
+
+                        </fieldset>
+                    </div>
+                </div>
+                <!-- END PORTLET -->
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_SupportingDocumentsPreviewModal")
+</div>
+
+
+@section PageStyles {
+    <style>
+        .applicant-add {
+            font-family: Open Sans;
+            font-size: 12px;
+        }
+
+
+
+        .overlay-wrapper {
+            z-index: 100;
+            position: absolute;
+            top: 0;
+            width: 200px;
+            height: 100%;
+            left: 120px;
+            display: inline-block;
+            margin: 7px 35px 0px -35px;
+            font-size: medium;
+        }
+
+        .overlay-wrapper button {
+            margin-right: 0;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .overlay-wrapper-sign {
+            z-index: 100;
+            position: absolute;
+            top: 120px;
+            width: 200px;
+            height: 100%;
+            left: 198px;
+            display: inline-block;
+            margin: 7px 35px 0px -35px;
+            font-size: medium;
+        }
+
+        .overlay-wrapper-sign button {
+            margin-right: 0;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .photo-crop-preview {
+            height: 190px;
+            width: 190px;
+        }
+
+        .signature-crop-preview {
+            height: 100px;
+            width: 267px;
+        }
+
+        .resizeThumb {
+            width: 90px;
+            height: 90px;
+        }
+
+        .image-has-error {
+            border: 1px solid red;
+        }
+
+        .photo-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .img-fit {
+            max-width: 95%;
+            max-height: 95%;
+        }
+
+        .overlay-btn-container {
+            float: right;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+
+        .pull-bottom {
+            display: inline-block;
+            vertical-align: bottom;
+            float: none;
+            margin-right: 3%;
+        }
+
+        .signature-div {
+            width: 24%;
+        }
+
+        .jcrop-centered {
+            display: inline-block;
+            margin: auto;
+        }
+
+        .crop-image-wrapper {
+            text-align: center;
+        }
+
+        .img-centered {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .whiteinput {
+            background-color: white !important;
+        }
+
+        #PoleIdDiv [class^='select2'] {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+
+        video:hover {
+            cursor: url('@Url.Content("~/assets/global/img/camera-cursor.png")'), auto;
+        }
+        .dropdown-left-manual {
+            right: 0;
+            left: auto;
+            padding-left: 1px;
+            padding-right: 1px;
+        }
+    </style>
+
+    @Styles.Render("~/assets/global/plugins/fancybox/source/jquery.fancybox.css")
+    @Styles.Render("~/assets/global/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css")
+    @Styles.Render("~/css/datepicker")
+    @Styles.Render("~/css/fileupload")
+    @Styles.Render("~/assets/global/plugins/jcrop/css/jquery.Jcrop.min.css")
+    @Styles.Render("~/assets/pages/css/image-crop.min.css")
+    @Styles.Render("~/Content/ng-table.min.css")
+    @Styles.Render("~/Content/jquery.mloading.css")
+}
+
+@section PageScripts {
+    <script src="~/Scripts/App/Services/RS3/TicketService.js"></script>
+    <script src="~/Scripts/App/Services/ChooseFromListService.js"></script>
+    <script src="~/Scripts/App/Controllers/RS3/TicketController.js"></script>
+    <script src="~/Scripts/App/Controllers/FileDestroyController.js"></script>
+    <script src="~/Scripts/App/Controllers/SupportingDocumentsController.js"></script>
+    <script src="~/Scripts/App/Controllers/ChooseFromListController.js"></script>
+    <script src="~/Scripts/App/Controllers/SupportingDocumentsPreviewController.js"></script>
+    @Scripts.Render("~/bundles/fileupload")
+    @Scripts.Render("~/assets/global/plugins/jcrop/js/jquery.Jcrop.min.js")
+    @Scripts.Render("~/Content/jquery.mloading.js")
+}
+
+@section AngularJSPlugins {
+    @Scripts.Render("~/Scripts/ng-table.js")
+}
+
+@section AngularJSPage {
+
+}

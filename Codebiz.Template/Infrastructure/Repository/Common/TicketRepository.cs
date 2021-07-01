@@ -62,7 +62,8 @@ namespace Infrastructure.Repository.Common
                 LastUpdatedOn = a.ModifiedOn == null ? a.CreatedOn : a.ModifiedOn,
                 CreatedBy = a.CreatedByAppUser.LastName + ", " + a.CreatedByAppUser.FirstName + (a.CreatedByAppUser.MiddleName == null ? "" : " " + a.CreatedByAppUser.MiddleName) + (a.CreatedByAppUser.Suffix == null ? "" : " " + a.CreatedByAppUser.Suffix),
                 Priority = a.Priority,
-                Title =a.Title
+                Title =a.Title,
+                Id=a.Id
             });
             dataDTO = QueryHelper.Ordering(dataDTO, filter.SortColumn, filter.SortDirection != "asc", false);
             return dataDTO.ToPagedList(filter.Page, filter.PageSize);

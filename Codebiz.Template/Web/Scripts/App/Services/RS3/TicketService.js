@@ -8,5 +8,8 @@ angular.module("MetronicApp").
             AddOrUpdate: function (args) {
                 return commonService.PostData(args, document.Ticket + 'AddOrUpdate', null);
             },
+            GetTicketDetailsById: function (args) {
+                return commonService.GetData(args, document.Ticket + 'GetTicketDetailsById', null);
+            },
         }
     }]);

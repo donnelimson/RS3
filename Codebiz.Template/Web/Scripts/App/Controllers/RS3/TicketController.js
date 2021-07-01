@@ -53,17 +53,31 @@
                 $scope.search();
             }
         }
+        $scope.viewTicket = function (id) {
+            window.location.href = document.Ticket + 'ViewTicket?Id=' + id;
+        }
     }]);
-MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService', 'CommonService', '$window', '$timeout', 'NgTableParams', '$q','$uibModal','$controller',
-    function ($scope, TicketService, CommonService, $window, $timeout, NgTableParams, $q, $uibModal, $controller) {
+MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService', 'CommonService', '$window', '$timeout', 'NgTableParams', '$q', '$uibModal', '$controller', '$location',
+    function ($scope, TicketService, CommonService, $window, $timeout, NgTableParams, $q, $uibModal, $controller,$location) {
         $controller('SupportingDocumentController', { $scope: $scope });
-
-        $scope.priorities = PRIORITIES;
+        $scope.withdocumentType = false;
+      
         $scope.options = {
             url: document.FileUpload + "UploadTicketAttachments"
         };
         this.$onInit = function () {
-          
+            //console.log($location.search().Id )
+            $scope.priorities = PRIORITIES;
+            $scope.isUpdate = $location.search().Id != null;
+            TicketService.GetTicketDetailsById({ id: $location.search().Id }).then(function (d) {
+             
+                $scope.m = d.result;
+                $scope.queue = d.result.Attachments;
+             //   console.log(d.result.Attachments)
+                if ($scope.m.ClientId == null) {
+                    $scope.IsGuess = true;
+                }
+            });
         }
         $scope.m = {
             ClientId: null,
@@ -99,7 +113,7 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
                 }
                 else {
                     $scope.m.TechnicianId = data.Id;
-                    $scope.m.TechnicianlEmail = data.Email;
+                    $scope.m.TechnicianEmail = data.Email;
                     $scope.m.Technician = data.Name;
                 }
             });
@@ -124,10 +138,60 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
                 }, $scope.m.Id == null ? 0 : $scope.m.Id);
             }
         }
+        $scope.cancelChanges = function () {
+            if (!$scope.f.$pristine) {
+                CommonService.cancelChanges(function () {
+                    window.location.href = document.Ticket;
+                })
+            }
+            else {
+                window.location.href = document.Ticket;
+            }
+        }
         $scope.guessChange = function () {
             $scope.m.Address = "";
             $scope.m.Client = "";
             $scope.m.ClientEmail = "";
         }
-        
+        $scope.openSupportingDocumentPreview = function (thumbnailUrl, name, url, isPdf, isWord) {
+            //console.log(url)
+            if (isPdf || isWord) {
+                $window.open(url, '_blank');
+            }
+            else {
+                $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'SupportingDocumentsPreviewModal.html',
+                    controller: 'SupportingDocumentsPreviewController',
+                    size: 'md',
+                    keyboard: false,
+                    backdrop: "static",
+                    windowClass: 'modal_style',
+                    modalOverflow: true,
+                    resolve: {
+                        thumbnailUrl: function () {
+                            return thumbnailUrl;
+                        },
+                        name: function () {
+                            return name;
+                        }
+                    }
+                }).result.then(function (data) {
+                }, function () {
+
+                });
+            }
+        }
+    }]);
+MetronicApp.controller('TicketViewController', ['$scope', 'TicketService', 'CommonService', '$window', '$timeout', 'NgTableParams', '$q', '$uibModal', '$controller','$location',
+    function ($scope, TicketService, CommonService, $window, $timeout, NgTableParams, $q, $uibModal, $controller, $location) {
+        $controller('SupportingDocumentController', { $scope: $scope });
+
+        $scope.priorities = PRIORITIES;
+        $scope.options = {
+            url: document.FileUpload + "UploadTicketAttachments"
+        };
+    
     }]);

@@ -134,7 +134,7 @@
                             <i class="fa fa-share-square-o"></i>
                             <span class="">Export</span>
                         </a>*@
-                        <a href="@Url.Action("Create","Ticket")" class="btn btn-info" @Html.UserHasPermission(userPermission: PermissionData.UserCanCreateTicket)>
+                        <a href="@Url.Action("ViewTicket","Ticket", new { Id = 0 })" class="btn btn-info" @Html.UserHasPermission(userPermission: PermissionData.UserCanCreateTicket)>
                             <i class="fa fa-plus"></i>
                             <span class=""> Create Ticket </span>
                         </a>
@@ -152,7 +152,9 @@
                                 <tr ng-repeat="item in $data">
     
                                     <td width="10%" data-title="'TICKET NO'" sortable="'TicketNo'" header-class="'table-header text-left'">
-                                        {{item.TicketNo}}
+                                        <a ng-click="viewTicket(item.Id)">
+                                            {{item.TicketNo}}
+                                        </a>
                                     </td>
                                     <td width="5%" data-title="'PRIORITY'" sortable="'Priority'" header-class="'table-header text-right'" class="text-right">
                                         {{item.Priority}}
@@ -177,9 +179,6 @@
                                         {{item.LastUpdatedBy}}<br />
                                         {{item.LastUpdatedOn | date : 'MM/dd/yyyy hh:mm a'}}
                                     </td>
-
-                  
-
                                 </tr>
                                 <tr ng-show="$data.length == 0">
                                     <td colspan="12" class="text-center" style="font-style:unset">

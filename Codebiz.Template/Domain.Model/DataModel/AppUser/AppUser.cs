@@ -80,9 +80,8 @@ namespace Codebiz.Domain.Common.Model
         {
             get
             {
-                return this.Employee != null
-                    ? string.Format("{0} {1}", this.Employee.FirstName, this.Employee.LastName)
-                    : this.Username;
+                return string.Format("{0} {1}", this.FirstName, this.LastName);
+               
             }
         }
 

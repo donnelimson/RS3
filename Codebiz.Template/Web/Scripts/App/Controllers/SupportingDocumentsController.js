@@ -48,6 +48,7 @@
             };
 
             $scope.$watch("queue.length", function (newVal, oldVal) {
+               // console.log($scope.queue)
                 var newOldDiff = newVal - oldVal;
                 if (newOldDiff === 1) {
                     $scope.formTouched = true;
