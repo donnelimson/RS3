@@ -72,4 +72,14 @@ namespace Codebiz.Domain.Common.Model.DTOs.RS3
         public string TechnicianEmail { get; set; }
         public List<AttachmentViewModel> Attachments { get; set; }
     }
+    public class TicketCFLDTO
+    {
+        public int Id { get; set; }
+        public string TicketNo { get; set; }
+        public string Title { get; set; }
+        public string ClientName { get; set; }
+        public string TechnicianName { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public string Status { get; set; }
+    }
 }

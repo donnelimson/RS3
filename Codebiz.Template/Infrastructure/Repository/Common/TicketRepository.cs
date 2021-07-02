@@ -1,5 +1,6 @@
 ﻿using Codebiz.Domain.Common.Model.DataModel;
 using Codebiz.Domain.Common.Model.DTOs.RS3;
+using Codebiz.Domain.Common.Model.Filter;
 using Codebiz.Domain.Common.Model.Filter.RS3;
 using Codebiz.Domain.Repository;
 using Domain.Context;
@@ -18,6 +19,7 @@ namespace Infrastructure.Repository.Common
     {
         IPagedList<TicketIndexDTO> GetAllOpenTickets(TicketFilter filter);
         Ticket GetById(int id);
+        IPagedList<TicketCFLDTO> GetMyTickets(LookUpFilter filter, int currentAppuserId);
     }
     public class TicketRepository : RepositoryBase<Ticket>, ITicketRepository
     {
@@ -116,6 +118,41 @@ namespace Infrastructure.Repository.Common
                 data = data.Where(a => DbFunctions.TruncateTime(a.CreatedOn) >= filter.CreatedOnFrom && DbFunctions.TruncateTime(a.CreatedOn) <= filter.CreatedOnTo);
             }
             return data;
+        }
+        public IPagedList<TicketCFLDTO> GetMyTickets(LookUpFilter filter, int currentAppuserId)
+        {
+            var data = GetAll.Where(x => x.TechnicianId == currentAppuserId || x.ClientId == currentAppuserId);
+            if (!string.IsNullOrEmpty(filter.Searcher))
+            {
+                filter.Searcher = filter.Searcher.Trim();
+                data = data.Where(a => a.TicketNo.Contains(filter.Searcher) || a.Title.Contains(filter.Searcher)
+                || (a.AppUserClient.LastName + ", " +
+                                a.AppUserClient.FirstName +
+                                (a.AppUserClient.MiddleName != null ? " " + a.AppUserClient.MiddleName : "") +
+                                (a.AppUserClient.Suffix != null ? " " + a.AppUserClient.Suffix : "")).Trim().Contains(filter.Searcher) ||
+                                 (a.AppUserTechnician.LastName + ", " +
+                                a.AppUserTechnician.FirstName +
+                                (a.AppUserTechnician.MiddleName != null ? " " + a.AppUserTechnician.MiddleName : "") +
+                                (a.AppUserTechnician.Suffix != null ? " " + a.AppUserTechnician.Suffix : "")).Trim().Contains(filter.Searcher) ||
+                                a.CreatedOn.ToString().Contains(filter.Searcher));
+            }
+            filter.FilteredRecordCount = data.Count();
+            var dataDTO = data.Select(a => new TicketCFLDTO
+            {
+               ClientName = a.AppUserClient.FirstName +
+                                (a.AppUserClient.MiddleName != null ? " " + a.AppUserClient.MiddleName : "") +
+                                (a.AppUserClient.Suffix != null ? " " + a.AppUserClient.Suffix : ""),
+               TechnicianName = a.AppUserTechnician.FirstName +
+                                (a.AppUserTechnician.MiddleName != null ? " " + a.AppUserTechnician.MiddleName : "") +
+                                (a.AppUserTechnician.Suffix != null ? " " + a.AppUserTechnician.Suffix : ""),
+               TicketNo = a.TicketNo,
+               Title  = a.Title,
+               CreatedOn = a.CreatedOn,
+               Id = a.Id,
+               Status =a.TicketStatus
+            });
+            dataDTO = QueryHelper.Ordering(dataDTO, filter.SortColumn, filter.SortDirection != "asc", false);
+            return dataDTO.ToPagedList(filter.Page, filter.PageSize);
         }
         private string GenerateTicketNo()
         {

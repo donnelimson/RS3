@@ -24,7 +24,17 @@
                                 <td data-title="'NAME'" header-class="'table-header text-left'" class="text-left">{{d.Name}}</td>
                                 <td data-title="'EMAIL'" header-class="'table-header text-left'" class="text-left">{{d.Email}}</td>
                             }
-
+                            @if (Model["ObjectType"].ToString() == "TCK")
+                            {
+                                <td data-title="'TICKET NO.'" header-class="'table-header text-left'" class="text-left">{{d.TicketNo}}</td>
+                                <td data-title="'TITLE'" header-class="'table-header text-left'" class="text-left">{{d.Title}}</td>
+                                <td data-title="'ASSIGNED TO'" header-class="'table-header text-left'" class="text-left">{{d.TechnicianName}}</td>
+                                <td data-title="'REQUESTOR'" header-class="'table-header text-left'" class="text-left">{{d.ClientName}}</td>
+                                <td data-title="'STATUS'" sortable="'Status'" header-class="'table-header text-center'" class="text-center">
+                                    <span class="label label-sm" ng-class="d.Status=='O' ? 'label-info' : ''" ng-show="d.Status=='O'">OPEN</span>
+                                    <span class="label label-sm" ng-class="d.Status=='R' ? 'label-success' : ''" ng-show="d.Status=='R'">RESOLVED</span>
+                                </td>
+                            }
                         </tr>
                         <tr ng-show="$data.length == 0">
                             <td colspan="14" class="text-center" style="font-style:unset">

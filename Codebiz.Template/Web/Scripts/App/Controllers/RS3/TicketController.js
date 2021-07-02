@@ -69,19 +69,48 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
             //console.log($location.search().Id )
             $scope.priorities = PRIORITIES;
             $scope.isUpdate = $location.search().Id != null;
-            TicketService.GetTicketDetailsById({ id: $location.search().Id }).then(function (d) {
-             
-                $scope.m = d.result;
-                $scope.queue = d.result.Attachments;
-             //   console.log(d.result.Attachments)
-                if ($scope.m.ClientId == null) {
-                    $scope.IsGuess = true;
-                }
-            });
+            if ($scope.isUpdate) {
+                TicketService.GetTicketDetailsById({ id: $location.search().Id }).then(function (d) {
+
+                    $scope.m = d.result;
+                    $scope.queue = d.result.Attachments;
+                    //   console.log(d.result.Attachments)
+                    if ($scope.m.ClientId == null) {
+                        $scope.IsGuess = true;
+                    }
+                });
+            }
+      
         }
         $scope.m = {
             ClientId: null,
             TechnicianId:null
+        }
+        $scope.viewMyTickets = function () {
+            var modalData = {
+                LookupType: 'TCK',
+                Module: 'MY TICKETS',
+            }
+            $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: `${document.baseUrlNoArea}ChooseFromList/GetLookup?objType=${modalData.LookupType}`,
+                controller: 'ChooseFromListController',
+                size: 'md',
+                keyboard: false,
+                backdrop: "static",
+                windowClass: 'modal_style',
+                modalOverflow: true,
+                resolve: {
+                    Data: function () {
+                        return modalData;
+                    },
+                }
+            }).result.then(function (data) {
+                window.location.href = document.Ticket + 'ViewTicket/?Id='+data.Id;
+            });
+
         }
         $scope.searchUser = function (isClient) {
             var modalData = {

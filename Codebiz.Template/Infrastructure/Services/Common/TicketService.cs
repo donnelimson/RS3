@@ -13,14 +13,16 @@ using Codebiz.Domain.Common.Model.Enums;
 using Codebiz.Domain.Common.Model.ViewModel;
 using System.Web.Mvc;
 using System.IO;
+using Codebiz.Domain.Common.Model.Filter;
 
 namespace Infrastructure.Services.Common
 {
     public interface ITicketService
     {
         IPagedList<TicketIndexDTO> GetAllOpenTickets(TicketFilter filter);
-        void AddOrUpdate(TicketAddOrUpdateDTO viewModel, int currentAppUserId);
+        void AddOrUpdate(TicketAddOrUpdateDTO viewModel, int currentAppUserId, bool isClient);
         ViewTicketDTO GetTicketDetailsById(int id, UrlHelper Url);
+        IPagedList<TicketCFLDTO> GetMyTickets(LookUpFilter filter, int currentAppuserId);
     }
     public class TicketService : ITicketService
     {
@@ -39,7 +41,7 @@ namespace Infrastructure.Services.Common
         {
             return _ticketRepository.GetAllOpenTickets(filter);
         }
-        public void AddOrUpdate(TicketAddOrUpdateDTO viewModel, int currentAppUserId)
+        public void AddOrUpdate(TicketAddOrUpdateDTO viewModel, int currentAppUserId, bool isClient)
         {
             var ticket = _ticketRepository.GetById(viewModel.Id);
             if (ticket == null)
@@ -54,7 +56,15 @@ namespace Infrastructure.Services.Common
             ticket.Title = viewModel.Title;
             ticket.Description = viewModel.Description;
             ticket.Priority = viewModel.Priority;
-            ticket.ClientId = viewModel.ClientId;
+            if (isClient)
+            {
+                ticket.ClientId = currentAppUserId;
+            }
+            else
+            {
+                ticket.ClientId = viewModel.ClientId;
+            }
+           
             ticket.GuessClientAddress = viewModel.ClientAddress;
             ticket.GuessClientEmail = viewModel.ClientEmail;
             ticket.GuessClientName = viewModel.Client;
@@ -76,8 +86,8 @@ namespace Infrastructure.Services.Common
                 data.TechnicianId = ticket.AppUserTechnician == null ? (int?)null : ticket.TechnicianId;
                 data.Title = ticket.Title;
                 data.Description = ticket.Description;
-                data.Technician = ticket.AppUserTechnician.FullName;
-                data.TechnicianEmail = ticket.AppUserTechnician.Email;
+                data.Technician = ticket.AppUserTechnician?.FullName;
+                data.TechnicianEmail = ticket.AppUserTechnician?.Email;
                 data.Priority = ticket.Priority;
                 data.Logs = ticket.Logs.Select(a => a.CreatedOn.ToString("yyyy-MM-dd hh:mm tt")+" "+ a.Message).ToList();
                 data.Attachments = ticket.Attachments
@@ -116,6 +126,10 @@ namespace Infrastructure.Services.Common
             else
                 data = null;
             return data;
+        }
+        public IPagedList<TicketCFLDTO> GetMyTickets(LookUpFilter filter, int currentAppuserId)
+        {
+            return _ticketRepository.GetMyTickets(filter, currentAppuserId);
         }
         private void AddOrUpdateTicketAttachment(ICollection<TicketAttachment> ticketAttachment,
         List<TicketAttachmentDTO> modelAttachments, Ticket ticket, int appuserId)

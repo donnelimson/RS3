@@ -5,5 +5,9 @@ angular.module("MetronicApp")
             GetAllAppuserForCFL: function (args) {
                 return commonService.PostData(args, document.AppUsers + 'GetAllAppuserForCFL', null);
             },
+            GetMyTickets: function (args) {
+                return commonService.PostData(args, document.Ticket + 'GetMyTickets', null);
+            },
+            
         };
     }]);

@@ -46,7 +46,7 @@
                 }
                 function loadList(d, params, initialSettings) {
                     if (Data.LookupType == "APU") {
-                          ChooseFromListService.GetAllAppuserForCFL({
+                        ChooseFromListService.GetAllAppuserForCFL({
                             filter: $scope.f,
                             roleId: Data.RoleId,
                         }).then(function (data) {
@@ -57,7 +57,17 @@
                             $scope.tableCount = params.count();
                             $scope.offSetCount = data.result.length;
                         });
-               
+                    } else if (Data.LookupType == "TCK") {
+                        ChooseFromListService.GetMyTickets({
+                            filter: $scope.f
+                        }).then(function (data) {
+                            $scope.resultsLength = data.totalRecordCount;
+                            params.total(data.totalRecordCount);
+                            d.resolve(data.result);
+                            $scope.currentPage = params.page();
+                            $scope.tableCount = params.count();
+                            $scope.offSetCount = data.result.length;
+                        });
                     }
           
               

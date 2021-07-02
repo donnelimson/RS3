@@ -11,20 +11,22 @@
             <ul class="page-breadcrumb">
                 <li>
                     <a ng-click="cancelChanges()">Tickets</a>
-                    <i class="fa fa-circle"></i>
+                    @*<i class="fa fa-circle"></i>*@
                 </li>
-                <li>
+                @*<li>
                     <span>Create</span>
-                </li>
+                </li>*@
             </ul>
             <div class="page-toolbar">
-                <a class="btn btn-sm btn-default" ng-click="cancelChanges()" ng-if="!isUpdate">Back to List</a>
-                <div class="btn-group dropdown" ng-if="isUpdate">
+                <a class="btn btn-sm btn-default" ng-click="cancelChanges()" ng-if="!isUpdate && (@Html.UserHasPermission(userPermission: PermissionData.UserCanViewTicket).ToString().Length!=0 ? false:true)">Back to List</a>
+                <a class="btn btn-sm btn-default" ng-click="viewMyTickets()" ng-if="!isUpdate && (!@Html.UserHasPermission(userPermission: PermissionData.UserCanViewTicket).ToString().Length!=0 ? false:true)">View my other ticket/s</a>
+
+                <div class="btn-group dropdown" ng-show="isUpdate">
                     <button id="actions" type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="line-height:24px">
                         ACTIONS &nbsp;&nbsp;▼
                     </button>
                     <ul class="dropdown-menu dropdown-left-manual" role="menu" aria-labelledby="actions">
-                        <li>
+                        <li ng-if="isUpdate && (@Html.UserHasPermission(userPermission: PermissionData.UserCanViewTicket).ToString().Length!=0 ? false:true)">
                             <a ng-click="cancelChanges()">
                                 Back to List
                             </a>
@@ -32,6 +34,11 @@
                         <li>
                             <a ng-click="takeTicket()" @Html.UserHasPermission(userPermission: PermissionData.UserCanTakeTicket)>
                                 Take Ticket
+                            </a>
+                        </li>
+                        <li  ng-if="isUpdate && (!@Html.UserHasPermission(userPermission: PermissionData.UserCanViewTicket).ToString().Length!=0 ? false:true)">
+                            <a ng-click="viewMyTickets()">
+                                View my other tickets
                             </a>
                         </li>
 
@@ -113,8 +120,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6" ng-if="isUpdate">
-                                    <div class="portlet box blue-hoki">
+                                <div class="col-md-6" ng-if="isUpdate" style="max-height: 408px; min-height:355px;" >
+                                    <div class="portlet box blue-hoki" style="max-height: 383px;">
                                         <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
                                             <div class="caption col-md-3">
                                                 Logs
@@ -123,10 +130,10 @@
                                                 <a href="javascript:;" class="collapse"> </a>
                                             </div>
                                         </div>
-                                        <div class="portlet-body">
+                                        <div class="portlet-body" style="max-height: 342px; min-height:289px; height:289px;">
                                             <div class="row" style="margin-bottom:30px;">
-                                                <div class="col-md-12">
-                                                    <ul ng-repeat="log in m.Logs track by $index">
+                                                <div class="col-md-12" style="height:324px;" ng-style="{'overflow-y': m.Logs.length > 10 ? 'scroll':''}">
+                                                    <ul ng-repeat="log in m.Logs track by $index"  style="position:relative">
                                                         <li>
                                                             {{log}}
                                                         </li>
@@ -142,8 +149,8 @@
 
                             </div>
 
-                            <div class="row">
-                                <div ng-class="isUpdate ? 'col-md-6':'col-md-12'">
+                            <div class="row" >
+                                <div ng-class="isUpdate ? 'col-md-6':'col-md-12'"  ng-if="@Html.UserHasPermission(userPermission: PermissionData.UserCanAssignTicket).ToString().Length!=0 ? false:true">
                                     <div class="portlet box blue-hoki">
                                         <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
                                             <div ng-class="isUpdate ? 'caption col-md-6':'caption col-md-3'">
@@ -296,7 +303,8 @@
                                         <button class="btn btn-success" id="addbtn" style="width: 90px;" ng-click="save()">
                                             <span class="glyphicon glyphicon-ok"></span>&nbsp; {{isUpdate ? 'Update':'Create'}}
                                         </button>
-                                        <button class="btn btn-default actionbtns" style="width: 90px;" ng-click="cancelChanges()">
+                                        <button class="btn btn-default actionbtns" style="width: 90px;" ng-click="cancelChanges()" 
+                                                ng-show="@Html.UserHasPermission(userPermission: PermissionData.UserCanViewTicket).ToString().Length!=0 ? false:true">
                                             <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
                                         </button>
                                     </div>

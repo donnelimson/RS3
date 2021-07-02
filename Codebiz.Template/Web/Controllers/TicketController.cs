@@ -1,6 +1,7 @@
 ﻿using Codebiz.Domain.Common.Model;
 using Codebiz.Domain.Common.Model.DTOs;
 using Codebiz.Domain.Common.Model.DTOs.RS3;
+using Codebiz.Domain.Common.Model.Filter;
 using Codebiz.Domain.Common.Model.Filter.RS3;
 using Codebiz.Domain.ERP.Context.SeedData;
 using Infrastructure;
@@ -36,12 +37,17 @@ namespace Web.Controllers
 
         public ActionResult Index()
         {
+            if (CurrentUser.RoleId == 4) //client
+            {
+                return View("ViewTicket");
+            }
             return View();
         }
         [ClaimsAuthorize(ClaimCustomTypes.UserPermissions, PermissionData.UserCanCreateTicket)]
 
         public ActionResult Create()
         {
+       
             return View("ViewTicket");
         }
         public ActionResult ViewTicket(int? id)
@@ -73,7 +79,7 @@ namespace Web.Controllers
                 {
                     viewModel.LogComment = "User " + CurrentUser.Username +" commented on this ticket";
                 }
-                _ticketService.AddOrUpdate(viewModel, CurrentUser.AppUserId);
+                _ticketService.AddOrUpdate(viewModel, CurrentUser.AppUserId, CurrentUser.RoleId==4);
                 _unitOfWork.SaveChanges();
                 ajaxResult.Message = "Ticket has been successfully " + action + "d" + "!";
                 Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]." + JsonConvert.SerializeObject(viewModel), ajaxResult.LogEventTitle, "", "", JsonConvert.SerializeObject(viewModel));
@@ -99,6 +105,10 @@ namespace Web.Controllers
         public  JsonResult GetTicketDetailsById(int id)
         {
             return Json(new { result = _ticketService.GetTicketDetailsById(id, Url) }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetMyTickets(LookUpFilter filter)
+        {
+            return Json(new { result = _ticketService.GetMyTickets(filter, CurrentUser.AppUserId) });
         }
         #endregion
     }
