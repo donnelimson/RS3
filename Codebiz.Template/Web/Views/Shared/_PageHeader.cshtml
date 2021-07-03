@@ -6,7 +6,7 @@
         <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="@Url.Action("Index","Home")">
-                @*<img src="@Url.Content("~/content/image/ticket.png")" alt="logo" height="27" class="logo-default" />*@
+                <img src="@Url.Content("~/content/image/mainlogowithshadow.png")" alt="logo" width="150" height="30" class="logo-default fixblurry" />
             </a>
             <div class="menu-toggler sidebar-toggler">
                 <span></span>
@@ -70,7 +70,9 @@
     <!-- END HEADER INNER -->
 </div>
 <style>
- 
+    .fixblurry {
+        image-rendering: -webkit-optimize-contrast;
+    }
 </style>
 <script>
     //$(window).on("load", function () {

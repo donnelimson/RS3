@@ -708,6 +708,9 @@
     <Content Include="App_Data\DefaultPhoto\xls.png" />
     <Content Include="App_Data\MIGRATE-REGION-PROVINCE.sql" />
     <Content Include="Content\Image\communitech.png" />
+    <Content Include="Content\Image\communitech1.png" />
+    <Content Include="Content\Image\mainlogocomm.png" />
+    <Content Include="Content\Image\mainlogowithshadow.png" />
     <Content Include="Content\Image\ticket.png" />
     <Content Include="Scripts\angular-animate\angular-animate.js" />
     <Content Include="Scripts\angular-animate\angular-animate.min.js" />

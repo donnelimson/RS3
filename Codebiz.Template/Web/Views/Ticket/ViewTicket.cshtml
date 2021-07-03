@@ -120,8 +120,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6" ng-if="isUpdate" style="max-height: 408px; min-height:355px;" >
-                                    <div class="portlet box blue-hoki" style="max-height: 383px;">
+                                <div class="col-md-6" ng-if="isUpdate" style="max-height: 408px; min-height:408px;" >
+                                    <div class="portlet box blue-hoki" style="min-height: 383px;">
                                         <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
                                             <div class="caption col-md-3">
                                                 Logs
@@ -130,7 +130,7 @@
                                                 <a href="javascript:;" class="collapse"> </a>
                                             </div>
                                         </div>
-                                        <div class="portlet-body" style="max-height: 342px; min-height:289px; height:289px;">
+                                        <div class="portlet-body" style="max-height: 342px; min-height:342px; height:289px;">
                                             <div class="row" style="margin-bottom:30px;">
                                                 <div class="col-md-12" style="height:324px;" ng-style="{'overflow-y': m.Logs.length > 10 ? 'scroll':''}">
                                                     <ul ng-repeat="log in m.Logs track by $index"  style="position:relative">
@@ -215,7 +215,7 @@
                                                         <div class="col-md-6">
                                                             <label class="control-label" ng-if="isUpdate">Address <span class="required" ng-show="IsGuess">*</span></label>
                                                             <input type="text" name="ClientAddress" ng-model="m.ClientAddress" class="form-control" alphanumeric-dash-only ng-required="IsGuess" ng-disabled="!IsGuess" />
-                                                            <span ng-show="f.Address.$error.required && formSubmitted"
+                                                            <span ng-show="f.ClientAddress.$error.required && formSubmitted"
                                                                   class="text-danger field-validation-error"><small> Address is required!</small></span>
                                                         </div>
                                                     </div>
