@@ -14,6 +14,7 @@ namespace Codebiz.Domain.Common.Model.DataModel
         {
             this.Attachments = new HashSet<TicketAttachment>();
             this.Logs = new HashSet<TicketLog>();
+            this.Comments = new HashSet<TicketComment>();
         }
         [Key]
         public int Id { get; set; }
@@ -43,6 +44,7 @@ namespace Codebiz.Domain.Common.Model.DataModel
 
         public virtual ICollection<TicketAttachment> Attachments { get; set; }
         public virtual ICollection<TicketLog> Logs { get; set; }
+        public virtual ICollection<TicketComment> Comments { get; set; }
     }
     public class Subticket:ModelBase
     {

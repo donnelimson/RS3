@@ -36,7 +36,12 @@
                                 Take Ticket
                             </a>
                         </li>
-                        <li  ng-if="isUpdate && (!@Html.UserHasPermission(userPermission: PermissionData.UserCanViewTicket).ToString().Length!=0 ? false:true)">
+                        <li>
+                            <a ng-click="resolveOrReopen()" @Html.UserHasPermission(userPermission: PermissionData.UserCanResolveOrReopenTicket)>
+                                {{m.IsResolved ? 'Re-Open':'Resolve'}}
+                            </a>
+                        </li>
+                        <li ng-if="isUpdate && (!@Html.UserHasPermission(userPermission: PermissionData.UserCanViewTicket).ToString().Length!=0 ? false:true)">
                             <a ng-click="viewMyTickets()">
                                 View my other tickets
                             </a>
@@ -61,8 +66,8 @@
 
                         <fieldset>
                             <div class="row">
-                                <div ng-class="isUpdate ? 'col-md-6':'col-md-12'">
-                                    <div class="portlet box blue-hoki">
+                                <div ng-class="isUpdate ? 'col-md-6':'col-md-12'" style="min-height: 408px;">
+                                    <div class="portlet box blue-hoki" style="min-height: 383px;">
                                         <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
                                             <div class="caption col-md-3">
                                                 Ticket Information
@@ -71,7 +76,7 @@
                                                 <a href="javascript:;" class="collapse"> </a>
                                             </div>
                                         </div>
-                                        <div class="portlet-body">
+                                        <div class="portlet-body" style="min-height:342px;">
                                             <div class="row" style="margin-bottom:30px;">
                                                 <div class="col-md-12">
                                                     <div class="form-group" ng-class="f.Title.$error.required && formSubmitted ? 'has-error':''">
@@ -82,7 +87,6 @@
                                                             <span ng-show="f.Title.$error.required && formSubmitted"
                                                                   class="text-danger field-validation-error"><small> Title is required!</small></span>
                                                         </div>
-
                                                     </div>
                                                 </div>
 
@@ -120,8 +124,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6" ng-if="isUpdate" style="max-height: 408px; min-height:408px;" >
-                                    <div class="portlet box blue-hoki" style="min-height: 383px;">
+                                <div class="col-md-6" ng-if="isUpdate" style="min-height: 408px; max-height:408px;">
+                                    <div class="portlet box blue-hoki" style="min-height: 383px; max-height:383px;">
                                         <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
                                             <div class="caption col-md-3">
                                                 Logs
@@ -130,10 +134,10 @@
                                                 <a href="javascript:;" class="collapse"> </a>
                                             </div>
                                         </div>
-                                        <div class="portlet-body" style="max-height: 342px; min-height:342px; height:289px;">
+                                        <div class="portlet-body" style="min-height:342px;max-height:342px;">
                                             <div class="row" style="margin-bottom:30px;">
                                                 <div class="col-md-12" style="height:324px;" ng-style="{'overflow-y': m.Logs.length > 10 ? 'scroll':''}">
-                                                    <ul ng-repeat="log in m.Logs track by $index"  style="position:relative">
+                                                    <ul ng-repeat="log in m.Logs track by $index" style="position:relative">
                                                         <li>
                                                             {{log}}
                                                         </li>
@@ -149,8 +153,8 @@
 
                             </div>
 
-                            <div class="row" >
-                                <div ng-class="isUpdate ? 'col-md-6':'col-md-12'"  ng-if="@Html.UserHasPermission(userPermission: PermissionData.UserCanAssignTicket).ToString().Length!=0 ? false:true">
+                            <div class="row">
+                                <div ng-class="isUpdate ? 'col-md-6':'col-md-12'">
                                     <div class="portlet box blue-hoki">
                                         <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
                                             <div ng-class="isUpdate ? 'caption col-md-6':'caption col-md-3'">
@@ -169,15 +173,16 @@
                                                             <label class="control-label" ng-if="isUpdate">
                                                                 Client <span class="required">*</span>
                                                             </label>
-                                                            <input type="checkbox" ng-model="IsGuess" ng-show="isUpdate" ng-change="guessChange()" /><span ng-show="isUpdate">G.C</span>
+                                                            <input type="checkbox" ng-model="IsGuess" ng-show="isUpdate && @Html.UserHasPermission(userPermission: PermissionData.UserCanAssignTicket).ToString().Length!=0 ? false:true" ng-change="guessChange()" /><span ng-show="isUpdate && @Html.UserHasPermission(userPermission: PermissionData.UserCanAssignTicket).ToString().Length!=0 ? false:true">G.C</span>
 
-                                                            <div ng-class="!IsGuess ? 'input-group' : ''" style="position:unset">
+                                                            <div ng-class="!IsGuess && (@Html.UserHasPermission(userPermission: PermissionData.UserCanAssignTicket).ToString().Length!=0 ? false:true) ? 'input-group' : ''" style="position:unset">
                                                                 <input type="text" name="Client" class="form-control" autocomplete="off"
                                                                        ng-model="m.Client"
                                                                        autofocus
                                                                        alphanumeric-dash-only
-                                                                       ng-readonly="!IsGuess">
-                                                                <span class="input-group-btn" ng-show="!IsGuess">
+                                                                       ng-readonly="!IsGuess"
+                                                                       >
+                                                                <span class="input-group-btn" ng-show="!IsGuess && @Html.UserHasPermission(userPermission: PermissionData.UserCanAssignTicket).ToString().Length!=0 ? false:true">
                                                                     <button class="btn btn-info btn" type="button" ng-click="searchUser(true)">
                                                                         <i class="fa fa-search"></i>
                                                                     </button>
@@ -224,16 +229,16 @@
                                             <div class="row" style="margin-bottom:10px;">
                                                 <div class="col-md-12">
                                                     <div class="form-group" ng-class="f.Technician.$error.required && formSubmitted ? 'has-error':''">
-                                                        <label class="control-label col-md-1" ng-if="!isUpdate">Assign to <span class="required">*</span></label>
+                                                        <label class="control-label col-md-1" ng-if="!isUpdate">Assign to </label>
                                                         <div class="col-md-6">
-                                                            <label class="control-label" ng-if="isUpdate">Assign to <span class="required" ng-show="IsGuess">*</span></label>
-                                                            <div class="input-group" style="position:unset">
+                                                            <label class="control-label" ng-if="isUpdate">Assign to </label>
+                                                            <div ng-class=" @Html.UserHasPermission(userPermission: PermissionData.UserCanAssignTicket).ToString().Length!=0 ? false:true ? 'input-group' : ''" style="position:unset">
                                                                 <input type="text" name="Technician" class="form-control" autocomplete="off"
                                                                        ng-model="m.Technician"
                                                                        autofocus
                                                                        alphanumeric-dash-only readonly
                                                                        ng-required="true">
-                                                                <span class="input-group-btn">
+                                                                <span class="input-group-btn" ng-show="@Html.UserHasPermission(userPermission: PermissionData.UserCanAssignTicket).ToString().Length!=0 ? false:true">
                                                                     <button class="btn btn-info btn" type="button" ng-click="searchUser(false)">
                                                                         <i class="fa fa-search"></i>
                                                                     </button>
@@ -294,6 +299,40 @@
                                         <a href="javascript:;" class="collapse"> </a>
                                     </div>
                                 </div>
+                                <div class="portlet-body">
+                                    <div class="row" style="margin-bottom:10px;" ng-show="m.Comments.length==0">
+                                        <div class="col-md-12 text-center">
+                                            <span>No thread available.</span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom:10px;" ng-show="m.Comments.length!=0">
+                                        <div class="col-md-12" ng-repeat="comment in m.Comments">
+                                            <span>
+                                                <b>{{comment.Name}}</b>&nbsp;-&nbsp;{{comment.CreatedOn | date : 'MM/dd/yyyy hh:mm:ss a'}}
+                                            </span>
+                                            <hr style="margin-top:unset; margin-bottom:unset" />
+                                            <span style="margin-left:30px; margin-top:unset">
+                                                {{comment.Comment}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-md-12" style="margin-bottom:20px;">
+                                            <textarea ng-model="m.Comment" class="form-control" rows="3" maxlength="500"></textarea>
+                                            <span style="float:right;">{{m.Comment.length == null ? 0 : m.Comment.length}}/500</span>
+                                            <div  ng-show="!m.IsResolved" @Html.UserHasPermission(userPermission: PermissionData.UserCanResolveOrReopenTicket)>
+                                                <input type="checkbox" ng-model="isResolved" /><span> &nbsp; Tag as resolve</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" style="margin-top:unset; margin-bottom:unset">
+                                            <button class="btn btn-success" id="addbtn" style="width: 90px; float:right" ng-click="comment()">
+                                                Comment
+                                            </button>
+                                        </div>
+                                    </div>
+
+
+                                </div>
                             </div>
                             <!-- END SUPPORTING DOCUMENTS -->
                             <!-- START SAVE AND CANCEL BUTTONS -->
@@ -303,7 +342,7 @@
                                         <button class="btn btn-success" id="addbtn" style="width: 90px;" ng-click="save()">
                                             <span class="glyphicon glyphicon-ok"></span>&nbsp; {{isUpdate ? 'Update':'Create'}}
                                         </button>
-                                        <button class="btn btn-default actionbtns" style="width: 90px;" ng-click="cancelChanges()" 
+                                        <button class="btn btn-default actionbtns" style="width: 90px;" ng-click="cancelChanges()"
                                                 ng-show="@Html.UserHasPermission(userPermission: PermissionData.UserCanViewTicket).ToString().Length!=0 ? false:true">
                                             <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
                                         </button>

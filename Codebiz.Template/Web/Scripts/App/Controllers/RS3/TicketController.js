@@ -70,21 +70,38 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
             $scope.priorities = PRIORITIES;
             $scope.isUpdate = $location.search().Id != null;
             if ($scope.isUpdate) {
-                TicketService.GetTicketDetailsById({ id: $location.search().Id }).then(function (d) {
-
-                    $scope.m = d.result;
-                    $scope.queue = d.result.Attachments;
-                    //   console.log(d.result.Attachments)
-                    if ($scope.m.ClientId == null) {
-                        $scope.IsGuess = true;
-                    }
-                });
+                GetTicketUpdates();
             }
       
         }
         $scope.m = {
             ClientId: null,
             TechnicianId:null
+        }
+        $scope.resolveOrReopen = function () {
+            var action = $scope.m.IsResolved ? 're-open' : 'resolve';
+            swal({
+                title: "Comfirm Action",
+                text: "Are you sure to "+action+" this comment?",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#1ab394",
+                confirmButtonText: "OK",
+                closeOnConfirm: true
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    TicketService.ResolveOrReopenTicket({ id: $scope.m.Id}).then(function (d) {
+                        if (d.Success) {
+                            CommonService.successMessage(d.Message);
+                            GetTicketUpdates();
+                        }
+                        else {
+                            CommonService.warningMessage(d.Message);
+                        }
+                    })
+                }
+
+            });
         }
         $scope.viewMyTickets = function () {
             var modalData = {
@@ -108,9 +125,36 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
                     },
                 }
             }).result.then(function (data) {
+                console.log(data)
                 window.location.href = document.Ticket + 'ViewTicket/?Id='+data.Id;
             });
-
+        }
+        $scope.comment = function () {
+            if ($scope.m.Comment.length != 0) {
+                swal({
+                    title: "Comfirm Comment",
+                    text: "Are you sure to submit this comment?",
+                    type: "info",
+                    showCancelButton: true,
+                    confirmButtonColor: "#1ab394",
+                    confirmButtonText: "OK",
+                    closeOnConfirm: true
+                }, function (isConfirm) {
+                        if (isConfirm) {
+                            TicketService.SubmitComment({ Id: $scope.m.Id, Comment: $scope.m.Comment, IsResolved: $scope.isResolved }).then(function (d) {
+                                if (d.Success) {
+                                    CommonService.successMessage(d.Message);
+                                    GetTicketUpdates();
+                                }
+                                else {
+                                    CommonService.warningMessage(d.Message);
+                                }
+                            })
+                        }
+                      
+                });
+            }
+     
         }
         $scope.searchUser = function (isClient) {
             var modalData = {
@@ -212,6 +256,17 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
 
                 });
             }
+        }
+        function GetTicketUpdates() {
+            TicketService.GetTicketDetailsById({ id: $location.search().Id }).then(function (d) {
+
+                $scope.m = d.result;
+                $scope.queue = d.result.Attachments;
+                //   console.log(d.result.Attachments)
+                if ($scope.m.ClientId == null) {
+                    $scope.IsGuess = true;
+                }
+            });
         }
     }]);
 MetronicApp.controller('TicketViewController', ['$scope', 'TicketService', 'CommonService', '$window', '$timeout', 'NgTableParams', '$q', '$uibModal', '$controller','$location',

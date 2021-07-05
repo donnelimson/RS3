@@ -14,6 +14,9 @@
                     $scope.selectedRow = index;
                     $scope.selectedData = d;
                 }
+                $scope.select = function (d) {
+                    $uibModalInstance.close($scope.selectedData);
+                }
                 $scope.onSelectDoubleClick = function (d) {
                     $uibModalInstance.close(d);
                 }

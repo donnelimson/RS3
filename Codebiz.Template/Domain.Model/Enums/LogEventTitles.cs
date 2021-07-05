@@ -1606,6 +1606,14 @@ namespace Codebiz.Domain.Common.Model
         TicketCreated = 508,
         [Description("Ticket Updated")]
         TicketUpdated = 509,
+        [Description("Ticket Commented")]
+        TicketCommented = 510,
+        [Description("Ticket Commented and Resolved")]
+        TicketCommentedAndResolved = 511,
+        [Description("Ticket Resolved")]
+        TicketResolved = 512,
+        [Description("Ticket Reopened")]
+        TicketReopened = 513,
         #endregion
     }
 }

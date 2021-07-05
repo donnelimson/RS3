@@ -70,7 +70,21 @@ namespace Codebiz.Domain.Common.Model.DTOs.RS3
         public List<string> Logs { get; set; }
         public string Technician { get; set; }
         public string TechnicianEmail { get; set; }
-        public List<AttachmentViewModel> Attachments { get; set; }
+        public bool IsResolved { get; set; }
+        public List<AttachmentViewModel> Attachments { get; set; } = new List<AttachmentViewModel>();
+        public List<CommentDTO> Comments { get; set; } = new List<CommentDTO>();
+    }
+    public class CommentAddDTO
+    {
+        public int Id { get; set; }
+        public string Comment { get; set; }
+        public bool IsResolved { get; set; } = false;
+    }
+    public class CommentDTO
+    {
+        public string Name { get; set; }
+        public string Comment { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
     public class TicketCFLDTO
     {

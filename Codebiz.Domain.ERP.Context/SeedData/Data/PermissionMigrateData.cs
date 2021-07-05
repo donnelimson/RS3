@@ -231,7 +231,9 @@ namespace Codebiz.Domain.ERP.Context.SeedData
             context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = ticketIndexNavLink.NavLinkId, PermissionGroupId = ticketPermissionGroupId, Code = PermissionData.UserCanViewTicketList, Description = PermissionDataDescription.UserCanViewTicketList.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
             context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = ticketIndexNavLink.NavLinkId, PermissionGroupId = ticketPermissionGroupId, Code = PermissionData.UserCanViewTicket, Description = PermissionDataDescription.UserCanViewTicket.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
             context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = ticketIndexNavLink.NavLinkId, PermissionGroupId = ticketPermissionGroupId, Code = PermissionData.UserCanSetTicketPriority, Description = PermissionDataDescription.UserCanSetTicketPriority.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = ticketIndexNavLink.NavLinkId, PermissionGroupId = ticketPermissionGroupId, Code = PermissionData.UserCanResolveOrReopenTicket, Description = PermissionDataDescription.UserCanResolveOrReopenTicket.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
 
+            
             #endregion
 
 

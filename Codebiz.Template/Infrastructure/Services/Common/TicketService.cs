@@ -23,6 +23,8 @@ namespace Infrastructure.Services.Common
         void AddOrUpdate(TicketAddOrUpdateDTO viewModel, int currentAppUserId, bool isClient);
         ViewTicketDTO GetTicketDetailsById(int id, UrlHelper Url);
         IPagedList<TicketCFLDTO> GetMyTickets(LookUpFilter filter, int currentAppuserId);
+        void SubmitComment(CommentAddDTO model, int currentAppuserId, string currentUsername);
+        bool ResolveOrReopenTicket(int id, int currentAppuserId, string currentUserName);
     }
     public class TicketService : ITicketService
     {
@@ -48,11 +50,7 @@ namespace Infrastructure.Services.Common
             {
                 ticket = new Ticket();
             }
-            ticket.Logs.Add(new TicketLog
-            {
-                Message = viewModel.LogComment,
-                CreatedByAppUserId = currentAppUserId,
-            });
+            InsertTicketLog(ticket, viewModel.LogComment, currentAppUserId);
             ticket.Title = viewModel.Title;
             ticket.Description = viewModel.Description;
             ticket.Priority = viewModel.Priority;
@@ -72,6 +70,23 @@ namespace Infrastructure.Services.Common
             _ticketRepository.InsertOrUpdate(ticket);
             AddOrUpdateTicketAttachment(ticket.Attachments, viewModel.Attachments, ticket, currentAppUserId);
         }
+        public void SubmitComment(CommentAddDTO model, int currentAppuserId, string currentUserName)
+        {
+            var ticket = _ticketRepository.GetById(model.Id);
+            ticket.ModifiedOn = DateTime.Now;
+            ticket.ModifiedByAppUserId = currentAppuserId;
+            if (model.IsResolved)
+            {
+                ticket.TicketStatus = "R";
+            }
+            ticket.Comments.Add(new TicketComment
+            {
+                CreatedByAppUserId=currentAppuserId,
+                Comment = model.Comment
+            });
+            InsertTicketLog(ticket, currentUserName + " commented on the ticket", currentAppuserId);
+            _ticketRepository.InsertOrUpdate(ticket);
+        }
         public ViewTicketDTO GetTicketDetailsById(int id, UrlHelper Url)
         {
             var ticket = _ticketRepository.GetById(id);
@@ -89,6 +104,7 @@ namespace Infrastructure.Services.Common
                 data.Technician = ticket.AppUserTechnician?.FullName;
                 data.TechnicianEmail = ticket.AppUserTechnician?.Email;
                 data.Priority = ticket.Priority;
+                data.IsResolved = ticket.TicketStatus == "R";
                 data.Logs = ticket.Logs.Select(a => a.CreatedOn.ToString("yyyy-MM-dd hh:mm tt")+" "+ a.Message).ToList();
                 data.Attachments = ticket.Attachments
                .Where(p => p.IsActive)
@@ -122,10 +138,36 @@ namespace Infrastructure.Services.Common
                        folder = p.ContentFile.ContentFileType.ConfigSettingFolder.Value
                    }),
                }).ToList();
+                data.Comments = ticket.Comments.Select(a => new CommentDTO
+                {
+                    Comment = a.Comment,
+                    CreatedOn = a.CreatedOn,
+                    Name = a.CreatedByAppUser.FullName
+                }).ToList();
             }
             else
                 data = null;
             return data;
+        }
+        public bool ResolveOrReopenTicket(int id, int currentAppuserId, string currentUserName)
+        {
+            var ticket = _ticketRepository.GetById(id);
+            var action = "";
+            if (ticket.TicketStatus == "O")
+            {
+                ticket.TicketStatus = "R";
+                action = "resolved";
+            }
+            else
+            {
+                ticket.TicketStatus = "O";
+                action = "reopened";
+            }
+            ticket.ModifiedByAppUserId = currentAppuserId;
+            ticket.ModifiedOn = DateTime.Now;
+            InsertTicketLog(ticket, currentUserName + " "+ action+" the ticket", currentAppuserId);
+            _ticketRepository.InsertOrUpdate(ticket);
+            return ticket.TicketStatus == "R";
         }
         public IPagedList<TicketCFLDTO> GetMyTickets(LookUpFilter filter, int currentAppuserId)
         {
@@ -173,6 +215,14 @@ namespace Infrastructure.Services.Common
                     item.IsActive = false;
                 }
             }
+        }
+        private void InsertTicketLog(Ticket ticket, string comment, int currentAppuserId)
+        {
+            ticket.Logs.Add(new TicketLog
+            {
+                CreatedByAppUserId = currentAppuserId,
+                Message = comment
+            });
         }
     }
 }

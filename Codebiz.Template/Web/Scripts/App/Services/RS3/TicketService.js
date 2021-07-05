@@ -11,5 +11,11 @@ angular.module("MetronicApp").
             GetTicketDetailsById: function (args) {
                 return commonService.GetData(args, document.Ticket + 'GetTicketDetailsById', null);
             },
+            SubmitComment: function (args) {
+                return commonService.PostData(args, document.Ticket + 'SubmitComment', null);
+            },
+            ResolveOrReopenTicket: function (args) {
+                return commonService.PostData(args, document.Ticket + 'ResolveOrReopenTicket', null);
+            },
         }
     }]);

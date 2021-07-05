@@ -102,6 +102,68 @@ namespace Web.Controllers
                 ajaxResult.Message
             }, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult SubmitComment(CommentAddDTO model)
+        {
+            AjaxResult ajaxResult = new AjaxResult();
+            ajaxResult.LogEventTitle = model.IsResolved ? LogEventTitles.TicketCommentedAndResolved : LogEventTitles.TicketCommented;
+            try
+            {
+                _ticketService.SubmitComment(model, CurrentUser.AppUserId, CurrentUser.Username);
+                _unitOfWork.SaveChanges();
+                ajaxResult.Message = "You have successfully submitted a comment!";
+                Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}].");
+            }
+            catch (DbUpdateException dbEx)
+            {
+                ajaxResult.Success = false;
+                ajaxResult.Message = $"Failed to comment on ticket! [{(dbEx.InnerException == null ? dbEx.Message : dbEx.InnerException.Message)}]";
+                Logger.Error($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", (dbEx.InnerException == null ? dbEx.Message : dbEx.InnerException.Message), ajaxResult.LogEventTitle);
+            }
+            catch (Exception ex)
+            {
+                ajaxResult.Success = false;
+                ajaxResult.Message = $"Failed to comment on ticket! [{(ex.InnerException == null ? ex.Message : ex.InnerException.Message)}]";
+                Logger.Error($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", (ex.InnerException == null ? ex.Message : ex.InnerException.Message), ajaxResult.LogEventTitle);
+            }
+            return Json(new
+            {
+                ajaxResult.Success,
+                ajaxResult.Message
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult ResolveOrReopenTicket(int id)
+        {
+            AjaxResult ajaxResult = new AjaxResult();
+            ajaxResult.LogEventTitle = LogEventTitles.TicketResolved; //by default
+            var action = "resolve";
+            try
+            {
+                var isResolved = _ticketService.ResolveOrReopenTicket(id, CurrentUser.AppUserId, CurrentUser.Username);
+                ajaxResult.LogEventTitle = isResolved ? LogEventTitles.TicketResolved : LogEventTitles.TicketReopened;
+                action = isResolved ? "resolve" : "reopen";
+                _unitOfWork.SaveChanges();
+                ajaxResult.Message = "You have successfully "+action+" a ticket!";
+                Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}].");
+            }
+            catch (DbUpdateException dbEx)
+            {
+                ajaxResult.Success = false;
+                ajaxResult.Message = $"Failed to  " + action + " ticket! [{(dbEx.InnerException == null ? dbEx.Message : dbEx.InnerException.Message)}]";
+                Logger.Error($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", (dbEx.InnerException == null ? dbEx.Message : dbEx.InnerException.Message), ajaxResult.LogEventTitle);
+            }
+            catch (Exception ex)
+            {
+                ajaxResult.Success = false;
+                ajaxResult.Message = $"Failed to " + action + "  ticket! [{(ex.InnerException == null ? ex.Message : ex.InnerException.Message)}]";
+                Logger.Error($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", (ex.InnerException == null ? ex.Message : ex.InnerException.Message), ajaxResult.LogEventTitle);
+            }
+            return Json(new
+            {
+                ajaxResult.Success,
+                ajaxResult.Message
+            }, JsonRequestBehavior.AllowGet);
+         }
+        
         public  JsonResult GetTicketDetailsById(int id)
         {
             return Json(new { result = _ticketService.GetTicketDetailsById(id, Url) }, JsonRequestBehavior.AllowGet);
