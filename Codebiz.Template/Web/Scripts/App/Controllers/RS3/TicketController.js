@@ -61,7 +61,7 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
     function ($scope, TicketService, CommonService, $window, $timeout, NgTableParams, $q, $uibModal, $controller,$location) {
         $controller('SupportingDocumentController', { $scope: $scope });
         $scope.withdocumentType = false;
-      
+        
         $scope.options = {
             url: document.FileUpload + "UploadTicketAttachments"
         };
@@ -102,6 +102,31 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
                 }
 
             });
+        }
+        $scope.takeTicket = function () {
+            swal({
+                title: "Take Ticket",
+                text: "Are you sure to take this ticket?",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#1ab394",
+                confirmButtonText: "OK",
+                closeOnConfirm: true
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    TicketService.TakeTicket({ id: $scope.m.Id }).then(function (d) {
+                        if (d.Success) {
+                            CommonService.successMessage(d.Message);
+                            GetTicketUpdates();
+                        }
+                        else {
+                            CommonService.warningMessage(d.Message);
+                        }
+                    })
+                }
+
+            });
+        
         }
         $scope.viewMyTickets = function () {
             var modalData = {

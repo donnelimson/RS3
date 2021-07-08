@@ -17,5 +17,8 @@ angular.module("MetronicApp").
             ResolveOrReopenTicket: function (args) {
                 return commonService.PostData(args, document.Ticket + 'ResolveOrReopenTicket', null);
             },
+            TakeTicket: function (args) {
+                return commonService.PostData(args, document.Ticket + 'TakeTicket', null);
+            },
         }
     }]);

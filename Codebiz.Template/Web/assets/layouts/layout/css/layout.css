@@ -2288,22 +2288,23 @@ Page Quick Sidebar
   right: 10px;
   margin-top: -230px;
   pointer-events: none; }
-  .quick-nav .quick-nav-bg {
-    /* this is the stretching navigation background */
-    position: absolute;
-    z-index: 10102;
-    top: 0;
-    right: 0;
-    width: 60px;
-    height: 60px;
-    border-radius: 30px !important;
-    background: #36C6D3;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-    webkit-transition: height .2s, box-shadow .2s;
-    -moz-transition: height .2s, box-shadow .2s;
-    -ms-transition: height .2s, box-shadow .2s;
-    -o-transition: height .2s, box-shadow .2s;
-    transition: height .2s, box-shadow .2s; }
+    .quick-nav .quick-nav-bg {
+        /* this is the stretching navigation background */
+        position: absolute;
+        z-index: 10102;
+        top: 0;
+        right: 0;
+        width: 60px;
+        height: 60px;
+        border-radius: 30px !important;
+        background: #e6a83b;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+        webkit-transition: height .2s, box-shadow .2s;
+        -moz-transition: height .2s, box-shadow .2s;
+        -ms-transition: height .2s, box-shadow .2s;
+        -o-transition: height .2s, box-shadow .2s;
+        transition: height .2s, box-shadow .2s;
+    }
   .quick-nav.nav-is-visible {
     pointer-events: auto; }
   .quick-nav.nav-is-visible .quick-nav-bg {

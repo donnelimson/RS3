@@ -71,6 +71,7 @@ namespace Codebiz.Domain.Common.Model.DTOs.RS3
         public string Technician { get; set; }
         public string TechnicianEmail { get; set; }
         public bool IsResolved { get; set; }
+        public bool CanBeTaken { get; set; }
         public List<AttachmentViewModel> Attachments { get; set; } = new List<AttachmentViewModel>();
         public List<CommentDTO> Comments { get; set; } = new List<CommentDTO>();
     }

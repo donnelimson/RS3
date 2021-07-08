@@ -50,7 +50,7 @@
         <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
         <div class="row fileupload-buttonbar" ng-show="!viewOnly">
             <div class="col-md-12 text-right">
-                <span class="btn btn-success fileinput-button" id="addbtn" ng-class="{disabled: disabled}" ng-click="fromApplicant ? checkIfCandAddFiles(): true">
+                <span class="btn  fileinput-button" id="addbtn" ng-class="{disabled: disabled}" ng-click="fromApplicant ? checkIfCandAddFiles(): true" style="background-color: #e6a83b !important; color: white">
                     <i class="glyphicon glyphicon-plus"></i>
                     <span>Add files...</span>
                     <input type="file" name="files[]"  accept="image/jpeg,application/pdf,image/png,image/pjpeg,.docx" id="fileDialog1" ng-show="(fromApplicant ? applicant.ConsumerIdentificationTypeId != null ? true : false : true) && !mediaOnly" multiple>

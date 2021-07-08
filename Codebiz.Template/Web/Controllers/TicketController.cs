@@ -102,6 +102,34 @@ namespace Web.Controllers
                 ajaxResult.Message
             }, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult TakeTicket(int id)
+        {
+            AjaxResult ajaxResult = new AjaxResult();
+            try
+            {
+                _ticketService.TakeTicket(id, CurrentUser.AppUserId, CurrentUser.Username);
+                _unitOfWork.SaveChanges();
+                ajaxResult.Message = "Ticket has been successfully taken this ticket!";
+                Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}].");
+            }
+            catch (DbUpdateException dbEx)
+            {
+                ajaxResult.Success = false;
+                ajaxResult.Message = $"Failed to take ticket! [{(dbEx.InnerException == null ? dbEx.Message : dbEx.InnerException.Message)}]";
+                Logger.Error($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", (dbEx.InnerException == null ? dbEx.Message : dbEx.InnerException.Message), LogEventTitles.TicketTaken);
+            }
+            catch (Exception ex)
+            {
+                ajaxResult.Success = false;
+                ajaxResult.Message = $"Failed to take ticket! [{(ex.InnerException == null ? ex.Message : ex.InnerException.Message)}]";
+                Logger.Error($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", (ex.InnerException == null ? ex.Message : ex.InnerException.Message), LogEventTitles.TicketTaken);
+            }
+            return Json(new
+            {
+                ajaxResult.Success,
+                ajaxResult.Message
+            }, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult SubmitComment(CommentAddDTO model)
         {
             AjaxResult ajaxResult = new AjaxResult();
@@ -166,7 +194,9 @@ namespace Web.Controllers
         
         public  JsonResult GetTicketDetailsById(int id)
         {
-            return Json(new { result = _ticketService.GetTicketDetailsById(id, Url) }, JsonRequestBehavior.AllowGet);
+            var data = _ticketService.GetTicketDetailsById(id, Url);
+            data.CanBeTaken = data.TechnicianId != CurrentUser.AppUserId;
+            return Json(new { result = data }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetMyTickets(LookUpFilter filter)
         {

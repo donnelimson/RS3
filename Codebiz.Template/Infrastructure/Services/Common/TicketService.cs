@@ -25,6 +25,7 @@ namespace Infrastructure.Services.Common
         IPagedList<TicketCFLDTO> GetMyTickets(LookUpFilter filter, int currentAppuserId);
         void SubmitComment(CommentAddDTO model, int currentAppuserId, string currentUsername);
         bool ResolveOrReopenTicket(int id, int currentAppuserId, string currentUserName);
+        void TakeTicket(int id, int currentAppUserId, string currentUserName);
     }
     public class TicketService : ITicketService
     {
@@ -85,6 +86,13 @@ namespace Infrastructure.Services.Common
                 Comment = model.Comment
             });
             InsertTicketLog(ticket, currentUserName + " commented on the ticket", currentAppuserId);
+            _ticketRepository.InsertOrUpdate(ticket);
+        }
+        public void TakeTicket(int id, int currentAppUserId, string currentUserName)
+        {
+            var ticket = _ticketRepository.GetById(id);
+            ticket.TechnicianId = currentAppUserId;
+            InsertTicketLog(ticket, "Ticket has been taken by "+currentUserName,currentAppUserId);
             _ticketRepository.InsertOrUpdate(ticket);
         }
         public ViewTicketDTO GetTicketDetailsById(int id, UrlHelper Url)

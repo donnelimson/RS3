@@ -105,7 +105,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="actions btn-set btn-filter">
-                                <button type="button" class="btn btn-success" ng-click="search()">
+                                <button type="button" class="btn" style="background:#e6a83b; color:white;" ng-click="search()">
                                     <i class="fa fa-search"></i>
                                     <span class=""> Search </span>
                                 </button>
@@ -134,7 +134,7 @@
                             <i class="fa fa-share-square-o"></i>
                             <span class="">Export</span>
                         </a>*@
-                        <a href="@Url.Action("ViewTicket","Ticket", new { Id = 0 })" class="btn btn-info" @Html.UserHasPermission(userPermission: PermissionData.UserCanCreateTicket)>
+                        <a href="@Url.Action("ViewTicket","Ticket", new { Id = 0 })" class="btn" style="background-color: #e6a83b !important; color: white" @Html.UserHasPermission(userPermission: PermissionData.UserCanCreateTicket)>
                             <i class="fa fa-plus"></i>
                             <span class=""> Create Ticket </span>
                         </a>
@@ -152,7 +152,7 @@
                                 <tr ng-repeat="item in $data">
     
                                     <td width="10%" data-title="'TICKET NO'" sortable="'TicketNo'" header-class="'table-header text-left'">
-                                        <a ng-click="viewTicket(item.Id)">
+                                        <a ng-click="viewTicket(item.Id)"  style="color:#e6a83b !important;">
                                             {{item.TicketNo}}
                                         </a>
                                     </td>

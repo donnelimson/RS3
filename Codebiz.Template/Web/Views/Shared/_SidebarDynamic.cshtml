@@ -8,7 +8,7 @@
     <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
     <div class="page-sidebar navbar-collapse collapse">
         <!-- BEGIN SIDEBAR MENU -->
-        <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="        padding-top: 20px;
+        <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px;
         background-color: #1a1a1a">
             <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
             <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
@@ -37,7 +37,7 @@ if (navlink.IsParent)
 {
     if (userAccess.ParentNavLinkIds.Count() > 0 && userAccess.ParentNavLinkIds.Contains(navlink.NavLinkId))
     {
-            <li class="nav-item">
+            <li class="nav-item" style=" background-color: #1a1a1a">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="@navlink.IconClass"></i>
                     <span class="title">@navlink.Name</span>
@@ -60,7 +60,7 @@ else
 {
     if (userAccess.NavLinkIds.Count() > 0 && userAccess.NavLinkIds.Contains(navlink.NavLinkId))
     {
-            <li class="nav-item">
+            <li class="nav-item" style=" background-color: #1a1a1a">
                 <a href="@Url.Action(navlink.Action, navlink.Controller, new { area = navlink.Area })" class="nav-link @Html.IsSelected(controller: navlink.Controller, action: navlink.Action, area: navlink.Area)">
                     <i class="@navlink.IconClass"></i>
                     <span class="title">@navlink.Name</span>

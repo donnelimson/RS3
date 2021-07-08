@@ -1614,6 +1614,8 @@ namespace Codebiz.Domain.Common.Model
         TicketResolved = 512,
         [Description("Ticket Reopened")]
         TicketReopened = 513,
+        [Description("Ticket Taken")]
+        TicketTaken = 514,
         #endregion
     }
 }
