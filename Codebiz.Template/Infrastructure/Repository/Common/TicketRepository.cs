@@ -117,6 +117,11 @@ namespace Infrastructure.Repository.Common
             {
                 data = data.Where(a => DbFunctions.TruncateTime(a.CreatedOn) >= filter.CreatedOnFrom && DbFunctions.TruncateTime(a.CreatedOn) <= filter.CreatedOnTo);
             }
+            if (filter.TechnicianId != null)
+            {
+                data = data.Where(x => x.TechnicianId == filter.TechnicianId);
+
+            }
             return data;
         }
         public IPagedList<TicketCFLDTO> GetMyTickets(LookUpFilter filter, int currentAppuserId)

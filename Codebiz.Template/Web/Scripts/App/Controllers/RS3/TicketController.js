@@ -6,6 +6,9 @@
         this.$onInit = function () {
             $scope.reset();
         }
+        $scope.myTicketsOnly = function () {
+            $scope.search();
+        }
         $scope.reset = function () {
             $scope.f = {
                 TicketNo: "",
@@ -17,6 +20,7 @@
                 Status: null,
                 SortDirection: 'desc',
                 SortColumn: 'CreatedOn',
+                MyTicketsOnly:false
             };
             $scope.createdDate = null;
             $scope.search();
@@ -65,6 +69,7 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
         $scope.options = {
             url: document.FileUpload + "UploadTicketAttachments"
         };
+      
         this.$onInit = function () {
             //console.log($location.search().Id )
             $scope.priorities = PRIORITIES;
@@ -72,6 +77,7 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
             if ($scope.isUpdate) {
                 GetTicketUpdates();
             }
+           // console.log($scope.isUpdate)
       
         }
         $scope.m = {

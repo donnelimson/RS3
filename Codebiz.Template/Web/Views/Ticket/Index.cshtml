@@ -127,7 +127,8 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption">
-                        @*<i class="fa fa-user"></i>*@List
+                        @*<i class="fa fa-user"></i>*@List<br />
+                        <input type="checkbox" ng-change="myTicketsOnly()" ng-model="f.MyTicketsOnly" />My Tickets
                     </div>
                     <div class="actions">
                         @*<a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportBarangayViewList)>

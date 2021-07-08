@@ -11,8 +11,11 @@ using Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using Web.Filters;
@@ -57,6 +60,7 @@ namespace Web.Controllers
         #region JSON
         public JsonResult Search(TicketFilter filter)
         {
+            filter.TechnicianId = filter.MyTicketsOnly ? CurrentUser.AppUserId : (int?)null;
             return Json(new { result = _ticketService.GetAllOpenTickets(filter), totalRecordCount = filter.FilteredRecordCount }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult AddOrUpdate(TicketAddOrUpdateDTO viewModel)
@@ -79,8 +83,13 @@ namespace Web.Controllers
                 {
                     viewModel.LogComment = "User " + CurrentUser.Username +" commented on this ticket";
                 }
-                _ticketService.AddOrUpdate(viewModel, CurrentUser.AppUserId, CurrentUser.RoleId==4);
+                var ticket = _ticketService.AddOrUpdate(viewModel, CurrentUser.AppUserId, CurrentUser.RoleId==4);
                 _unitOfWork.SaveChanges();
+                if (!string.IsNullOrEmpty(viewModel.ClientEmail))
+                {
+                    SendEmail(viewModel.ClientEmail, viewModel.Id==0? "The ticket has been created with ticket no: " + ticket.TicketNo:
+                        "Ticket: "+ ticket.TicketNo + " has been updated", ticket.Title);
+                }
                 ajaxResult.Message = "Ticket has been successfully " + action + "d" + "!";
                 Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]." + JsonConvert.SerializeObject(viewModel), ajaxResult.LogEventTitle, "", "", JsonConvert.SerializeObject(viewModel));
             }
@@ -138,6 +147,11 @@ namespace Web.Controllers
             {
                 _ticketService.SubmitComment(model, CurrentUser.AppUserId, CurrentUser.Username);
                 _unitOfWork.SaveChanges();
+                if (!string.IsNullOrEmpty(model.Email))
+                {
+                    SendEmail(model.Email,model.Comment,model.Title);
+                }
+              
                 ajaxResult.Message = "You have successfully submitted a comment!";
                 Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}].");
             }
@@ -201,6 +215,35 @@ namespace Web.Controllers
         public JsonResult GetMyTickets(LookUpFilter filter)
         {
             return Json(new { result = _ticketService.GetMyTickets(filter, CurrentUser.AppUserId) });
+        }
+        #endregion
+        #region EmailSender
+        private static void SendEmail(string toEmail,string mail, string subject)
+        {
+            try
+            {
+                //_displayName = _configSettingService.GetStringValueById((int)ConfigurationSettings.SmtpDisplayName);
+                //_emailClientUsername = _configSettingService.GetStringValueById((int)ConfigurationSettings.SmtpUsername);
+                //_emailClientPassword = _configSettingService.GetStringValueById((int)ConfigurationSettings.SmtpPassword);
+                //_smtpHost = _configSettingService.GetStringValueById((int)ConfigurationSettings.SmtpHost);
+                //_smtpPort = _configSettingService.GetInt32ValueById((int)ConfigurationSettings.SmtpPort);
+                MailMessage message = new MailMessage();
+                SmtpClient smtp = new SmtpClient();
+                message.From = new MailAddress(ConfigurationManager.AppSettings["SmtpUsername"].ToString());
+                message.To.Add(new MailAddress(toEmail));
+                message.Subject = subject;
+                message.IsBodyHtml = true; //to make message body as html  
+                message.Body = mail;
+                smtp.Port = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPort"].ToString());
+                smtp.Host = ConfigurationManager.AppSettings["SmtpHost"].ToString(); //for gmail host  
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["SmtpUsername"].ToString(), ConfigurationManager.AppSettings["SmtpPassword"].ToString());
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Send(message);
+            }
+            catch (Exception ex) { 
+            }
         }
         #endregion
     }

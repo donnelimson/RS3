@@ -83,7 +83,7 @@
                                                         <label class="control-label col-md-1" ng-if="!isUpdate">Title <span class="required">*</span></label>
                                                         <div class="col-md-6">
                                                             <label class="control-label" ng-if="isUpdate">Title <span class="required">*</span></label>
-                                                            <input type="text" name="Title" ng-model="m.Title" class="form-control" alphanumeric-dash-only ng-required="true" ng-disabled=" @Html.UserHasPermission(userPermission: PermissionData.UserCanEditTicket).ToString().Length!=0 ? false:true" />
+                                                            <input type="text" name="Title" ng-model="m.Title" class="form-control" alphanumeric-dash-only ng-required="true" ng-disabled="isUpdate && (@Html.UserHasPermission(userPermission: PermissionData.UserCanEditTicket).ToString().Length!=0 ? true:false)" />
                                                             <span ng-show="f.Title.$error.required && formSubmitted"
                                                                   class="text-danger field-validation-error" ><small> Title is required!</small></span>
                                                         </div>
@@ -99,7 +99,7 @@
                                                         <div class="col-md-6">
                                                             <label class="control-label" ng-if="isUpdate">Description <span class="required">*</span></label>
                                                             <textarea name="Description" ng-model="m.Description" class="form-control" alphanumeric-dash-only ng-required="true" maxlength="500" rows="7"
-                                                                       ng-disabled=" @Html.UserHasPermission(userPermission: PermissionData.UserCanEditTicket).ToString().Length!=0 ? false:true"></textarea>
+                                                                      ng-disabled="isUpdate && (@Html.UserHasPermission(userPermission: PermissionData.UserCanEditTicket).ToString().Length!=0 ? true:false)"></textarea>
                                                             <span style="float:right;">{{m.Description.length == null ? 0 : m.Description.length}}/500</span>
                                                             <span ng-show="f.Description.$error.required && formSubmitted"
                                                                   class="text-danger field-validation-error"><small> Description is required!</small></span>
@@ -337,7 +337,7 @@
                             </div>
                             <!-- END SUPPORTING DOCUMENTS -->
                             <!-- START SAVE AND CANCEL BUTTONS -->
-                            <div class="row" style="margin-top:20px">
+                            <div class="row" style="margin-top:20px"  ng-show=" (@Html.UserHasPermission(userPermission: PermissionData.UserCanCreateTicket).ToString().Length!=0 ? false:true)|| (@Html.UserHasPermission(userPermission: PermissionData.UserCanEditTicket).ToString().Length!=0 ? false:true)">
                                 <div class="col-md-12">
                                     <div class="actions btn-set">
                                         <button class="btn" id="addbtn" style="width: 90px;background-color: #e6a83b !important; color:white" ng-click="save()">

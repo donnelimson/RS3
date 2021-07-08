@@ -20,7 +20,7 @@ namespace Infrastructure.Services.Common
     public interface ITicketService
     {
         IPagedList<TicketIndexDTO> GetAllOpenTickets(TicketFilter filter);
-        void AddOrUpdate(TicketAddOrUpdateDTO viewModel, int currentAppUserId, bool isClient);
+        Ticket AddOrUpdate(TicketAddOrUpdateDTO viewModel, int currentAppUserId, bool isClient);
         ViewTicketDTO GetTicketDetailsById(int id, UrlHelper Url);
         IPagedList<TicketCFLDTO> GetMyTickets(LookUpFilter filter, int currentAppuserId);
         void SubmitComment(CommentAddDTO model, int currentAppuserId, string currentUsername);
@@ -44,7 +44,7 @@ namespace Infrastructure.Services.Common
         {
             return _ticketRepository.GetAllOpenTickets(filter);
         }
-        public void AddOrUpdate(TicketAddOrUpdateDTO viewModel, int currentAppUserId, bool isClient)
+        public Ticket AddOrUpdate(TicketAddOrUpdateDTO viewModel, int currentAppUserId, bool isClient)
         {
             var ticket = _ticketRepository.GetById(viewModel.Id);
             if (ticket == null)
@@ -70,6 +70,7 @@ namespace Infrastructure.Services.Common
             ticket.TechnicianId = viewModel.TechnicianId;
             _ticketRepository.InsertOrUpdate(ticket);
             AddOrUpdateTicketAttachment(ticket.Attachments, viewModel.Attachments, ticket, currentAppUserId);
+            return ticket;
         }
         public void SubmitComment(CommentAddDTO model, int currentAppuserId, string currentUserName)
         {
@@ -85,6 +86,8 @@ namespace Infrastructure.Services.Common
                 CreatedByAppUserId=currentAppuserId,
                 Comment = model.Comment
             });
+            model.Title = ticket.Title;
+            model.Email = ticket.AppUserClient == null ? ticket.GuessClientEmail : ticket.AppUserClient.Email;
             InsertTicketLog(ticket, currentUserName + " commented on the ticket", currentAppuserId);
             _ticketRepository.InsertOrUpdate(ticket);
         }
@@ -105,7 +108,7 @@ namespace Infrastructure.Services.Common
                 data.ClientId = ticket.AppUserClient == null ? (int?)null : ticket.ClientId;
                 data.Client = ticket.AppUserClient == null ? ticket.GuessClientName : ticket.AppUserClient.FullName;
                 data.ClientAddress = ticket.AppUserClient == null ? ticket.GuessClientAddress : "test";
-                data.ClientEmail = ticket.AppUserClient == null ? ticket.GuessClientEmail : "test";
+                data.ClientEmail = ticket.AppUserClient == null ? ticket.GuessClientEmail : ticket.AppUserClient.Email;
                 data.TechnicianId = ticket.AppUserTechnician == null ? (int?)null : ticket.TechnicianId;
                 data.Title = ticket.Title;
                 data.Description = ticket.Description;

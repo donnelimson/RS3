@@ -777,6 +777,7 @@
     <Content Include="Views\Ticket\ViewTicket.cshtml" />
     <Content Include="Views\Shared\_ChooseFromList.cshtml" />
     <Content Include="Views\ChooseFromList\GetLookup.cshtml" />
+    <Content Include="Views\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -8083,9 +8084,6 @@
     <Content Include="SystemReport\Viewer\Engineering\WithdrawalSlip.aspx" />
     <Content Include="Views\Log\View.cshtml" />
     <Content Include="SystemReport\Viewer\PurchaseOrder.aspx" />
-    <Content Include="Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
