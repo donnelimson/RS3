@@ -1581,26 +1581,6 @@ namespace Codebiz.Domain.Common.Model
 
         #endregion
 
-        [Description("Job Order Returned")]
-        JobOrderReturned = 508,
-        [Description("Item Serial Number Created")]
-        ItemSerialNumberCreated = 509,
-        [Description("Item Serial Number Updated")]
-        ItemSerialNumberUpdated = 510,
-
-        #region Sales
-        [Description("Sales Invoice Deleted")]
-        SalesInvoiceDeleted = 511,
-
-        [Description("Sales Invoice Deleted")]
-        SalesDeliveryDeleted = 512, 
-       
-        [Description("Sales Invoice Deleted")]
-        SalesOrderDeleted = 513,
-
-        [Description("Sales Invoice Deleted")]
-        SalesQuotationDeleted = 514,
-        #endregion
         #region RS3
         [Description("Ticket Created")]
         TicketCreated = 508,

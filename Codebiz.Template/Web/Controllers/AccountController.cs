@@ -117,25 +117,8 @@ namespace Web.Controllers
                     return View(model);
                 }
 
-                if (appUser.AppUserStatus == (int)UserStatuses.Locked)
-                {
-                    ModelState.AddModelError("Username",
-                        "This account has been locked.Please Check your email to unlock your account.");
-                    return View(model);
-                }
 
-                if (appUser.LastLoggedIn != null && dateNow.AddDays(-30).CompareTo(appUser.LastLoggedIn) > 0)
-                {
-                    ModelState.AddModelError("Username",
-                        "This account has been inactive and has been locked.Please contact your administrator.");
-                    appUser.AppUserStatus = (int)UserStatuses.Dormant;
-                    appUser.FailedLoggedInAttempt = resetloginAttempt;
-
-                    _appUserServices.InsertOrUpdate(appUser, appUser.AppUserId);
-                    _unitOfWork.SaveChanges();
-                    return View(model);
-                }
-
+         
                 //Success Login
                 if (_appUserServices.ValidatePassword(appUser, model.Password))
                 {
@@ -183,8 +166,7 @@ namespace Web.Controllers
 
 
                     appUser.FailedLoggedInAttempt = resetloginAttempt;
-                    appUser.AppUserStatus = (int)UserStatuses.Active;
-
+     
                     #region Login history
 
                     var loginHistory = new LoginHistory();
@@ -218,7 +200,7 @@ namespace Web.Controllers
                     {
                         ModelState.AddModelError("Username",
                             "This account has been locked! Please Check your email to unlock your Account.");
-                        appUser.AppUserStatus = (int)UserStatuses.Locked;
+                        appUser.IsActive = false;
                         appUser.FailedLoggedInAttempt = resetloginAttempt;
                         var guid = Guid.NewGuid().ToString();
 
@@ -282,46 +264,7 @@ namespace Web.Controllers
         {
             return View();
         }
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Activate(ActivateViewModel model)
-        {
-            var appUser = _appUserServices.GetByEmailOrUsername(model.Username);
-
-            if (appUser == null)
-                ModelState.AddModelError("Username", "Username does not exist");
-            else
-            {
-                if (appUser.EmailConfirmed)
-                    ModelState.AddModelError("Username", "Account is already activated.");
-
-                if (!appUser.IsActive)
-                    ModelState.AddModelError("Username", "Account is inactive.");
-
-                if (!_appUserServices.ValidatePassword(appUser, model.Password))
-                    ModelState.AddModelError("Password", "Invalid password");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var passHash = _hashHelper.ComputeHash(Guid.NewGuid().ToString());
-            appUser.PasswordHash = _appUserServices.HashPassword(model.NewPassword, passHash) + ":" + passHash;
-            appUser.EmailConfirmed = true;
-            appUser.AppUserStatus = (int)UserStatuses.Active;
-            _unitOfWork.SaveChanges();
-            var activationUrl = _appUserServices.GeneratePasswordResetLink(appUser.UnlockUrlParam, Url);
-
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-
-            CreateSuccessMessage("Successful activation");
-            Logger.Info("Successful activation. Username : [{0}]", model.Username);
-
-            return RedirectToAction("Login", "Account");
-        }
+      
 
 
         // GET: /Account/ConfirmEmail
@@ -344,49 +287,7 @@ namespace Web.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/ForgotPassword
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
-        {
-            var appUser = _appUserServices.GetByEmail(model.Email);
-            if (appUser != null)
-            {
-                if (!appUser.IsActive)
-                    ModelState.AddModelError("Email", "Account is inactive.");
-
-                if (!appUser.EmailConfirmed)
-                    ModelState.AddModelError("Email", "Account is not yet confirmed.");
-            }
-            else
-            {
-                ModelState.AddModelError("Email", "Email does not exist");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var guid = Guid.NewGuid().ToString();
-
-            var expiryDate = DateTime.Now.AddDays(1);
-
-            appUser.ForgotPasswordUrlParam = guid;
-            appUser.ForgotPasswordExpiryDate = expiryDate;
-
-            _unitOfWork.SaveChanges();
-
-            var activationUrl = _appUserServices.GeneratePasswordResetLink(appUser.ForgotPasswordUrlParam, Url);
-            _appUserServices.SendResetPasswordEmail(appUser, activationUrl, HttpContext.Server.MapPath(_mailTemplatePath));
-
-            CreateSuccessMessage("Please check your email and follow the instructions to reset your password.");
-            Logger.Info("User successfully forgot password. Email : [{0}]", model.Email);
-
-            return RedirectToAction("ForgotPasswordConfirmation");
-        }
+     
 
         //
         // GET: /Account/ForgotPasswordConfirmation
@@ -409,55 +310,7 @@ namespace Web.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/ResetPassword
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
-        {
-            var appUser = _appUserServices.GetByEmailOrUsername(model.Username);
-            if (appUser != null)
-            {
-                if (!appUser.IsActive)
-                    ModelState.AddModelError("Username", "Account is inactive.");
-
-                if (!appUser.EmailConfirmed)
-                    ModelState.AddModelError("Username", "Account is not yet confirmed.");
-
-                if (appUser.ForgotPasswordUrlParam != model.Code)
-                {
-                    ModelState.AddModelError("", "Account and code is invalid.");
-                }
-
-                if (appUser.ForgotPasswordExpiryDate < DateTime.Now)
-                {
-                    ModelState.AddModelError("", "Code is already expired.");
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("Username", "Account does not exist");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var passHash = _hashHelper.ComputeHash(Guid.NewGuid().ToString());
-            appUser.PasswordHash = _appUserServices.HashPassword(model.Password, passHash) + ":" + passHash;
-
-            _unitOfWork.SaveChanges();
-
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-
-            CreateSuccessMessage("Reset password successfully!");
-            Logger.Info("Successful reset password. Username : [{0}]", model.Username);
-
-            return RedirectToAction("Login", "Account");
-        }
-
+  
 
         //[HttpGet,Authorize]
         public ActionResult _ProfileSidebar(string username)
@@ -505,61 +358,6 @@ namespace Web.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Unlock(UnlockingViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            ClaimsIdentity identity;
-
-            var appUser = _appUserServices.GetByEmailOrUsername(model.Username);
-            if (appUser != null)
-            {
-                //Account Inactive
-                if (!appUser.IsActive)
-                {
-                    ModelState.AddModelError("Username", "Account is inactive.");
-                    return View(model);
-                }
-                //If Account is not lock
-                if (appUser.VerificationCode == null)
-                {
-                    ModelState.AddModelError("Username", "Account is not Locked!.");
-                    return View(model);
-                }
-
-                //Success Login
-                else if (appUser.VerificationCode == model.VerificationCode)
-                {
-
-                    appUser.VerificationCode = null;
-                    appUser.AppUserStatus = (int)UserStatuses.Active;
-                    appUser.UnlockUrlParam = null;
-                    appUser.LastLoggedIn = null;
-                    _appUserServices.InsertOrUpdate(appUser, appUser.AppUserId);
-                    _unitOfWork.SaveChanges();
-
-                    CreateSuccessMessage("Account successfully unlocked");
-                    return RedirectToAction("Login", "Account");
-                }
-                else
-                {
-                    ModelState.AddModelError("VerificationCode", "Invalid Verification Code");
-                    return View(model);
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("Username", "Username does not exist");
-                return View(model);
-
-            }
-        }
 
         private string GenerateUnlockUserLink(string code)
         {

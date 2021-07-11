@@ -261,11 +261,13 @@ namespace Web.Controllers
                     if (model.AppUserId == 0)
                     {
                         var tempPassword = _passwordHelper.GenerateRandomPassword();
-                        appUser.PasswordHash = _appUserServices.HashPassword(tempPassword, _hashHelper.ComputeHash(Guid.NewGuid().ToString())) +
-                                               ":" + _hashHelper.ComputeHash(Guid.NewGuid().ToString());
-                        _appUserServices.SendActivationEmail(appUser, tempPassword, _appUserServices.GenerateActivateUserLink(Url), HttpContext.Server.MapPath(_mailTemplatePath));
+                        //appUser.PasswordHash = _appUserServices.HashPassword(tempPassword, _hashHelper.ComputeHash(Guid.NewGuid().ToString())) +
+                        //                       ":" + _hashHelper.ComputeHash(Guid.NewGuid().ToString());
+                        var defaultHash = "07d8cada9b0b50464914625cb1a28a47e7e95afb:2b37f7a149ae82552504732b5df3201c263eb45e"; //default password for now;
+                        appUser.PasswordHash = defaultHash;
+                      //  _appUserServices.SendActivationEmail(appUser, tempPassword, _appUserServices.GenerateActivateUserLink(Url), HttpContext.Server.MapPath(_mailTemplatePath));
                     }
-
+                    _unitOfWork.SaveChanges();
                     #endregion
 
                     ajaxResult.Message = $"{model.Username} has been successfully {proccessType}d!";
@@ -457,46 +459,6 @@ namespace Web.Controllers
          JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        [ClaimsAuthorize(ClaimCustomTypes.UserPermissions, PermissionData.UserCanUnlockAppUserAccount)]
-        public JsonResult SendUnlockingAccountLink(int id)
-        {
-            AjaxResult ajaxResult = new AjaxResult();
-
-            try
-            {
-                if (_appUserServices.GetById(id) == null)
-                {
-                    ajaxResult.Message = "Account does not exists!";
-                    ajaxResult.Success = false;
-                }
-                else
-                {
-                    _appUserServices.SendUnlockingAccountLink(id, CurrentUser.AppUserId, Url, HttpContext);
-                    _unitOfWork.SaveChanges();
-                    ajaxResult.Message = "Account unlocking link sent!";
-                    Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", LogEventTitles.ActivationLinkSent);
-                }
-            }
-            catch (DbUpdateException dbEx)
-            {
-                ajaxResult.Success = false;
-                ajaxResult.Message = $"Failed to send account unlocking link! [{(dbEx.InnerException == null ? dbEx.Message : dbEx.InnerException.Message)}]";
-                Logger.Error($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", (dbEx.InnerException == null ? dbEx.Message : dbEx.InnerException.Message));
-            }
-            catch (Exception ex)
-            {
-                ajaxResult.Success = false;
-                ajaxResult.Message = $"Failed to send account unlocking link! [{(ex.InnerException == null ? ex.Message : ex.InnerException.Message)}]";
-                Logger.Error($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", (ex.InnerException == null ? ex.Message : ex.InnerException.Message));
-            }
-            return Json(new
-            {
-                success = ajaxResult.Success,
-                message = ajaxResult.Message
-            },
-         JsonRequestBehavior.AllowGet);
-        }
 
         #endregion
 

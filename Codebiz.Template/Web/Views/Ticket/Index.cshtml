@@ -131,14 +131,13 @@
                         <input type="checkbox" ng-change="myTicketsOnly()" ng-model="f.MyTicketsOnly" />My Tickets
                     </div>
                     <div class="actions">
-                        @*<a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportBarangayViewList)>
-                            <i class="fa fa-share-square-o"></i>
-                            <span class="">Export</span>
-                        </a>*@
-                        <a href="@Url.Action("ViewTicket","Ticket", new { Id = 0 })" class="btn" style="background-color: #e6a83b !important; color: white" @Html.UserHasPermission(userPermission: PermissionData.UserCanCreateTicket)>
-                            <i class="fa fa-plus"></i>
-                            <span class=""> Create Ticket </span>
-                        </a>
+                        <div @Html.UserHasPermission(userPermission: PermissionData.UserCanCreateTicket)>
+                            <a href="@Url.Action("ViewTicket","Ticket", new { Id = 0 })" class="btn" style="background-color: #e6a83b !important; color: white">
+                                <i class="fa fa-plus"></i>
+                                <span class=""> Create Ticket </span>
+                            </a>
+                        </div>
+                    
                     </div>
                 </div>
 

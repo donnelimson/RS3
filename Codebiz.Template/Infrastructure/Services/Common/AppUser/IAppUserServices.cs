@@ -66,7 +66,7 @@ namespace Infrastructure.Services
         void ResendActivationLink(int id, int currentAppUserId, UrlHelper urlHelper, HttpContextBase httpContextBase);
         bool SendResetPasswordEmail(AppUser entity, string resetPasswordUrl, string mailTemplatePath);
         void SendResetPasswordLink(int id, int currentAppUserId, UrlHelper urlHelper, HttpContextBase httpContext);
-        void SendUnlockingAccountLink(int id, int currentAppUserId, UrlHelper urlHelper, HttpContextBase httpContext);
+   
         bool SendUnlockAccountEmail(AppUser entity, string unlockUserUrl, string verificationCode, string mailTemplatePath);
         bool SendActivateInactiveAccountEmail(AppUser entity, string unlockUserUrl, string verificationCode, string mailTemplatePath);
 
@@ -371,24 +371,7 @@ namespace Infrastructure.Services
 
             SendResetPasswordEmail(appUser, GeneratePasswordResetLink(appUser.ForgotPasswordUrlParam, urlHelper), httpContext.Server.MapPath(_mailTemplatePath));
         }
-        public void SendUnlockingAccountLink(int id, int currentAppUserId, UrlHelper urlHelper, HttpContextBase httpContext)
-        {
-            var appUser = GetById(id);
 
-            appUser.UnlockUrlParam = Guid.NewGuid().ToString();
-            appUser.VerificationCode = RandomPassword();
-
-            var unlockUrlParam = GenerateUnlockUserLink(appUser.UnlockUrlParam, urlHelper);
-
-            if (appUser.AppUserStatus == (int)UserStatuses.Dormant)
-            {
-                SendActivateInactiveAccountEmail(appUser, unlockUrlParam, appUser.VerificationCode, httpContext.Server.MapPath(_mailTemplatePath));
-            }
-            else if (appUser.AppUserStatus == (int)UserStatuses.Locked)
-            {
-                SendUnlockAccountEmail(appUser, unlockUrlParam, appUser.VerificationCode, httpContext.Server.MapPath(_mailTemplatePath));
-            }
-        }
         public bool SendUnlockAccountEmail(AppUser entity, string unlockUserUrl, string verificationCode, string mailTemplatePath)
         {
             const string mailtemplate = "UnlockAccount.html";

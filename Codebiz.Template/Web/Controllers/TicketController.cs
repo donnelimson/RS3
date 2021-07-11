@@ -85,7 +85,7 @@ namespace Web.Controllers
                 }
                 var ticket = _ticketService.AddOrUpdate(viewModel, CurrentUser.AppUserId, CurrentUser.RoleId==4);
                 _unitOfWork.SaveChanges();
-                if (!string.IsNullOrEmpty(viewModel.ClientEmail))
+                if (!string.IsNullOrEmpty(viewModel.ClientEmail) && CurrentUser.RoleId!=4)
                 {
                     SendEmail(viewModel.ClientEmail, viewModel.Id==0? "The ticket has been created with ticket no: " + ticket.TicketNo:
                         "Ticket: "+ ticket.TicketNo + " has been updated", ticket.Title);
@@ -210,6 +210,7 @@ namespace Web.Controllers
         {
             var data = _ticketService.GetTicketDetailsById(id, Url);
             data.CanBeTaken = data.TechnicianId != CurrentUser.AppUserId;
+            data.IsClient = CurrentUser.RoleId == 4;//client
             return Json(new { result = data }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetMyTickets(LookUpFilter filter)

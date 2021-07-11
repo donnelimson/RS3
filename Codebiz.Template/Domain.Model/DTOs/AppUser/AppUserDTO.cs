@@ -25,8 +25,9 @@ namespace Codebiz.Domain.Common.Model.DTOs
         public string MiddleName { get; set; }
         public string UserGroup { get; set; }
         public string AppUserPhotoThumnnailUrl { get; set; }
-
+        public string Role { get; set; }
         public bool IsManager { get; set; }
+
     }
     public class AppUserSearchDTO : AppUserNameAndIdDTO
     {

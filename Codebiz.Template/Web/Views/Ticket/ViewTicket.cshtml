@@ -18,10 +18,10 @@
                 </li>*@
             </ul>
             <div class="page-toolbar">
-                <a class="btn btn-sm btn-default" style="background-color:#e6a83b !important;color:white;" ng-click="cancelChanges()" ng-if="!isUpdate && (@Html.UserHasPermission(userPermission: PermissionData.UserCanViewTicket).ToString().Length!=0 ? false:true)">Back to List</a>
-                <a class="btn btn-sm btn-default" ng-click="viewMyTickets()" ng-if="!isUpdate && (!@Html.UserHasPermission(userPermission: PermissionData.UserCanViewTicket).ToString().Length!=0 ? false:true)">View my other ticket/s</a>
+                <a class="btn btn-sm btn-default" style="background-color:#e6a83b !important;color:white;" ng-click="cancelChanges()" ng-if="!m.IsClient && !isUpdate && (@Html.UserHasPermission(userPermission: PermissionData.UserCanViewTicket).ToString().Length!=0 ? false:true)">Back to List</a>
+                <a class="btn btn-sm btn-default" ng-click="viewMyTickets()" ng-if="m.IsClient && (@Html.UserHasPermission(userPermission: PermissionData.UserCanViewTicket).ToString().Length!=0 ? false:true)">View my other ticket/s</a>
 
-                <div class="btn-group dropdown" ng-show="isUpdate">
+                <div class="btn-group dropdown" ng-show="isUpdate && !m.IsClient">
                     <button id="actions" type="button" class="btn  btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="line-height:24px;background-color: #e6a83b !important; color:white">
                         ACTIONS &nbsp;&nbsp;▼
                     </button>

@@ -55,16 +55,8 @@ namespace Codebiz.Domain.ERP.Context.SeedData
             context.SaveChanges();
             var managementParentNavLink = context.NavLinks.FirstOrDefault(a => a.Name == NavLinkData.Management);
 
-            #region Company Setup
 
-            context.NavLinks.AddOrUpdate(a => new { a.Parameters, a.Name }, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.CompanySetup, IconClass = "", Parameters = "Company Setup", IsActive = true, IsParent = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 13 });
-            context.SaveChanges();
 
-            var companySetupManagementParentNavlink = context.NavLinks
-                .FirstOrDefault(x => x.Name == NavLinkData.CompanySetup && x.ParentNavLinkId == managementParentNavLink.NavLinkId);
-
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = companySetupManagementParentNavlink.NavLinkId, Name = NavLinkData.GeneralSetting, Controller = "AdminSetting", Action = "GeneralSettings", Area = "ADM", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 14 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = companySetupManagementParentNavlink.NavLinkId, Name = NavLinkData.CompanyDetail, Controller = "AdminSetting", Action = "CompanyDetails", Area = "ADM", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 15 });
 
             #endregion
 
@@ -72,70 +64,14 @@ namespace Codebiz.Domain.ERP.Context.SeedData
            // context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Offices, Controller = "Office", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 17 });
          //   context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Departments, Controller = "Department", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 18 });
          //   context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Divisions, Controller = "Division", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 19 });
-           context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Positions, Controller = "Position", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 20 });
-          //  context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Purpose, Controller = "Purpose", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 20 });
 
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.ConsumerTypes, Controller = "ConsumerType", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 21 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.NoOfUnitsandKVARating, Controller = "NoOfUnitsAndKvaRating", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 23 });
-            //context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.WorkOrders, Controller = "WorkOrder", Action = "Index", IsActive = false, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 24 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.SupportingDocuments, Controller = "SupportingDocuments", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 25 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.DocumentNumberings, Controller = "DocumentNumbering", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 26 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Substations, Controller = "SubStation", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 27 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.LifelineSubsidy, Controller = "LifelineSubsidy", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 28 });
 
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Poles, Controller = "Pole", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 29 });
             context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Tickets, Controller = "Ticket", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 29 });
 
-            #region Address
-
-            context.NavLinks.AddOrUpdate(a => new { a.Parameters, a.Name }, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Address, IconClass = "", Parameters = "Address", IsActive = true, IsParent = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 30 });
-            context.SaveChanges();
-
-            var addressManagementParentNavlink = context.NavLinks
-                .FirstOrDefault(x => x.Name == NavLinkData.Address && x.ParentNavLinkId == managementParentNavLink.NavLinkId);
-
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = addressManagementParentNavlink.NavLinkId, Name = NavLinkData.Regions, Controller = "Region", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 31 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = addressManagementParentNavlink.NavLinkId, Name = NavLinkData.Provinces, Controller = "Province", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 32 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = addressManagementParentNavlink.NavLinkId, Name = NavLinkData.CitiesTowns, Controller = "CityTown", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 33 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = addressManagementParentNavlink.NavLinkId, Name = NavLinkData.Barangays, Controller = "Barangay", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 34 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = addressManagementParentNavlink.NavLinkId, Name = NavLinkData.Puroks, Controller = "Purok", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 35 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = addressManagementParentNavlink.NavLinkId, Name = NavLinkData.Sitios, Controller = "Sitio", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 36 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = addressManagementParentNavlink.NavLinkId, Name = NavLinkData.Routes, Controller = "Route", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 37 });
-
-            #endregion
-
-            #region Approval Procedure
-
-            context.NavLinks.AddOrUpdate(a => new { a.Parameters, a.Name }, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.ApprovalProcedures, IconClass = "", Parameters = "Approval Procedures", IsActive = true, IsParent = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 38 });
-            context.SaveChanges();
-
-            var approvalProceduresManagementParentNavlink = context.NavLinks
-                .FirstOrDefault(x => x.Name == NavLinkData.ApprovalProcedures && x.ParentNavLinkId == managementParentNavLink.NavLinkId);
-
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = approvalProceduresManagementParentNavlink.NavLinkId, Name = NavLinkData.ApprovalStages, Controller = "ApprovalStage", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 39 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = approvalProceduresManagementParentNavlink.NavLinkId, Name = NavLinkData.ApprovalTemplates, Controller = "ApprovalTemplate", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 40 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = approvalProceduresManagementParentNavlink.NavLinkId, Name = NavLinkData.ApproverLabels, Controller = "ApproverLabel", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 40 });
-
-            #endregion
-
-            #region Banking
-
-            context.NavLinks.AddOrUpdate(a => new { a.Parameters, a.Name }, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Banking, IconClass = "", Parameters = "Banking", IsActive = true, IsParent = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 41 });
-            context.SaveChanges();
-
-            var bankingpManagementParentNavlink = context.NavLinks
-                .FirstOrDefault(x => x.Name == NavLinkData.Banking && x.ParentNavLinkId == managementParentNavLink.NavLinkId);
-
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = bankingpManagementParentNavlink.NavLinkId, Name = NavLinkData.Banks, Controller = "Bank", Action = "Index", Area = "", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 42 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = bankingpManagementParentNavlink.NavLinkId, Name = NavLinkData.CreditCards, Controller = "CreditCard", Action = "Index", Area = "", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 43 });
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = bankingpManagementParentNavlink.NavLinkId, Name = NavLinkData.HouseBankAccounts, Controller = "HouseBankAccount", Action = "Index", Area = "", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 44 });
-
-            #endregion
 
             context.SaveChanges();
 
-            #endregion
-
+   
       
         }
     }

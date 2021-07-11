@@ -13,7 +13,7 @@ namespace Codebiz.Domain.Repository
         AppUser GetById(int id);
         AppUser GetByUserName(string userName);
         AppUser GetActiveById(int id);
-        AppUser GetDepartmentManagerById(int? departmentId);
+
 
         bool IsUsernameExists(string username, int appUserId);
         bool IsEmailExists(string email, int appUserId);

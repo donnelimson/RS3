@@ -50,6 +50,7 @@ namespace Infrastructure.Services.Common
             if (ticket == null)
             {
                 ticket = new Ticket();
+                ticket.CreatedByAppUserId = currentAppUserId;
             }
             InsertTicketLog(ticket, viewModel.LogComment, currentAppUserId);
             ticket.Title = viewModel.Title;

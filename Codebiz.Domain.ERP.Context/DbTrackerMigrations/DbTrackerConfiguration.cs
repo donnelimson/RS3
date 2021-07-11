@@ -46,11 +46,7 @@ namespace Codebiz.Domain.ERP.Context.DbTrackerMigrations
         Assembly assembly = Assembly.GetExecutingAssembly();
 
         public AppUser AdminUser { get; set; }
-        string meterReadingRemarksPath = "Codebiz.Domain.ERP.Context.CSVSeed.meter_reading_remarks.csv";
-        string noOfUnitsAndKvaRatingPath = "Codebiz.Domain.ERP.Context.CSVSeed.no_of_units_and_kva_rating.csv";
-        string billingUnbundledTransactionsPath = "Codebiz.Domain.ERP.Context.CSVSeed.Billing_unbundled_transactions.csv";
-        string lifeLineSubsidyPath = "Codebiz.Domain.ERP.Context.CSVSeed.LifeLineSubsidySeed.csv";
-        string CoopVehiclesPath = "Codebiz.Domain.ERP.Context.CSVSeed.Vehicle.csv";
+
 
         public DbTrackerConfiguration()
         {
@@ -1409,39 +1405,7 @@ namespace Codebiz.Domain.ERP.Context.DbTrackerMigrations
                 }
             }
         }
-        private void SeedLifeSubsidy(DbTrackerContext context)
-        {
-            if (!context.LifelineSubsidies.Any())
-            {
-                using (Stream stream = assembly.GetManifestResourceStream(lifeLineSubsidyPath))
-                {
-                    using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-                    {
-                        CsvReader csvReader = new CsvReader(reader);
-                        csvReader.Configuration.HeaderValidated = null;
-                        csvReader.Configuration.MissingFieldFound = null;
-                        csvReader.Read();
-                        csvReader.ReadHeader();
-                        while (csvReader.Read())
-                        {
-                            context.LifelineSubsidies.AddOrUpdate(a => a.Code,
-                                new LifelineSubsidy
-                                {
-                                    Code = csvReader.GetField("Code"),
-                                    Minimum = int.Parse(csvReader.GetField("Min")),
-                                    Maximum = int.Parse(csvReader.GetField("Max")),
-                                    Discount = float.Parse(csvReader.GetField("Discount")),
-                                    IsDeleted = false,
-                                    CreatedByAppUserId = 1,
-                                    CreatedOn = DateTime.Now,
-                                    IsActive = true
-                                });
-                            context.SaveChanges();
-                        }
-                    }
-                }
-            }
-        }
+       
         private void SeedSubStation(DbTrackerContext context)
         {
             context.SubStations.AddOrUpdate(a => a.Description,

@@ -253,7 +253,7 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
             }
         }
         $scope.guessChange = function () {
-            $scope.m.Address = "";
+            $scope.m.ClientAddress = "";
             $scope.m.Client = "";
             $scope.m.ClientEmail = "";
         }
@@ -290,7 +290,6 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
         }
         function GetTicketUpdates() {
             TicketService.GetTicketDetailsById({ id: $location.search().Id }).then(function (d) {
-
                 $scope.m = d.result;
                 $scope.queue = d.result.Attachments;
                 //   console.log(d.result.Attachments)

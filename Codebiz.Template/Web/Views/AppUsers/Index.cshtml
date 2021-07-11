@@ -87,7 +87,7 @@
                                            ng-model="email" ng-keypress="searchWhenEnter($event)">
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            @*<div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">Office</label>
                                     <input type="text" name="Office" class="form-control" autocomplete="off"
@@ -100,15 +100,15 @@
                                     <input type="text" name="Department" class="form-control" autocomplete="off"
                                            ng-model="department" ng-keypress="searchWhenEnter($event)">
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="control-label">Position</label>
-                                    <input type="text" name="Position" class="form-control" autocomplete="off"
-                                           ng-model="position" ng-keypress="searchWhenEnter($event)">
+                                    <label class="control-label">Role</label>
+                                    <input type="text" name="Role" class="form-control" autocomplete="off"
+                                           ng-model="role" ng-keypress="searchWhenEnter($event)">
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            @*<div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">Status</label>
                                     <div id="StatusIdDiv">
@@ -119,7 +119,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
                         </div>
                         <div class="row">
                             <div class="col-md-3">
@@ -149,10 +149,10 @@
                             List
                         </div>
                         <div class="actions">
-                            <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportUsers)>
+                            @*<a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()" @Html.UserHasPermission(userPermission: PermissionData.UserCanExportUsers)>
                                 <i class="fa fa-share-square-o"></i>
                                 <span class="">Export</span>
-                            </a>
+                            </a>*@
                             <a class="btn btn-info" ng-click="addOrUpdate(0)" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddAppUser)>
                                 <i class="fa fa-plus"></i>
                                 <span class=""> New </span>
@@ -218,27 +218,20 @@
                                         <td width="7%" data-title="'E-MAIL'" sortable="'Email'" header-class="'table-header text-left'" class="text-left">
                                             {{user.Email}}
                                         </td>
-                                        <td width="7%" data-title="'OFFICE'" sortable="'Office'" header-class="'table-header text-left'" class="text-left">
+                                        @*<td width="7%" data-title="'OFFICE'" sortable="'Office'" header-class="'table-header text-left'" class="text-left">
                                             {{user.Office}}
                                         </td>
                                         <td width="8%" data-title="'DEPARTMENT'" sortable="'Department'" header-class="'table-header text-left'" class="text-left">
                                             {{user.Department}}
+                                        </td>*@
+                                        <td width="7%" data-title="'ROLE'" sortable="'Role'" header-class="'table-header text-left'" class="text-left">
+     
+                                            <span>{{user.Role}}</span>
                                         </td>
-                                        <td width="7%" data-title="'POSITION'" sortable="'Position'" header-class="'table-header text-left'" class="text-left">
-                                            <span ng-show="user.IsManager">
-                                                <font color="orange" style="font-weight: bold;">{{user.Position}}</font>
-                                            </span>
-                                            <span ng-hide="user.IsManager">{{user.Position}}</span>
-                                        </td>
-                                        <td width="12%" data-title="'E-MAIL CONFIRMATION'" sortable="'EmailConfirmation'" header-class="'table-header text-center'" class="text-center">
+                                        @*<td width="12%" data-title="'E-MAIL CONFIRMATION'" sortable="'EmailConfirmation'" header-class="'table-header text-center'" class="text-center">
                                             <span class="label label-sm" ng-class="user.EmailConfirmation ? 'label-success' : 'label-warning'">{{user.EmailConfirmation ? 'Confirmed': 'For Activation'}}</span>
-                                        </td>
-                                        <td width="7%" data-title="'STATUS'" sortable="'AppUserStatus'" header-class="'table-header text-center'" class="text-center">
-                                            <span class="label label-sm" ng-class="user.AppUserStatus === 'Active' ? 'label-success'
-                                                  : (user.AppUserStatus === 'Dormant' ? 'label-warning' : 'label-danger')">
-                                                {{user.AppUserStatus === 'Active' ? 'Active': (user.AppUserStatus === 'Dormant' ? 'Dormant' : 'Locked')}}
-                                            </span>
-                                        </td>
+                                        </td>*@
+                               
                                         <td width="7%" data-title="'ACTIVE'" sortable="'IsActive'" header-class="'table-header text-center'" class="text-center">
                                             <span class="label label-sm" ng-class="user.IsActive ? 'label-success' : 'label-danger'">{{user.IsActive ? 'Yes': 'No'}}</span>
                                         </td>

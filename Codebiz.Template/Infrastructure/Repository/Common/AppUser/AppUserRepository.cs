@@ -48,14 +48,6 @@ namespace Infrastructure.Repository
         {
             return GetAll.FirstOrDefault(a => a.AppUserId == id && a.IsActive);
         }
-        public AppUser GetDepartmentManagerById(int? departmentId)
-        {
-            return this.GetAll
-                       .Where(p => p.EmployeeId != null)
-                       .FirstOrDefault(a => a.Employee.Position.IsManager &&
-                                            a.Employee.DepartmentId == departmentId &&
-                                            a.IsActive && a.EmailConfirmed && a.AppUserStatus == (int)UserStatuses.Active);
-        }
 
         public bool IsUsernameExists(string username, int appUserId)
         {
@@ -80,15 +72,14 @@ namespace Infrastructure.Repository
                     ? a.Employee.LastName + ", " + a.Employee.FirstName + (a.Employee.MiddleName == null ? "" : " " + a.Employee.MiddleName) + (a.Employee.Suffix == null ? "" : " " + a.Employee.Suffix)
                     : a.Username,
                 Username = a.Username,
-                Email = a.Employee != null ? a.Employee.Email : "",
+                Email = a.Email,
                 Position = a.Employee != null ? a.Employee.Position.Name : "",
                 Office = a.Employee != null ? a.Employee.Office.Name : "",
                 Department = a.Employee != null ? a.Employee.Department.Name : "",
-                EmailConfirmation = a.EmailConfirmed,
-                AppUserStatus = a.AppUserStatus == (int)UserStatuses.Active ? "Active" : (a.AppUserStatus == (int)UserStatuses.Locked ? "Locked" : "Dormant"),
                 IsActive = a.IsActive,
                 CreatedBy = a.CreatedByAppUser.Employee.FirstName + " " + a.CreatedByAppUser.Employee.LastName,
                 CreatedDate = a.CreatedOn,
+                Role = a.Role.Description,
                 //IsManager = a.Employee.PositionId == null ? false : a.Employee.Position.IsManager
             });
 
@@ -111,8 +102,6 @@ namespace Infrastructure.Repository
                 Position = a.Employee != null ? a.Employee.Position.Name : "",
                 Office = a.Employee != null ? a.Employee.Office.Name : "",
                 Department = a.Employee != null ? a.Employee.Department.Name : "",
-                IsEmailConfirmed = a.EmailConfirmed,
-                Status = a.AppUserStatus == (int)UserStatuses.Active ? "Active" : (a.AppUserStatus == (int)UserStatuses.Locked ? "Locked" : "Dormant"),
                 IsActive = a.IsActive,
                 CreatedBy = a.CreatedByAppUser.Employee.FirstName + " " + a.CreatedByAppUser.Employee.LastName,
                 CreatedDate = a.CreatedOn
@@ -165,11 +154,6 @@ namespace Infrastructure.Repository
                 filter.Username = filter.Username.Trim();
 
                 data = data.Where(p => p.Employee != null).Where(a => a.Username.Contains(filter.Username));
-            }
-
-            if (filter.AppUserStatus != null)
-            {
-                data = data.Where(a => a.AppUserStatus == filter.AppUserStatus);
             }
 
             if (!string.IsNullOrWhiteSpace(filter.CreatedBy))

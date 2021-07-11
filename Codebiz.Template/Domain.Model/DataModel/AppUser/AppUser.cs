@@ -64,8 +64,8 @@ namespace Codebiz.Domain.Common.Model
         public string VerificationCode { get; set; }
 
         public bool? IsLocalNetworkUser { get; set; }
-        public bool EmailConfirmed { get; set; }
-        public int AppUserStatus { get; set; }
+        //public bool EmailConfirmed { get; set; }
+        //public int AppUserStatus { get; set; }
         [ForeignKey("Role")]
         public int? RoleId { get; set; }
         public virtual Role Role { get; set; }
@@ -85,15 +85,7 @@ namespace Codebiz.Domain.Common.Model
             }
         }
 
-        [NotMapped]
-        public UserStatuses UserStatus
-        {
-            get
-            {
-                var value = (UserStatuses)this.AppUserStatus;
-                return value;
-            }
-        }
+
 
         [NotMapped]
         public string CurrentOffice
