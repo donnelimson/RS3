@@ -67,8 +67,6 @@ namespace Infrastructure.Services
         bool SendResetPasswordEmail(AppUser entity, string resetPasswordUrl, string mailTemplatePath);
         void SendResetPasswordLink(int id, int currentAppUserId, UrlHelper urlHelper, HttpContextBase httpContext);
    
-        bool SendUnlockAccountEmail(AppUser entity, string unlockUserUrl, string verificationCode, string mailTemplatePath);
-        bool SendActivateInactiveAccountEmail(AppUser entity, string unlockUserUrl, string verificationCode, string mailTemplatePath);
 
         IPagedList<AppUserSearchDTO> SearchAppUserForLookup(LookUpFilter filter, UrlHelper Url, bool isDriver);
         AppUserProfileDTO GetAppUserProfileById(int appUserId);
@@ -372,34 +370,8 @@ namespace Infrastructure.Services
             SendResetPasswordEmail(appUser, GeneratePasswordResetLink(appUser.ForgotPasswordUrlParam, urlHelper), httpContext.Server.MapPath(_mailTemplatePath));
         }
 
-        public bool SendUnlockAccountEmail(AppUser entity, string unlockUserUrl, string verificationCode, string mailTemplatePath)
-        {
-            const string mailtemplate = "UnlockAccount.html";
-
-            string content = File.ReadAllText(Path.Combine(mailTemplatePath, mailtemplate));
-
-            content = content.Replace("[Fullname]", entity.FullName);
-            content = content.Replace("[Link]", unlockUserUrl);
-            content = content.Replace("[VerificationCode]", verificationCode);
-            //content = content.Replace("[ExpirationDate]", entity.ForgotPasswordExpiryDate.Value.ToString());
-
-            return _emailHelper.SendEmail(content, "Unlock Account - TARELCO 1",
-                new List<MailAddress> { new MailAddress(entity.Employee.Email) });
-        }
-        public bool SendActivateInactiveAccountEmail(AppUser entity, string unlockUserUrl, string verificationCode, string mailTemplatePath)
-        {
-            const string mailtemplate = "ActivateDormantAccount.html";
-
-            string content = File.ReadAllText(Path.Combine(mailTemplatePath, mailtemplate));
-
-            content = content.Replace("[Fullname]", entity.FullName);
-            content = content.Replace("[Link]", unlockUserUrl);
-            content = content.Replace("[VerificationCode]", verificationCode);
-            //content = content.Replace("[ExpirationDate]", entity.ForgotPasswordExpiryDate.Value.ToString());
-
-            return _emailHelper.SendEmail(content, "Activate Account - TARELCO 1",
-                new List<MailAddress> { new MailAddress(entity.Employee.Email) });
-        }
+    
+ 
 
         public IPagedList<AppUserSearchDTO> SearchAppUserForLookup(LookUpFilter filter, UrlHelper Url, bool isDriver)
         {

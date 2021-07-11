@@ -217,20 +217,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CustomSQL\Custom_SP_Scripts.sql" />
-    <EmbeddedResource Include="MigrationTemplate\tarelco_manufacturers.txt" />
-    <EmbeddedResource Include="MigrationTemplate\tarelco_items.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MigrationTemplate\unit_of_measure.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MigrationTemplate\Employee.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MigrationTemplate\Consumers.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MigrationTemplate\Accounts.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MigrationTemplate\coa_template.txt" />

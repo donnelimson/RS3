@@ -483,14 +483,6 @@
     <Compile Include="SystemReportDataSet\CollectionDataset.cs">
       <DependentUpon>CollectionDataset.xsd</DependentUpon>
     </Compile>
-    <Compile Include="SystemReportDataSet\CsaDataset.cs">
-      <DependentUpon>CsaDataset.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="SystemReportDataSet\CsaDataset.Designer.cs">
-      <DependentUpon>CsaDataset.xsd</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Include="SystemReportDataSet\CollectionDataset.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -754,12 +746,6 @@
     <Content Include="Content\DefaultPhoto\txt.png" />
     <Content Include="Content\DefaultPhoto\xls.png" />
     <Content Include="Content\Image\pdf.png" />
-    <Content Include="Content\Image\Tarelco.png" />
-    <Content Include="Content\Image\tarelcologo.jpg" />
-    <Content Include="Content\Image\Tarelconew.ico" />
-    <Content Include="Content\Image\Tarelco1.png" />
-    <Content Include="Content\Image\Tarelco2.png" />
-    <Content Include="Content\Image\tarelco_small_logo.png" />
     <Content Include="Content\Image\word.png" />
     <Content Include="Content\mailtemplates\ActivateDormantAccount.html" />
     <Content Include="Content\angular-block-ui.min.css" />
@@ -1042,7 +1028,6 @@
     <Content Include="img\flags\zw.png" />
     <Content Include="img\input-spinner.gif" />
     <Content Include="img\loader.gif" />
-    <Content Include="img\loader_tarelco.gif" />
     <Content Include="img\loading-spinner-blue.gif" />
     <Content Include="img\loading-spinner-default.gif" />
     <Content Include="img\loading-spinner-grey.gif" />
@@ -6833,7 +6818,6 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Image\check-box-clipart-1.jpg" />
     <Content Include="Content\Image\check-box-clipart-2.jpg" />
-    <Content Include="Content\Image\tarelco1logo.png" />
     <Content Include="Content\jquery.mloading.css" />
     <Content Include="Content\jquery.mloading.js" />
     <Content Include="Content\mailtemplates\BillingAddress.html" />
@@ -6898,14 +6882,6 @@
     <Content Include="Scripts\INVNTRY\Controllers\WarehouseCtrl.js" />
     <Content Include="Scripts\INVNTRY\Service\InventoryTransactionService.js" />
     <Content Include="Scripts\Production\Model\Production.model.js" />
-    <Content Include="SystemReportDataSet\CsaDataset.xsc">
-      <DependentUpon>CsaDataset.xsd</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="SystemReportDataSet\CsaDataset.xss">
-      <DependentUpon>CsaDataset.xsd</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="SystemReport\Viewer\CustomerService\SpecialLightingContract.aspx" />
     <Content Include="SystemReport\Viewer\CustomerService\TransformerRentalContract.aspx" />
     <Content Include="SystemReport\Viewer\Material\MaterialRequest.aspx" />
@@ -8163,11 +8139,6 @@
     <Content Include="Scripts\SlickGrid\package.json" />
     <Content Include="Scripts\SlickGrid\README.md" />
     <Content Include="Scripts\SlickGrid\slickgrid.nuspec" />
-    <None Include="SystemReportDataSet\CsaDataset.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>CsaDataset.Designer.cs</LastGenOutput>
-    </None>
     <Content Include="Views\Shared\_OrderingLayout.cshtml" />
     <Content Include="Views\HotkeyHelper.cshtml" />
     <Content Include="Views\Shared\_Modal.cshtml" />
