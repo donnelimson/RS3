@@ -67,7 +67,7 @@ namespace Codebiz.Domain.Common.Model.DTOs.RS3
         public string ClientEmail { get; set; }
         public string ClientAddress { get; set; }
         public int? TechnicianId { get; set; }
-        public List<string> Logs { get; set; }
+        public List<LogsDTO> Logs { get; set; }
         public string Technician { get; set; }
         public string TechnicianEmail { get; set; }
         public bool IsResolved { get; set; }
@@ -83,14 +83,20 @@ namespace Codebiz.Domain.Common.Model.DTOs.RS3
         public bool IsResolved { get; set; } = false;
         public string Title { get; set; }
         public string Email { get; set; }
+        public bool IsInternal { get; set; } = false;
 
-
+    }
+    public class LogsDTO
+    {
+        public string Message { get; set; }
+        public bool IsInternal { get; set; }
     }
     public class CommentDTO
     {
         public string Name { get; set; }
         public string Comment { get; set; }
         public DateTime CreatedOn { get; set; }
+        public bool IsInternal { get; set; }
     }
     public class TicketCFLDTO
     {

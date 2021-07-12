@@ -55,6 +55,15 @@ namespace Web.Controllers
         }
         public ActionResult ViewTicket(int? id)
         {
+            var isClient = CurrentUser.RoleId == 4;
+            if (isClient)
+            {
+                var canview = _ticketService.CheckIfClientOwnTicket(id.Value, CurrentUser.AppUserId);
+                if (!canview)
+                {
+                    return RedirectToAction("Create");
+                }
+            }
             return View("ViewTicket",id);
         }
         #region JSON
@@ -147,7 +156,7 @@ namespace Web.Controllers
             {
                 _ticketService.SubmitComment(model, CurrentUser.AppUserId, CurrentUser.Username);
                 _unitOfWork.SaveChanges();
-                if (!string.IsNullOrEmpty(model.Email))
+                if (!string.IsNullOrEmpty(model.Email) && !model.IsInternal)
                 {
                     SendEmail(model.Email,model.Comment,model.Title);
                 }
@@ -208,14 +217,19 @@ namespace Web.Controllers
         
         public  JsonResult GetTicketDetailsById(int id)
         {
+            var isClient = CurrentUser.RoleId == 4;
             var data = _ticketService.GetTicketDetailsById(id, Url);
             data.CanBeTaken = data.TechnicianId != CurrentUser.AppUserId;
-            data.IsClient = CurrentUser.RoleId == 4;//client
+            data.IsClient = isClient;//client
             return Json(new { result = data }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetMyTickets(LookUpFilter filter)
         {
             return Json(new { result = _ticketService.GetMyTickets(filter, CurrentUser.AppUserId) });
+        }
+        public JsonResult CheckIfClient()
+        {
+            return Json(new { result = CurrentUser.RoleId == 4 },JsonRequestBehavior.AllowGet);
         }
         #endregion
         #region EmailSender

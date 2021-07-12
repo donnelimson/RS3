@@ -14,8 +14,8 @@
                     @*<i class="fa fa-circle"></i>*@
                 </li>
                 @*<li>
-                    <span>Create</span>
-                </li>*@
+                        <span>Create</span>
+                    </li>*@
             </ul>
             <div class="page-toolbar">
                 <a class="btn btn-sm btn-default" style="background-color:#e6a83b !important;color:white;" ng-click="cancelChanges()" ng-if="!m.IsClient && !isUpdate && (@Html.UserHasPermission(userPermission: PermissionData.UserCanViewTicket).ToString().Length!=0 ? false:true)">Back to List</a>
@@ -46,7 +46,11 @@
                                 View my other tickets
                             </a>
                         </li>
-
+                        <li ng-if="isUpdate && (@Html.UserHasPermission(userPermission: PermissionData.UserCanSeeInternalLogs).ToString().Length!=0 ? false:true)">
+                            <a ng-click="viewInternalLogs()">
+                                View internal logs
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -67,7 +71,7 @@
                         <fieldset>
                             <div class="row">
                                 <div ng-class="isUpdate ? 'col-md-6':'col-md-12'">
-                                    <div class="portlet box"  style="background-color: #e6a83b !important;">
+                                    <div class="portlet box" style="background-color: #e6a83b !important;">
                                         <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
                                             <div class="caption col-md-3">
                                                 Ticket Information
@@ -85,7 +89,7 @@
                                                             <label class="control-label" ng-if="isUpdate">Title <span class="required">*</span></label>
                                                             <input type="text" name="Title" ng-model="m.Title" class="form-control" alphanumeric-dash-only ng-required="true" ng-disabled="isUpdate && (@Html.UserHasPermission(userPermission: PermissionData.UserCanEditTicket).ToString().Length!=0 ? true:false)" />
                                                             <span ng-show="f.Title.$error.required && formSubmitted"
-                                                                  class="text-danger field-validation-error" ><small> Title is required!</small></span>
+                                                                  class="text-danger field-validation-error"><small> Title is required!</small></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -125,8 +129,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6" ng-if="isUpdate" >
-                                    <div class="portlet box"  style="background-color: #e6a83b !important">
+                                <div class="col-md-6" ng-if="isUpdate">
+                                    <div class="portlet box" style="background-color: #e6a83b !important">
                                         <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
                                             <div class="caption col-md-3">
                                                 Logs
@@ -139,8 +143,15 @@
                                             <div class="row" style="margin-bottom:30px;">
                                                 <div class="col-md-12" style="height:324px;" ng-style="{'overflow-y': m.Logs.length > 10 ? 'scroll':''}">
                                                     <ul ng-repeat="log in m.Logs track by $index" style="position:relative">
-                                                        <li>
-                                                            {{log}}
+                                                        <li ng-show="log.IsInternal" @Html.UserHasPermission(userPermission: PermissionData.UserCanSeeInternalLogs)>
+                                                            <span>
+                                                                {{log.Message}}
+                                                            </span>
+                                                        </li>
+                                                        <li ng-show="!log.IsInternal">
+                                                            <span>
+                                                                {{log.Message}}
+                                                            </span>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -170,11 +181,11 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group" ng-class="f.Client.$error.required && formSubmitted ? 'has-error':''">
                                                         <label class="control-label col-md-1" ng-if="!isUpdate">Client <span class="required">*</span></label>
-                                                        <div ng-class="isUpdate ? 'col-md-8':'col-md-6'" >
+                                                        <div ng-class="isUpdate ? 'col-md-8':'col-md-6'">
                                                             <label class="control-label" ng-if="isUpdate">
                                                                 Client <span class="required">*</span>
                                                             </label>
-                                                           
+
 
                                                             <div ng-class="!IsGuess && (@Html.UserHasPermission(userPermission: PermissionData.UserCanAssignTicket).ToString().Length!=0 ? false:true) ? 'input-group' : ''" style="position:unset">
                                                                 <input type="text" name="Client" class="form-control" autocomplete="off"
@@ -183,7 +194,7 @@
                                                                        alphanumeric-dash-only
                                                                        ng-readonly="!IsGuess"
                                                                        ng-required="true">
-                                                                <span class="input-group-btn" ng-show="!IsGuess && (@Html.UserHasPermission(userPermission: PermissionData.UserCanAssignTicket).ToString().Length!=0 ? false:true)" >
+                                                                <span class="input-group-btn" ng-show="!IsGuess && (@Html.UserHasPermission(userPermission: PermissionData.UserCanAssignTicket).ToString().Length!=0 ? false:true)">
                                                                     <button class="btn btn-info btn" type="button" ng-click="searchUser(true)">
                                                                         <i class="fa fa-search"></i>
                                                                     </button>
@@ -193,8 +204,8 @@
                                                             <span ng-show="f.Client.$error.required && formSubmitted"
                                                                   class="text-danger field-validation-error"><small> Client is required!</small></span>
                                                         </div>
-                                                        <div class="col-md-2"  @Html.UserHasPermission(userPermission: PermissionData.UserCanAssignTicket)>
-                                                            <input type="checkbox" ng-model="IsGuess" ng-change="guessChange()"  />G.C
+                                                        <div class="col-md-2" @Html.UserHasPermission(userPermission: PermissionData.UserCanAssignTicket)>
+                                                            <input type="checkbox" ng-model="IsGuess" ng-change="guessChange()" />G.C
                                                         </div>
 
                                                     </div>
@@ -291,7 +302,7 @@
                             </div>
 
 
-                            <div class="portlet box" style="margin-top:10px;background-color: #e6a83b !important" ng-show="isUpdate" >
+                            <div class="portlet box" style="margin-top:10px;background-color: #e6a83b !important" ng-show="isUpdate">
                                 <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
                                     <div class="caption col-md-3">
                                         Reply/s
@@ -319,14 +330,16 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom:20px;">
+                                      
                                             <textarea ng-model="m.Comment" class="form-control" rows="3" maxlength="500"></textarea>
                                             <span style="float:right;">{{m.Comment.length == null ? 0 : m.Comment.length}}/500</span>
                                             <div ng-show="!m.IsResolved" @Html.UserHasPermission(userPermission: PermissionData.UserCanResolveOrReopenTicket)>
                                                 <input type="checkbox" ng-model="isResolved" /><span> &nbsp; Tag as resolve</span>
                                             </div>
-                                        </div> 
+                                     
+                                        </div>
                                         <div class="col-md-12" style="margin-top:unset; margin-bottom:unset">
-                                            <button class="btn" id="addbtn" style="width: 90px; float:right;background-color: #e6a83b !important; color:white" ng-click="comment()">
+                                            <button class="btn" id="addbtn" style="width: 90px; float:right;background-color: #e6a83b !important; color:white" ng-click="comment()" ng-disabled="m.Comment.length==0 || m.Comment.length==null">
                                                 Comment
                                             </button>
                                         </div>
@@ -337,7 +350,7 @@
                             </div>
                             <!-- END SUPPORTING DOCUMENTS -->
                             <!-- START SAVE AND CANCEL BUTTONS -->
-                            <div class="row" style="margin-top:20px"  ng-show=" (@Html.UserHasPermission(userPermission: PermissionData.UserCanCreateTicket).ToString().Length!=0 ? false:true)|| (@Html.UserHasPermission(userPermission: PermissionData.UserCanEditTicket).ToString().Length!=0 ? false:true)">
+                            <div class="row" style="margin-top:20px" ng-show="!m.IsClient &&  ((@Html.UserHasPermission(userPermission: PermissionData.UserCanCreateTicket).ToString().Length!=0 ? false:true)|| (@Html.UserHasPermission(userPermission: PermissionData.UserCanEditTicket).ToString().Length!=0 ? false:true))">
                                 <div class="col-md-12">
                                     <div class="actions btn-set">
                                         <button class="btn" id="addbtn" style="width: 90px;background-color: #e6a83b !important; color:white" ng-click="save()">
@@ -360,6 +373,8 @@
         </div>
     </div>
     @Html.Partial("_SupportingDocumentsPreviewModal")
+ 
+    @Html.Partial("~/Views/Shared/_InternalLogs.cshtml")
 </div>
 
 
@@ -491,6 +506,25 @@
             left: auto;
             padding-left: 1px;
             padding-right: 1px;
+        }
+        .input-icons i {
+            position: absolute;
+        }
+
+        .input-icons {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .icon {
+            padding: 10px;
+            min-width: 40px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
         }
     </style>
 

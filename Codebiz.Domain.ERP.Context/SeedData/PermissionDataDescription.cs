@@ -249,7 +249,8 @@
         public const string UserCanViewTicket = "UserCanViewTicket";
         public const string UserCanSetTicketPriority = "UserCanSetTicketPriority";
         public const string UserCanResolveOrReopenTicket = "UserCanResolveOrReopenTicket";
-        
+        public const string UserCanSeeInternalLogs = "UserCanSeeInternalLogs";
+
         #endregion
 
 

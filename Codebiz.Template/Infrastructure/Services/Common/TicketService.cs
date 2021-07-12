@@ -26,6 +26,7 @@ namespace Infrastructure.Services.Common
         void SubmitComment(CommentAddDTO model, int currentAppuserId, string currentUsername);
         bool ResolveOrReopenTicket(int id, int currentAppuserId, string currentUserName);
         void TakeTicket(int id, int currentAppUserId, string currentUserName);
+        bool CheckIfClientOwnTicket(int id, int currentAppUserId);
     }
     public class TicketService : ITicketService
     {
@@ -85,11 +86,12 @@ namespace Infrastructure.Services.Common
             ticket.Comments.Add(new TicketComment
             {
                 CreatedByAppUserId=currentAppuserId,
-                Comment = model.Comment
+                Comment = model.Comment,
+                IsInternal = model.IsInternal
             });
             model.Title = ticket.Title;
             model.Email = ticket.AppUserClient == null ? ticket.GuessClientEmail : ticket.AppUserClient.Email;
-            InsertTicketLog(ticket, currentUserName + " commented on the ticket", currentAppuserId);
+            InsertTicketLog(ticket, currentUserName + " commented on the ticket"+(model.IsInternal ? "(internal)":""), currentAppuserId, model.IsInternal);
             _ticketRepository.InsertOrUpdate(ticket);
         }
         public void TakeTicket(int id, int currentAppUserId, string currentUserName)
@@ -117,7 +119,7 @@ namespace Infrastructure.Services.Common
                 data.TechnicianEmail = ticket.AppUserTechnician?.Email;
                 data.Priority = ticket.Priority;
                 data.IsResolved = ticket.TicketStatus == "R";
-                data.Logs = ticket.Logs.Select(a => a.CreatedOn.ToString("yyyy-MM-dd hh:mm tt")+" "+ a.Message).ToList();
+                data.Logs = ticket.Logs.Select(a => new LogsDTO { Message = a.CreatedOn.ToString("yyyy-MM-dd hh:mm tt") + " " + a.Message, IsInternal = a.IsInternal}).ToList();
                 data.Attachments = ticket.Attachments
                .Where(p => p.IsActive)
                .Select(p => new AttachmentViewModel
@@ -154,7 +156,8 @@ namespace Infrastructure.Services.Common
                 {
                     Comment = a.Comment,
                     CreatedOn = a.CreatedOn,
-                    Name = a.CreatedByAppUser.FullName
+                    Name = a.CreatedByAppUser.FullName,
+                    IsInternal = a.IsInternal
                 }).ToList();
             }
             else
@@ -184,6 +187,11 @@ namespace Infrastructure.Services.Common
         public IPagedList<TicketCFLDTO> GetMyTickets(LookUpFilter filter, int currentAppuserId)
         {
             return _ticketRepository.GetMyTickets(filter, currentAppuserId);
+        }
+        public bool CheckIfClientOwnTicket(int id, int currentAppUserId)
+        {
+            var ticket = _ticketRepository.GetById(id);
+            return ticket.ClientId == currentAppUserId;
         }
         private void AddOrUpdateTicketAttachment(ICollection<TicketAttachment> ticketAttachment,
         List<TicketAttachmentDTO> modelAttachments, Ticket ticket, int appuserId)
@@ -228,12 +236,13 @@ namespace Infrastructure.Services.Common
                 }
             }
         }
-        private void InsertTicketLog(Ticket ticket, string comment, int currentAppuserId)
+        private void InsertTicketLog(Ticket ticket, string comment, int currentAppuserId, bool isInternal=false)
         {
             ticket.Logs.Add(new TicketLog
             {
                 CreatedByAppUserId = currentAppuserId,
-                Message = comment
+                Message = comment,
+                IsInternal = isInternal
             });
         }
     }

@@ -62,10 +62,12 @@
         }
     }]);
 MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService', 'CommonService', '$window', '$timeout', 'NgTableParams', '$q', '$uibModal', '$controller', '$location',
-    function ($scope, TicketService, CommonService, $window, $timeout, NgTableParams, $q, $uibModal, $controller,$location) {
+    function ($scope, TicketService, CommonService, $window, $timeout, NgTableParams, $q, $uibModal, $controller, $location,) {
         $controller('SupportingDocumentController', { $scope: $scope });
-        $scope.withdocumentType = false;
+
         
+        $scope.withdocumentType = false;
+  
         $scope.options = {
             url: document.FileUpload + "UploadTicketAttachments"
         };
@@ -75,7 +77,12 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
             $scope.priorities = PRIORITIES;
             $scope.isUpdate = $location.search().Id != null;
             if ($scope.isUpdate) {
-                GetTicketUpdates();
+                $scope.GetTicketUpdates();
+            }
+            else {
+                TicketService.CheckIfClient().then(function (d) {
+                    $scope.m.IsClient = d.result;
+                });
             }
            // console.log($scope.isUpdate)
       
@@ -123,7 +130,7 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
                     TicketService.TakeTicket({ id: $scope.m.Id }).then(function (d) {
                         if (d.Success) {
                             CommonService.successMessage(d.Message);
-                            GetTicketUpdates();
+                            $scope.GetTicketUpdates();
                         }
                         else {
                             CommonService.warningMessage(d.Message);
@@ -175,7 +182,7 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
                             TicketService.SubmitComment({ Id: $scope.m.Id, Comment: $scope.m.Comment, IsResolved: $scope.isResolved }).then(function (d) {
                                 if (d.Success) {
                                     CommonService.successMessage(d.Message);
-                                    GetTicketUpdates();
+                                    $scope.GetTicketUpdates();
                                 }
                                 else {
                                     CommonService.warningMessage(d.Message);
@@ -288,10 +295,38 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
                 });
             }
         }
-        function GetTicketUpdates() {
+        $scope.viewInternalLogs = function () {
+            $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '_InternalLogs.html',
+                controller: 'InternalLogsController',
+                size: 'xlg',
+                keyboard: false,
+                backdrop: "static",
+                windowClass: 'modal_style',
+                modalOverflow: true,
+                resolve: {
+                    InternalLogs: function () {
+                        return $scope.internalLogs;
+                    },
+                    Id: function () {
+                        return $scope.m.Id
+                    }
+                }
+            }).result.then(function (data) {
+                $scope.GetTicketUpdates();
+            });
+        }
+
+        $scope.GetTicketUpdates=function() {
             TicketService.GetTicketDetailsById({ id: $location.search().Id }).then(function (d) {
                 $scope.m = d.result;
                 $scope.queue = d.result.Attachments;
+                $scope.internalLogs = $scope.m.Comments.filter(r => r.IsInternal)
+                $scope.m.Comments = angular.copy($scope.m.Comments.filter(r => !r.IsInternal));
+                $scope.m.Comment = "";
                 //   console.log(d.result.Attachments)
                 if ($scope.m.ClientId == null) {
                     $scope.IsGuess = true;
@@ -308,4 +343,50 @@ MetronicApp.controller('TicketViewController', ['$scope', 'TicketService', 'Comm
             url: document.FileUpload + "UploadTicketAttachments"
         };
     
+    }]);
+MetronicApp.controller('InternalLogsController', ['$scope', 'TicketService', 'CommonService', '$window', '$timeout', 'NgTableParams', '$q','$uibModalInstance','InternalLogs','Id',
+    function ($scope, TicketService, CommonService, $window, $timeout, NgTableParams, $q, $uibModalInstance, InternalLogs, Id) {
+     
+        $scope.InternalLogs = InternalLogs;
+        $scope.submitComment = function () {
+            swal({
+                title: "Comfirm Comment",
+                text: "Are you sure to submit this comment?",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#1ab394",
+                confirmButtonText: "OK",
+                closeOnConfirm: true
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    TicketService.SubmitComment({ Id: Id, Comment: $scope.i.Comment, IsInternal: true }).then(function (d) {
+                        if (d.Success) {
+                            CommonService.successMessage(d.Message);
+                            TicketService.GetTicketDetailsById({ id: Id }).then(function (d) {
+                                $scope.InternalLogs = d.result.Comments.filter(r => r.IsInternal);
+                                $scope.i.Comment = '';
+                                $scope.iForm.$pristine = true;
+                            });
+
+                        }
+                        else {
+                            CommonService.warningMessage(d.Message);
+                        }
+                    })
+                }
+
+            });
+     
+        }
+        $scope.closeModal = function () {
+            if (!$scope.iForm.$pristine) {
+                CommonService.cancelChanges(function () {
+                    $uibModalInstance.close();
+                })
+            }
+            else {
+                $uibModalInstance.close();
+
+            }
+        }
     }]);

@@ -3,13 +3,14 @@
         function ($scope, CommonService, $location, $timeout) {
 
             //#region Variable Defaults
-
+     
             $scope.fromApplicant = false;
             $scope.isAttachmentsIsValid = false;
             $scope.hasRequiredDocuments = false;
             $scope.withdocumentType = true;
             $scope.documentTypes = [];
             $scope.queue = [];
+            $scope.queue2 = [];
             $scope.isUpdate = $location.absUrl().includes('Edit');
 
             //#endregion
@@ -48,7 +49,7 @@
             };
 
             $scope.$watch("queue.length", function (newVal, oldVal) {
-               // console.log($scope.queue)
+
                 var newOldDiff = newVal - oldVal;
                 if (newOldDiff === 1) {
                     $scope.formTouched = true;

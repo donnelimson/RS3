@@ -20,5 +20,9 @@ angular.module("MetronicApp").
             TakeTicket: function (args) {
                 return commonService.PostData(args, document.Ticket + 'TakeTicket', null);
             },
+            CheckIfClient: function (args) {
+                return commonService.GetData(args, document.Ticket + 'CheckIfClient', null);
+            },
+            
         }
     }]);

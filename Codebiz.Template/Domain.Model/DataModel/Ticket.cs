@@ -63,6 +63,7 @@ namespace Codebiz.Domain.Common.Model.DataModel
         public virtual Ticket Ticket { get; set; }
         [MaxLength(500)]
         public string Comment { get; set; }
+        public bool IsInternal { get; set; }
     }
     public class TicketAttachment:ModelBase
     {
@@ -84,5 +85,6 @@ namespace Codebiz.Domain.Common.Model.DataModel
         public int TicketId { get; set; }
         public virtual Ticket Ticket { get; set; }
         public string Message { get; set; }
+        public bool IsInternal { get; set; }
     }
 }

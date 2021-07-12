@@ -2,7 +2,7 @@
     .controller('FileDestroyController', [
         '$scope', '$http', 'FileCounter',
         function ($scope, $http, FileCounter) {
-
+           // console.log($scope.file)
             var file = $scope.file,
                 state;
         

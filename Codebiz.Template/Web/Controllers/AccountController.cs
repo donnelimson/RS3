@@ -210,8 +210,8 @@ namespace Web.Controllers
 
                         appUser.VerificationCode = _appUserServices.RandomPassword();
                         var unlockUrlParam = _appUserServices.GenerateUnlockUserLink(appUser.UnlockUrlParam, Url);
-                        _appUserServices.SendUnlockAccountEmail(appUser, unlockUrlParam, appUser.VerificationCode,
-                            HttpContext.Server.MapPath(_mailTemplatePath));
+                        //_appUserServices.SendUnlockAccountEmail(appUser, unlockUrlParam, appUser.VerificationCode,
+                        //    HttpContext.Server.MapPath(_mailTemplatePath));
                         _appUserServices.InsertOrUpdate(appUser, appUser.AppUserId);
                         _unitOfWork.SaveChanges();
                     }

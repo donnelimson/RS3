@@ -764,6 +764,7 @@
     <Content Include="Views\Shared\_ChooseFromList.cshtml" />
     <Content Include="Views\ChooseFromList\GetLookup.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Shared\_InternalLogs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

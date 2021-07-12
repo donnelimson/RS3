@@ -406,6 +406,7 @@
         public const string UserCanViewTicket = "TCK8";
         public const string UserCanSetTicketPriority = "TCK9";
         public const string UserCanResolveOrReopenTicket = "TCK10";
+        public const string UserCanSeeInternalLogs = "TCK11";
         #region ticket
         #endregion
         #endregion
