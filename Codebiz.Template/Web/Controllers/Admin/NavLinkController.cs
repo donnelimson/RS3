@@ -250,22 +250,5 @@ namespace Web.Controllers
 
         #endregion
 
-        #region Export to excel
-        [ClaimsAuthorize(ClaimCustomTypes.UserPermissions, PermissionData.UserCanExportNavigationLinkViewList)]
-        [HttpGet]
-        public JsonResult ExportDataToExcelFile(NavLinkFilter filter)
-        {
-            var exportResult = _navLinkServices.ExportDataToExcelFile(filter, Server, CurrentUser.AppUserId, CurrentUser.CurrentOffice);
-
-            return Json(new
-            {
-                data = new
-                {
-                    FileName = exportResult
-                }
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        #endregion
     }
 }

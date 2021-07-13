@@ -27,7 +27,7 @@ namespace Infrastructure.Services
         bool CheckNameIfExists(string name, int ConfigSettingDataTypeId, int ConfigSettingGroupId, int id = 0);
         IEnumerable<ConfigSetting> GetAll();
         IPagedList<ConfigSettingsDTO> Search(ConfigSettingsFilter configSettingsFilter);
-        string ExportDataToExcelFile(ConfigSettingsFilter filter, HttpServerUtilityBase server, int appUserId, string v);
+     
     }
 
     public class ConfigSettingService : IConfigSettingService
@@ -143,16 +143,5 @@ namespace Infrastructure.Services
             return Convert.ToBoolean(value);
         }
 
-        public string ExportDataToExcelFile(ConfigSettingsFilter filter, HttpServerUtilityBase server, int appUserId, string v)
-        {
-            var fileName = ExportToExcelFileHelper.GenerateExcelFile(
-               ExportToExcelFileHelper.CreateObjectBy(typeof(ConfigSettingsToExcelCopy)),
-               _configSettingRepository.GetDataForExportingToExcel(filter).ToList(),
-               "Config Settings_" + DateTime.Now.ToString("MM-dd-yyyy hh mm ss tt"),
-               server,
-               "Config Settings List",
-               appUserId, v);
-            return fileName;
-        }
     }
 }

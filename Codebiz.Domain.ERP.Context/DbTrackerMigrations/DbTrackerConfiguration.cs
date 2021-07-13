@@ -12,17 +12,6 @@ using Codebiz.Domain.Common.Model.Enums.CommercialServicesApplication.Transforme
 using Codebiz.Domain.Common.Model.Enums.Currency;
 using Codebiz.Domain.ERP.Context.SeedData;
 using Codebiz.Domain.ERP.Model;
-using Codebiz.Domain.ERP.Model.Constants;
-using Codebiz.Domain.ERP.Model.Data.CSA.EnumBaseModels;
-using Codebiz.Domain.ERP.Model.Data.ERP;
-using Codebiz.Domain.ERP.Model.Data.ERP.EnumBaseModels;
-using Codebiz.Domain.ERP.Model.EnumBaseModels;
-using Codebiz.Domain.ERP.Model.EnumBaseModels.CSA.Request;
-using Codebiz.Domain.ERP.Model.EnumBaseModels.CSA.Transformer;
-using Codebiz.Domain.ERP.Model.EnumBaseModels.FAMMS;
-using Codebiz.Domain.ERP.Model.Enums.BP;
-using Codebiz.Domain.ERP.Model.Enums.FAMMS;
-using Codebiz.Domain.ERP.Model.Enums.VEHICLES;
 using CsvHelper;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
@@ -68,18 +57,13 @@ namespace Codebiz.Domain.ERP.Context.DbTrackerMigrations
             Helpers.SeedEnumData<CountryCode, CountryCodes>(context.CountryCodes);
             Helpers.SeedEnumData<PaperType, PaperTypes>(context.PaperTypes);
             Helpers.SeedEnumData<TemplateName, TemplateNames>(context.TemplateNames);
-            Helpers.SeedEnumData<TaxType, TaxTypeEnums>(context.TaxTypes);
             Helpers.SeedEnumData<ISOCurrencyCode, ISOCurrencyCodes>(context.ISOCurrencyCodes);
             Helpers.SeedEnumData<Rounding, Roundings>(context.Roundings);
             Helpers.SeedEnumData<Decimals, DecimalEnums>(context.Decimals);
     
             Helpers.SeedEnumData<CommisionGroups, CommisionGroupEnums>(context.CommisionGroups);
             Helpers.SeedEnumData<DivisionType, DivisionTypeEnums>(context.DivisionTypes);
-            Helpers.SeedEnumData<DocumentType, DocumentTypes>(context.DocumentTypes);
-            Helpers.SeedEnumData<RelationshipType, RelationshipTypes>(context.RelationshipTypes);
-            Helpers.SeedEnumData<RequestPhase, RequestPhaseEnum>(context.RequestPhases);
             Helpers.SeedEnumData<ConsumerClass, ConsumerClasses>(context.ConsumerClasses);
-            Helpers.SeedEnumData<TransformerManagementType, TransformerManagementTypes>(context.TransformerManagementTypes);
 
 
             //Report Category

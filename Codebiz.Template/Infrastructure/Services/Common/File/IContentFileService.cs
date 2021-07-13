@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Codebiz.Domain.Repository;
 using Infrastructure.Utilities;
 using Codebiz.Domain.Common.Model.DTOs;
-using Codebiz.Domain.ERP.Model.Data.ERP;
 using Codebiz.Domain.Common.Model.Enums;
 using System.IO;
 using Codebiz.Domain.Common.Model.DTOs.JobCategory;

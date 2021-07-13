@@ -8,7 +8,7 @@ using Domain.Repository.CSA;
 using Domain.Repository.CSA.Billing;
 using Domain.Repository.Financial;
 using Domain.Repository.Financials;
-using Domain.Repository.NatureType;
+
 using Infrastructure.Repository;
 using Infrastructure.Repository.Common;
 using Infrastructure.Services;
@@ -41,9 +41,7 @@ namespace Infrastructure
             builder.RegisterType<AppUserServices>().As<IAppUserServices>().InstancePerLifetimeScope();
             builder.RegisterType<UserGroupServices>().As<IUserGroupServices>().InstancePerLifetimeScope();
    //         builder.RegisterType<LoginHistoryServices>().As<ILoginHistoryServices>().InstancePerLifetimeScope();
-            builder.RegisterType<EmployeePhotoService>().As<IEmployeePhotoService>().InstancePerLifetimeScope();
-            builder.RegisterType<EmployeeService>().As<IEmployeeService>().InstancePerLifetimeScope();
-
+  
             #endregion
 
      
@@ -78,22 +76,7 @@ namespace Infrastructure
 
             #region Management
 
-            builder.RegisterType<RegionService>().As<IRegionService>().InstancePerLifetimeScope();
-            builder.RegisterType<ProvinceService>().As<IProvinceService>().InstancePerLifetimeScope();
-            builder.RegisterType<CityTownService>().As<ICityTownService>().InstancePerLifetimeScope();
-            builder.RegisterType<BarangayService>().As<IBarangayService>().InstancePerLifetimeScope();
-            builder.RegisterType<PurokServices>().As<IPurokServices>().InstancePerLifetimeScope();
-            builder.RegisterType<SitioServices>().As<ISitioServices>().InstancePerLifetimeScope();
-       
 
-            //Job Order
-      
-            builder.RegisterType<NatureTypeService>().As<IJobOrderNatureTypeService>().InstancePerLifetimeScope();
-
-            //Country
-
-
-            //Shipping Types
 
 
 
@@ -140,8 +123,6 @@ namespace Infrastructure
             builder.RegisterType<AppUserRepository>().As<IAppUserRepository>().InstancePerLifetimeScope();
             builder.RegisterType<UserGroupRepository>().As<IUserGroupRepository>().InstancePerLifetimeScope();
             builder.RegisterType<LoginHistoryRepository>().As<ILoginHistoryRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<EmployeePhotoRepository>().As<IEmployeePhotoRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<EmployeeRepository>().As<IEmployeeRepository>().InstancePerLifetimeScope();
 
             #endregion
 
@@ -180,13 +161,6 @@ namespace Infrastructure
 
             #region Management
 
-            builder.RegisterType<RegionRepository>().As<IRegionRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<ProvinceRepository>().As<IProvinceRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<CityTownRepository>().As<ICityTownRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<BarangayRepository>().As<IBarangayRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<PurokRepository>().As<IPurokRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<SitioRepository>().As<ISitioRepository>().InstancePerLifetimeScope();
-      
 
             #endregion
 

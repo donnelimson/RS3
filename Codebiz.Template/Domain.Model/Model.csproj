@@ -278,7 +278,6 @@
     <Compile Include="Enums\CommercialServicesApplication\DocumentTypes.cs" />
     <Compile Include="Enums\CommercialServicesApplication\JobOrder\JobOrderTaskToBePerformEnum.cs" />
     <Compile Include="Enums\CommercialServicesApplication\Request\ChangeOfNameTypesEnum.cs" />
-    <Compile Include="Enums\CommercialServicesApplication\Request\DisconnectionCircumstancesEnums.cs" />
     <Compile Include="Enums\CommercialServicesApplication\Request\RequestPhaseEnums.cs" />
     <Compile Include="Enums\CommercialServicesApplication\Transformer\Conditions.cs" />
     <Compile Include="Enums\CommercialServicesApplication\Transformer\TransformerManagementTypes.cs" />

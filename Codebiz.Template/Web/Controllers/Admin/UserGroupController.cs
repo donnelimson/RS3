@@ -276,23 +276,6 @@ namespace Web.Controllers
         }
         #endregion
 
-        #region Export To Excel
-        [ClaimsAuthorize(ClaimCustomTypes.UserPermissions, PermissionData.UserCanExportUserGroupViewList)]
-        [HttpGet]
-        public JsonResult ExportDataToExcelFile(UserGroupFilter filter)
-        {
-            return Json(new
-            {
-                data = new
-                {
-                    FileName = _userGroupServices.ExportDataToExcelFile(
-                        filter,
-                        Server,
-                        CurrentUser.AppUserId,
-                        CurrentUser.CurrentOffice)
-                }
-            }, JsonRequestBehavior.AllowGet);
-        }
-        #endregion
+
     }
 }

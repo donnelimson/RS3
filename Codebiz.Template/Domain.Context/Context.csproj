@@ -73,10 +73,6 @@
       <Project>{f66bfcab-6543-46d5-ac8d-2287639d04c3}</Project>
       <Name>ERP.Context</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\darkstar.core.ERP\ERP.Model.csproj">
-      <Project>{65b43f3f-1492-44ff-95d7-48fced4cceb4}</Project>
-      <Name>ERP.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Domain.Model\Model.csproj">
       <Project>{eacd2dbb-02c3-436b-abb0-0ea75356d6d3}</Project>
       <Name>Model</Name>

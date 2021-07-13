@@ -25,7 +25,6 @@ namespace Infrastructure.Services
         Permission GetByCode(string code);
         void InsertOrUpdate(Permission entity, int appUserId);
         IPagedList<PermissionDTO> Search(PermissionFilter permissionFilter);
-        string ExportDataToExcelFile(PermissionFilter filter, HttpServerUtilityBase server, int currentAppUserId,string currentOffice);
 
     }
 
@@ -118,18 +117,6 @@ namespace Infrastructure.Services
             return dataDTO.ToPagedList(permissionFilter.Page, permissionFilter.PageSize);
         }
 
-        public string ExportDataToExcelFile(PermissionFilter filter, HttpServerUtilityBase server, int currentAppUserId,string currentOffice)
-        {
-            var data = _permissionRepository.GetDataForExportingToExcel(filter).ToList();
-            var fileName = ExportToExcelFileHelper.GenerateExcelFile(
-                ExportToExcelFileHelper.CreateObjectBy(typeof(PermissionToExcel)),
-                data,
-                "Permission" + DateTime.Now.ToString("MM-dd-yyyy hh mm ss tt"),
-                server,
-                "Permission List",
-                currentAppUserId, currentOffice);
-
-            return fileName;
-        }
+     
     }
 }

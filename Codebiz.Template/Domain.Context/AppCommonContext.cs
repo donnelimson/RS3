@@ -13,8 +13,6 @@ using Codebiz.Domain.Common.Model.DataModel.Transaction;
 using Codebiz.Domain.Common.Model.EnumBaseModels;
 using Codebiz.Domain.Common.Model.Financial;
 using Codebiz.Domain.ERP.Model;
-using Codebiz.Domain.ERP.Model.Data.ERP;
-using Codebiz.Domain.ERP.Model.EnumBaseModels.FAMMS;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -101,9 +99,6 @@ namespace Domain.Context
         public IDbSet<LogEventTitle> LogEventTitles { get; set; }
         public IDbSet<ApprovalStatus> ApprovalStatuses { get; set; }
         public IDbSet<LeaveApprovalStatus> LeaveApprovalStatuses { get; set; }
-        public IDbSet<Approval> Approvals { get; set; }
-        public IDbSet<ApprovalApproverStage> ApprovalApproverStages { get; set; }
-        public IDbSet<ApprovalApprover> ApprovalApprovers { get; set; }
         public IDbSet<ApproverLabel> ApproverLabels { get; set; }
 
         public IDbSet<ContentFileType> ContentFileType { get; set; }
@@ -146,8 +141,6 @@ namespace Domain.Context
         public IDbSet<Feeder> Feeders { get; set; }
         public IDbSet<OfficeDepartment> OfficeDepartments { get; set; }
         public IDbSet<MeterReadingRemark> MeterReadingRemarks { get; set; }
-        public IDbSet<TaxType> TaxTypes { get; set; }
-        public IDbSet<Volume> Volumes { get; set; }
         public IDbSet<PackagingType> PackagingTypes { get; set; }
         //public IDbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
         public IDbSet<Manufacturer> Manufacturers { get; set; }

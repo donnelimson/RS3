@@ -138,25 +138,6 @@ namespace Web.Controllers
 
         #endregion
 
-        #region Export To Excel
-        [ClaimsAuthorize(ClaimCustomTypes.UserPermissions, PermissionData.UserCanExportConfigurationSettingViewList)]
-        [HttpGet]
-        public JsonResult ExportDataToExcelFile(ConfigSettingsFilter filter)
-        {
-            return Json(new
-            {
-                data = new
-                {
-                    FileName = _configSettingService.ExportDataToExcelFile(
-                        filter,
-                        Server,
-                        CurrentUser.AppUserId,
-                        CurrentUser.CurrentOffice)
-                }
-            }, JsonRequestBehavior.AllowGet);
-        }
-        #endregion
-
 
     }
 }

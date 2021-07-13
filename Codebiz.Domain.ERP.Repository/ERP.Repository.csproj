@@ -76,10 +76,6 @@
       <Project>{62dbfb40-2321-4e80-871b-cd4c66883141}</Project>
       <Name>Repository</Name>
     </ProjectReference>
-    <ProjectReference Include="..\darkstar.core.ERP\ERP.Model.csproj">
-      <Project>{65b43f3f-1492-44ff-95d7-48fced4cceb4}</Project>
-      <Name>ERP.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -138,20 +138,6 @@ namespace Web.Controllers
             return RedirectToAction("Index");
         }
 
-        [ClaimsAuthorize(ClaimCustomTypes.UserPermissions, PermissionData.UserCanExportPermissionViewList)]
-        [HttpGet]
-        public JsonResult ExportDataToExcelFile(PermissionFilter filter)
-        {
-            var currentOffice = _appUserService.GetById(CurrentUser.AppUserId)?.CurrentOffice;
-            var exportResult = _permissionService.ExportDataToExcelFile(filter, Server, CurrentUser.AppUserId,currentOffice);
 
-            return Json(new
-            {
-                data = new
-                {
-                    FileName = exportResult
-                }
-            }, JsonRequestBehavior.AllowGet);
-        }
     }
 }

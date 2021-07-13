@@ -34,7 +34,7 @@ namespace Infrastructure.Services
         void Delete(NavLink entity, int appUserId);
         bool CheckIfNameExist(string name, int id = 0);
         IPagedList<NavLinkDTO> Search(NavLinkFilter navLinkFilter);
-        string ExportDataToExcelFile(NavLinkFilter filter, HttpServerUtilityBase server, int appUserId, string v);
+     
     }
 
     public class NavLinkServices : INavLinkServices
@@ -290,16 +290,5 @@ namespace Infrastructure.Services
             return null;
         }
 
-        public string ExportDataToExcelFile(NavLinkFilter filter, HttpServerUtilityBase server, int appUserId, string v)
-        {
-            var fileName = ExportToExcelFileHelper.GenerateExcelFile(
-                ExportToExcelFileHelper.CreateObjectBy(typeof(NavigationLinksToExcel)),
-                _navLinkRepository.GetDataForExportingToExcel(filter).ToList(),
-                "Navigation Links_" + DateTime.Now.ToString("MM-dd-yyyy hh mm ss tt"),
-                server,
-                "Navigation Link List",
-                appUserId, v);
-            return fileName;
-        }
     }
 }

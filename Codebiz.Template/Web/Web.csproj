@@ -371,17 +371,10 @@
     <Compile Include="Controllers\User\AppUserFileUploadController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\Admin\PermissionController.cs" />
-    <Compile Include="Controllers\Address\BarangayController.cs" />
     <Compile Include="Controllers\Admin\LogController.cs" />
     <Compile Include="Controllers\Admin\NavLinkController.cs" />
-    <Compile Include="Controllers\Address\CityTownController.cs" />
     <Compile Include="Controllers\Admin\ConfigSettingController.cs" />
-    <Compile Include="Controllers\Address\PurokController.cs" />
-    <Compile Include="Controllers\Address\SitioController.cs" />
     <Compile Include="Controllers\Admin\UserGroupController.cs" />
-    <Compile Include="Controllers\Address\ProvinceController.cs" />
-    <Compile Include="Controllers\Address\RegionController.cs" />
-    <Compile Include="Controllers\User\EmployeesController.cs" />
     <Compile Include="Controllers\User\UserProfileController.cs" />
     <Compile Include="CustomActionResult\JsonDotNetResult.cs" />
     <Compile Include="CustomAttributes\CustomAttributes.cs" />
@@ -8152,14 +8145,6 @@
     <Content Include="Views\Office\Index.cshtml" />
     <Content Include="Views\Position\Index.cshtml" />
     <Content Include="Views\ConsumerType\Index.cshtml" />
-    <None Include="SystemReportDataSet\CsaDataset.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>CsaDataset.Designer.cs</LastGenOutput>
-    </None>
-    <Content Include="SystemReportDataSet\CsaDataset.xss">
-      <DependentUpon>CsaDataset.xsd</DependentUpon>
-    </Content>
     <Content Include="Views\Shared\_ScriptGenerator.cshtml" />
     <Content Include="Views\Shared\_GeneratorLayout.cshtml" />
     <Content Include="Views\ApprovalStage\Index.cshtml" />
@@ -8311,6 +8296,7 @@
     <Folder Include="assets\Enums\" />
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
     <Folder Include="Content\Export\AP\" />
+    <Folder Include="Controllers\Address\" />
     <Folder Include="Controllers\Department\" />
     <Folder Include="Controllers\Employee\" />
     <Folder Include="Controllers\Position\" />
@@ -8341,14 +8327,6 @@
     <ProjectReference Include="..\..\Codebiz.Domain.ERP.Repository\ERP.Repository.csproj">
       <Project>{348b58a7-9fd3-4825-9cea-7b100efcb696}</Project>
       <Name>ERP.Repository</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\darkstar.core.ERP\ERP.Model.csproj">
-      <Project>{65b43f3f-1492-44ff-95d7-48fced4cceb4}</Project>
-      <Name>ERP.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\darkstar.reporting\darkstar.reporting.csproj">
-      <Project>{5c718119-e556-43b4-b29d-57d325b4e0e0}</Project>
-      <Name>darkstar.reporting</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ERP.Common\ERP.Common.csproj">
       <Project>{100B7E67-38F1-4F85-B57D-BE641752D124}</Project>

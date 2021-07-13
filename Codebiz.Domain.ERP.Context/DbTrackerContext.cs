@@ -15,13 +15,6 @@ using Codebiz.Domain.Common.Model.DataModel.Transaction;
 using Codebiz.Domain.Common.Model.EnumBaseModels;
 using Codebiz.Domain.Common.Model.Financial;
 using Codebiz.Domain.ERP.Model;
-using Codebiz.Domain.ERP.Model.Data.ERP;
-using Codebiz.Domain.ERP.Model.Data.ERP.EnumBaseModels;
-using Codebiz.Domain.ERP.Model.EnumBaseModels;
-using Codebiz.Domain.ERP.Model.EnumBaseModels.CSA.Request;
-using Codebiz.Domain.ERP.Model.EnumBaseModels.CSA.Transformer;
-using Codebiz.Domain.ERP.Model.EnumBaseModels.FAMMS;
-using Codebiz.Domain.ERP.Model.EnumBaseModels.Inventory.PriceList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -70,9 +63,6 @@ namespace Codebiz.Domain.ERP.Context
         public IDbSet<Pole> Poles { get; set; }
         public IDbSet<Route> Routes { get; set; }
         public IDbSet<PoleNumberSeed> PoleNumberSeeds { get; set; }
-        public IDbSet<Approval> Approvals { get; set; }
-        public IDbSet<ApprovalApprover> ApprovalApprovers { get; set; }
-        public IDbSet<ApprovalApproverStage> ApprovalApproverStages { get; set; }
         public IDbSet<ApprovalStageApprover> ApprovalStageApprovers { get; set; }
         public IDbSet<ApprovalStage> ApprovalStages { get; set; }
         public IDbSet<ApprovalTemplate> ApprovalTemplates { get; set; }
@@ -176,11 +166,8 @@ namespace Codebiz.Domain.ERP.Context
         public IDbSet<ContentFileType> ContentFileType { get; set; }
         public IDbSet<FileType> FileType { get; set; }
         public IDbSet<ContentFile> ContentFile { get; set; }
-        public IDbSet<Model.Data.CSA.EnumBaseModels.DocumentType> DocumentTypes { get; set; }
-        public IDbSet<RelationshipType> RelationshipTypes { get; set; }
         public IDbSet<ConsumerClass> ConsumerClasses { get; set; }
 
-        public IDbSet<RequestPhase> RequestPhases { get; set; }
 
         public IDbSet<LeaveCreditMonetizationApprovalStatus> LeaveCreditMonetizationApprovalStatuses { get; set; }
 
@@ -191,9 +178,6 @@ namespace Codebiz.Domain.ERP.Context
         public IDbSet<TransactionTypeCategory> TransactionTypeCategories { get; set; }
         public IDbSet<TransactionSubType> TransactionSubTypes { get; set; }
         public IDbSet<SupportingDocumentDetail> SupportingDocumentDetails { get; set; }
-        public IDbSet<TransformerManagementType> TransformerManagementTypes { get; set; }
-        public IDbSet<TaxType> TaxTypes { get; set; }
-        public IDbSet<Volume> Volumes { get; set; }
         public IDbSet<CountryCode> CountryCodes { get; set; }
         //public IDbSet<Country> Countries { get; set; }
         public IDbSet<TemplateName> TemplateNames { get; set; }

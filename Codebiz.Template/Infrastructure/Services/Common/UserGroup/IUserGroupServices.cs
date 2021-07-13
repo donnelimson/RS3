@@ -29,7 +29,7 @@ namespace Infrastructure.Services
         List<int> GetAllUserGroupIdsByAppUserId(int id);
         List<string> GetAllPermissionsByUserGroupId(List<int> appUserUserGroupIds);
         List<string> GetAllPermissionsByPermissionGroupNames(List<string> permissionGroupNames, int id);
-        string ExportDataToExcelFile(UserGroupFilter filter, HttpServerUtilityBase server, int appUserId, string v);
+
     }
 
     public class UserGroupServices : IUserGroupServices
@@ -174,17 +174,7 @@ namespace Infrastructure.Services
             return orderedResult.ThenBy(m => m.UserGroupId).ToPagedList(pageNumber, maxNumberOfRows);
         }
 
-        public string ExportDataToExcelFile(UserGroupFilter filter, HttpServerUtilityBase server, int appUserId, string v)
-        {
-            var fileName = ExportToExcelFileHelper.GenerateExcelFile(
-             ExportToExcelFileHelper.CreateObjectBy(typeof(UserGroupDTO)),
-             _userGroupRepository.GetDataForExportingToExcel(filter).ToList(),
-             "User Group_" + DateTime.Now.ToString("MM-dd-yyyy hh mm ss tt"),
-             server,
-             "User Group List",
-             appUserId, v);
-            return fileName;
-        }
+
         #endregion
     }
 }

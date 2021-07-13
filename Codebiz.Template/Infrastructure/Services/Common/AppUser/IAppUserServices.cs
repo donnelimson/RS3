@@ -47,7 +47,7 @@ namespace Infrastructure.Services
         AppUser GetByEmailOrUsername(string emailOrUsername, Expression<Func<AppUser, object>>[] includeProperties = null);
 
         IPagedList<AppUserDTO> SearchAppUser(AppUserFilter filter);
-        string ExportDataToExcelFile(AppUserFilter filter, HttpServerUtilityBase server, int currentAppUserId, string currentOffice);
+
 
         bool IsUsernameExists(string username, int appUserId);
         bool IsEmailExists(string username, int appUserId);
@@ -62,8 +62,8 @@ namespace Infrastructure.Services
         string GeneratePasswordResetLink(string code, UrlHelper urlHelper);
         string GenerateUnlockUserLink(string code, UrlHelper urlHelper);
 
-        bool SendActivationEmail(AppUser entity, string tempPassword, string activationUrl, string mailTemplatePath);
-        void ResendActivationLink(int id, int currentAppUserId, UrlHelper urlHelper, HttpContextBase httpContextBase);
+        //bool SendActivationEmail(AppUser entity, string tempPassword, string activationUrl, string mailTemplatePath);
+        //void ResendActivationLink(int id, int currentAppUserId, UrlHelper urlHelper, HttpContextBase httpContextBase);
         bool SendResetPasswordEmail(AppUser entity, string resetPasswordUrl, string mailTemplatePath);
         void SendResetPasswordLink(int id, int currentAppUserId, UrlHelper urlHelper, HttpContextBase httpContext);
    
@@ -90,7 +90,6 @@ namespace Infrastructure.Services
         private readonly IPasswordHelper _passwordHelper;
         private readonly IUserGroupServices _userGroupServices;
         private readonly IContentFileService _contentFileService;
-        private readonly IEmployeeRepository _employeeRepository;
 
         private readonly string _mailTemplatePath;
 
@@ -102,8 +101,7 @@ namespace Infrastructure.Services
             IPasswordHelper passwordHelper,
             IUserGroupServices userGroupServices,
             IContentFileService contentFileService,
-            IUserGroupRepository userGroupRepository,
-            IEmployeeRepository employeeRepository
+            IUserGroupRepository userGroupRepository
         )
         {
             _appUserRepository = appUserRepository;
@@ -114,7 +112,6 @@ namespace Infrastructure.Services
             _userGroupServices = userGroupServices;
             _mailTemplatePath = _configSettingService.GetStringValueById((int)ConfigurationSettings.MailTemplatePath);
             _contentFileService = contentFileService;
-            _employeeRepository = employeeRepository;
         }
 
         public void InsertOrUpdate(AppUser entity, int appUserId)
@@ -217,18 +214,6 @@ namespace Infrastructure.Services
         {
             return _appUserRepository.SearchAppUser(filter);
         }
-        public string ExportDataToExcelFile(AppUserFilter filter, HttpServerUtilityBase server, int currentAppUserId, string currentOffice)
-        {
-            var fileName = ExportToExcelFileHelper.GenerateExcelFile(
-                ExportToExcelFileHelper.CreateObjectBy(typeof(AppUserToExcel)),
-                _appUserRepository.GetDataForExportingToExcel(filter).ToList(),
-                "Users_" + DateTime.Now.ToString("MM-dd-yyyy hh mm ss tt"),
-                server,
-                "Users List",
-                currentAppUserId, currentOffice);
-
-            return fileName;
-        }
 
         public bool IsUsernameExists(string username, int appUserId)
         {
@@ -293,60 +278,60 @@ namespace Infrastructure.Services
         {
             return _configSettingService.GetStringValueById((int)ConfigurationSettings.SitePublicBaseUrl).TrimEnd('/') + "/Account/Unlock?code=" + code; //Always use Site public base url for link
         }
-        public bool SendActivationEmail(AppUser entity, string tempPassword, string activationUrl, string mailTemplatePath)
-        {
-            var employee = entity.EmployeeId.HasValue ? _employeeRepository.GetById(entity.EmployeeId.Value) : null;
-            if (employee != null)
-            {
-                const string mailtemplate = "NewUserAccountActivation.html";
-                string content = File.ReadAllText(Path.Combine(mailTemplatePath, mailtemplate));
-                var records = new List<AccessRightDTO>();
-                var data = entity.UserGroups.SelectMany(a => a.Permissions).OrderBy(x => x.PermissionGroupId);
+        //public bool SendActivationEmail(AppUser entity, string tempPassword, string activationUrl, string mailTemplatePath)
+        //{
+        //    var employee = entity.EmployeeId.HasValue ? _employeeRepository.GetById(entity.EmployeeId.Value) : null;
+        //    if (employee != null)
+        //    {
+        //        const string mailtemplate = "NewUserAccountActivation.html";
+        //        string content = File.ReadAllText(Path.Combine(mailTemplatePath, mailtemplate));
+        //        var records = new List<AccessRightDTO>();
+        //        var data = entity.UserGroups.SelectMany(a => a.Permissions).OrderBy(x => x.PermissionGroupId);
 
-                foreach (var item in data)
-                {
-                    var permissionGroup = records.FirstOrDefault(p => p.Name == item.PermissionGroup.Name);
-                    if (permissionGroup == null)
-                    {
-                        permissionGroup = new AccessRightDTO
-                        {
-                            Name = item.PermissionGroup.Name,
-                            Permissions = new List<string>()
-                        };
-                        records.Add(permissionGroup);
-                    }
-                }
+        //        foreach (var item in data)
+        //        {
+        //            var permissionGroup = records.FirstOrDefault(p => p.Name == item.PermissionGroup.Name);
+        //            if (permissionGroup == null)
+        //            {
+        //                permissionGroup = new AccessRightDTO
+        //                {
+        //                    Name = item.PermissionGroup.Name,
+        //                    Permissions = new List<string>()
+        //                };
+        //                records.Add(permissionGroup);
+        //            }
+        //        }
 
-                var recorddata = records.ToList().Select(p => new { p.Name, Permissions = string.Join(",", p.Permissions.ToList()) });
-                var displayRecord = string.Join("<br />", recorddata.Select(p => p.Name + " - [" + p.Permissions + "]"));
+        //        var recorddata = records.ToList().Select(p => new { p.Name, Permissions = string.Join(",", p.Permissions.ToList()) });
+        //        var displayRecord = string.Join("<br />", recorddata.Select(p => p.Name + " - [" + p.Permissions + "]"));
 
-                content = content.Replace("[Fullname]", employee.FirstName + " " + employee.LastName);
-                content = content.Replace("[Link]", activationUrl);
-                content = content.Replace("[Username]", entity.Username);
-                content = content.Replace("[Password]", tempPassword);
-                content = content.Replace("[Office]", employee.Office?.Name);
-                content = content.Replace("[Department]", employee.Department?.Name);
-                content = content.Replace("[Position]", employee.Position?.Name);
-                content = content.Replace("[Division]", employee.Division?.Name);
-                content = content.Replace("[Active]", entity.IsActive ? "YES" : "NO");
-                content = content.Replace("[Access Right]", displayRecord);
-                return _emailHelper.SendEmail(content, "User Account Activation - TARELCO 1", new List<MailAddress> { new MailAddress(employee.Email) });
-            }
+        //        content = content.Replace("[Fullname]", employee.FirstName + " " + employee.LastName);
+        //        content = content.Replace("[Link]", activationUrl);
+        //        content = content.Replace("[Username]", entity.Username);
+        //        content = content.Replace("[Password]", tempPassword);
+        //        content = content.Replace("[Office]", employee.Office?.Name);
+        //        content = content.Replace("[Department]", employee.Department?.Name);
+        //        content = content.Replace("[Position]", employee.Position?.Name);
+        //        content = content.Replace("[Division]", employee.Division?.Name);
+        //        content = content.Replace("[Active]", entity.IsActive ? "YES" : "NO");
+        //        content = content.Replace("[Access Right]", displayRecord);
+        //        return _emailHelper.SendEmail(content, "User Account Activation - TARELCO 1", new List<MailAddress> { new MailAddress(employee.Email) });
+        //    }
 
-            return false;
-        }
-        public void ResendActivationLink(int id, int currentAppUserId, UrlHelper urlHelper, HttpContextBase httpContextBase)
-        {
-            var appUser = GetById(id);
+        //    return false;
+        //}
+        //public void ResendActivationLink(int id, int currentAppUserId, UrlHelper urlHelper, HttpContextBase httpContextBase)
+        //{
+        //    var appUser = GetById(id);
 
-            var tempPassword = _passwordHelper.GenerateRandomPassword();
-            var passHash = _hashHelper.ComputeHash(Guid.NewGuid().ToString());
-            appUser.PasswordHash = HashPassword(tempPassword, passHash) + ":" + passHash;
+        //    var tempPassword = _passwordHelper.GenerateRandomPassword();
+        //    var passHash = _hashHelper.ComputeHash(Guid.NewGuid().ToString());
+        //    appUser.PasswordHash = HashPassword(tempPassword, passHash) + ":" + passHash;
 
-            InsertOrUpdate(appUser, currentAppUserId);
+        //    InsertOrUpdate(appUser, currentAppUserId);
 
-            SendActivationEmail(appUser, tempPassword, GenerateActivateUserLink(urlHelper), httpContextBase.Server.MapPath(_mailTemplatePath));
-        }
+        //    SendActivationEmail(appUser, tempPassword, GenerateActivateUserLink(urlHelper), httpContextBase.Server.MapPath(_mailTemplatePath));
+        //}
         public bool SendResetPasswordEmail(AppUser entity, string resetPasswordUrl, string mailTemplatePath)
         {
             const string mailtemplate = "ResetPassword.html";

@@ -199,18 +199,7 @@ namespace Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        [ClaimsAuthorize(ClaimCustomTypes.UserPermissions, PermissionData.UserCanExportUsers)]
-        [HttpGet]
-        public JsonResult ExportDataToExcelFile(AppUserFilter filter)
-        {
-            var currentOffice = CurrentUser.Employee?.Office?.Name;
-            var result = _appUserServices.ExportDataToExcelFile(filter, Server, CurrentUser.AppUserId, currentOffice);
-
-            return Json(new
-            {
-                data = new { FileName = result }
-            }, JsonRequestBehavior.AllowGet);
-        }
+   
 
         public JsonResult GetAppusersLookUp(LookUpFilter filter, bool isDriver = false)
 
@@ -396,7 +385,7 @@ namespace Web.Controllers
             AjaxResult ajaxResult = new AjaxResult();
             try
             {
-                _appUserServices.ResendActivationLink(id, CurrentUser.AppUserId, Url, HttpContext);
+               // _appUserServices.ResendActivationLink(id, CurrentUser.AppUserId, Url, HttpContext);
                 _unitOfWork.SaveChanges();
                 ajaxResult.Message = "Activation link sent!";
                 Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", LogEventTitles.ActivationLinkSent);
