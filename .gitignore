@@ -289,4 +289,3 @@ __pycache__/
 
 Codebiz.Domain.ERP.Context/DbTrackerMigrations/2020*
 Codebiz.Domain.ERP.Context/Migrations/**/2020*
-Codebiz.Template/Web/Web.config
