@@ -75,6 +75,7 @@ namespace Codebiz.Domain.Common.Model.DTOs.RS3
         public bool CanBeTaken { get; set; }
         public List<AttachmentViewModel> Attachments { get; set; } = new List<AttachmentViewModel>();
         public List<CommentDTO> Comments { get; set; } = new List<CommentDTO>();
+        public List<CommentDTO> InternalLogs { get; set; } = new List<CommentDTO>();
         public bool IsClient { get; set; }
     }
     public class CommentAddDTO

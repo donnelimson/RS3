@@ -46,9 +46,9 @@
                                 View my other tickets
                             </a>
                         </li>
-                        <li ng-if="isUpdate && (@Html.UserHasPermission(userPermission: PermissionData.UserCanSeeInternalLogs).ToString().Length!=0 ? false:true)">
-                            <a ng-click="viewInternalLogs()">
-                                View internal logs
+                        <li ng-if="isUpdate">
+                            <a ng-click="viewLogs()">
+                                View logs
                             </a>
                         </li>
                     </ul>
@@ -129,7 +129,56 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6" ng-if="isUpdate">
+                                <div class="col-md-6" ng-if="!m.IsClient && (@Html.UserHasPermission(userPermission: PermissionData.UserCanSeeInternalLogs).ToString().Length!=0 ? false:true) && isUpdate">
+                                    <div class="portlet box" style="background-color: #e6a83b !important">
+                                        <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
+                                            <div class="caption col-md-3">
+                                                Internal Logs
+                                            </div>
+                                            <div class="tools">
+                                                <a href="javascript:;" class="collapse"> </a>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body" style="max-height:342px;">
+                                            <div class="row" style="margin-bottom:10px;" ng-show="m.Comments.length==0">
+                                                <div class="col-md-12 text-center">
+                                                    <span>No Logs available.</span>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom:10px;">
+                                                <div class="col-md-12" ng-repeat="comment in m.InternalLogs" ng-style="{'overflow-y': m.InternalLogs.length > 10 ? 'scroll':''}">
+                                                    <span>
+                                                        <b>{{comment.Name}}</b>&nbsp;-&nbsp;{{comment.CreatedOn | date : 'MM/dd/yyyy hh:mm:ss a'}}
+                                                    </span>
+                                                    <hr style="margin-top:unset; margin-bottom:unset" />
+                                                    <span style="margin-left:30px; margin-top:unset">
+                                                        {{comment.Comment}}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12" style="margin-bottom:20px;">
+
+                                                    <textarea ng-model="m.InternalComment" class="form-control" rows="3" maxlength="500"></textarea>
+                                                    <span style="float:right;">{{m.InternalComment.length == null ? 0 : m.InternalComment.length}}/500</span>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12" style="margin-top:unset; margin-bottom:unset">
+                                                    <button class="btn" style="width: 90px; float:right;background-color: #e6a83b !important; color:white" ng-click="comment(true)" ng-disabled="m.InternalComment.length==0 || m.InternalComment.length==null">
+                                                        Comment
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6" ng-if="m.IsClient && isUpdate">
                                     <div class="portlet box" style="background-color: #e6a83b !important">
                                         <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
                                             <div class="caption col-md-3">
@@ -162,7 +211,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="row">
@@ -305,7 +353,7 @@
                             <div class="portlet box" style="margin-top:10px;background-color: #e6a83b !important" ng-show="isUpdate">
                                 <div class="portlet-title" style="padding-top:0px; padding-bottom:0px;">
                                     <div class="caption col-md-3">
-                                        Reply/s
+                                        Replies
                                     </div>
                                     <div class="tools">
                                         <a href="javascript:;" class="collapse"> </a>

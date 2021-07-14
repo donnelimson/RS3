@@ -1,54 +1,29 @@
-﻿<script type="text/ng-template" id="_InternalLogs.html">
+﻿<script type="text/ng-template" id="_Logs.html">
     <!--Modal Head-->
     <div class="modal-header">
         <button type="button" class="close" ng-click="closeModal()"><span aria-hidden="true">×</span><span class="sr-only">Close Modal</span></button>
-        <h4 class="form-sub-title">Internal Logs</h4>
+        <h4 class="form-sub-title">Logs</h4>
     </div>
     <!--Modal Body-->
     <div id="modal-body" class="modal-body" ng-form="iForm">
         <div class="row">
             <div class="col-md-12">
                 <div class="portlet-body">
-                    <div class="row" style="margin-bottom:10px;" ng-show="InternalLogs.length==0">
-                        <div class="col-md-12 text-center">
-                            <span>No thread available.</span>
+                    <div class="row" style="margin-bottom:30px;">
+                        <div class="col-md-12" style="height:324px;" ng-style="{'overflow-y': m.Logs.length > 10 ? 'scroll':''}">
+                            <ul ng-repeat="log in Logs track by $index" style="position:relative">
+                                <li>
+                                    <span>
+                                        {{log.Message}}
+                                    </span>
+                                </li>
+                            
+                            </ul>
                         </div>
-                    </div>
-                    <div class="row" style="margin-bottom:10px;overflow:auto;max-height:650px;" ng-show="InternalLogs.length!=0">
-                        <div class="col-md-12" ng-repeat="comment in InternalLogs">
-                            <span>
-                                <b>{{comment.Name}}</b>&nbsp;-&nbsp;{{comment.CreatedOn | date : 'MM/dd/yyyy hh:mm:ss a'}}
-                            </span>
-                            <hr style="margin-top:unset; margin-bottom:unset" />
-                            <span style="margin-left:30px; margin-top:unset">
-                                {{comment.Comment}}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12" style="margin-bottom:20px;">
-                
-                            <textarea ng-model="i.Comment" class="form-control" rows="3" maxlength="500"></textarea>
-                            <span style="float:right;">{{i.Comment.length == null ? 0 : i.Comment.length}}/500</span>
-        
-                                @*<button class="btn btn" type="button" style="background-color: #e6a83b !important;color:white;width:40px;margin-top:5px;">
-                            <i class="glyphicon glyphicon-paperclip"></i>
-                        </button>*@
 
 
-                            </div>
-                    
-                        </div>
-                    <div class="row">
-                        <div class="col-md-12" style="margin-top:unset; margin-bottom:unset">
-                            <button class="btn" id="addbtn" style="width: 90px; float:right;background-color: #e6a83b !important; color:white" ng-click="submitComment()" ng-disabled="i.Comment.length==0 || i.Comment.length==null">
-                                Comment
-                            </button>
-                        </div>
                     </div>
-
-                      
-                    </div>
+                </div>
 
 
                 </div>

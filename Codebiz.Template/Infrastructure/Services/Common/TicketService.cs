@@ -153,12 +153,17 @@ namespace Infrastructure.Services.Common
                        folder = p.ContentFile.ContentFileType.ConfigSettingFolder.Value
                    }),
                }).ToList();
-                data.Comments = ticket.Comments.Select(a => new CommentDTO
+                data.Comments = ticket.Comments.Where(x => !x.IsInternal).Select(a => new CommentDTO
                 {
                     Comment = a.Comment,
                     CreatedOn = a.CreatedOn,
                     Name = a.CreatedByAppUser.FullName,
-                    IsInternal = a.IsInternal
+                }).ToList();
+                data.InternalLogs = ticket.Comments.Where(x => x.IsInternal).Select(a => new CommentDTO
+                {
+                    Comment = a.Comment,
+                    CreatedOn = a.CreatedOn,
+                    Name = a.CreatedByAppUser.FullName,
                 }).ToList();
             }
             else
