@@ -118,6 +118,7 @@ namespace Infrastructure.Services.Common
                 data.Technician = ticket.AppUserTechnician?.FullName;
                 data.TechnicianEmail = ticket.AppUserTechnician?.Email;
                 data.Priority = ticket.Priority;
+                data.TicketNo = ticket.TicketNo;
                 data.IsResolved = ticket.TicketStatus == "R";
                 data.Logs = ticket.Logs.Select(a => new LogsDTO { Message = a.CreatedOn.ToString("yyyy-MM-dd hh:mm tt") + " " + a.Message, IsInternal = a.IsInternal}).ToList();
                 data.Attachments = ticket.Attachments

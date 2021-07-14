@@ -64,6 +64,7 @@ namespace Codebiz.Domain.Common.Model.DTOs.RS3
         public int? Priority { get; set; }
         public int? ClientId { get; set; }
         public string Client { get; set; }
+        public string TicketNo { get; set; }
         public string ClientEmail { get; set; }
         public string ClientAddress { get; set; }
         public int? TechnicianId { get; set; }

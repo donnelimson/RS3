@@ -68,9 +68,7 @@ namespace Infrastructure.Repository
             var dataDTO = data.Select(a => new AppUserDTO
             {
                 AppUserId = a.AppUserId,
-                Name = a.Employee != null
-                    ? a.Employee.LastName + ", " + a.Employee.FirstName + (a.Employee.MiddleName == null ? "" : " " + a.Employee.MiddleName) + (a.Employee.Suffix == null ? "" : " " + a.Employee.Suffix)
-                    : a.Username,
+                Name =a.LastName + ", " + a.FirstName + (a.MiddleName == null ? "" : " " + a.MiddleName) + (a.Suffix == null ? "" : " " + a.Suffix),
                 Username = a.Username,
                 Email = a.Email,
                 Position = a.Employee != null ? a.Employee.Position.Name : "",

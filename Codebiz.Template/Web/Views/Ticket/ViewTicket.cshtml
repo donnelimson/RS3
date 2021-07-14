@@ -58,7 +58,7 @@
         <!-- END PAGE BAR -->
         <!-- BEGIN PAGE TITLE-->
         <h1 class="page-title">
-            <span>Ticket <small>Form</small></span>
+            <span>Ticket <small>{{isUpdate ? m.TicketNo:'Form'}}</small></span>
         </h1>
         <!-- END PAGE TITLE-->
         <!-- END PAGE HEADER-->
@@ -350,7 +350,7 @@
                             </div>
                             <!-- END SUPPORTING DOCUMENTS -->
                             <!-- START SAVE AND CANCEL BUTTONS -->
-                            <div class="row" style="margin-top:20px" ng-show="!m.IsClient &&  ((@Html.UserHasPermission(userPermission: PermissionData.UserCanCreateTicket).ToString().Length!=0 ? false:true)|| (@Html.UserHasPermission(userPermission: PermissionData.UserCanEditTicket).ToString().Length!=0 ? false:true))">
+                            <div class="row" style="margin-top:20px" ng-show="((@Html.UserHasPermission(userPermission: PermissionData.UserCanCreateTicket).ToString().Length!=0 ? false:true)|| (m.IsClient && @Html.UserHasPermission(userPermission: PermissionData.UserCanEditTicket).ToString().Length!=0 ? false:true))">
                                 <div class="col-md-12">
                                     <div class="actions btn-set">
                                         <button class="btn" id="addbtn" style="width: 90px;background-color: #e6a83b !important; color:white" ng-click="save()">
