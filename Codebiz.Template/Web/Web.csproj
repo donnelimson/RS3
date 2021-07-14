@@ -1321,7 +1321,6 @@
     <Content Include="Scripts\App\Controllers\ApprovalLabel\ApproverLabelFormController.js" />
     <Content Include="Scripts\App\Controllers\ApprovalStage\ApprovalStageDetailController.js" />
     <Content Include="Scripts\App\Controllers\AttachmentViewController.js" />
-    <Content Include="Scripts\App\Controllers\NotificationController.js" />
     <Content Include="Scripts\App\Controllers\Purpose\PurposeAddOrUpdateController.js" />
     <Content Include="Scripts\App\Controllers\Purpose\PurposeIndexController.js" />
     <Content Include="Scripts\App\Controllers\SearchItemController.js" />
@@ -6814,7 +6813,6 @@
     <Content Include="Content\Image\check-box-clipart-2.jpg" />
     <Content Include="Content\jquery.mloading.css" />
     <Content Include="Content\jquery.mloading.js" />
-    <Content Include="Content\mailtemplates\BillingAddress.html" />
     <Content Include="Content\mailtemplates\NewUserAccountActivation.html" />
     <Content Include="Content\mailtemplates\ResetPassword.html" />
     <Content Include="Content\mailtemplates\UnlockAccount.html" />
@@ -6833,7 +6831,6 @@
     <Content Include="Scripts\App\Services\PurposeService.js" />
     <Content Include="Scripts\App\Services\SalesEmployeeService.js" />
     <Content Include="Scripts\BANK\Service\BankService.js" />
-    <Content Include="Scripts\CashierDashboardController.js" />
     <Content Include="Scripts\accounting.js" />
     <Content Include="Scripts\Components\cb.components.LinkTextBox.js" />
     <Content Include="Scripts\Components\cb.components.SelectListService.js" />
@@ -8080,7 +8077,6 @@
     <Content Include="Views\Shared\_QuickNav.cshtml" />
     <Content Include="Views\Shared\_QuickSidebar.cshtml" />
     <Content Include="Views\AppUsers\Form.cshtml" />
-    <Content Include="Views\Account\Activate.cshtml" />
     <Content Include="Views\UserGroup\Index.cshtml" />
     <Content Include="Views\UserGroup\Create.cshtml" />
     <Content Include="Views\UserGroup\Edit.cshtml" />
@@ -8133,12 +8129,10 @@
     <Content Include="Scripts\SlickGrid\package.json" />
     <Content Include="Scripts\SlickGrid\README.md" />
     <Content Include="Scripts\SlickGrid\slickgrid.nuspec" />
-    <Content Include="Views\Shared\_OrderingLayout.cshtml" />
     <Content Include="Views\HotkeyHelper.cshtml" />
     <Content Include="Views\Shared\_Modal.cshtml" />
     <Content Include="Views\Shared\_Scripts.cshtml" />
     <Content Include="Views\Shared\_Styles.cshtml" />
-    <Content Include="Views\Account\Unlock.cshtml" />
     <Content Include="Views\Purok\Index.cshtml" />
     <Content Include="Views\Purok\PurokModalPage.cshtml" />
     <Content Include="Views\Shared\_SearchEmployeeMultipleModal.cshtml" />
@@ -8174,7 +8168,6 @@
     <Content Include="Views\AppUsers\_AppUserPhotoUploadModal.cshtml" />
     <Content Include="Views\AppUsers\_AppUserWebCamUploadModal.cshtml" />
     <Content Include="Views\AppUsers\Index.cshtml" />
-    <Content Include="Views\Account\ErrorResult.cshtml" />
     <Content Include="Views\BillingMonthlyRate\Index.cshtml" />
     <Content Include="Views\BillingUnit\Index.cshtml" />
     <Content Include="Views\BillingUnit\UnitsSaveModal.cshtml" />
@@ -8202,7 +8195,6 @@
     <Content Include="Views\ComplaintType\AddOrUpdate.cshtml" />
     <Content Include="Views\DocumentNumbering\Index.cshtml" />
     <Content Include="Views\DocumentNumbering\AddOrUpdate.cshtml" />
-    <Content Include="Views\Shared\_LayoutForDetails.cshtml" />
     <Content Include="Views\DocumentNumbering\Details.cshtml" />
     <Content Include="Views\Route\Index.cshtml" />
     <Content Include="Views\Route\RouteSaveModal.cshtml" />
@@ -8276,8 +8268,6 @@
     <Content Include="Views\Shared\_SupportingDocument.cshtml" />
     <Content Include="Views\Log\_SeeMoreView.cshtml" />
     <Content Include="Views\Pole\_SearchPoleInItemMaster.cshtml" />
-    <Content Include="Views\CashierDashboard\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutForCashierDashboard.cshtml" />
     <Content Include="Views\ApproverLabel\Index.cshtml" />
     <Content Include="Views\ApproverLabel\Form.cshtml" />
     <Content Include="Views\Shared\_AttachmentViewModal.cshtml" />
@@ -8354,142 +8344,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\Billing\StatementOfAccount.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\Collection\CashCountReport.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\Collection\OfficialReceipt.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\Collection\OtherFeesOR.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\Collection\VatOR.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\CustomerService\ConnectionOrder.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\CustomerService\ConnectionOrderPerPageReport.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\CustomerService\ConsumerForConnectionReport.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\CustomerService\ConsumerForDisconnectionReport.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\CustomerService\HouseWiringInspectionReport.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\CustomerService\Member\MemberReport.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\CustomerService\Member\MembershipID.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\CustomerService\Member\WithdrawalOfMembership.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\CustomerService\NewConnectionOrReconnection.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\Engineering\IncomingDistributionTransformerSlip.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\Engineering\MeterLabReport.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\Engineering\OutgoingDistributionTransformerSlip.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\Engineering\WithdrawalSlip.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\JobOrder\ComplaintReceivedAndAttendedReport.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\JobOrder\ComplaintReport.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\JobOrder\JobOrderActionSlip.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\Request_Application\NetMeteringForm.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\Request_Application\SeniorCitizenDiscountReport.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\Vehicle\GasSlip.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\CustomerService\TransformerRentalContract.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SystemReport\Rdlc\Material\MaterialRequest.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SystemReport\RDLC\Material\RequisitionVoucher.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SystemReport\RDLC\CustomerService\SpecialLightingContract.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

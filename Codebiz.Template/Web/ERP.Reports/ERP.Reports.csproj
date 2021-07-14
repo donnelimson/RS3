@@ -45,41 +45,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AP\PurchaseCreditNoteService.rdlc" />
-    <EmbeddedResource Include="AP\PurchaseCreditNoteItem.rdlc" />
-    <EmbeddedResource Include="AP\PurchaseDeliveryService.rdlc" />
-    <EmbeddedResource Include="AP\PurchaseDeliveryItem.rdlc" />
-    <EmbeddedResource Include="AP\PurchaseInvoiceService.rdlc" />
-    <EmbeddedResource Include="AP\PurchaseOrderService.rdlc" />
-    <EmbeddedResource Include="AP\PurchaseOrderItem.rdlc" />
-    <EmbeddedResource Include="AP\PurchaseInvoiceItem.rdlc" />
-    <EmbeddedResource Include="AR\SalesCreditNoteItem.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AR\SalesCreditNoteService.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AR\SalesDeliveryItem.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AR\SalesDeliveryService.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AR\SalesInvoiceItem.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AR\SalesInvoiceService.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AR\SalesOrderItem.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AR\SalesOrderService.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PY\OutgoingPaymentVoucher.rdlc" />
+    <Folder Include="AP\" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="Properties\DataSources\Codebiz.Domain.ERP.Model.Data.Payments.OutgoingPayments.OutgoingPayment.datasource" />
   </ItemGroup>

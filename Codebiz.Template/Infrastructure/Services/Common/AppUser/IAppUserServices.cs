@@ -342,7 +342,7 @@ namespace Infrastructure.Services
             content = content.Replace("[Link]", resetPasswordUrl);
             content = content.Replace("[ExpirationDate]", entity.ForgotPasswordExpiryDate.Value.ToString());
 
-            return _emailHelper.SendEmail(content, "Password Reset - TARELCO 1",
+            return _emailHelper.SendEmail(content, "Password Reset - Communitech",
                 new List<MailAddress> { new MailAddress(entity.Employee.Email) });
         }
         public void SendResetPasswordLink(int id, int currentAppUserId, UrlHelper urlHelper, HttpContextBase httpContext)

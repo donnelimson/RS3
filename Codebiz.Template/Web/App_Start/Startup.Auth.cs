@@ -22,7 +22,7 @@ namespace Web
             // Configure the sign in cookie
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                CookieName = "TARELCO1_AUTH",
+                CookieName = "COMMUNITECH_AUTH",
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
                 //Provider = new CookieAuthenticationProvider
