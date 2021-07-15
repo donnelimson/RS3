@@ -75,7 +75,7 @@ namespace Infrastructure.Repository
                 Office = a.Employee != null ? a.Employee.Office.Name : "",
                 Department = a.Employee != null ? a.Employee.Department.Name : "",
                 IsActive = a.IsActive,
-                CreatedBy = a.CreatedByAppUser.Employee.FirstName + " " + a.CreatedByAppUser.Employee.LastName,
+                CreatedBy = a.CreatedByAppUser.FirstName + ", " + a.CreatedByAppUser.LastName,
                 CreatedDate = a.CreatedOn,
                 Role = a.Role.Description,
                 //IsManager = a.Employee.PositionId == null ? false : a.Employee.Position.IsManager
