@@ -4,7 +4,7 @@
 }
 
 <div class="row" ng-app="MetronicApp"
-     ng-controller="TicketAddOrUpdateController" file-upload="options">
+     ng-controller="TicketAddOrUpdateController" file-upload="options"  ng-form="f" >
     <div class="col-md-12">
         <!-- BEGIN PAGE BAR -->
         <div class="page-bar">
@@ -57,13 +57,15 @@
         </div>
         <!-- END PAGE BAR -->
         <!-- BEGIN PAGE TITLE-->
-        <h1 class="page-title">
-            <span>Ticket <small>{{isUpdate ? m.TicketNo:'Form'}}</small></span>
+        <h1 class="page-title" style="margin-bottom:unset">
+            <span>Ticket <small>{{isUpdate ? m.TicketNo:'Form'}}</small></span><br />
+            <span ng-show="isUpdate && !editable" ng-click="setEdit(@Html.UserHasPermission(userPermission: PermissionData.UserCanEditTicket).ToString().Length==0)" ng-style="{'cursor' :@Html.UserHasPermission(userPermission: PermissionData.UserCanEditTicket).ToString().Length!=0 ? 'cursor':'pointer'}"><b>{{m.Title}}</b></span>
+            <textarea name="Title" ng-model="m.Title" class="form-control" alphanumeric-dash-only ng-required="true" ng-disabled="isUpdate && (@Html.UserHasPermission(userPermission: PermissionData.UserCanEditTicket).ToString().Length!=0 ? true:false)" ng-show="editable" ng-mouseleave="editable=false" rows="2" style="margin-bottom:20px;font-size:15px"></textarea>
         </h1>
         <!-- END PAGE TITLE-->
         <!-- END PAGE HEADER-->
         <div class="row">
-            <div ng-form="f" class="col-md-12 loading-container" loading-container="isDataLoading">
+            <div class="col-md-12 loading-container" loading-container="isDataLoading">
                 <!-- BEGIN PORTLET -->
                 <div class="portlet light bordered">
                     <div class="portlet-body">
@@ -81,7 +83,7 @@
                                             </div>
                                         </div>
                                         <div class="portlet-body">
-                                            <div class="row" style="margin-bottom:30px;">
+                                            <div class="row" style="margin-bottom:30px;" ng-show="!isUpdate">
                                                 <div class="col-md-12">
                                                     <div class="form-group" ng-class="f.Title.$error.required && formSubmitted ? 'has-error':''">
                                                         <label class="control-label col-md-1" ng-if="!isUpdate">Title <span class="required">*</span></label>
@@ -376,7 +378,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row" ng-show="!m.IsResolved">
                                         <div class="col-md-12" style="margin-bottom:20px;">
                                       
                                             <textarea ng-model="m.Comment" class="form-control" rows="3" maxlength="500"></textarea>

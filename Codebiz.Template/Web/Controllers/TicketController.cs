@@ -128,7 +128,7 @@ namespace Web.Controllers
                 _ticketService.TakeTicket(id, CurrentUser.AppUserId, CurrentUser.Username);
                 _unitOfWork.SaveChanges();
                 ajaxResult.Message = "Ticket has been successfully taken this ticket!";
-                Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}].");
+                Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}].", LogEventTitles.TicketTaken);
             }
             catch (DbUpdateException dbEx)
             {
@@ -159,10 +159,14 @@ namespace Web.Controllers
                 if (!string.IsNullOrEmpty(model.Email) && !model.IsInternal)
                 {
                     SendEmail(model.Email,model.Comment,model.Title);
+                    if (model.IsResolved)
+                    {
+                        SendEmail(model.Email, "Your ticket no. "+model.TicketNo+" has beed resolved by "+CurrentUser.Username, model.Title);
+                    }
                 }
               
                 ajaxResult.Message = "You have successfully submitted a comment!";
-                Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}].");
+                Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}].", ajaxResult.LogEventTitle);
             }
             catch (DbUpdateException dbEx)
             {
@@ -189,12 +193,13 @@ namespace Web.Controllers
             var action = "resolve";
             try
             {
-                var isResolved = _ticketService.ResolveOrReopenTicket(id, CurrentUser.AppUserId, CurrentUser.Username);
-                ajaxResult.LogEventTitle = isResolved ? LogEventTitles.TicketResolved : LogEventTitles.TicketReopened;
-                action = isResolved ? "resolve" : "reopen";
+                var ticket = _ticketService.ResolveOrReopenTicket(id, CurrentUser.AppUserId, CurrentUser.Username);
+                ajaxResult.LogEventTitle = ticket.TicketStatus=="R" ? LogEventTitles.TicketResolved : LogEventTitles.TicketReopened;
+                action = ticket.TicketStatus == "R" ? "resolve" : "reopen";
                 _unitOfWork.SaveChanges();
+                SendEmail(ticket.AppUserClient.Email, "Your ticket no. " + ticket.TicketNo + " has been "+action == "resolve" ? "resolved":"reopened"+" by " + CurrentUser.Username, ticket.Title);
                 ajaxResult.Message = "You have successfully "+action+" a ticket!";
-                Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}].");
+                Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}].", ajaxResult.LogEventTitle);
             }
             catch (DbUpdateException dbEx)
             {

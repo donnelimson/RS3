@@ -330,7 +330,7 @@ namespace Web.Controllers
         {
             AjaxResult ajaxResult = new AjaxResult();
             var isActive = true;
-
+         
             try
             {
                 var appUser = _appUserServices.GetById(id);
@@ -339,16 +339,16 @@ namespace Web.Controllers
                     appUser.IsActive = !appUser.IsActive;
                     _appUserServices.InsertOrUpdate(appUser, CurrentUser.AppUserId);
                     _unitOfWork.SaveChanges();
-
-                    var activeMessage = appUser.IsActive ? "reactivated" : "deactivated";
+                    ajaxResult.LogEventTitle = appUser.IsActive ? LogEventTitles.AppUserActivated : LogEventTitles.AppUserDeactivated;
+                     var activeMessage = appUser.IsActive ? "reactivated" : "deactivated";
                     ajaxResult.Message = $"App User has been successfully {activeMessage}";
-                    Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", LogEventTitles.PositionActivated);
+                    Logger.Info($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", ajaxResult.LogEventTitle);
                 }
                 else
                 {
                     ajaxResult.Success = false;
                     ajaxResult.Message = $"App User not found!";
-                    Logger.Info($"App User not found!", LogEventTitles.PositionActivated);
+                    Logger.Info($"App User not found!", ajaxResult.LogEventTitle);
                 }
             }
             catch (DbUpdateException dbEx)
@@ -356,14 +356,14 @@ namespace Web.Controllers
                 var activeMessage = isActive ? "reactivate" : "deactivate";
                 ajaxResult.Success = false;
                 ajaxResult.Message = $"Failed to {activeMessage} appUser! [{(dbEx.InnerException == null ? dbEx.Message : dbEx.InnerException.Message)}]";
-                Logger.Error($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", (dbEx.InnerException == null ? dbEx.Message : dbEx.InnerException.Message));
+                Logger.Error($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", (dbEx.InnerException == null ? dbEx.Message : dbEx.InnerException.Message), ajaxResult.LogEventTitle);
             }
             catch (Exception ex)
             {
                 var activeMessage = isActive ? "reactivate" : "deactivate";
                 ajaxResult.Success = false;
                 ajaxResult.Message = $"Failed to {activeMessage} appUser! [{(ex.InnerException == null ? ex.Message : ex.InnerException.Message)}]";
-                Logger.Error($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", (ex.InnerException == null ? ex.Message : ex.InnerException.Message));
+                Logger.Error($"{ajaxResult.Message}. UserId : [{CurrentUser.AppUserId}]", (ex.InnerException == null ? ex.Message : ex.InnerException.Message), ajaxResult.LogEventTitle);
             }
 
             return Json(new

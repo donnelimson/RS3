@@ -24,7 +24,7 @@ namespace Infrastructure.Services.Common
         ViewTicketDTO GetTicketDetailsById(int id, UrlHelper Url);
         IPagedList<TicketCFLDTO> GetMyTickets(LookUpFilter filter, int currentAppuserId);
         void SubmitComment(CommentAddDTO model, int currentAppuserId, string currentUsername);
-        bool ResolveOrReopenTicket(int id, int currentAppuserId, string currentUserName);
+        Ticket ResolveOrReopenTicket(int id, int currentAppuserId, string currentUserName);
         void TakeTicket(int id, int currentAppUserId, string currentUserName);
         bool CheckIfClientOwnTicket(int id, int currentAppUserId);
     }
@@ -82,6 +82,7 @@ namespace Infrastructure.Services.Common
             if (model.IsResolved)
             {
                 ticket.TicketStatus = "R";
+                InsertTicketLog(ticket, currentUserName + " resolved the ticket" + (model.IsInternal ? "(internal)" : ""), currentAppuserId, model.IsInternal);
             }
             ticket.Comments.Add(new TicketComment
             {
@@ -89,6 +90,7 @@ namespace Infrastructure.Services.Common
                 Comment = model.Comment,
                 IsInternal = model.IsInternal
             });
+            model.TicketNo = ticket.TicketNo;
             model.Title = ticket.Title;
             model.Email = ticket.AppUserClient == null ? ticket.GuessClientEmail : ticket.AppUserClient.Email;
             InsertTicketLog(ticket, currentUserName + " commented on the ticket"+(model.IsInternal ? "(internal)":""), currentAppuserId, model.IsInternal);
@@ -170,7 +172,7 @@ namespace Infrastructure.Services.Common
                 data = null;
             return data;
         }
-        public bool ResolveOrReopenTicket(int id, int currentAppuserId, string currentUserName)
+        public Ticket ResolveOrReopenTicket(int id, int currentAppuserId, string currentUserName)
         {
             var ticket = _ticketRepository.GetById(id);
             var action = "";
@@ -188,7 +190,7 @@ namespace Infrastructure.Services.Common
             ticket.ModifiedOn = DateTime.Now;
             InsertTicketLog(ticket, currentUserName + " "+ action+" the ticket", currentAppuserId);
             _ticketRepository.InsertOrUpdate(ticket);
-            return ticket.TicketStatus == "R";
+            return ticket;
         }
         public IPagedList<TicketCFLDTO> GetMyTickets(LookUpFilter filter, int currentAppuserId)
         {

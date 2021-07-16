@@ -86,6 +86,7 @@ namespace Codebiz.Domain.Common.Model.DTOs.RS3
         public string Title { get; set; }
         public string Email { get; set; }
         public bool IsInternal { get; set; } = false;
+        public string TicketNo { get; set; }
 
     }
     public class LogsDTO

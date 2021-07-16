@@ -91,11 +91,16 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
             ClientId: null,
             TechnicianId:null
         }
+        $scope.setEdit = function (canEdit) {
+            if (canEdit) {
+                $scope.editable = true;
+            }
+        }
         $scope.resolveOrReopen = function () {
             var action = $scope.m.IsResolved ? 're-open' : 'resolve';
             swal({
                 title: "Comfirm Action",
-                text: "Are you sure to "+action+" this comment?",
+                text: "Are you sure to "+action+" this ticket?",
                 type: "info",
                 showCancelButton: true,
                 confirmButtonColor: "#1ab394",
@@ -106,7 +111,7 @@ MetronicApp.controller('TicketAddOrUpdateController', ['$scope', 'TicketService'
                     TicketService.ResolveOrReopenTicket({ id: $scope.m.Id}).then(function (d) {
                         if (d.Success) {
                             CommonService.successMessage(d.Message);
-                            GetTicketUpdates();
+                            $scope.GetTicketUpdates();
                         }
                         else {
                             CommonService.warningMessage(d.Message);
