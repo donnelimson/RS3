@@ -287,7 +287,47 @@ namespace Web.Controllers
             return View();
         }
 
-     
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            var appUser = _appUserServices.GetByEmail(model.Email);
+            if (appUser != null)
+            {
+                if (!appUser.IsActive)
+                    ModelState.AddModelError("Email", "Account is inactive.");
+
+              
+            }
+            else
+            {
+                ModelState.AddModelError("Email", "Email does not exist");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var guid = Guid.NewGuid().ToString();
+
+            var expiryDate = DateTime.Now.AddDays(1);
+
+            appUser.ForgotPasswordUrlParam = guid;
+            appUser.ForgotPasswordExpiryDate = expiryDate;
+
+            _unitOfWork.SaveChanges();
+
+            var activationUrl = _appUserServices.GeneratePasswordResetLink(appUser.ForgotPasswordUrlParam, Url);
+            _appUserServices.SendResetPasswordEmail(appUser, activationUrl, HttpContext.Server.MapPath(_mailTemplatePath));
+
+            CreateSuccessMessage("Please check your email and follow the instructions to reset your password.");
+            Logger.Info("User successfully forgot password. Email : [{0}]", model.Email);
+
+            return RedirectToAction("ForgotPasswordConfirmation");
+        }
+
 
         //
         // GET: /Account/ForgotPasswordConfirmation
@@ -309,8 +349,52 @@ namespace Web.Controllers
 
             return View();
         }
+        // POST: /Account/ResetPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            var appUser = _appUserServices.GetByEmailOrUsername(model.Username);
+            if (appUser != null)
+            {
+                if (!appUser.IsActive)
+                    ModelState.AddModelError("Username", "Account is inactive.");
 
-  
+                if (appUser.ForgotPasswordUrlParam != model.Code)
+                {
+                    ModelState.AddModelError("", "Account and code is invalid.");
+                }
+
+                if (appUser.ForgotPasswordExpiryDate < DateTime.Now)
+                {
+                    ModelState.AddModelError("", "Code is already expired.");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("Username", "Account does not exist");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var passHash = _hashHelper.ComputeHash(Guid.NewGuid().ToString());
+            appUser.PasswordHash = _appUserServices.HashPassword(model.Password, passHash) + ":" + passHash;
+
+            _unitOfWork.SaveChanges();
+
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+            CreateSuccessMessage("Reset password successfully!");
+            Logger.Info("Successful reset password. Username : [{0}]", model.Username);
+
+            return RedirectToAction("Login", "Account");
+        }
+
+
 
         //[HttpGet,Authorize]
         public ActionResult _ProfileSidebar(string username)

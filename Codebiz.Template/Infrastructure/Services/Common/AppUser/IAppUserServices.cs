@@ -196,7 +196,7 @@ namespace Infrastructure.Services
         }
         public AppUser GetByEmail(string email)
         {
-            return _appUserRepository.GetAll.Where(a => a.Employee.Email == email && a.IsActive).FirstOrDefault();
+            return _appUserRepository.GetAll.Where(a => a.Email == email && a.IsActive).FirstOrDefault();
         }
         public AppUser GetByEmailOrUsername(string emailOrUsername, Expression<Func<AppUser, object>>[] includeProperties = null)
         {
@@ -207,7 +207,7 @@ namespace Infrastructure.Services
                 query = _appUserRepository.GetAllIncluding(includeProperties);
             }
 
-            return query.Where(a => a.Username == emailOrUsername || a.Employee.Email == emailOrUsername).FirstOrDefault();
+            return query.Where(a => a.Username == emailOrUsername || a.Email == emailOrUsername).FirstOrDefault();
         }
 
         public IPagedList<AppUserDTO> SearchAppUser(AppUserFilter filter)
@@ -343,7 +343,7 @@ namespace Infrastructure.Services
             content = content.Replace("[ExpirationDate]", entity.ForgotPasswordExpiryDate.Value.ToString());
 
             return _emailHelper.SendEmail(content, "Password Reset - Communitech",
-                new List<MailAddress> { new MailAddress(entity.Employee.Email) });
+                new List<MailAddress> { new MailAddress(entity.Email) });
         }
         public void SendResetPasswordLink(int id, int currentAppUserId, UrlHelper urlHelper, HttpContextBase httpContext)
         {
