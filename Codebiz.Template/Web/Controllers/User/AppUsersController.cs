@@ -233,12 +233,6 @@ namespace Web.Controllers
                     ajaxResult.Message = $"Username already exists!";
                 }
                 
-                if (_appUserServices.CheckIfEmployeeExist(model.AppUserId, model.EmployeeId.HasValue ? model.EmployeeId.Value : 0))
-                {
-                    ajaxResult.Success = false;
-                    ajaxResult.Message = $"Employee already has user!";
-                }
-
                 if (ajaxResult.Success)
                 {
                     var appUser = _appUserServices.AddOrUpdateAppUser(model, CurrentUser.AppUserId);

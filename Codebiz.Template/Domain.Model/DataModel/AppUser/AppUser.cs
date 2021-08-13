@@ -61,6 +61,9 @@ namespace Codebiz.Domain.Common.Model
 
         [MaxLength(2000)]
         public string UnlockUrlParam { get; set; }
+
+        [MaxLength(2000)]
+        public string ActivationUrlParam { get; set; }
         public string VerificationCode { get; set; }
 
         public bool? IsLocalNetworkUser { get; set; }

@@ -2,6 +2,7 @@
 using Codebiz.Domain.Common.Model.Enums;
 using Codebiz.Domain.ERP.Context.SeedData;
 using Infrastructure;
+using Infrastructure.Models.ViewModels;
 using Infrastructure.Services;
 using Infrastructure.Utilities;
 using Logging;
@@ -260,9 +261,21 @@ namespace Web.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> Activate()
+        public ActionResult Activate(string activateUrlParam)
         {
-            return View();
+            var appuser = _appUserServices.GetAppUserByActivationUrlParam(activateUrlParam);
+            var activationModel = new ActivateViewModel();
+            if (appuser != null)
+            {
+                appuser.IsActive = true;
+                _unitOfWork.SaveChanges();
+                activationModel = new ActivateViewModel
+                {
+                    FullName = appuser.FullName +" "+appuser.LastName,
+                    Username = appuser.Username
+                };
+            }
+            return View(activationModel);
         }
       
 
@@ -286,6 +299,52 @@ namespace Web.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
+        public ActionResult SignUp()
+        {
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SignUp(SignUpViewModel model)
+        {
+            var emailExists = _appUserServices.IsEmailExists(model.Email);
+            var usernameExists = _appUserServices.IsUsernameExists(model.UserName);
+            if (emailExists)
+            {
+                ModelState.AddModelError("Email", "Email already exist");
+            }
+            if(usernameExists)
+            {
+                ModelState.AddModelError("UserName", "Username already exist");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var signUpModel = new AppUserAddOrUpdateViewModel
+            {
+                IsActive=false,
+                Email = model.Email,
+                FirstName= model.FirstName,
+                LastName = model.LastName,
+                MiddleName = model.MiddleName,
+                Username= model.UserName,
+            };
+            var appUser = _appUserServices.AddOrUpdateAppUser(signUpModel, 1);
+            appUser.PasswordHash = "07d8cada9b0b50464914625cb1a28a47e7e95afb:2b37f7a149ae82552504732b5df3201c263eb45e";
+            var guid = Guid.NewGuid().ToString();
+            appUser.ActivationUrlParam = guid;
+            _unitOfWork.SaveChanges();
+            _appUserServices.SendActivationEmail(appUser, "asdf1234", _appUserServices.GenerateActivateUserLink(Url,guid), HttpContext.Server.MapPath(_mailTemplatePath));
+            CreateSuccessMessage("Successfully registered, please wait for administrator to confirm your registration.");
+            Logger.Info("User successfully registered. Username : [{0}]", model.UserName);
+
+            return RedirectToAction("SignUpConfirmation");
+        }
+
 
         [HttpPost]
         [AllowAnonymous]
@@ -336,6 +395,11 @@ namespace Web.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
+        public ActionResult SignUpConfirmation()
+        {
+            return View();
+        }
 
 
         // GET: /Account/ResetPassword
@@ -350,10 +414,8 @@ namespace Web.Controllers
             return View();
         }
         // POST: /Account/ResetPassword
-        [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public ActionResult ResetPassword(ResetPasswordViewModel model)
         {
             var appUser = _appUserServices.GetByEmailOrUsername(model.Username);
             if (appUser != null)

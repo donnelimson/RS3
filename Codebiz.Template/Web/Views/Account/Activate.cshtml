@@ -1,0 +1,22 @@
+﻿@using Web.Models
+@model ActivateViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutBasic.cshtml";
+    ViewBag.Title = "User Activation";
+}
+<!-- BEGIN LOGO -->
+<div class="logo">
+    <a href="index.html">
+        <img src="@Url.Content("~/Content/Image/mainlogocommwithshadow.png")" alt="" />
+    </a>
+</div>
+<!-- END LOGO -->
+<!-- BEGIN LOGIN -->
+<div class="content">
+    <h3 class="font-green">Registration Completed</h3>
+    <p>User @Model.Username (@Model.FullName) is active now.  </p>
+</div>
+<div class="copyright"> @DateTime.Now.Year ©  COMMUNITECH </div>
+
+
+

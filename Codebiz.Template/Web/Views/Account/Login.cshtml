@@ -12,7 +12,7 @@
 <!-- BEGIN LOGIN -->
 <div class="content">
     <!-- BEGIN LOGIN FORM -->
-    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form" , role = "form", novalidate = "", noconfirmation = "", autocomplete = "off" }))
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form", role = "form", novalidate = "", noconfirmation = "", autocomplete = "off" }))
     {
         @Html.AntiForgeryToken()
         <h3 class="form-title" style="color: #e6a83b;">Sign In</h3>
@@ -30,18 +30,15 @@
             <label class="control-label visible-ie8 visible-ie9">Password</label>
             @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-solid placeholder-no-fix txtPassword", placeholder = "Password", autocomplete = "new-password" })
             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-        </div>  
+        </div>
 
         <div class="form-actions">
-            @*<button class="btn green uppercase" id="lgnbtn" onclick="checkUserPendingLogin()">Login</button>*@
-            <input type="button" id="btnLogin" class="btn  uppercase" onclick="checkUserPendingLogin()" value="Login" style="background-color:#e6a83b; color:white;"/>
-            @*<label class="rememberme check mt-checkbox mt-checkbox-outline">
-                <input type="checkbox" name="remember" value="1" />Remember
-                <span></span>
-            </label>*@
-            @*<a href="javascript:;" id="forget-password" class="forget-password">Forgot Password?</a>*@
-            <a href="@Url.Action("ForgotPassword")" class="forget-password">Forgot Password?</a>
+            <input type="button" id="btnLogin" class="btn  uppercase" onclick="checkUserPendingLogin()" value="Login" style="background-color:#e6a83b; color:white;" />
+            <a href="@Url.Action("ForgotPassword")" style="float:right">Forgot Password?</a><br />
+            <a href="@Url.Action("SignUp")" style="float:right">Sign Up</a>
         </div>
+
+ 
     }
     <!-- END LOGIN FORM -->
     <!-- BEGIN FORGOT PASSWORD FORM -->

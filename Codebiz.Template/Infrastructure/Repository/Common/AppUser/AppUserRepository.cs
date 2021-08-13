@@ -33,7 +33,10 @@ namespace Infrastructure.Repository
                 this.Context.Entry(entity).State = EntityState.Modified;
             }
         }
-
+        public AppUser GetAppUserByActivationUrlParam(string activationUrlParam)
+        {
+            return GetAll.Where(x => x.ActivationUrlParam == activationUrlParam).FirstOrDefault();
+        }
         public AppUser GetById(int id)
         {
             return GetAll.FirstOrDefault(a => a.AppUserId == id);
@@ -53,10 +56,18 @@ namespace Infrastructure.Repository
         {
             return GetAll.Any(a => a.Username == username && a.AppUserId != appUserId);
         }
+        public bool IsUsernameExists(string username)
+        {
+            return GetAll.Any(a => a.Username == username);
+        }
 
         public bool IsEmailExists(string email, int appUserId)
         {
             return GetAll.Any(a => a.Employee.Email == email && a.AppUserId != appUserId);
+        }
+        public bool IsEmailExists(string email)
+        {
+            return GetAll.Any(a => a.Email == email);
         }
 
         public IPagedList<AppUserDTO> SearchAppUser(AppUserFilter filter)
@@ -265,6 +276,10 @@ namespace Infrastructure.Repository
             });
             dataDTO = QueryHelper.Ordering(dataDTO, filter.SortColumn, filter.SortDirection != "asc", false);
             return dataDTO.ToPagedList(filter.Page, filter.PageSize);
+        }
+        public List<string> GetEmailsOfAdministrators()
+        {
+            return GetAll.Where(x => x.RoleId == 1).Select(a => a.Email).ToList();
         }
     }
 }

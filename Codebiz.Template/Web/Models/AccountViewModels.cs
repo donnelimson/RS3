@@ -62,28 +62,7 @@ namespace Web.Models
         public static int retryCount = 0;
     }
 
-    public class ActivateViewModel
-    {
-        [Required]
-        [Display(Name = "Username")]
-        public string Username { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "New Password")]
-        public string NewPassword { get; set; }
-
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm New Password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
-        public string ConfirmNewPassword { get; set; }
-    }
 
     public class RegisterViewModel
     {
@@ -143,6 +122,30 @@ namespace Web.Models
         public string VerificationCode { get; set; }
 
         
+    }
+    public class ActivateViewModel
+    {
+        public string Username { get; set; }
+        public string FullName { get; set; }
+    }
+    public class SignUpViewModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+        [Required]
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Middle Name")]
+        public string MiddleName { get; set; }
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
     }
 
 }

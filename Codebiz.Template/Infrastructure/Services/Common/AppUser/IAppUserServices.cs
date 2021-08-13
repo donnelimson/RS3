@@ -35,7 +35,7 @@ namespace Infrastructure.Services
         void InsertOrUpdate(AppUser entity, int appUserId);
         void Delete(AppUser entity, int appUserId);
         AppUser AddOrUpdateAppUser(AppUserAddOrUpdateViewModel model, int currentAppUserId);
-
+        bool IsUsernameExists(string username);
         AppUser GetById(int id);
         AppUser GetActiveById(int id);
         List<AppUser> GetAllByIds(List<int> ids);
@@ -51,6 +51,7 @@ namespace Infrastructure.Services
 
         bool IsUsernameExists(string username, int appUserId);
         bool IsEmailExists(string username, int appUserId);
+        bool IsEmailExists(string email);
         bool CheckUsernameIfExist(string username);
         bool CheckIfEmployeeExist(int appUserId, int employeeId);
         bool CheckEmailIfExist(string email);
@@ -58,11 +59,11 @@ namespace Infrastructure.Services
         bool ValidatePassword(AppUser entity, string password);
         string HashPassword(string password, string salt);
 
-        string GenerateActivateUserLink(UrlHelper urlHelper);
+        string GenerateActivateUserLink(UrlHelper urlHelper, string guid);
         string GeneratePasswordResetLink(string code, UrlHelper urlHelper);
         string GenerateUnlockUserLink(string code, UrlHelper urlHelper);
 
-        //bool SendActivationEmail(AppUser entity, string tempPassword, string activationUrl, string mailTemplatePath);
+        bool SendActivationEmail(AppUser entity, string tempPassword, string activationUrl, string mailTemplatePath);
         //void ResendActivationLink(int id, int currentAppUserId, UrlHelper urlHelper, HttpContextBase httpContextBase);
         bool SendResetPasswordEmail(AppUser entity, string resetPasswordUrl, string mailTemplatePath);
         void SendResetPasswordLink(int id, int currentAppUserId, UrlHelper urlHelper, HttpContextBase httpContext);
@@ -78,6 +79,7 @@ namespace Infrastructure.Services
         int RandomNumber(int min, int max);
         string RandomString(int size, bool lowerCase);
         IPagedList<AppuserDTOForCFL> GetAllAppuserForCFL(LookUpFilter filter, int? roleId);
+        AppUser GetAppUserByActivationUrlParam(string activationUrlParam);
 
     }
 
@@ -137,6 +139,10 @@ namespace Infrastructure.Services
             entity.IsActive = false;
 
             _appUserRepository.InsertOrUpdate(entity);
+        }
+        public AppUser GetAppUserByActivationUrlParam(string activationUrlParam)
+        {
+            return _appUserRepository.GetAppUserByActivationUrlParam(activationUrlParam);
         }
         public AppUser AddOrUpdateAppUser(AppUserAddOrUpdateViewModel model, int currentAppUserId)
         {
@@ -223,6 +229,14 @@ namespace Infrastructure.Services
         {
             return _appUserRepository.IsEmailExists(username, appUserId);
         }
+        public bool  IsEmailExists(string email)
+        {
+            return _appUserRepository.IsEmailExists(email);
+        }
+        public bool IsUsernameExists(string username)
+        {
+            return _appUserRepository.IsUsernameExists(username);
+        }
         public bool CheckUsernameIfExist(string username)
         {
             return _appUserRepository.GetAll.Any(a => a.Username == username && a.IsActive);
@@ -266,60 +280,38 @@ namespace Infrastructure.Services
             return _hashHelper.ComputeHash(password + salt + password);
         }
 
-        public string GenerateActivateUserLink(UrlHelper urlHelper)
+        public string GenerateActivateUserLink(UrlHelper urlHelper, string guid)
         {
-            return _configSettingService.GetStringValueById((int)ConfigurationSettings.SitePublicBaseUrl).TrimEnd('/') + "/Account/Activate"; //Always use Site public base url for link
+            //return _configSettingService.GetStringValueById((int)ConfigurationSettings.SitePublicBaseUrl).TrimEnd('/') + "/Account/Activate"; //Always use Site public base url for link
+            return _configSettingService.GetStringValueById((int)ConfigurationSettings.SiteLocalNetworkBaseUrl).TrimEnd('/') + "/Account/Activate?activateUrlParam=" + guid; //Always use Site public base url for link
         }
         public string GeneratePasswordResetLink(string code, UrlHelper urlHelper)
         {
-            return _configSettingService.GetStringValueById((int)ConfigurationSettings.SitePublicBaseUrl).TrimEnd('/') + "/Account/ResetPassword?code=" + code; //Always use Site public base url for link
+            //return _configSettingService.GetStringValueById((int)ConfigurationSettings.SitePublicBaseUrl).TrimEnd('/') + "/Account/ResetPassword?code=" + code; //Always use Site public base url for link
+            return _configSettingService.GetStringValueById((int)ConfigurationSettings.SiteLocalNetworkBaseUrl).TrimEnd('/') + "/Account/ResetPassword?code=" + code; //Always use Site public base url for link
         }
         public string GenerateUnlockUserLink(string code, UrlHelper urlHelper)
         {
             return _configSettingService.GetStringValueById((int)ConfigurationSettings.SitePublicBaseUrl).TrimEnd('/') + "/Account/Unlock?code=" + code; //Always use Site public base url for link
         }
-        //public bool SendActivationEmail(AppUser entity, string tempPassword, string activationUrl, string mailTemplatePath)
-        //{
-        //    var employee = entity.EmployeeId.HasValue ? _employeeRepository.GetById(entity.EmployeeId.Value) : null;
-        //    if (employee != null)
-        //    {
-        //        const string mailtemplate = "NewUserAccountActivation.html";
-        //        string content = File.ReadAllText(Path.Combine(mailTemplatePath, mailtemplate));
-        //        var records = new List<AccessRightDTO>();
-        //        var data = entity.UserGroups.SelectMany(a => a.Permissions).OrderBy(x => x.PermissionGroupId);
+        public bool SendActivationEmail(AppUser entity, string tempPassword, string activationUrl, string mailTemplatePath)
+        {
+            var appuser = entity;
+            if (appuser != null)
+            {
+                const string mailtemplate = "NewUserAccountActivation.html";
+                string content = File.ReadAllText(Path.Combine(mailTemplatePath, mailtemplate));
+                content = content.Replace("[Fullname]", appuser.FirstName + " " + appuser.LastName);
+                content = content.Replace("[Link]", activationUrl);
+                content = content.Replace("[Username]", entity.Username);
+                content = content.Replace("[Password]", tempPassword);
+                //content = content.Replace("[Access Right]", displayRecord);
+                var emails = _appUserRepository.GetEmailsOfAdministrators();
+                return _emailHelper.SendEmail(content, "User Account Activation - COMMUNITECH", emails);
+            }
 
-        //        foreach (var item in data)
-        //        {
-        //            var permissionGroup = records.FirstOrDefault(p => p.Name == item.PermissionGroup.Name);
-        //            if (permissionGroup == null)
-        //            {
-        //                permissionGroup = new AccessRightDTO
-        //                {
-        //                    Name = item.PermissionGroup.Name,
-        //                    Permissions = new List<string>()
-        //                };
-        //                records.Add(permissionGroup);
-        //            }
-        //        }
-
-        //        var recorddata = records.ToList().Select(p => new { p.Name, Permissions = string.Join(",", p.Permissions.ToList()) });
-        //        var displayRecord = string.Join("<br />", recorddata.Select(p => p.Name + " - [" + p.Permissions + "]"));
-
-        //        content = content.Replace("[Fullname]", employee.FirstName + " " + employee.LastName);
-        //        content = content.Replace("[Link]", activationUrl);
-        //        content = content.Replace("[Username]", entity.Username);
-        //        content = content.Replace("[Password]", tempPassword);
-        //        content = content.Replace("[Office]", employee.Office?.Name);
-        //        content = content.Replace("[Department]", employee.Department?.Name);
-        //        content = content.Replace("[Position]", employee.Position?.Name);
-        //        content = content.Replace("[Division]", employee.Division?.Name);
-        //        content = content.Replace("[Active]", entity.IsActive ? "YES" : "NO");
-        //        content = content.Replace("[Access Right]", displayRecord);
-        //        return _emailHelper.SendEmail(content, "User Account Activation - TARELCO 1", new List<MailAddress> { new MailAddress(employee.Email) });
-        //    }
-
-        //    return false;
-        //}
+            return false;
+        }
         //public void ResendActivationLink(int id, int currentAppUserId, UrlHelper urlHelper, HttpContextBase httpContextBase)
         //{
         //    var appUser = GetById(id);

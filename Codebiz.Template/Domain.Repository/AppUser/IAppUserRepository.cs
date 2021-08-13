@@ -16,7 +16,9 @@ namespace Codebiz.Domain.Repository
 
 
         bool IsUsernameExists(string username, int appUserId);
+        bool IsUsernameExists(string username);
         bool IsEmailExists(string email, int appUserId);
+        bool IsEmailExists(string email);
 
         IPagedList<AppUserDTO> SearchAppUser(AppUserFilter filter);
         IEnumerable<AppUserToExcel> GetDataForExportingToExcel(AppUserFilter filter);
@@ -24,6 +26,7 @@ namespace Codebiz.Domain.Repository
 
         List<AppUser> GetAllUserByDepartmentAndDivision(int appUSerId, int? officeId, int? departmentId, int? divisionId, int? divisionCategoryId);
         IPagedList<AppuserDTOForCFL> GetAllAppuserForCFL(LookUpFilter filter, int? roleId);
-
+        List<string> GetEmailsOfAdministrators();
+        AppUser GetAppUserByActivationUrlParam(string activationUrlParam);
     }
 }

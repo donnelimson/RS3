@@ -758,6 +758,9 @@
     <Content Include="Views\ChooseFromList\GetLookup.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_InternalLogs.cshtml" />
+    <Content Include="Views\Account\SignUp.cshtml" />
+    <Content Include="Views\Account\SignUpConfirmation.cshtml" />
+    <Content Include="Views\Account\Activate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
