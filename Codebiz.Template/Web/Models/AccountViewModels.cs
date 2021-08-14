@@ -86,7 +86,7 @@ namespace Web.Models
     public class ResetPasswordViewModel
     {
         [Required]
-        [Display(Name = "Username")]
+        [Display(Name = "Username / Email")]
         public string Username { get; set; }
 
         [Required]

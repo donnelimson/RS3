@@ -287,8 +287,8 @@ namespace Infrastructure.Services
         }
         public string GeneratePasswordResetLink(string code, UrlHelper urlHelper)
         {
-            return _configSettingService.GetStringValueById((int)ConfigurationSettings.SitePublicBaseUrl).TrimEnd('/') + "/Account/ResetPassword?code=" + code; //Always use Site public base url for link
-            //return _configSettingService.GetStringValueById((int)ConfigurationSettings.SiteLocalNetworkBaseUrl).TrimEnd('/') + "/Account/ResetPassword?code=" + code; //Always use Site public base url for link
+            //return _configSettingService.GetStringValueById((int)ConfigurationSettings.SitePublicBaseUrl).TrimEnd('/') + "/Account/ResetPassword?code=" + code; //Always use Site public base url for link
+            return _configSettingService.GetStringValueById((int)ConfigurationSettings.SiteLocalNetworkBaseUrl).TrimEnd('/') + "/Account/ResetPassword?code=" + code; //Always use Site public base url for link
         }
         public string GenerateUnlockUserLink(string code, UrlHelper urlHelper)
         {

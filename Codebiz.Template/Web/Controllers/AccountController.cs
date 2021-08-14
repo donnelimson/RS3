@@ -402,17 +402,7 @@ namespace Web.Controllers
         }
 
 
-        // GET: /Account/ResetPassword
-        [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
-        {
-            if (string.IsNullOrEmpty(code))
-            {
-                return HttpNotFound("Empty code");
-            }
-
-            return View();
-        }
+       
         // POST: /Account/ResetPassword
         [AllowAnonymous]
         public ActionResult ResetPassword(ResetPasswordViewModel model)
