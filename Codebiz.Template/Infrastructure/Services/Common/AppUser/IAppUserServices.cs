@@ -282,7 +282,7 @@ namespace Infrastructure.Services
 
         public string GenerateActivateUserLink(UrlHelper urlHelper, string guid)
         {
-            return _configSettingService.GetStringValueById((int)ConfigurationSettings.SiteLocalNetworkBaseUrl).TrimEnd('/') + "/Account/Activate?activateUrlParam=" + guid; //Always use Site public base url for link
+            return _configSettingService.GetStringValueById((int)ConfigurationSettings.SitePublicBaseUrl).TrimEnd('/') + "/Account/Activate?activateUrlParam=" + guid; //Always use Site public base url for link
             //return _configSettingService.GetStringValueById((int)ConfigurationSettings.SiteLocalNetworkBaseUrl).TrimEnd('/') + "/Account/Activate?activateUrlParam=" + guid; //Always use Site public base url for link
         }
         public string GeneratePasswordResetLink(string code, UrlHelper urlHelper)
