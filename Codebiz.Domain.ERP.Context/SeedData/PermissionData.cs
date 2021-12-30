@@ -395,21 +395,7 @@
         #endregion
 
         #endregion
-        #region rs3
-        public const string UserCanCreateTicket = "TCK1";
-        public const string UserCanEditTicket = "TCK2";
-        public const string UserCanDeleteTicket = "TCK3";
-        public const string UserCanAssignTicket = "TCK4";
-        public const string UserCanMoveTicket = "TCK5";
-        public const string UserCanTakeTicket = "TCK6";
-        public const string UserCanViewTicketList = "TCK7";
-        public const string UserCanViewTicket = "TCK8";
-        public const string UserCanSetTicketPriority = "TCK9";
-        public const string UserCanResolveOrReopenTicket = "TCK10";
-        public const string UserCanSeeInternalLogs = "TCK11";
-        #region ticket
-        #endregion
-        #endregion
+
 
 
     }

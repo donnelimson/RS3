@@ -66,7 +66,6 @@ namespace Codebiz.Domain.ERP.Context.SeedData
          //   context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Divisions, Controller = "Division", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 19 });
 
 
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Tickets, Controller = "Ticket", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 29 });
 
 
             context.SaveChanges();

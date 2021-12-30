@@ -1,7 +1,6 @@
 ﻿using Codebiz.Domain.Common.Model;
 using Codebiz.Domain.Common.Model.DTOs;
 using Codebiz.Domain.Common.Model.DTOs.ExportToExcel;
-using Codebiz.Domain.Common.Model.DTOs.RS3;
 using Codebiz.Domain.Common.Model.Filter;
 using PagedList;
 using System.Collections.Generic;
@@ -25,7 +24,6 @@ namespace Codebiz.Domain.Repository
         IPagedList<AppUserSearchDTO> SearchAppUserForLookup(LookUpFilter filter, bool isDriver);
 
         List<AppUser> GetAllUserByDepartmentAndDivision(int appUSerId, int? officeId, int? departmentId, int? divisionId, int? divisionCategoryId);
-        IPagedList<AppuserDTOForCFL> GetAllAppuserForCFL(LookUpFilter filter, int? roleId);
         List<string> GetEmailsOfAdministrators();
         AppUser GetAppUserByActivationUrlParam(string activationUrlParam);
     }

@@ -151,14 +151,7 @@ namespace Codebiz.Domain.ERP.Context
         public IDbSet<Role> Roles { get; set; }
 
         #endregion
-        #region ticket
-        public IDbSet<Ticket> Tickets { get; set; }
-        public IDbSet<Subticket> Subtickets { get; set; }
-        public IDbSet<TicketComment> TicketComments { get; set; }
-        public IDbSet<TicketAttachment> TicketAttachments { get; set; }
-        public IDbSet<TicketLog> TicketLogs { get; set; }
 
-        #endregion
         #endregion
         #region to verify models
         public IDbSet<ApprovalStatus> ApprovalStatuses { get; set; }

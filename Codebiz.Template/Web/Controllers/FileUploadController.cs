@@ -37,214 +37,11 @@ namespace Web.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public JsonResult UploadTicketAttachments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.TicketAttachmentFolder.ToString()).Value;
-
-            return Upload();
-        }
-        [HttpPost]
-        public JsonResult UploadConsumerAccountsSupportingDocuments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.MemberSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-        [HttpPost]
-        public JsonResult UploadContestableApplicationSupportingDocuments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.ContestableApplicationFolder.ToString()).Value;
-
-            return Upload();
-        }
-        [HttpPost]
-        public JsonResult UploadTransfomerRentalSupportingDocuments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.TransformerRentalFolder.ToString()).Value;
-
-            return Upload();
-        }
-        [HttpPost]
-        public JsonResult UploadSpecialLightingSupportingDocuments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.SpecialLightingSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-        [HttpPost]
-        public JsonResult UploadBillingAdjustmentSupportingDocuments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.BillingAdjustmentAttachmentFolder.ToString()).Value;
-
-            return Upload();
-        }
-        [HttpPost]
-        public JsonResult UploadChangeOfMeterSupportingDocuments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.ChangeOfMeterSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
 
         [HttpPost]
-        public JsonResult UploadAccountsSupportingDocuments()
+        public JsonResult UploadProductPhotos()
         {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.AccountSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-        [HttpPost]
-        public JsonResult UploadItemMasterDataAttachment()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.ItemMasterDataAttachment.ToString()).Value;
-
-            return Upload();
-        }
-
-        [HttpPost]
-        public JsonResult UploadSalesInvoiceDataAttachment()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.SalesInvoiceDataAttachment.ToString()).Value;
-
-            return Upload();
-        }
-
-        [HttpPost]
-        public JsonResult UploadInventoryTransferAttachments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.InventoryTransferSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-        [HttpPost]
-        public JsonResult UploadCounterSetupAttachments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.CounterSetupDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-        [HttpPost]
-        public JsonResult UploadInventoryReceivingAttachments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.InventoryReceivingSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-        public JsonResult UploadBusinessPartnerAttachment()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.BusinessPartnerSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-
-        [HttpPost]
-        public JsonResult UploadHwiSupportingDocuments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.HouseWiringInspectionSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-
-        [HttpPost]
-        public JsonResult UploadRequestDiscountApplicationSupportingAttachments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.DiscountApplicationSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-        [HttpPost]
-        public JsonResult UploadRequestCloseAndTransferSupportingAttachments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.CloseAndTransferSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-
-
-        [HttpPost]
-        public JsonResult UploadRequestChangeOfNameAttachments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.ChangeOfNameSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-
-        public JsonResult UploadOtherRequestAttachments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.OtherRequestSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-
-        [HttpPost]
-        public JsonResult UploadRequestReconnectionAttachments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.ReconnectionSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-
-        [HttpPost]
-        public JsonResult UploadRequestDisconnectionAttachments()   
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.DisconnectionSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-        [HttpPost]
-        public JsonResult UploadRequestBurialAssistanceSupportingAttachments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.BurialAssistanceSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-
-        [HttpPost]
-        public JsonResult UploadJobOrderComplaintAttachments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.JobOrderComplaintSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-
-        [HttpPost]
-        public JsonResult UploadMaterialRequestAttachments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.MaterialRequestSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-
-        [HttpPost]
-        public JsonResult UploadRequisitionvoucherAttachments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.RequisitionVoucherSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-
-
-        [HttpPost]
-        public JsonResult UploadJobOrderRequestAttachments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.JobOrderRequestSupportingDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-
-        [HttpPost]
-        public JsonResult UploadProcessJobOrderAttachments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.ProcessJobOrderDocumentsFolder.ToString()).Value;
-
-            return Upload();
-        }
-
-        [HttpPost]
-        public JsonResult UploadCoopVehicleSupportingDocuments()
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.CoopVehicleSupportingDocumentsFolder.ToString()).Value;
+            _folderPath = _configSettingService.GetByName(ConfigurationSettings.ProductPhotoFolder.ToString()).Value;
 
             return Upload();
         }
@@ -838,39 +635,13 @@ namespace Web.Controllers
             }
         }
 
-        public JsonResult UploadMemberPhoto(ImageCropCoordinatesViewModel model)
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.MemberPhotoFolder.ToString()).Value;
-
-            return UploadPhoto(model);
-        }
-
-        public JsonResult UploadMemberSignature(ImageCropCoordinatesViewModel model)
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.MemberSignatureFolder.ToString()).Value;
-
-            return UploadPhoto(model);
-        }
-        public JsonResult UploadWitnessSignature(ImageCropCoordinatesViewModel model)
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.TransformerRentalWitnessSignatureFolder.ToString()).Value;
-
-            return UploadPhoto(model);
-        }
-
         public JsonResult UploadEmployeePhoto(ImageCropCoordinatesViewModel model)
         {
             _folderPath = _configSettingService.GetByName(ConfigurationSettings.EmployeePhotoFolder.ToString()).Value;
 
             return UploadPhoto(model);
         }
-        public JsonResult UploadEmployeeSignature(ImageCropCoordinatesViewModel model)
-        {
-            _folderPath = _configSettingService.GetByName(ConfigurationSettings.EmployeeSignatureFolder.ToString()).Value;
-
-            return UploadPhoto(model);
-        }
-
+ 
         private Bitmap ResizeImage(System.Drawing.Image image, int width, int height)
         {
             var destRect = new Rectangle(0, 0, width, height);

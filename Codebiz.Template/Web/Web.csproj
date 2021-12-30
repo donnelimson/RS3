@@ -367,7 +367,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Controllers\User\AppUserFileUploadController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\Admin\PermissionController.cs" />
@@ -704,7 +703,6 @@
     <Content Include="Scripts\App\Controllers\Employee\EmployeeDriversLicenseCtrl.js" />
     <Content Include="Scripts\App\Controllers\Employee\RestrictionController.js" />
     <Content Include="Scripts\App\Controllers\Employee\SaveFormController.js" />
-    <Content Include="Scripts\App\Controllers\RS3\TicketController.js" />
     <Content Include="Scripts\App\Models\CommonJsModels.js" />
     <Content Include="Scripts\App\Services\ChooseFromListService.js" />
     <Content Include="Scripts\App\Services\EmployeeService.js" />
@@ -744,7 +742,6 @@
     <Content Include="Content\angular-block-ui.min.css" />
     <Content Include="Scripts\App\Services\HttpServices.js" />
     <Content Include="Scripts\App\Services\ReportSignatoryService.js" />
-    <Content Include="Scripts\App\Services\RS3\TicketService.js" />
     <Content Include="SystemReport\Viewer\Receipts\PaymentOR.aspx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -752,8 +749,6 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
-    <Content Include="Views\Ticket\Index.cshtml" />
-    <Content Include="Views\Ticket\ViewTicket.cshtml" />
     <Content Include="Views\Shared\_ChooseFromList.cshtml" />
     <Content Include="Views\ChooseFromList\GetLookup.cshtml" />
     <Content Include="Views\Web.config" />

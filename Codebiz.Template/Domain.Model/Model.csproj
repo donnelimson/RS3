@@ -137,7 +137,6 @@
     <Compile Include="DataModel\Role.cs" />
     <Compile Include="DataModel\SalesEmployee\CommisionGroups.cs" />
     <Compile Include="DataModel\SalesEmployee\SalesEmployee.cs" />
-    <Compile Include="DataModel\Ticket.cs" />
     <Compile Include="DataModel\TransactionNumbering.cs" />
     <Compile Include="DataModel\Transaction\TransactionSubType.cs" />
     <Compile Include="DTOs\AccountStatusHistoryDTO.cs" />
@@ -242,8 +241,6 @@
     <Compile Include="DTOs\ReconnectionContentFileDTO.cs" />
     <Compile Include="DTOs\RegionDTO.cs" />
     <Compile Include="DTOs\Route\RouteModalDTO.cs" />
-    <Compile Include="DTOs\RS3\AppuserDTO.cs" />
-    <Compile Include="DTOs\RS3\TicketDTO.cs" />
     <Compile Include="DTOs\SalesEmployee\SalesEmployeeDTO.cs" />
     <Compile Include="DTOs\SearchAppUserDTO.cs" />
     <Compile Include="DTOs\ProvinceDTO.cs" />
@@ -373,7 +370,6 @@
     <Compile Include="Filter\Request\DisconnectionFilter.cs" />
     <Compile Include="Filter\Request\DiscountApplicationSupportingHistoryFilter.cs" />
     <Compile Include="Filter\Request\ReconnectionFilter.cs" />
-    <Compile Include="Filter\RS3\TicketFilter.cs" />
     <Compile Include="Filter\SalesEmployeeFilter.cs" />
     <Compile Include="Filter\SearchMemberFilter.cs" />
     <Compile Include="Filter\SearchAccountFilter.cs" />

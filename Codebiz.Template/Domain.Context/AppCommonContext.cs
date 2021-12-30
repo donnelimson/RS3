@@ -50,21 +50,8 @@ namespace Domain.Context
         #endregion
 
         #region DbSet Fields
-        #region rs3
-        #region user related
+
         public IDbSet<Role> Roles { get; set; }
-
-        #endregion
-        #region ticket
-        public IDbSet<Ticket> Tickets { get; set; }
-        public IDbSet<Subticket> Subtickets { get; set; }
-        public IDbSet<TicketComment> TicketComments { get; set; }
-        public IDbSet<TicketAttachment> TicketAttachments { get; set; }
-        public IDbSet<TicketLog> TicketLogs { get; set; }
-
-        #endregion
-        #endregion
-
         public IDbSet<Log> Logs { get; set; }
         public IDbSet<Purpose> Purposes { get; set; }
         public IDbSet<PurposeDetail> PurposeDetails { get; set; }

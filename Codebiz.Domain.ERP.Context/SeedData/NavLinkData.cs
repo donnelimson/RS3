@@ -62,10 +62,7 @@
         public const string ReportSignatories = "Report Signatories";
 
         #endregion
-        #region RS3
-        public const string Tickets = "Tickets";
 
-        #endregion
 
     }
 }

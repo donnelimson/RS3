@@ -1,7 +1,6 @@
 ﻿using Codebiz.Domain.Common.Model;
 using Codebiz.Domain.Common.Model.DTOs;
 using Codebiz.Domain.Common.Model.DTOs.ExportToExcel;
-using Codebiz.Domain.Common.Model.DTOs.RS3;
 using Codebiz.Domain.Common.Model.Enums;
 using Codebiz.Domain.Common.Model.Filter;
 using Codebiz.Domain.Repository;
@@ -248,35 +247,7 @@ namespace Infrastructure.Repository
 
             return result.ToList();
         }
-        public IPagedList<AppuserDTOForCFL> GetAllAppuserForCFL(LookUpFilter filter, int? roleId)
-        {
-            var data = GetAll.Where(x => x.IsActive);
-            if (!string.IsNullOrEmpty(filter.Searcher))
-            {
-                filter.Searcher = filter.Searcher.Trim();
 
-                data = data.Where(a => (a.LastName + ", " +
-                                a.FirstName +
-                                (a.MiddleName != null ? " " + a.MiddleName : "") +
-                                (a.Suffix != null ? " " + a.Suffix : "")).Trim().Contains(filter.Searcher) || a.Email.Contains(filter.Searcher));
-            }
-            if (roleId != null)
-            {
-                data = data.Where(x => x.RoleId == roleId);
-            }
-            filter.FilteredRecordCount = data.Count();
-            var dataDTO = data.Select(a => new AppuserDTOForCFL
-            {
-                Email = a.Email,
-                Id =a.AppUserId,
-                Name = a.LastName + ", " +
-                                a.FirstName +
-                                (a.MiddleName != null ? " " + a.MiddleName : "") +
-                                (a.Suffix != null ? " " + a.Suffix : "")
-            });
-            dataDTO = QueryHelper.Ordering(dataDTO, filter.SortColumn, filter.SortDirection != "asc", false);
-            return dataDTO.ToPagedList(filter.Page, filter.PageSize);
-        }
         public List<string> GetEmailsOfAdministrators()
         {
             return GetAll.Where(x => x.RoleId == 1).Select(a => a.Email).ToList();

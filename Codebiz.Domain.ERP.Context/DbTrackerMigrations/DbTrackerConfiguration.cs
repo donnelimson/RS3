@@ -239,375 +239,14 @@ namespace Codebiz.Domain.ERP.Context.DbTrackerMigrations
                     Description = "Employee Photo",
                     ConfigSettingFolderId = (int)ConfigurationSettings.EmployeePhotoFolder
                 });
-
             context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
                 new ContentFileType
                 {
-                    ContentFileTypeId = (int)ContentFileTypes.MemberSupportingDocument,
-                    Name = "MemberSupportingDocument",
-                    Description = "Member Supporting Document",
-                    ConfigSettingFolderId = (int)ConfigurationSettings.MemberSupportingDocumentsFolder
+                    ContentFileTypeId = (int)ContentFileTypes.ProductPhoto,
+                    Name = "ProductPhoto",
+                    Description = "Product Photo",
+                    ConfigSettingFolderId = (int)ConfigurationSettings.ProductPhotoFolder
                 });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-                new ContentFileType
-                {
-                    ContentFileTypeId = (int)ContentFileTypes.AccountSupportingDocument,
-                    Name = "AccountSupportingDocument",
-                    Description = "Account Supporting Document",
-                    ConfigSettingFolderId = (int)ConfigurationSettings.AccountSupportingDocumentsFolder
-                });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-                new ContentFileType
-                {
-                    ContentFileTypeId = (int)ContentFileTypes.HouseWiringInspectionSupportingDocument,
-                    Name = "HouseWiringInspectionSupportingDocument",
-                    Description = "House Wiring Inspection Supporting Document",
-                    ConfigSettingFolderId = (int)ConfigurationSettings.HouseWiringInspectionSupportingDocumentsFolder
-                });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-                new ContentFileType
-                {
-                    ContentFileTypeId = (int)ContentFileTypes.DiscountApplicationSupportingDocument,
-                    Name = "DiscountApplicationSupportingDocument",
-                    Description = "Discount Application Supporting Document",
-                    ConfigSettingFolderId = (int)ConfigurationSettings.DiscountApplicationSupportingDocumentsFolder
-                });
-
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-                new ContentFileType
-                {
-                    ContentFileTypeId = (int)ContentFileTypes.MembershipBarcode,
-                    Name = "MembershipBarcode",
-                    Description = "Membership Barcode",
-                    ConfigSettingFolderId = (int)ConfigurationSettings.MembershipBarcodeFolder
-                });
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-                new ContentFileType
-                {
-                    ContentFileTypeId = (int)ContentFileTypes.Photo,
-                    Name = "Photo",
-                    Description = "Photo",
-                    ConfigSettingFolderId = (int)ConfigurationSettings.MemberPhotoFolder
-                });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-                new ContentFileType
-                {
-                    ContentFileTypeId = (int)ContentFileTypes.Signature,
-                    Name = "Signature",
-                    Description = "Signature",
-                    ConfigSettingFolderId = (int)ConfigurationSettings.MemberSignatureFolder
-                });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-                new ContentFileType
-                {
-                    ContentFileTypeId = (int)ContentFileTypes.ConnectionOrderPdf,
-                    Name = "ConnectionOrderPdf",
-                    Description = "Connection Order PDF",
-                    ConfigSettingFolderId = (int)ConfigurationSettings.ConnectionOrderPdfFolder
-                });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-                new ContentFileType
-                {
-                    ContentFileTypeId = (int)ContentFileTypes.MaterialChargeTicketPdf,
-                    Name = "MaterialChargeTicketPdf",
-                    Description = "Material Charge Ticket PDF",
-                    ConfigSettingFolderId = (int)ConfigurationSettings.MaterialChargeTicketPdfFolder
-                });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-                new ContentFileType
-                {
-                    ContentFileTypeId = (int)ContentFileTypes.JobOrderPdf,
-                    Name = "JobOrderPdf",
-                    Description = "Job Order PDF",
-                    ConfigSettingFolderId = (int)ConfigurationSettings.JobOrderPdfFolder
-                });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-                new ContentFileType
-                {
-                    ContentFileTypeId = (int)ContentFileTypes.PurchaseOrderPdf,
-                    Name = "PurchaseOrderPdf",
-                    Description = "Purchase Order PDF",
-                    ConfigSettingFolderId = (int)ConfigurationSettings.PurchaseOrderPdfFolder
-                });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-                new ContentFileType
-                {
-                    ContentFileTypeId = (int)ContentFileTypes.BillingAddressPdf,
-                    Name = "BillingAddressPdf",
-                    Description = "Billing Address PDF",
-                    ConfigSettingFolderId = (int)ConfigurationSettings.BillingAddressPdfFolder
-                });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-                new ContentFileType
-                {
-                    ContentFileTypeId = (int)ContentFileTypes.BurialAssistanceSupportingDocument,
-                    Name = "BurialAssistanceSupportingDocument",
-                    Description = "Burial Assistance Supporting Document",
-                    ConfigSettingFolderId = (int)ConfigurationSettings.BurialAssistanceSupportingDocumentsFolder
-                });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-                new ContentFileType
-                {
-                    ContentFileTypeId = (int)ContentFileTypes.ChangeOfNameSupportingDocument,
-                    Name = "ChangeOfNameSupportingDocument",
-                    Description = "Change Of Name Supporting Document",
-                    ConfigSettingFolderId = (int)ConfigurationSettings.ChangeOfNameSupportingDocumentsFolder
-                });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.NetMeteringDocumentsFolder,
-                Name = "NetMeteringDocumentsFolder",
-                Description = "Net Metering Documents Folder",
-                ConfigSettingFolderId = (int)ConfigurationSettings.NetMeteringDocumentsFolder
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.JobOrderComplaintSupportingDocument,
-                Name = "JobOrderComplaintSupportingDocument",
-                Description = "Job Order Complaint Supporting Document",
-                ConfigSettingFolderId = (int)ConfigurationSettings.JobOrderComplaintSupportingDocumentsFolder
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.JobOrderRequestSupportingDocument,
-                Name = "JobOrderRequestSupportingDocument",
-                Description = "Job Order Request Supporting Document",
-                ConfigSettingFolderId = (int)ConfigurationSettings.JobOrderRequestSupportingDocumentsFolder
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.ItemMasterDataAttachment,
-                Name = "ItemMasterDataAttachment",
-                Description = "Item Master Data Attachment Folder",
-                ConfigSettingFolderId = (int)ConfigurationSettings.ItemMasterDataAttachment
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-          new ContentFileType
-          {
-              ContentFileTypeId = (int)ContentFileTypes.SalesInvoiceDataAttachment,
-              Name = "SalesInvoiceDataAttachment",
-              Description = "Sales Invoice Data Attachment Folder",
-              ConfigSettingFolderId = (int)ConfigurationSettings.SalesInvoiceDataAttachment
-          });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.SalesDeliveryDataAttachment,
-                Name = "SalesDeliveryDataAttachment",
-                Description = "Sales Delivery Data Attachment Folder",
-                ConfigSettingFolderId = (int)ConfigurationSettings.SalesDeliveryDataAttachment
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.SalesQuotationDataAttachment,
-                Name = "SalesQuotationDataAttachment",
-                Description = "Sales Quotation Data Attachment Folder",
-                ConfigSettingFolderId = (int)ConfigurationSettings.SalesQuotationDataAttachment
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.SalesOrderDataAttachment,
-                Name = "SalesOrderDataAttachment",
-                Description = "Sales Order Data Attachment Folder",
-                ConfigSettingFolderId = (int)ConfigurationSettings.SalesOrderDataAttachment
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.BusinessPartnerSupportingDocumentsFolder,
-                Name = "BusinessPartnerSupportingDocumentsFolder",
-                Description = "Business Partner Supporting Documents Folder",
-                ConfigSettingFolderId = (int)ConfigurationSettings.BusinessPartnerSupportingDocumentsFolder
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.InventoryTransferSupportingDocumentsFolder,
-                Name = "BusinessPartnerSupportingDocumentsFolder",
-                Description = "Business Partner Supporting Documents Folder",
-                ConfigSettingFolderId = (int)ConfigurationSettings.InventoryTransferSupportingDocumentsFolder
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.EmployeeSignature,
-                Name = "Employee Signature",
-                Description = "EmployeeSignature",
-                ConfigSettingFolderId = (int)ConfigurationSettings.EmployeeSignatureFolder
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.InventoryReceivingSupportingDocumentsFolder,
-                Name = "InventoryReceivingSupportingDocumentsFolder",
-                Description = "InventoryReceivingSupportingDocumentsFolder",
-                ConfigSettingFolderId = (int)ConfigurationSettings.InventoryReceivingSupportingDocumentsFolder
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.OtherRequestSupportingDocument,
-                Name = "OtherRequestSupportingDocument",
-                Description = "Other Request Supporting Document",
-                ConfigSettingFolderId = (int)ConfigurationSettings.OtherRequestSupportingDocumentsFolder
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-        new ContentFileType
-        {
-            ContentFileTypeId = (int)ContentFileTypes.CounterSetupSupportingDocument,
-            Name = "CounterSetupSupportingDocument",
-            Description = "Counter Setup Supporting Document",
-            ConfigSettingFolderId = (int)ConfigurationSettings.CounterSetupDocumentsFolder
-        });
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-        new ContentFileType
-        {
-            ContentFileTypeId = (int)ContentFileTypes.ProcessJobOrderDocumentsFolder,
-            Name = "ProcessJobOrderDocumentsFolder",
-            Description = "Process Job Order Folder",
-            ConfigSettingFolderId = (int)ConfigurationSettings.ProcessJobOrderDocumentsFolder
-        });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.MaterialRequestSupportingDocument,
-                Name = ContentFileTypes.MaterialRequestSupportingDocument.GetEnumDescription(),
-                Description = ContentFileTypes.MaterialRequestSupportingDocument.GetEnumDescription(),
-                ConfigSettingFolderId = (int)ConfigurationSettings.MaterialRequestSupportingDocumentsFolder
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.MaterialRequestFolder,
-                Name = ContentFileTypes.MaterialRequestFolder.GetEnumDescription(),
-                Description = ContentFileTypes.MaterialRequestFolder.GetEnumDescription(),
-                ConfigSettingFolderId = (int)ConfigurationSettings.MaterialRequestFolder
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.ContestableApplicationFolder,
-                Name = ContentFileTypes.ContestableApplicationFolder.GetEnumDescription(),
-                Description = ContentFileTypes.ContestableApplicationFolder.GetEnumDescription(),
-                ConfigSettingFolderId = (int)ConfigurationSettings.ContestableApplicationFolder
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-         new ContentFileType
-         {
-             ContentFileTypeId = (int)ContentFileTypes.RequisitionVoucherFolder,
-             Name = ContentFileTypes.RequisitionVoucherFolder.GetEnumDescription(),
-             Description = ContentFileTypes.RequisitionVoucherFolder.GetEnumDescription(),
-             ConfigSettingFolderId = (int)ConfigurationSettings.RequisitionVoucherFolder
-         });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-         new ContentFileType
-         {
-             ContentFileTypeId = (int)ContentFileTypes.RequisitionVoucherSupportingDocumentsFolder,
-             Name = ContentFileTypes.RequisitionVoucherSupportingDocumentsFolder.GetEnumDescription(),
-             Description = ContentFileTypes.RequisitionVoucherSupportingDocumentsFolder.GetEnumDescription(),
-             ConfigSettingFolderId = (int)ConfigurationSettings.RequisitionVoucherSupportingDocumentsFolder
-         });
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-        new ContentFileType
-        {
-            ContentFileTypeId = (int)ContentFileTypes.TransformerRentalFolder,
-            Name = ContentFileTypes.TransformerRentalFolder.GetEnumDescription(),
-            Description = ContentFileTypes.TransformerRentalFolder.GetEnumDescription(),
-            ConfigSettingFolderId = (int)ConfigurationSettings.TransformerRentalFolder
-        });
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-         new ContentFileType
-         {
-             ContentFileTypeId = (int)ContentFileTypes.TransformerRentalWitnessSignatureFolder,
-             Name = ContentFileTypes.TransformerRentalWitnessSignatureFolder.GetEnumDescription(),
-             Description = ContentFileTypes.TransformerRentalWitnessSignatureFolder.GetEnumDescription(),
-             ConfigSettingFolderId = (int)ConfigurationSettings.TransformerRentalWitnessSignatureFolder
-         });
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-          new ContentFileType
-          {
-              ContentFileTypeId = (int)ContentFileTypes.ChangeOfMeterSupportingDocumentsFolder,
-              Name = ContentFileTypes.ChangeOfMeterSupportingDocumentsFolder.GetEnumDescription(),
-              Description = ContentFileTypes.ChangeOfMeterSupportingDocumentsFolder.GetEnumDescription(),
-              ConfigSettingFolderId = (int)ConfigurationSettings.ChangeOfMeterSupportingDocumentsFolder
-          });
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-        new ContentFileType
-        {
-            ContentFileTypeId = (int)ContentFileTypes.SpecialLightingSupportingDocumentsFolder,
-            Name = ContentFileTypes.SpecialLightingSupportingDocumentsFolder.GetEnumDescription(),
-            Description = ContentFileTypes.SpecialLightingSupportingDocumentsFolder.GetEnumDescription(),
-            ConfigSettingFolderId = (int)ConfigurationSettings.SpecialLightingSupportingDocumentsFolder
-        });
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.BillingAdjustmentAttachmentFolder,
-                Name = ContentFileTypes.BillingAdjustmentAttachmentFolder.GetEnumDescription(),
-                Description = ContentFileTypes.BillingAdjustmentAttachmentFolder.GetEnumDescription(),
-                ConfigSettingFolderId = (int)ConfigurationSettings.BillingAdjustmentAttachmentFolder
-            });
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.StatementOfAccountFolder,
-                Name = ContentFileTypes.StatementOfAccountFolder.GetEnumDescription(),
-                Description = ContentFileTypes.StatementOfAccountFolder.GetEnumDescription(),
-                ConfigSettingFolderId = (int)ConfigurationSettings.StatementOfAccountFolder
-            });
-
-            context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-            new ContentFileType
-            {
-                ContentFileTypeId = (int)ContentFileTypes.CoopVehicleSupportingDocumentsFolder,
-                Name = ContentFileTypes.CoopVehicleSupportingDocumentsFolder.GetEnumDescription(),
-                Description = ContentFileTypes.CoopVehicleSupportingDocumentsFolder.GetEnumDescription(),
-                ConfigSettingFolderId = (int)ConfigurationSettings.CoopVehicleSupportingDocumentsFolder
-            }); context.ContentFileType.AddOrUpdate(a => a.ContentFileTypeId,
-             new ContentFileType
-             {
-                 ContentFileTypeId = (int)ContentFileTypes.TicketAttachmentFolder,
-                 Name = ContentFileTypes.TicketAttachmentFolder.GetEnumDescription(),
-                 Description = ContentFileTypes.TicketAttachmentFolder.GetEnumDescription(),
-                 ConfigSettingFolderId = (int)ConfigurationSettings.TicketAttachmentFolder
-             });
             context.SaveChanges();
         }
         private void ConfigurePermissionUserGroup(DbTrackerContext context)
@@ -660,20 +299,32 @@ namespace Codebiz.Domain.ERP.Context.DbTrackerMigrations
 
             #region Folder path for files/attachments
 
-
-
             context.ConfigSettings.AddOrUpdate(a => a.Name, new ConfigSetting
             {
-                ConfigSettingId = (int)ConfigurationSettings.TicketAttachmentFolder,
-                Name = ConfigurationSettings.TicketAttachmentFolder.ToString(),
-                Description = ConfigurationSettings.TicketAttachmentFolder.GetEnumDescription(),
-                Value = @"C:\RS3\TicketAttachmentFolder",
+                ConfigSettingId = (int)ConfigurationSettings.EmployeePhotoFolder,
+                Name = ConfigurationSettings.EmployeePhotoFolder.ToString(),
+                Description = ConfigurationSettings.EmployeePhotoFolder.GetEnumDescription(),
+                Value = @"C:\Naiahs\EmployeePhotoFolder",
                 ConfigSettingGroupId = 5,
                 IsActive = true,
                 ConfigSettingDataTypeId = 2,
                 CreatedByAppUserId = AdminUser.AppUserId,
                 CreatedOn = DateTime.Now
             });
+            context.ConfigSettings.AddOrUpdate(a => a.Name, new ConfigSetting
+            {
+                ConfigSettingId = (int)ConfigurationSettings.ProductPhotoFolder,
+                Name = ConfigurationSettings.ProductPhotoFolder.ToString(),
+                Description = ConfigurationSettings.ProductPhotoFolder.GetEnumDescription(),
+                Value = @"C:\Naiahs\ProducPhotoFolder",
+                ConfigSettingGroupId = 5,
+                IsActive = true,
+                ConfigSettingDataTypeId = 2,
+                CreatedByAppUserId = AdminUser.AppUserId,
+                CreatedOn = DateTime.Now
+            });
+
+
             #endregion
 
             context.SaveChanges();

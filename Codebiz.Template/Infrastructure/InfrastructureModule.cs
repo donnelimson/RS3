@@ -110,7 +110,7 @@ namespace Infrastructure
 
             #region RS3
             builder.RegisterType<RoleService>().As<IRoleService>().InstancePerLifetimeScope();
-            builder.RegisterType<TicketService>().As<ITicketService>().InstancePerLifetimeScope();
+
 
             #endregion
 
@@ -174,7 +174,7 @@ namespace Infrastructure
 
             #region RS3
             builder.RegisterType<RoleRepository>().As<IRoleRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<TicketRepository>().As<ITicketRepository>().InstancePerLifetimeScope();
+    
 
             #endregion
 

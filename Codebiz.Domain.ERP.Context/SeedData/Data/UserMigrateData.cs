@@ -317,17 +317,6 @@ namespace Codebiz.Domain.ERP.Context.SeedData
                     Permissions = context.Permissions
                         .Where(p =>p.PermissionGroup.Name == PermissionGroupData.Dashboard).ToList() },
                 new { UserGroup = "Administrator", Permissions = context.Permissions.ToList()},
-                 new {
-                      UserGroup = "CallCenter",
-                 Permissions = context.Permissions
-                .Where(p => p.Code == PermissionData.UserCanAssignTicket ||
-                            p.Code == PermissionData.UserCanCreateTicket ||
-                            p.Code == PermissionData.UserCanMoveTicket ||
-                            p.Code == PermissionData.UserCanEditTicket ||
-                            p.Code == PermissionData.UserCanDeleteTicket || 
-                            p.Code == PermissionData.UserCanMoveTicket||
-                            p.Code == PermissionData.UserCanViewTicketList ||
-                            p.Code == PermissionData.UserCanViewTicket).ToList() },
             };
 
             foreach (var item in permissions)
