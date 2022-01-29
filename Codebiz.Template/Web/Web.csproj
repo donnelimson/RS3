@@ -769,7 +769,7 @@
     <Content Include="Areas\MD\Views\PriceList\Form.cshtml" />
     <Content Include="Areas\PY\Views\_ViewStart.cshtml" />
     <Content Include="Areas\PY\Views\Cashiering\Index.cshtml" />
-    <Content Include="Areas\PY\Web.config" />
+    <Content Include="Areas\PY\Views\Web.config" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <Content Include="Views\Shared\_ChooseFromList.cshtml" />
     <Content Include="Views\ChooseFromList\GetLookup.cshtml" />
