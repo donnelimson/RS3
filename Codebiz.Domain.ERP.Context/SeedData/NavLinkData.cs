@@ -63,6 +63,18 @@
 
         #endregion
 
+        #region Master Data
+        public const string MasterData = "Master Data";
+
+        public const string ItemMaster = "Item Master";
+        public const string PriceList = "Price List";
+
+        #endregion
+        #region Payment
+        public const string Cashiering = "Cashiering";
+
+        #endregion
+
 
     }
 }

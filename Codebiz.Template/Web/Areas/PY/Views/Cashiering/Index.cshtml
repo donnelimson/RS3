@@ -1,0 +1,168 @@
+﻿
+@using Codebiz.Domain.ERP.Context.SeedData
+@{
+    ViewBag.Title = "Cashiering";
+}
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <span>Payment</span>
+
+            <i class="fa fa-circle"></i>
+            <a href="@Url.Action("Index", "Cashiering")">Cashiering</a>
+            <i class="fa fa-circle"></i>
+            <span>List</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title">
+    Cashiering<small> view, add, and export</small>
+</h1>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12" ng-controller="CashieringIndexController">
+        <!-- BEGIN FILTER PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="bold">Search</h4>
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="expand"> </a>
+                </div>
+            </div>
+            <div class="portlet-body tabs-below" style="display: none;">
+                <div class="row" style="margin-bottom:20px">
+                    <div class="col-md-3">
+                        <label class="control-label">OR NO.</label>
+                        <input type="text" name="LongDescription" ng-model="f.ORNO" ng-keypress="searchWhenEnter($event)" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label">Created By</label>
+                        <input type="text" name="CreatedBy" ng-model="f.CreatedBy" ng-keypress="searchWhenEnter($event)" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Created On</label>
+                            <div class='input-group date'>
+                                <input date-rangeright type="text" name="CreatedDate" id="actionDate" placeholder="_ _ / _ _ / _ _ _ _ - _ _ / _ _ / _ _ _ _" class="form-control white-input" autocomplete="off"
+                                       is-open="createdOnDatePicker.opened" close-text="Close"
+                                       ng-model="CreatedOn" ng-click="openCreatedOnDatePicker()" ng-change="search()" readonly>
+                                <span class="input-group-addon" ng-click="openCreatedOnDatePicker()" onclick="$('#actionDate').focus()">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3" style="margin-top:13px">
+                        <div class="actions btn-set btn-filter">
+                            <button type="button" class="btn btn-success" ng-click="search()">
+                                <i class="fa fa-search"></i>
+                                <span class=""> Search </span>
+                            </button>
+                            <button type="button" class="btn" ng-click="reset()">
+                                <i class="fa fa-rotate-left"></i>
+                                <span class=""> Reset </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- END FILTER PORTLET -->
+        <!-- BEGIN TABLE PORTLET -->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    List
+                </div>
+                <div class="actions">
+                    <div class="actions">
+                        <a href="" class="btn green-dark" ng-disabled="resultsLength < 1 || isLoading" ng-click="exportDataToExcelFile()">
+                            <i class="fa fa-share-square-o"></i>
+                            <span class="">Export</span>
+                        </a>
+                        <a href="@Url.Action("Form","Cashiering")" class="btn btn-info" @Html.UserHasPermission(userPermission: PermissionData.UserCanAddCashiering)>
+                            <i class="fa fa-plus"></i>
+                            <span class=""> New </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                        <table ng-table="tableParams" ng-class="{'loading': isLoading}"
+                               class="table table-bordered table-striped table-hover">
+                            <tr ng-repeat="item in $data">
+                                <!--ACTION BUTTONS -->
+                                <td width="1%" class="text-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-list"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <a ng-click="print(item.Id)">
+                                                    <i class="fa fa-print"></i> Print
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="10%" data-title="'OR NO.'" sortable="'ORNo'" header-class="'table-header text-left'" class="text-left">{{item.ORNo}}</td>
+                                <td width="10%" data-title="'TOTAL COST'" sortable="'TotalCost'" header-class="'table-header text-right'" class="text-right">
+                                    {{item.TotalCost}}
+                                </td>
+                                <td width="8%" data-title="'CREATED ON'" sortable="'CreatedOn'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.CreatedOn | date : 'MM/dd/yyyy hh:mm a'}}
+                                </td>
+                                <td width="10%" data-title="'CREATED BY'" sortable="'CreatedBy'" header-class="'table-header text-left'" class="text-left">
+                                    {{item.CreatedBy}}<br />
+                                </td>
+
+
+                            </tr>
+                            <tr ng-show="$data.length == 0">
+                                <td hidden></td>
+                                <td colspan="14" class="text-center" style="font-style:unset">
+                                    No data available
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section pagestyles {
+    <link href="~/assets/global/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+    <style>
+    </style>
+
+}
+
+@section PageScripts {
+    <script>
+
+    </script>
+}
+@section angularjspage {
+
+    <script src="~/Areas/PY/Scripts/Controllers/Cashiering/CashieringIndexController.js"></script>
+}
+

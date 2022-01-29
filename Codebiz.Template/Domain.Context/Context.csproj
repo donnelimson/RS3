@@ -73,6 +73,10 @@
       <Project>{f66bfcab-6543-46d5-ac8d-2287639d04c3}</Project>
       <Name>ERP.Context</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ERP.Model\ERP.Model.csproj">
+      <Project>{81537208-7278-468e-a01f-6d8c7bffa5b8}</Project>
+      <Name>ERP.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain.Model\Model.csproj">
       <Project>{eacd2dbb-02c3-436b-abb0-0ea75356d6d3}</Project>
       <Name>Model</Name>

@@ -13,6 +13,7 @@ using Codebiz.Domain.Common.Model.DataModel.Transaction;
 using Codebiz.Domain.Common.Model.EnumBaseModels;
 using Codebiz.Domain.Common.Model.Financial;
 using Codebiz.Domain.ERP.Model;
+using ERP.Model.DataModel;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -170,7 +171,11 @@ namespace Domain.Context
         public IDbSet<ReportSignatoryDetail> ReportSignatoryDetails { get; set; }
         public IDbSet<ReportCategory> ReportCategories { get; set; }
         public IDbSet<Report> Reports { get; set; }
-
+        #region naiahs
+        public IDbSet<ItemMaster> ItemMasters { get; set; }
+        public IDbSet<PriceList> PriceLists { get; set; }
+        public IDbSet<PriceListItemMaster> PriceListItemMaster { get; set; }
+        #endregion
         #endregion
 
         #region DbContext Events

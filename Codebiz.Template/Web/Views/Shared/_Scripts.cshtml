@@ -240,7 +240,8 @@
 
     //RS3
     document.Role = '@Url.Action("Index", "Role", new { area = "" })'+'/';
-    document.Ticket = '@Url.Action("Index", "Ticket", new { area = "" })'+'/';
+    document.ItemMaster = '@Url.Action("Index", "ItemMaster", new { area = "MD" })'+'/';
+    document.PriceList = '@Url.Action("Index", "PriceList", new { area = "MD" })'+'/';
 
      window.onkeydown = function(e) {
         if (e.keyCode == 8 && e.target == document.body)
@@ -310,6 +311,19 @@
     //format number to currency with comma
 
     //UOM Convertion
+    function formatToCurrency(value, min, max) {
+        var formatter = new Intl.NumberFormat('en-US', {
+
+            maximumFractionDigits: min == null ? 2 : min,
+            minimumFractionDigits: max == null ? 2 : max
+            // These options are needed to round to whole numbers if that's what you want.
+            //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+            //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+        });
+
+        var formattedValue = value.value.replaceAll(',', '') * 1;
+        value.value = formatter.format(formattedValue); /* $2,500.00 */
+    }
     function convertValueToLowestUoM(val, length) {
         var product = val * length;
         return product;

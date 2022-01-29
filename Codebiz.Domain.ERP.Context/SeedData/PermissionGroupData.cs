@@ -62,6 +62,13 @@
         public const string ReportSignatory = "Report Signatory";
 
         #endregion
+        #region Master Data
+        public const string ItemMaster = "ItemMaster";
+        public const string PriceList = "PriceList";
+        #endregion
+        #region Payment
+        public const string Cashiering = "Cashiering";
+        #endregion
 
     }
 }

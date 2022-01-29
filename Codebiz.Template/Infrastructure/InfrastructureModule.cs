@@ -11,8 +11,10 @@ using Domain.Repository.Financials;
 
 using Infrastructure.Repository;
 using Infrastructure.Repository.Common;
+using Infrastructure.Repository.MD;
 using Infrastructure.Services;
 using Infrastructure.Services.Common;
+using Infrastructure.Services.MD;
 using Infrastructure.Utilities;
 using System.Security.Cryptography;
 
@@ -113,6 +115,10 @@ namespace Infrastructure
 
 
             #endregion
+            #region Naiahs
+            builder.RegisterType<ItemMasterService>().As<IItemMasterService>().InstancePerLifetimeScope();
+            builder.RegisterType<PriceListService>().As<IPriceListService>().InstancePerLifetimeScope();
+            #endregion
 
         }
 
@@ -174,7 +180,12 @@ namespace Infrastructure
 
             #region RS3
             builder.RegisterType<RoleRepository>().As<IRoleRepository>().InstancePerLifetimeScope();
-    
+
+
+            #endregion
+            #region Naiahs
+            builder.RegisterType<ItemMasterRepository>().As<IItemMasterRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<PriceListRepository>().As<IPriceListRepository>().InstancePerLifetimeScope();
 
             #endregion
 

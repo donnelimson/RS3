@@ -238,7 +238,27 @@
 
 
         #endregion
-
+        #region Master Data
+        #region Item Master
+        public const string UserCanAddItemMaster = "UserCanAddItemMaster";
+        public const string UserCanEditItemMaster = "UserCanEditItemMaster";
+        public const string UserCanDeleteItemMaster = "UserCanDeleteItemMaster";
+        public const string UserCanViewItemMaster = "UserCanViewItemMaster";
+        #endregion
+        #region PriceList
+        public const string UserCanAddPriceList = "UserCanAddPriceList";
+        public const string UserCanEditPriceList = "UserCanEditPriceList";
+        public const string UserCanDeletePriceList= "UserCanDeletePriceList";
+        public const string UserCanViewPriceList = "UserCanViewPriceList";
+        #endregion
+        #endregion
+        #region Payment
+        #region Cashiering
+        public const string UserCanViewCashiering = "UserCanViewCashiering";
+        public const string UserCanExportCashiering = "UserCanExportCashiering";
+        public const string UserCanAddCashiering = "UserCanAddCashiering";
+        #endregion
+        #endregion
 
 
     }

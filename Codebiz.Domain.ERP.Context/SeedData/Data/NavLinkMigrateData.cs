@@ -42,12 +42,6 @@ namespace Codebiz.Domain.ERP.Context.SeedData
 
             #endregion
 
-            #region Approval
-
-            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { Name = NavLinkData.Approval, IconClass = "glyphicon glyphicon-forward", Controller = "Approval", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 11 });
-            context.SaveChanges();
-
-            #endregion
 
             #region Management
 
@@ -61,13 +55,17 @@ namespace Codebiz.Domain.ERP.Context.SeedData
             #endregion
 
             context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Users, Controller = "AppUsers", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 16 });
-           // context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Offices, Controller = "Office", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 17 });
-         //   context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Departments, Controller = "Department", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 18 });
-         //   context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = managementParentNavLink.NavLinkId, Name = NavLinkData.Divisions, Controller = "Division", Action = "Index", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 19 });
-
-
-
-
+            #region Master Data
+            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { Name = NavLinkData.MasterData, IconClass = "icon-settings", Parameters = "MasterData", IsActive = true, IsParent = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 12 });
+            context.SaveChanges();
+            var masterDAtaParentNavLink = context.NavLinks.FirstOrDefault(a => a.Name == NavLinkData.MasterData);
+            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = masterDAtaParentNavLink.NavLinkId, Name = NavLinkData.ItemMaster, Controller = "ItemMaster", Action = "Index", Area="MD", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 16 });
+            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = masterDAtaParentNavLink.NavLinkId, Name = NavLinkData.PriceList, Controller = "PriceList", Action = "Index", Area = "MD", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 16 });
+            #endregion
+            #region Cashiering
+            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { Name = NavLinkData.Cashiering, IconClass = "glyphicon glyphicon-shopping-cart", Parameters = "Cashiering", Action="Index", IsActive = true, CreatedOn = now, Controller="Cashiering", Area="PY", CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 12 });
+            context.SaveChanges();
+            #endregion
             context.SaveChanges();
 
    

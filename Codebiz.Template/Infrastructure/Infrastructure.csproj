@@ -208,6 +208,8 @@
     <Compile Include="Repository\Common\UserGroup\UserGroupRepository.cs" />
     <Compile Include="Repository\Common\AppUser\AppUserRepository.cs" />
     <Compile Include="Repository\base\RepositoryBase.cs" />
+    <Compile Include="Repository\MD\ItemMasterRepository.cs" />
+    <Compile Include="Repository\MD\PriceListRepository.cs" />
     <Compile Include="Services\Common\RoleService.cs" />
     <Compile Include="Services\IExportToExcelFileService.cs" />
     <Compile Include="Services\Common\File\IContentFileService.cs" />
@@ -225,6 +227,8 @@
     <Compile Include="Services\Common\AppUser\IAppUserServices.cs" />
     <Compile Include="Services\Common\AppUser\IUserProfileService.cs" />
     <Compile Include="Services\ILoginHistoryServices.cs" />
+    <Compile Include="Services\MD\ItemMasterService.cs" />
+    <Compile Include="Services\MD\PriceListService.cs" />
     <Compile Include="Utilities\LookUpHelper.cs" />
     <Compile Include="Utilities\IEmailHelper.cs" />
     <Compile Include="Utilities\IHashHelper.cs" />
@@ -260,6 +264,10 @@
     <ProjectReference Include="..\..\Codebiz.Domain.ERP.Repository\ERP.Repository.csproj">
       <Project>{348b58a7-9fd3-4825-9cea-7b100efcb696}</Project>
       <Name>ERP.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ERP.Model\ERP.Model.csproj">
+      <Project>{81537208-7278-468E-A01F-6D8C7BFFA5B8}</Project>
+      <Name>ERP.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain.Context\Context.csproj">
       <Project>{32ad6f7c-a4d7-4e48-a53c-226e6932d3d1}</Project>

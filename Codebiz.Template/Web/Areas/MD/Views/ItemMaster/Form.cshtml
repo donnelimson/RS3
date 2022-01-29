@@ -1,0 +1,247 @@
+﻿@{
+    ViewBag.Title = "Item Master";
+}
+
+<div ng-app="MetronicApp" ng-controller="ItemMasterAddOrUpdateController" ng-form="f">
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a>Master Data</a>
+                <i class="fa fa-circle"></i>
+                <a ng-click="cancel()">Item Master</a>
+                <i class="fa fa-circle"></i>
+                <span id="breadcrums">Form</span>
+            </li>
+        </ul>
+        <div class="page-toolbar col-md-9" style="text-align:right;">
+            <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+        </div>
+    </div>
+    <h1 class="page-title">
+        Item Master Form
+    </h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light bordered" style="margin-bottom:unset">
+                <div class="portlet-body">
+                    <div class="row" style="padding-bottom:3px">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Item Code<span class="required">*</span></label>
+                                <input type="text" class="form-control" ng-model="m.ItemCode" maxlength="14" name="BarCode" alphanumeric-only>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Bar Code</label>
+                                <input type="text" class="form-control" ng-model="m.Barcode" maxlength="30" name="BarCode" alphanumeric-only>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group" ng-class="f.ItemType.$error.required && (f.ItemType.$dirty || formSubmitted) ? 'has-error' : ''">
+                                <label class="control-label">Category</label>
+                                <div id="ItemTypeIdDiv">
+                                    <select select2
+                                            ng-model="m.Category"
+                                            ng-options="it.Code as it.Name for it in ItemTypeList"
+                                            name="ItemType"
+                                            ng-change="onChangeItemType()">
+                                        <option value="">---Please select---</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Long Description<span class="required">*</span></label>
+                                <input type="text" class="form-control" ng-model="m.LongDescription" maxlength="100" name="BarCode" alphanumeric-only ng-required="true">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Short Description<span class="required">*</span></label>
+                                <input type="text" class="form-control" ng-model="m.ShortDescription" maxlength="100" name="BarCode" alphanumeric-only>
+                            </div>
+                        </div>
+                        @*<div class="col-md-3">
+                                <div class="form-group" ng-class="f.ItemGroup.$error.required && (f.ItemGroup.$dirty || formSubmitted) ? 'has-error' : ''">
+                                    <label class="control-label">Item Group<span class="required"> *</span></label>
+                                    <div id="ItemGroupIdDiv">
+                                        <select select2 name="ItemGroup"
+                                                ng-model="m.ItemGroupId"
+                                                ng-options="ig.Id as ig.Description for ig in itemGroups"
+                                                ng-required="true"
+                                                ng-change="onChangeItemGroup(m.ItemGroupId)">
+                                            <option value="">---Please select---</option>
+                                        </select>
+                                        <span ng-show="f.ItemGroup.$error.required && (f.ItemGroup.$dirty || formSubmitted)"
+                                              class="text-danger field-validation-error"><small> Item Group is required!</small></span>
+                                    </div>
+                                </div>
+                            </div>*@
+
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="tabbable-line">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#pricelistDataTab" id="pricelistDataTabLi" data-toggle="tab" target="_self"><span>PRICE LIST DATA</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#inventoryDataTab" id="inventoryDataTabLi" data-toggle="tab" target="_self"><span>INVENTORY DATA</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#packagingDataTab" id="packagingDataTabLi" data-toggle="tab" target="_self"><span>UOM GROUP</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#purchasingDataTab" id="purchasingDataTabLi" data-toggle="tab" target="_self"><span>PURCHASING DATA</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#salesDataTab" id="salesDataTabLi" data-toggle="tab" target="_self"><span> SALES DATA</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#remarksTab" id="remarksTabLi" data-toggle="tab" target="_self">REMARKS</a>
+                                    </li>
+                                    <li>
+                                        <a href="#attachmentsTab" id="attachmentsTabLi" data-toggle="tab" target="_self"><span>ATTACHMENTS</span></a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="pricelistDataTab">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+                                                    <label class="control-label">Base Price</label>
+                                                    <input type="text" class="form-control text-right" ng-model="m.BasePrice" name="BasePrice" onchange="formatToCurrency(this)"
+                                                           onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode==46'>
+                                       
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="control-label"></label>
+                                                    <div class="md-checkbox-inline">
+                                                        <div class="md-checkbox">
+                                                            <input type="checkbox" class="md-check"
+                                                                   ng-checked="m.HasDefaultPrice"
+                                                                   ng-model="m.HasDefaultPrice"
+                                                                   ng-disabled="isView"
+                                                                   id="IsActive">
+                                                            <label for="IsActive">
+                                                                <span class="inc"></span>
+                                                                <span class="check"></span>
+                                                                <span class="box"></span>
+                                                            </label>
+                                                            Default Price
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                                                    <table ng-table="priceListTableParams" ng-class="{'loading': isLoading}"
+                                                           class="table table-bordered table-striped table-hover">
+                                                        <tr ng-repeat="item in $data">
+
+                                                            <td width="10%" data-title="'CODE'" header-class="'table-header text-left'" class="text-left">
+                                                                <a ng-click="viewPriceList(item.Id)">
+                                                                    {{item.Code}}
+                                                                </a>
+
+                                                            </td>
+                                                            <td width="10%" data-title="'NAME'" header-class="'table-header text-left'" class="text-left">
+                                                                {{item.Name}}
+                                                            </td>
+
+                                                            <td width="10%" data-title="'ITEM COST'" header-class="'table-header text-right'" class="text-right">
+                                                                <input type="text" ng-model="item.ItemCost" class="form-control text-right" onchange="formatToCurrency(this)"
+                                                                       onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode==46' />
+                                                            </td>
+
+
+
+                                                        </tr>
+                                                        <tr ng-show="$data.length == 0">
+                                                            <td hidden></td>
+                                                            <td colspan="14" class="text-center" style="font-style:unset">
+                                                                No data available
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light" style="border-top:solid thin #e7ecf1">
+                <div class="form-actions">
+                    <button class="btn btn-success" ng-click="save()">
+                        <span class="glyphicon glyphicon-ok"></span>&nbsp; {{isUpdate ? 'UPDATE':'SAVE'}}
+                    </button>
+                    <button class="btn btn-default" ng-click="cancel()">
+                        <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section pagestyles {
+    <style>
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+    @Styles.Render("~/Content/jquery.mloading.css")
+    @Styles.Render("~/css/fileupload")
+}
+
+@section PageScripts {
+    @Scripts.Render("~/bundles/fileupload");
+    @Scripts.Render("~/Content/jquery.mloading.js");
+    @Scripts.Render("~/Scripts/ng-table.js")
+    <script>
+        function convertToTwoDecimal(input) {
+            var value = document.getElementById(input.id).value;
+            if (value != "" && value != 0) {
+                input.value = parseFloat(input.value).toFixed(2);
+            }
+        }
+    </script>
+
+
+}
+
+@section angularjspage {
+    <script src="~/Areas/MD/Scripts/Services/ItemMasterService.js"></script>
+    <script src="~/Areas/MD/Scripts/Services/PriceListService.js"></script>
+    <script src="~/Areas/MD/Scripts/Controllers/ItemMaster/ItemMasterAddOrUpdateController.js"></script>
+}

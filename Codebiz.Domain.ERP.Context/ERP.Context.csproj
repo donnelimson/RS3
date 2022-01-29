@@ -161,14 +161,11 @@
   <ItemGroup>
     <Compile Include="DbTrackerContextInitializer.cs" />
     <Compile Include="DbTrackerContext.cs" />
-    <Compile Include="DbTrackerMigrations\202008131320257_Initial_ERP_DB.cs" />
-    <Compile Include="DbTrackerMigrations\202008131320257_Initial_ERP_DB.Designer.cs">
-      <DependentUpon>202008131320257_Initial_ERP_DB.cs</DependentUpon>
-    </Compile>
     <!--<Compile Include="DbTrackerMigrations\201912180616252_Initial_ERP_DB0BA8.cs" />
     <Compile Include="DbTrackerMigrations\201912180616252_Initial_ERP_DB0BA8.Designer.cs">
       <DependentUpon>201912180616252_Initial_ERP_DB0BA8.cs</DependentUpon>-->
     <Compile Include="DbTrackerMigrations\DbTrackerConfiguration.cs" />
+    <Compile Include="ERPDataContext.cs" />
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeedData\Data\NavLinkMigrateData.cs" />
@@ -194,15 +191,16 @@
     <EmbeddedResource Include="CSVSeed\Office.csv" />
     <None Include="packages.config" />
     <EmbeddedResource Include="CSVSeed\regions.csv" />
-    <EmbeddedResource Include="DbTrackerMigrations\202008131320257_Initial_ERP_DB.resx">
-      <DependentUpon>202008131320257_Initial_ERP_DB.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SeedData\regions.csv" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Codebiz.Template\Domain.Model\Model.csproj">
       <Project>{eacd2dbb-02c3-436b-abb0-0ea75356d6d3}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ERP.Model\ERP.Model.csproj">
+      <Project>{81537208-7278-468e-a01f-6d8c7bffa5b8}</Project>
+      <Name>ERP.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,7 @@ namespace Web.Controllers
     [Authorize]
     public class BaseController : Controller
     {
-        private readonly IAppUserServices _appUserServices;
+        public  IAppUserServices _appUserServices;
         private AppUser _currentAppUser = null;
 
 

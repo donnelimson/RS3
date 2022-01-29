@@ -16,6 +16,7 @@ namespace Web
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<AppCommonContext>().InstancePerLifetimeScope();
+            builder.RegisterType<ERPDataContext>().InstancePerLifetimeScope();
             //builder.RegisterType<AccountDataContext>().InstancePerLifetimeScope();
             //builder.RegisterType<ItemDataContext>().InstancePerLifetimeScope();
 
@@ -24,6 +25,7 @@ namespace Web
                 Contexts = new List<DbContext>()
                 {
                     c.Resolve<AppCommonContext>(),
+                    c.Resolve<ERPDataContext>()
                     //c.Resolve<ItemDataContext>()
                 }
             }).As<ApplicationContext>();
