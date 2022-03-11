@@ -1,5 +1,6 @@
 ﻿using Codebiz.Domain.Common.Model;
 using Codebiz.Domain.Common.Model.DTOs;
+using Codebiz.Domain.Common.Model.Filter;
 using Codebiz.Domain.ERP.Context.SeedData;
 using ERP.Model.DTO;
 using ERP.Model.Filter;
@@ -21,8 +22,6 @@ namespace Web.Areas.MD.Controllers
 {
     public class ItemMasterController : BaseController
     {
-        private readonly IAppUserServices _appUserServices;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IItemMasterService _itemMasterService;
         public ItemMasterController(IAppUserServices appUserService,
             IUnitOfWork unitOfWork,
@@ -50,11 +49,17 @@ namespace Web.Areas.MD.Controllers
             return Json(new { result = _itemMasterService.Search(filter), totalRecordCount = filter.FilteredRecordCount }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
+        public JsonResult GetItemMasterLookUp(LookUpFilter filter)
+        {
+            return Json(new { result = _itemMasterService.GetItemMasterLookUp(filter), totalRecordCount = filter.FilteredRecordCount }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
         public JsonResult AddOrUpdate(ItemMasterViewModel model)
         {
             var dataDTO = model;
             var ajaxResult = new AjaxResult();
             ajaxResult.Action = model.Id == 0 ? "create" : "update";
+            ajaxResult.LogEventTitle = model.Id == 0 ? LogEventTitles.ItemMasterCreated : LogEventTitles.ItemMasterUpdated;
             ajaxResult.Module = "Item Master";
             RunMethod(() =>
             {
@@ -74,6 +79,26 @@ namespace Web.Areas.MD.Controllers
         public JsonResult GetDetailsById(int id)
         {
             return Json(new { result = _itemMasterService.GetDetailsById(id) }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetAllUoM()
+        {
+            return Json(new { result = _itemMasterService.GetAllUoM() }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetAllItems()
+        {
+            return Json(new { result = _itemMasterService.GetAllItems() }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetItemMasterLookUpById(int itemMasterId)
+        {
+            return Json(new { result = _itemMasterService.GetItemMasterLookUpById(itemMasterId) }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetMaxQtyByItemMasterAndBrandId(int itemMasterId, int brandId)
+        {
+            return Json(new { result = _itemMasterService.GetMaxQtyByItemMasterAndBrandId(itemMasterId, brandId) }, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

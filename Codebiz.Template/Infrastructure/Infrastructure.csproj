@@ -208,8 +208,10 @@
     <Compile Include="Repository\Common\UserGroup\UserGroupRepository.cs" />
     <Compile Include="Repository\Common\AppUser\AppUserRepository.cs" />
     <Compile Include="Repository\base\RepositoryBase.cs" />
+    <Compile Include="Repository\MD\BrandRepository.cs" />
     <Compile Include="Repository\MD\ItemMasterRepository.cs" />
     <Compile Include="Repository\MD\PriceListRepository.cs" />
+    <Compile Include="Repository\Sales\SaleTransactionRepository.cs" />
     <Compile Include="Services\Common\RoleService.cs" />
     <Compile Include="Services\IExportToExcelFileService.cs" />
     <Compile Include="Services\Common\File\IContentFileService.cs" />
@@ -227,8 +229,10 @@
     <Compile Include="Services\Common\AppUser\IAppUserServices.cs" />
     <Compile Include="Services\Common\AppUser\IUserProfileService.cs" />
     <Compile Include="Services\ILoginHistoryServices.cs" />
+    <Compile Include="Services\MD\BrandService.cs" />
     <Compile Include="Services\MD\ItemMasterService.cs" />
     <Compile Include="Services\MD\PriceListService.cs" />
+    <Compile Include="Services\Sale\SaleTransactionService.cs" />
     <Compile Include="Utilities\LookUpHelper.cs" />
     <Compile Include="Utilities\IEmailHelper.cs" />
     <Compile Include="Utilities\IHashHelper.cs" />

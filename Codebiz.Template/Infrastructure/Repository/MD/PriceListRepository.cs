@@ -18,7 +18,7 @@ namespace Infrastructure.Repository.MD
     {
         PriceList GetById(int id);
         IPagedList<PriceListIndexDTO> Search(PriceListFilter filter);
-        List<PriceListForItemMasterDTO> GetPriceListForItemMaster(int itemMasterId);
+        List<BrandPriceListForItemMasterDTO> GetPriceListForItemMaster(int itemMasterId);
     }
     public class PriceListRepository:ERepositoryBase<PriceList,int>,IPriceListRepository,IDisposable
     {
@@ -79,18 +79,32 @@ namespace Infrastructure.Repository.MD
             dataDTO = QueryHelper.Ordering(dataDTO, filter.SortColumn, filter.SortDirection != "asc", false);
             return dataDTO.ToPagedList(filter.Page, filter.PageSize);
         }
-        public List<PriceListForItemMasterDTO> GetPriceListForItemMaster(int itemMasterId)
+        public List<BrandPriceListForItemMasterDTO> GetPriceListForItemMaster(int itemMasterId)
         {
-            var data = GetAll.Where(x => !x.IsDeleted);
             var newData = itemMasterId == 0 ? true : false;
-            var dataDTO = data.Select(a => new PriceListForItemMasterDTO
+            if (!newData)
             {
-                Code = a.Code,
-                Id = a.Id,
-                ItemCost = newData ? 0 : a.PriceListItemMasters.Where(x => x.ItemMasterId == itemMasterId).FirstOrDefault().ItemCost,
-                Name = a.Name
-            }).ToList();
-            return dataDTO;
+                return GetAll.Where(x => !x.IsDeleted).SelectMany(r => r.PriceListItemMasters).Where(r => r.ItemMasterId == itemMasterId).Select(a => new BrandPriceListForItemMasterDTO
+                {
+                    Code = a.PriceList.Code,
+                    Id = a.Id,
+                    ItemCost = a.ItemCost,
+                    Name = a.PriceList.Name,
+                    PriceListId = a.PriceListId
+                }).ToList();
+            }
+            else
+            {
+                return GetAll.Where(x => !x.IsDeleted).Select(a => new BrandPriceListForItemMasterDTO
+                {
+                    Code = a.Code,
+                    Id = 0,
+                    ItemCost = 0,
+                    Name = a.Name,
+                    PriceListId = a.Id
+                }).ToList();
+            }
+
         }
     }
 }

@@ -65,6 +65,7 @@
         #region Master Data
         public const string ItemMaster = "ItemMaster";
         public const string PriceList = "PriceList";
+        public const string Brand = "Brand";
         #endregion
         #region Payment
         public const string Cashiering = "Cashiering";

@@ -1,0 +1,326 @@
+﻿@{
+    ViewBag.Title = "Payment Entry";
+}
+
+<div ng-app="MetronicApp" ng-controller="PaymentEntryController">
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a>Cashiering</a>
+                <i class="fa fa-circle"></i>
+                <a ng-click="cancel()">Payment Entry</a>
+                <i class="fa fa-circle"></i>
+                <span id="breadcrums">Form</span>
+            </li>
+        </ul>
+        <div class="page-toolbar col-md-9" style="text-align:right;">
+            <a class="btn btn-sm btn-default" ng-click="cancel()">Back to List</a>
+        </div>
+    </div>
+    <h1 class="page-title">
+        Payment Entry
+    </h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet box">
+                <div class="portlet-title" style="background-color:#36c6d3">
+                    <div class="caption col-md-6">
+                        Customer Information
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div style="font-size: 12px;">
+                                @Html.Partial("~/Areas/PY/Views/Cashiering/FormEntry/_MainInfo.cshtml")
+                                @*@Html.Partial("~/Areas/PY/Views/Cashiering/FormEntry/_GridEntry.cshtml")*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-9">
+            <div class="portlet box">
+                <div class="portlet-title" style="background-color:#36c6d3">
+                    <div class="caption col-md-9">
+                        Items
+                    </div>
+                    <div class="caption col-md-3">
+                        <div class="col-md-6 text-right">
+                            Default Pricing By:
+                        </div>
+
+                        <div class="col-md-6">
+                            <select select2 class="form-control" ng-model="pricing" ng-change="checkPricing()">
+                                <option value="">---Please Select---</option>
+                                <option value="B">Brand</option>
+                                <option value="P">Price List</option>
+                                <option value="BP">Base Price</option>
+                            </select>
+                        </div>
+                        @*<div class="col-md-3">
+
+                            </div>*@
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12" style="min-height:212px;">
+                            <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                                <table ng-class="{'loading': isLoading}"
+                                       class="table table-bordered table-striped table-hover">
+                                    <tr>
+                                        <th width="1%">
+                                            <button class="btn btn-info btn-mini" ng-click="addItem()" style="width:100%">
+                                                <span class="fa fa-plus"></span>
+                                            </button>
+                                        </th>
+                                        <th class="table-header" width="20%">ITEM</th>
+                                        <th class="table-header" width="10%">BRAND</th>
+                                        <th class="table-header text-right" width="5%">QTY</th>
+                                        @*<th class="table-header">PRICE LIST</th>*@
+                                        <th class="table-header text-right" width="10%">ITEM COST</th>
+                                    </tr>
+                                    <tr ng-repeat="item in m.Items">
+                                        <td>
+                                            <button class="btn btn-danger btn-mini" ng-click="deleteItem($index)"  style="width:100%">
+                                                <span class="fa fa-trash"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <select select2 class="form-control" ng-model="item.Id"
+                                                    ng-options="b.Id as b.Description for b in items" ng-change="getItemDetail($index, item.Id)">
+                                                <option value="">---Please Select---</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <span ng-show="item.Brands.length==1">{{item.Brands[0].Name}}</span>
+                                            <span ng-show="item.Brands.length==0">N/A</span>
+                                            <span ng-show="item.Brands.length>1">
+                                                <select select2 class="form-control" ng-model="item.Brand"
+                                                        ng-options="b as b.Name for b in item.Brands" ng-change="setBrand(item,item.Brand)">
+                                                    <option value="">---Please Select---</option>
+                                                </select>
+                                            </span>
+                                            @*<span ng-repeat="b in item.Brands"  ng-style="{'color': b.IsDefault ? 'black':'gray', 'font-weight': b.IsDefault ?'bold':'normal' }">
+                                        <font style="cursor:pointer" ng-click="setBrand(item,b)">
+                                            {{b.Name}}
+                                        </font>
+                                        <font ng-hide="item.Brands.length-1 == $index">
+                                            |
+                                        </font>
+                                    </span>*@
+                                        </td>
+                                        <td ng-class="item.InvalidQty ? 'has-error':''">
+                                            <div ng-show="item.MaxQty>0 && item.Brand!=null">
+                                                <input type="text" class="form-control text-right" ng-model="item.Qty" placeholder="{{item.MaxQty}}" ng-change="checkMaxQty(item)" numbers-only />
+                                                <span ng-show="item.InvalidQty" style="color:red">
+                                                    Exceeding quantity!
+                                                </span>
+                                            </div>
+                                            <div ng-show="item.MaxQty==0 && item.Brand!=null">
+                                                <span style="color:red">
+                                                    Out of stock
+                                                </span>
+                                            </div>
+                                        </td>
+                                        @*<td>
+                                            <span ng-show="item.PriceLists.length==1">{{item.PriceLists[0].Name}}</span>
+                                            <span ng-show="item.PriceLists.length>1">
+                                                <select select2 class="form-control" ng-model="item.PriceListId"
+                                                        ng-options="b as b.Name for b in item.PriceLists">
+                                                    <option value="">---Please Select---</option>
+                                                </select>
+                                            </span>
+                                        </td>*@
+                                        <td>
+                                            <input type="text" class="form-control text-right" ng-model="item.ItemCost" onchange="formatToCurrency(this)"
+                                                   onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode==46' />
+                                        </td>
+
+
+                                    </tr>
+                                    <tr ng-show="m.Items.length == 0">
+                                        <td hidden></td>
+                                        <td colspan="14" class="text-center" style="font-style:unset">
+                                            Add atleast one (1) item.
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="portlet box">
+                <div class="portlet-title" style="background-color:#36c6d3">
+                    <div class="caption col-md-6">
+                        Collection And Payment
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <label class="control-label col-md-6">
+                            <b>Cash</b>
+                        </label>
+                        <label class="control-label col-md-6 text-right">
+                            <b>0.00</b>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="control-label col-md-6">
+                            <b>Bank Transfer / GCASH</b>
+                        </label>
+                        <label class="control-label col-md-6 text-right">
+                            <b>0.00</b>
+                        </label>
+                    </div>
+                    <div class="row" style="margin-bottom:unset;">
+                        <div class="col-md-12">
+                            <hr style="border:groove" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-md-radios">
+                                <div class="md-radio-inline">
+                                    <div class="md-radio">
+                                        <input type="radio" id="tarelco" name="owner" class="md-radiobtn"
+                                               ng-value="true"
+                                               checked
+                                               ng-model="isCash"
+                                               ng-change="isCash=true" />
+                                        <label for="tarelco">
+                                            <span class="inc"></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span>
+                                            <img src="~/Content/Image/money.ico" width="20" height="25" />
+                                        </label>
+
+                                    </div>
+                                    <div class="md-radio">
+                                        <input type="radio" id="private" ng-model="isCash" ng-change="isCash=false" ng-checked="!isCash" name="owner" class="md-radiobtn">
+                                        <label for="private">
+                                            <span class="inc"></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span>
+
+                                            <img src="~/Content/Image/Visa-icon.png" width="20" height="25" />
+                                            <img src="~/Content/Image/Master-Card-Blue-icon.png" width="20" height="25" />
+                                            <img src="~/Content/Image/gcash.ico" width="20" height="25" />
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-6" ng-show="!isCash">
+                            <label class="control-label">Reference No</label>
+                            <input type="text" ng-model="m.ReferenceNo" class="form-control" />
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <label class="control-label col-md-6">
+                            <b>Total</b>
+                        </label>
+                        <label class="control-label col-md-6 text-right">
+                            <b>{{m.Total | number:2}}</b>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="control-label col-md-6">
+                            <b>Tender</b>
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" ng-model="m.TotalTender" class="form-control text-right" ng-change="computeTender()" onchange="formatToCurrency(this)"
+                                                           onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode==46' />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="control-label col-md-6">
+                            <b>Change</b>
+                        </label>
+                        <label class="control-label col-md-6 text-right">
+                            <b>{{m.Change}}</b>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light" style="border-top:solid thin #e7ecf1">
+                <div class="form-actions">
+                    <button class="btn btn-success" ng-click="save()">
+                        <span class="glyphicon glyphicon-ok"></span>&nbsp;ADD
+                    </button>
+                    <button class="btn btn-default" ng-click="cancel()">
+                        <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@section PageStyles {
+
+    <style>
+        .modal-full {
+            min-width: 100%;
+            margin: 0;
+        }
+
+            .modal-full .modal-content {
+                min-height: 100vh;
+            }
+    </style>
+}
+@section PageScripts {
+    <script>
+        $(document).ready(function () {
+            $("#transferDate").datepicker({
+                format: "yyyymm",
+                viewMode: "months",
+                minViewMode: "months",
+                autoclose: true,
+                orientation: "bottom"
+            });
+
+        });
+        function addSelection(element) {
+            //console.log('#'+element)
+            if ($('#' + element).find("option[value='" + $('.select2-search__field').val() + "']").length) {
+                $('#' + element).val($('.select2-search__field').val()).trigger('change');
+            } else {
+                // Create a DOM Option and pre-select by default
+                var newOption = new Option($('.select2-search__field').val(), $('.select2-search__field').val(), true, true);
+                // Append it to the select
+                $('#' + element).append(newOption).trigger('change');
+            }
+        }
+    </script>
+
+}
+
+@section angularjspage {
+    <script src="~/Areas/MD/Scripts/Services/ItemMasterService.js"></script>
+    <script src="~/Areas/PY/Scripts/Services/CashieringService.js"></script>
+    <script src="~/Scripts/App/Services/ChooseFromListService.js"></script>
+    <script src="~/Scripts/App/Controllers/ChooseFromListController.js"></script>
+    <script src="~/Areas/PY/Scripts/Controllers/Cashiering/PaymentEntryController.js"></script>
+}

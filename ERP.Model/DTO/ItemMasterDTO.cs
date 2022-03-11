@@ -24,14 +24,54 @@ namespace ERP.Model.DTO
         public string CreatedBy { get; set; }
         public int Id { get; set; }
     }
+    public class ItemMasterLookUpDTO
+    {
+        public int Id { get; set; }
+        public string ItemCode { get; set; }
+        public string LongDescription { get; set; }
+        public string IsActive { get; set; }
+        public decimal? ItemCost { get; set; } = 0;
+        public List<PriceListDescAndIdDTO> PriceLists { get; set; } = new List<PriceListDescAndIdDTO>();
+        public List<BrandDescAndIdDTO> Brands { get; set; } = new List<BrandDescAndIdDTO>();
+        public decimal? BasePrice { get; set; }= 0;
+        public int? MaxQty { get; set; } = 0;
+
+    }
+    public class PriceListDescAndIdDTO : DescAndIdDTO
+    {
+
+    }
+    public class BrandDescAndIdDTO : DescAndIdDTO
+    {
+
+    }
+    public class DescAndIdDTO
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal? ItemCost { get; set; } = 0;
+        public bool IsDefault { get; set; }
+    }
     public class ItemMasterPriceListDTO
     {
         public int Id { get; set; }
         public string ItemCode { get; set; }
         public string LongDescription { get; set; }
-        public decimal ItemCost { get; set; }
+        public decimal? ItemCost { get; set; }
         public string Category { get; set; }
         public string IsActive { get; set; }
+
+    }
+    public class ItemMasterInventoryUoM
+    {
+        public int Id { get; set; }
+        public int? PackagingUoMId { get; set; }
+        public int? BaseUoMId { get; set; }
+        public int? BaseUoMQuantity { get; set; }
+        public int? PackagingUoMQuantity { get; set; }
+        public decimal? ItemCost { get; set; }
+        public int? BrandId { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
     #endregion
     #region ViewModel
@@ -41,7 +81,10 @@ namespace ERP.Model.DTO
         public string ItemCode { get; set; }
         public string LongDescription { get; set; }
         public string ShortDescription { get; set; }
-        public List<PriceListForItemMasterDTO> ItemPriceLists { get; set; } = new List<PriceListForItemMasterDTO>();
+        public decimal? BasePrice { get; set; } = 0;
+        public List<BrandPriceListForItemMasterDTO> PriceLists { get; set; } = new List<BrandPriceListForItemMasterDTO>();
+        public List<BrandPriceListForItemMasterDTO> Brands { get; set; } = new List<BrandPriceListForItemMasterDTO>();
+        public List<ItemMasterInventoryUoM> InventoryItems { get; set; } = new List<ItemMasterInventoryUoM>();
     }
     #endregion
 

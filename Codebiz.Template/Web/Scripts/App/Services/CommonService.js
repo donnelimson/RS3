@@ -1343,6 +1343,12 @@ angular.module("MetronicApp").factory('CommonService', ['$http', '$q','$window',
         },
         GetMeterBySerialNo: function (data) {
             return this.GetData(data, document.baseUrlNoArea + 'api/Meter/GetMeterBySerialNo/{serialNo}', null);
-        }
+        },
+        GetAllUoM: function (params, id) {
+            return this.GetData(params, document.ItemMaster + 'GetAllUoM', id);
+        },
+        GetAllBrands: function (params, id) {
+            return this.GetData(params, document.Brand + 'GetAllBrands', id);
+        },
     };
 }]);

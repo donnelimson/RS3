@@ -12,6 +12,16 @@
         ExportDataToExcelFile: function (data) {
             return commonService.PostData(data, document.ItemMaster + 'ExportDataToExcelFile');
         },
+        GetAllItems: function (data) {
+            return commonService.GetData(data, document.ItemMaster + 'GetAllItems');
+        },
+        GetItemMasterLookUpById: function (data) {
+            return commonService.GetData(data, document.ItemMaster + 'GetItemMasterLookUpById');
+        },
+        GetMaxQtyByItemMasterAndBrandId: function (data) {
+            return commonService.GetData(data, document.ItemMaster + 'GetMaxQtyByItemMasterAndBrandId');
+        },
         
+
     };
 }]);

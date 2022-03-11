@@ -265,6 +265,7 @@
     <Compile Include="EnumBaseModels\Member\MembershipTypeSubcategory.cs" />
     <Compile Include="EnumBaseModels\PaperType.cs" />
     <Compile Include="EnumBaseModels\TemplateName.cs" />
+    <Compile Include="EnumBaseModels\UnitOfMeasurement.cs" />
     <Compile Include="Enums\ApprovalStageLabels.cs" />
     <Compile Include="Enums\BillingTransaction\BillingTransactionEnums.cs" />
     <Compile Include="Enums\BusinessPartners\CashDiscountBasedOnEnum.cs" />
@@ -304,6 +305,7 @@
     <Compile Include="Enums\TransactionTypes.cs" />
     <Compile Include="Enums\Statuses.cs" />
     <Compile Include="DataModel\base\FileBase.cs" />
+    <Compile Include="Enums\UoMEnums.cs" />
     <Compile Include="Enums\WithdrawalStatusesEnum.cs" />
     <Compile Include="Filter\AddressFilter.cs" />
     <Compile Include="Filter\ApprovalFilter.cs" />

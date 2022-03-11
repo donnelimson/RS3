@@ -1,0 +1,346 @@
+﻿.dropdown-left-manual {
+    right: 0;
+    left: auto;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+html {
+    overflow: hidden;
+}
+
+.tdlabelText {
+    font-size: 11px;
+    color: #67809f;
+    font-weight: bold;
+    vertical-align: middle;
+    width: 40%;
+}
+
+.tdlabelInput {
+    padding-left: 11px;
+    width: 60%;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.inputField {
+    height: 25px;
+    font-size: 10px;
+}
+
+.form-horizontal .form-group {
+    margin-bottom: 3px;
+}
+
+.profile-sidebar {
+    float: right;
+    width: 300px;
+    margin-left: 20px;
+    margin-right: unset;
+}
+
+.profile-content {
+    min-width: 700px;
+}
+
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    vertical-align: unset !important;
+    /* padding-left: 10px;
+    padding-right: 10px*/
+}
+
+.md-checkbox label > .check {
+    border: 2px solid white;
+    border-top: none;
+    border-left: none;
+}
+
+.selectedRow {
+    background-color: #67809f;
+    color: white;
+}
+
+.selected {
+    /* background-color: #bfe1e4;*/
+    background-color: #fdf8c6;
+    color: black;
+    font-weight: bold;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.table-header {
+    font-weight: bold;
+    color: #337ab7;
+    margin-bottom: unset;
+    font-size: 11px;
+    vertical-align: middle;
+}
+
+.table thead tr th {
+    font-size: 11px;
+}
+
+.table td, .table th {
+    font-size: 11px;
+}
+
+.tableTpl-scroll {
+    display: block;
+}
+
+.table-scroll {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    overflow: auto;
+    /*min-height: 450px;*/
+}
+
+    .table-scroll table {
+        width: 100%;
+        min-width: 100%;
+        margin: auto;
+        border-spacing: 0;
+        height: 100%;
+    }
+
+.table-wrap {
+    position: relative;
+}
+
+.table-scroll th,
+.table-scroll td {
+    padding: 5px;
+    height: 30px;
+    vertical-align: central;
+}
+
+.table-scroll thead th {
+    background: #f6f8f9;
+    border-top: 1px solid black;
+    color: #fff;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+.table-scroll tfoot,
+.table-scroll tfoot th,
+.table-scroll tfoot td {
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+    background: #f6f8f9;
+    z-index: 4;
+}
+
+th:first-child {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    z-index: 2;
+}
+
+thead th:first-child,
+tfoot th:first-child {
+    z-index: 5;
+}
+
+.page-header.navbar.navbar-fixed-top, .page-header.navbar.navbar-static-top {
+    z-index: 0;
+}
+
+.cash-count-tool-modal .modal-content {
+    background: #eef1f5;
+}
+
+.modal_style {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.modal-xl {
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.main-modal-header {
+    position: unset;
+    top: 0;
+    left: 0;
+    right: 0;
+    border: none;
+}
+
+.modal-xl .modal-content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: auto
+}
+
+.main-modal-body {
+    top: 15px;
+    bottom: 0;
+    font-size: 15px;
+    padding: 0 10px 0;
+    width: 100%;
+}
+
+.modal-xl-prevor {
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 80%;
+    left: 10%;
+    top: 5%;
+}
+
+
+/*Custom Menu*/
+.custom-menu {
+    display: none;
+    z-index: 1000;
+    position: absolute;
+    overflow: hidden;
+    border: 1px solid #CCC;
+    white-space: nowrap;
+    font-family: sans-serif;
+    background: #FFF;
+    color: #333;
+    border-radius: 5px;
+    padding: 0;
+}
+
+    /* Each of the items in the list */
+    .custom-menu li {
+        padding: 8px 12px;
+        cursor: pointer;
+        list-style-type: none;
+        transition: all .3s ease;
+        user-select: none;
+    }
+
+        .custom-menu li:hover {
+            background-color: #DEF;
+        }
+
+.form-control {
+    font-size: 11px;
+    height: 25px;
+}
+
+.input-group-addon {
+    padding: 4.4px 12px;
+}
+
+.fa-view {
+    color: #e0bc0f;
+    top: 6px;
+    left: 8px;
+    position: absolute;
+    font-size: 14px;
+}
+
+.portlet.box > .portlet-body {
+    background-color: #fff;
+    padding: 8px;
+}
+
+.form-horizontal .md-radio-inline {
+    margin-top: unset;
+}
+
+.md-radio-inline {
+    margin: 2px 0;
+}
+
+.captions_ {
+    float: left;
+    display: inline-block;
+    line-height: 18px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.actions_ {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    float: right;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.btn-icon-only {
+    height: 25px;
+    width: 25px;
+    text-align: center;
+}
+
+.popover {
+    top: 10px !important;
+    z-index: 11000;
+    max-width: 800px; /* optional max width */
+    width: intrinsic; /* Safari/WebKit uses a non-standard name */
+    width: -moz-max-content; /* Firefox/Gecko */
+    width: -webkit-max-content; /* Chrome */
+}
+
+    .popover .arrow, .popover .arrow:after {
+        display: block !important;
+    }
+
+    .popover.left > .arrow {
+        top: 22%;
+    }
+
+.popover-content {
+    width: 330px;
+}
+
+
+.scroll-box::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.scroll-box::-webkit-scrollbar,
+.scroll-box::-webkit-scrollbar-thumb {
+    overflow: visible;
+    border-radius: 4px;
+}
+
+.scroll-box::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,.2);
+}
+
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.pane-hScroll {
+    overflow: auto;
+    overflow-y: hidden;
+}
+
+.pane-vScroll {
+    overflow-y: auto;
+    overflow-x: hidden;
+}

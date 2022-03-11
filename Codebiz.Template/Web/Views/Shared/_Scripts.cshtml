@@ -242,7 +242,8 @@
     document.Role = '@Url.Action("Index", "Role", new { area = "" })'+'/';
     document.ItemMaster = '@Url.Action("Index", "ItemMaster", new { area = "MD" })'+'/';
     document.PriceList = '@Url.Action("Index", "PriceList", new { area = "MD" })'+'/';
-
+    document.Brand = '@Url.Action("Index", "Brand", new { area = "MD" })' + '/';
+    document.Cashiering = '@Url.Action("Index", "Cashiering", new { area = "PY" })' + '/';
      window.onkeydown = function(e) {
         if (e.keyCode == 8 && e.target == document.body)
             e.preventDefault();

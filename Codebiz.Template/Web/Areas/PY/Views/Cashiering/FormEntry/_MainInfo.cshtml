@@ -1,0 +1,60 @@
+﻿
+<div class="row form-horizontal">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label col-md-2" style="text-align:left;">
+                Customer Name 
+            </label>
+            <div class="col-md-10" style="height: 26px;">
+                <input type="text" ng-model="m.Name" class="form-control" />
+
+            </div>
+
+        </div>
+
+        
+        <!--ADDRESS-->
+        <div class="form-group">
+            <label class="control-label col-md-2" style="text-align:left;">
+                Address
+            </label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" ng-model="m.CustomerAddress">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" style="text-align:left;">
+                Contact
+            </label>
+            <div class="col-md-10" style="margin-bottom:15px;">
+                <input type="text" class="form-control" ng-model="m.CustomerContact">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label col-md-5">
+                Posting Date  <span class="required">*</span>
+            </label>
+            <div class="col-md-7">
+                <div class='input-group date' style="" data-provide="datepicker">
+                    <input type="text" id="postingDate" name="postingDate" class="form-control datepicker" autocomplete="off"
+                           is-open="createdOnDatePicker.opened" close-text="Close"
+                           ng-model="m.PostingDate" ng-required="true" readonly>
+                    <span class="input-group-addon" onclick="$('#drp').focus()">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        @*<div class="form-group" style="margin-bottom: 15px">
+                <label class="control-label col-md-5">
+                    Journal Remarks
+                </label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="data.JournalRemarks">
+                </div>
+            </div>*@
+    </div>
+</div>

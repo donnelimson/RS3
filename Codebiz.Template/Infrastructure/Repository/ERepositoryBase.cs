@@ -33,7 +33,7 @@ namespace Infrastructure.Repository
             _ctx = ctx;
             _entitySet = ctx.Set<TEntity>();
         }
-
+  
         public override void InsertOrUpdate(TEntity entity)
         {
             PropertyInfo[] p = entity.GetType().GetProperties();

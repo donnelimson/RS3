@@ -61,6 +61,8 @@ namespace Codebiz.Domain.ERP.Context.SeedData
             var masterDAtaParentNavLink = context.NavLinks.FirstOrDefault(a => a.Name == NavLinkData.MasterData);
             context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = masterDAtaParentNavLink.NavLinkId, Name = NavLinkData.ItemMaster, Controller = "ItemMaster", Action = "Index", Area="MD", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 16 });
             context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = masterDAtaParentNavLink.NavLinkId, Name = NavLinkData.PriceList, Controller = "PriceList", Action = "Index", Area = "MD", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 16 });
+            context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { ParentNavLinkId = masterDAtaParentNavLink.NavLinkId, Name = NavLinkData.Brand, Controller = "Brand", Action = "Index", Area = "MD", IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 16 });
+
             #endregion
             #region Cashiering
             context.NavLinks.AddOrUpdate(a => a.Name, new NavLink { Name = NavLinkData.Cashiering, IconClass = "glyphicon glyphicon-shopping-cart", Parameters = "Cashiering", Action="Index", IsActive = true, CreatedOn = now, Controller="Cashiering", Area="PY", CreatedByAppUserId = AdminUser.AppUserId, Ordinal = 12 });

@@ -15,6 +15,8 @@
         GetPriceListForItemMaster: function (data) {
             return commonService.PostData(data, document.PriceList + 'GetPriceListForItemMaster');
         },
-        
+        GetDetailsById: function (data) {
+            return commonService.GetData(data, document.PriceList + 'GetDetailsById');
+        },
     };
 }]);

@@ -1,6 +1,7 @@
 ﻿using Codebiz.Domain.Common.Model;
 using Codebiz.Domain.Common.Model.DataModel.CSA;
 using Codebiz.Domain.Common.Model.DTOs;
+using Infrastructure;
 using Infrastructure.Services;
 using Infrastructure.Services.Common;
 using Logging;
@@ -15,6 +16,7 @@ namespace Web.Controllers
     public class BaseController : Controller
     {
         public  IAppUserServices _appUserServices;
+        public IUnitOfWork _unitOfWork;
         private AppUser _currentAppUser = null;
 
 

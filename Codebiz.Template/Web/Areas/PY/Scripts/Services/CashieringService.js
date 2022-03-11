@@ -1,16 +1,16 @@
 ﻿angular.module("MetronicApp").factory('CashieringService', ['CommonService', function (commonService) {
     return {
         Search: function (data) {
-            return commonService.PostData(data, document.ItemMaster + 'Search');
+            return commonService.PostData(data, document.Cashiering + 'Search');
         },
         GetDetailsById: function (data) {
-            return commonService.GetData(data, document.ItemMaster + 'GetDetailsById');
+            return commonService.GetData(data, document.Cashiering + 'GetDetailsById');
         },
         AddOrUpdate: function (data) {
-            return commonService.PostData(data, document.ItemMaster + 'AddOrUpdate');
+            return commonService.PostData(data, document.Cashiering + 'AddOrUpdate');
         },
         ExportDataToExcelFile: function (data) {
-            return commonService.PostData(data, document.ItemMaster + 'ExportDataToExcelFile');
+            return commonService.PostData(data, document.Cashiering + 'ExportDataToExcelFile');
         },
 
     };

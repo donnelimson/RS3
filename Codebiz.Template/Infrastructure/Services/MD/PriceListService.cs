@@ -17,7 +17,8 @@ namespace Infrastructure.Services.MD
         IPagedList<PriceListIndexDTO> Search(PriceListFilter filter);
         List<ItemMasterPriceListDTO> GetAllItemsForPriceList(LookUpFilter filter);
         PriceList AddOrUpdate(PriceListAddOrUpdateViewModel model, int currentUserId);
-        List<PriceListForItemMasterDTO> GetPriceListForItemMaster(int itemMasterId);
+        List<BrandPriceListForItemMasterDTO> GetPriceListForItemMaster(int itemMasterId);
+        PriceListAddOrUpdateViewModel GetDetailsById(int id);
     }
     public class PriceListService: IPriceListService
     {
@@ -71,9 +72,20 @@ namespace Infrastructure.Services.MD
             _priceListRepository.InsertOrUpdate(priceList);
             return priceList;
         }
-        public List<PriceListForItemMasterDTO> GetPriceListForItemMaster(int itemMasterId)
+        public List<BrandPriceListForItemMasterDTO> GetPriceListForItemMaster(int itemMasterId)
         {
             return _priceListRepository.GetPriceListForItemMaster(itemMasterId);
+        }
+        public PriceListAddOrUpdateViewModel GetDetailsById(int id)
+        {
+            var data = _priceListRepository.GetById(id);
+            return new PriceListAddOrUpdateViewModel
+            {
+                Code = data.Code,
+                IsActive = data.IsActive,
+                Id = data.Id,
+                Name = data.Name,
+            };
         }
     }
 }

@@ -183,6 +183,13 @@ namespace Codebiz.Domain.ERP.Context
         public IDbSet<ItemMaster> ItemMasters { get; set; }
         public IDbSet<PriceList> PriceLists { get; set; }
         public IDbSet<PriceListItemMaster> PriceListItemMaster { get; set; }
+        public IDbSet<Brand> Brands { get; set; }
+        public IDbSet<BrandItemMaster> BrandItemMaster { get; set; }
+        public IDbSet<SaleTransaction> SaleTransactions { get; set; }
+        public IDbSet<SaleTransactionDetail> SaleTransactionDetails { get; set; }
+        public IDbSet<UnitOfMeasurement> UnitOfMeasurements { get; set; }
+        public IDbSet<ItemMasterInventoryUOM> ItemMasterInventoryUOMs { get; set; }
+        
         #endregion
 
         #endregion

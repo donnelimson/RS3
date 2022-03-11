@@ -46,6 +46,9 @@
                 });
             }
         };
+        $scope.edit = function (id) {
+            window.location.href = document.PriceList + 'Form?id=' + id;
+        }
         $scope.search = function () {
             var initialSettings = {
                 getData: function (params) {

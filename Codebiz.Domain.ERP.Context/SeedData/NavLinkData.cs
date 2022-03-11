@@ -68,7 +68,7 @@
 
         public const string ItemMaster = "Item Master";
         public const string PriceList = "Price List";
-
+        public const string Brand = "Brand";
         #endregion
         #region Payment
         public const string Cashiering = "Cashiering";

@@ -407,6 +407,15 @@
         public const string UserCanEditPriceList = "PL2";
         public const string UserCanDeletePriceList = "PL3";
         public const string UserCanViewPriceList = "PL4";
+        public const string UserCanExportPriceList = "PL5";
+        
+        #endregion
+        #region Brand
+        public const string UserCanAddBrand = "BR1";
+        public const string UserCanEditBrand = "BR2";
+        public const string UserCanDeleteBrand = "BR3";
+        public const string UserCanExportBrand = "BR4";
+        public const string UserCanViewBrand = "BR5";
         #endregion
         #endregion
         #region Payment

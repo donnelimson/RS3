@@ -1,21 +1,17 @@
 ﻿MetronicApp.controller('CashieringIndexController', ['$scope', '$q', 'NgTableParams', 'CommonService', '$uibModal', '$timeout', '$location', '$window', 'CashieringService', '$controller',
     function ($scope, $q, NgTableParams, CommonService, $uibModal, $timeout, $location, $window, CashieringService, $controller) {
         this.$onInit = function () {
-            //$scope.reset();
+            $scope.reset();
         }
         $scope.f = {
-            ItemCode: "",
-            LongDescription: "",
-            ShortDescription: "",
+            ReferenceNo: "",
             CreatedBy: "",
             CreatedOnFrom: null,
             CreatedOnTo: null,
             CreatedOn: null
         }
         $scope.reset = function () {
-            $scope.f.ItemCode = "";
-            $scope.f.LongDescription = "";
-            $scope.f.ShortDescription = "";
+            $scope.f.ReferenceNo = "";
             $scope.f.CreatedBy = "";
             $scope.CreatedOn = null;
             $scope.f.CreatedOnFrom = null;
@@ -27,6 +23,22 @@
             if (keyCode === 13) {
                 $scope.search();
             }
+        }
+        $scope.openCashiering = function () {
+            $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'PaymentEntryModal.html',
+                controller: 'PaymentEntryController',
+                size: 'xlg',
+                keyboard: false,
+                backdrop: "static",
+                windowClass: 'modal_style',
+                modalOverflow: true,
+            }).result.then(function (data) {
+
+            });
         }
         $scope.exportDataToExcelFile = function () {
             if ($scope.resultsLength > 0) {
@@ -62,7 +74,7 @@
                     $scope.f.SortColumn = $scope.sortColumn == null ? 'CreatedOn' : $scope.sortColumn;
                     $scope.f.CreatedOnFrom = getDateRangePickerValue(1, $scope.CreatedOn);
                     $scope.f.CreatedOnTo = getDateRangePickerValue(2, $scope.CreatedOn);
-                    ItemMasterService.Search({
+                    CashieringService.Search({
                         filter: $scope.f
                     }).then(function (data) {
                         $scope.resultsLength = data.totalRecordCount;

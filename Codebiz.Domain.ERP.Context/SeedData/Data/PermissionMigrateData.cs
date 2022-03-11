@@ -112,6 +112,18 @@ namespace Codebiz.Domain.ERP.Context.SeedData
             context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = priceListIndexNavLink.NavLinkId, PermissionGroupId = priceListPermissionGroupId, Code = PermissionData.UserCanAddPriceList, Description = PermissionDataDescription.UserCanAddPriceList.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
             context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = priceListIndexNavLink.NavLinkId, PermissionGroupId = priceListPermissionGroupId, Code = PermissionData.UserCanEditPriceList, Description = PermissionDataDescription.UserCanEditPriceList.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
             context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = priceListIndexNavLink.NavLinkId, PermissionGroupId = priceListPermissionGroupId, Code = PermissionData.UserCanDeletePriceList, Description = PermissionDataDescription.UserCanDeletePriceList.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = priceListIndexNavLink.NavLinkId, PermissionGroupId = priceListPermissionGroupId, Code = PermissionData.UserCanExportPriceList, Description = PermissionDataDescription.UserCanExportPriceList.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+
+            #endregion
+            #region Brand
+            var brandPermissionGroupId = context.PermissionGroups.Where(a => a.Name == PermissionGroupData.Brand).Select(a => a.PermissionGroupId).FirstOrDefault();
+            var brandIndexNavLink = context.NavLinks.FirstOrDefault(a => a.Name == NavLinkData.Brand);
+            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = brandIndexNavLink.NavLinkId, PermissionGroupId = brandPermissionGroupId, Code = PermissionData.UserCanViewBrand, Description = PermissionDataDescription.UserCanViewBrand.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = brandIndexNavLink.NavLinkId, PermissionGroupId = brandPermissionGroupId, Code = PermissionData.UserCanAddBrand, Description = PermissionDataDescription.UserCanAddBrand.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = brandIndexNavLink.NavLinkId, PermissionGroupId = brandPermissionGroupId, Code = PermissionData.UserCanEditBrand, Description = PermissionDataDescription.UserCanEditBrand.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = brandIndexNavLink.NavLinkId, PermissionGroupId = brandPermissionGroupId, Code = PermissionData.UserCanDeleteBrand, Description = PermissionDataDescription.UserCanDeleteBrand.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+            context.Permissions.AddOrUpdate(a => a.Code, new Permission { NavLinkId = brandIndexNavLink.NavLinkId, PermissionGroupId = brandPermissionGroupId, Code = PermissionData.UserCanExportBrand, Description = PermissionDataDescription.UserCanExportBrand.ToSentenceCase(), IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+
             #endregion
             #endregion
             #region Payment
@@ -155,6 +167,7 @@ namespace Codebiz.Domain.ERP.Context.SeedData
             #region Master Data
             context.PermissionGroups.AddOrUpdate(a => a.Name, new PermissionGroup { Name = PermissionGroupData.ItemMaster, Description = PermissionGroupData.ItemMaster, IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
             context.PermissionGroups.AddOrUpdate(a => a.Name, new PermissionGroup { Name = PermissionGroupData.PriceList, Description = PermissionGroupData.PriceList, IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
+            context.PermissionGroups.AddOrUpdate(a => a.Name, new PermissionGroup { Name = PermissionGroupData.Brand, Description = PermissionGroupData.Brand, IsActive = true, CreatedOn = now, CreatedByAppUserId = AdminUser.AppUserId });
 
             #endregion
             #region Payment

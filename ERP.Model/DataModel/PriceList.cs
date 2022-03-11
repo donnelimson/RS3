@@ -34,5 +34,19 @@ namespace ERP.Model.DataModel
         public int PriceListId { get; set; }
         public virtual PriceList PriceList { get; set; }
         public decimal? ItemCost { get; set; } = 0;
+        public bool IsDefault { get; set; }
+    }
+    public class BrandItemMaster
+    {
+        [Key]
+        public int Id { get; set; }
+        [ForeignKey("ItemMaster")]
+        public int ItemMasterId { get; set; }
+        public virtual ItemMaster ItemMaster { get; set; }
+        [ForeignKey("Brand")]
+        public int BrandId { get; set; }
+        public virtual Brand Brand { get; set; }
+        public decimal? ItemCost { get; set; } = 0;
+        public bool IsDefault { get; set; }
     }
 }

@@ -22,13 +22,17 @@ namespace ERP.Model.DTO
         public string CreatedBy { get; set; }
         public int Id { get; set; }
     }
-    public class PriceListForItemMasterDTO
+    public class BrandPriceListForItemMasterDTO
     {
         public int Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public decimal? ItemCost { get; set; } = 0;
+        public bool IsDefault { get; set; }
+        public int? PriceListId { get; set; }
+        public int? BrandId { get; set; }
     }
+
     #endregion
     #region ViewModels
     public class PriceListAddOrUpdateViewModel

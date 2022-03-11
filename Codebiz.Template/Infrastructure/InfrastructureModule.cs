@@ -12,9 +12,11 @@ using Domain.Repository.Financials;
 using Infrastructure.Repository;
 using Infrastructure.Repository.Common;
 using Infrastructure.Repository.MD;
+using Infrastructure.Repository.Sales;
 using Infrastructure.Services;
 using Infrastructure.Services.Common;
 using Infrastructure.Services.MD;
+using Infrastructure.Services.Sale;
 using Infrastructure.Utilities;
 using System.Security.Cryptography;
 
@@ -118,6 +120,9 @@ namespace Infrastructure
             #region Naiahs
             builder.RegisterType<ItemMasterService>().As<IItemMasterService>().InstancePerLifetimeScope();
             builder.RegisterType<PriceListService>().As<IPriceListService>().InstancePerLifetimeScope();
+            builder.RegisterType<BrandService>().As<IBrandService>().InstancePerLifetimeScope();
+            builder.RegisterType<SaleTransactionService>().As<ISaleTransactionService>().InstancePerLifetimeScope();
+
             #endregion
 
         }
@@ -186,6 +191,8 @@ namespace Infrastructure
             #region Naiahs
             builder.RegisterType<ItemMasterRepository>().As<IItemMasterRepository>().InstancePerLifetimeScope();
             builder.RegisterType<PriceListRepository>().As<IPriceListRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<BrandRepository>().As<IBrandRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<SaleTransactionRepository>().As<ISaleTransactionRepository>().InstancePerLifetimeScope();
 
             #endregion
 

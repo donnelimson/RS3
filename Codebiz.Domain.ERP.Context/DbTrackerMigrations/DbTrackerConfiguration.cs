@@ -64,7 +64,7 @@ namespace Codebiz.Domain.ERP.Context.DbTrackerMigrations
             Helpers.SeedEnumData<CommisionGroups, CommisionGroupEnums>(context.CommisionGroups);
             Helpers.SeedEnumData<DivisionType, DivisionTypeEnums>(context.DivisionTypes);
             Helpers.SeedEnumData<ConsumerClass, ConsumerClasses>(context.ConsumerClasses);
-
+            Helpers.SeedEnumData<UnitOfMeasurement, UoMEnums>(context.UnitOfMeasurements);
 
             //Report Category
             Helpers.SeedEnumData<ReportCategory, ReportCategoryEnums>(context.ReportCategories);

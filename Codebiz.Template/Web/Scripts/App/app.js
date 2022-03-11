@@ -498,7 +498,8 @@ MetronicApp.directive("select2", function ($timeout, $parse) {
             $timeout(function () {
                 element.select2({
                     placeholder: "---Please select---",
-                    allowClear: !element[0].multiple
+                    allowClear: !element[0].multiple,
+                    tags: attrs['tags'] == null ? false : attrs['tags']
                 });
                 element.select2Initialized = true;
             });

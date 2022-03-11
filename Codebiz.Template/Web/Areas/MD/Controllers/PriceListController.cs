@@ -1,4 +1,5 @@
-﻿using Codebiz.Domain.Common.Model.DTOs;
+﻿using Codebiz.Domain.Common.Model;
+using Codebiz.Domain.Common.Model.DTOs;
 using Codebiz.Domain.Common.Model.Filter;
 using Codebiz.Domain.ERP.Context.SeedData;
 using ERP.Model.DTO;
@@ -20,8 +21,6 @@ namespace Web.Areas.MD.Controllers
 {
     public class PriceListController : BaseController
     {
-        private readonly IAppUserServices _appUserServices;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IPriceListService _priceListService;
         public PriceListController(IAppUserServices appUserService,
         IUnitOfWork unitOfWork,
@@ -37,7 +36,7 @@ namespace Web.Areas.MD.Controllers
         {
             return View();
         }
-        public ActionResult Form()
+        public ActionResult Form(int? id)
         {
             return View();
         }
@@ -60,6 +59,7 @@ namespace Web.Areas.MD.Controllers
             var dataDTO = model;
             var ajaxResult = new AjaxResult();
             ajaxResult.Action = model.Id == 0 ? "create" : "update";
+            ajaxResult.LogEventTitle = model.Id == 0 ? LogEventTitles.PriceListCreated : LogEventTitles.PriceListUpdated;
             ajaxResult.Module = "Price List";
             RunMethod(() =>
             {
@@ -79,6 +79,12 @@ namespace Web.Areas.MD.Controllers
         public JsonResult GetPriceListForItemMaster(int itemMasterId)
         {
             return Json(new { result = _priceListService.GetPriceListForItemMaster(itemMasterId) }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetDetailsById(int id)
+        {
+            return Json(new { result = _priceListService.GetDetailsById(id) }, JsonRequestBehavior.AllowGet);
+
         }
         #endregion
     }

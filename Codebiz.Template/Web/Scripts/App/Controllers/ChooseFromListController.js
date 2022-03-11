@@ -3,6 +3,11 @@
         ['$scope', 'NgTableParams', '$uibModalInstance', '$q', 'CommonService','Data','ChooseFromListService','$timeout',
             function ($scope, NgTableParams, $uibModalInstance, $q, CommonService, Data, ChooseFromListService, $timeout) {
                 $scope.module = Data.Module;
+                $scope.selectedData = [];
+                if (Data.SelectedData != null) {
+                    $scope.selectedData = angular.copy(Data.SelectedData);
+                }
+             
                 $scope.f = {
                     Page: 1,
                     PageSize: 10,
@@ -10,15 +15,36 @@
                     SortColumn: "",
                     Searcher: ""
                 }
-                $scope.onSelectClick = function (d, index) {
-                    $scope.selectedRow = index;
-                    $scope.selectedData = d;
+                $scope.onSelectClick = function (e, d, index) {
+                    if (e.ctrlKey) {
+                        if (d.selectedRow == null) {
+                            d.selectedRow = d.Id;
+                            $scope.selectedData.push(d);
+                        }
+               
+                    } else {
+                        if (d.selectedRow != null) {
+                            d.selectedRow = null;
+                            $scope.selectedData.splice(index, 1);
+                        }
+                        else {
+                            $scope.selectedData = [];
+                            for (var i = 0; i <= $scope.data.length - 1; i++) {
+                                $scope.data[i].selectedRow = null;
+                            }
+                            d.selectedRow = d.Id;
+                            $scope.selectedData.push(d);
+                        }
+           
+                    }
                 }
                 $scope.select = function (d) {
                     $uibModalInstance.close($scope.selectedData);
                 }
-                $scope.onSelectDoubleClick = function (d) {
-                    $uibModalInstance.close(d);
+                $scope.onSelectDoubleClick = function (d,index) {
+                    d.selectedRow = index;
+                    $scope.selectedData.push(d);
+                    $uibModalInstance.close($scope.selectedData);
                 }
                 $scope.navigate = function () {
                     var initialSettings = {
@@ -48,28 +74,31 @@
                   
                 }
                 function loadList(d, params, initialSettings) {
-                    if (Data.LookupType == "APU") {
-                        ChooseFromListService.GetAllAppuserForCFL({
+                    if (Data.LookupType == "ITM") {
+                        ChooseFromListService.GetItemMasterLookUp({
                             filter: $scope.f,
-                            roleId: Data.RoleId,
                         }).then(function (data) {
+                            //console.log(data.result)
                             $scope.resultsLength = data.totalRecordCount;
                             params.total(data.totalRecordCount);
+                            $scope.data = data.result;
                             d.resolve(data.result);
+                            $timeout(function () {
+                                if ($scope.selectedData.length > 0) {
+                                    for (var i = 0; i <= $scope.selectedData.length - 1; i++) {
+                                        var x = $scope.data.findIndex(r => r.Id == $scope.selectedData[i].selectedRow);
+                                        if (x != -1) {
+                                            $scope.data[x]["selectedRow"] = $scope.selectedData[i].selectedRow;
+
+                                        }
+                                    }
+                                }
+                            },10)
+                          
                             $scope.currentPage = params.page();
                             $scope.tableCount = params.count();
                             $scope.offSetCount = data.result.length;
-                        });
-                    } else if (Data.LookupType == "TCK") {
-                        ChooseFromListService.GetMyTickets({
-                            filter: $scope.f
-                        }).then(function (data) {
-                            $scope.resultsLength = data.totalRecordCount;
-                            params.total(data.totalRecordCount);
-                            d.resolve(data.result);
-                            $scope.currentPage = params.page();
-                            $scope.tableCount = params.count();
-                            $scope.offSetCount = data.result.length;
+                   
                         });
                     }
           

@@ -107,18 +107,30 @@ namespace Codebiz.Domain.Common.Model
         ChangePassword = 515,
 
         #region Naiahs
+        #region Item Master
         [Description("Item Master Created")]
         ItemMasterCreated = 516,
         [Description("Item Master Updated")]
         ItemMasterUpdated = 517,
         [Description("Item Master Deleted")]
         ItemMasterDeleted = 518,
+        #endregion
+        #region Price List
         [Description("Price List Created")]
         PriceListCreated = 519,
         [Description("Price List Updated")]
         PriceListUpdated = 520,
         [Description("Price List Deleted")]
         PriceListDeleted = 521,
+        #endregion
+        #region Brand
+        [Description("Brand Created")]
+        BrandCreated = 522,
+        [Description("Brand Updated")]
+        BrandUpdated = 523,
+        [Description("Brand Deleted")]
+        BrandDeleted = 524,
+        #endregion
         #endregion
 
     }

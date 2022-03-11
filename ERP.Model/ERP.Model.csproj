@@ -43,12 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModel\Brand.cs" />
     <Compile Include="DataModel\ItemMaster.cs" />
     <Compile Include="DataModel\PriceList.cs" />
+    <Compile Include="DataModel\SaleTransaction.cs" />
+    <Compile Include="DTO\BrandDTO.cs" />
     <Compile Include="DTO\ItemMasterDTO.cs" />
     <Compile Include="DTO\PriceListDTO.cs" />
+    <Compile Include="DTO\SaleTransactionDTO.cs" />
+    <Compile Include="Filter\BrandFilter.cs" />
     <Compile Include="Filter\ItemMasterFilter.cs" />
     <Compile Include="Filter\PriceListFilter.cs" />
+    <Compile Include="Filter\SaleTransactionFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,7 +63,9 @@
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

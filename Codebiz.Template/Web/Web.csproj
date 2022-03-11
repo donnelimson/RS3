@@ -363,6 +363,7 @@
     <Compile Include="App_Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="App_Helpers\ModelStateExtension.cs" />
     <Compile Include="App_Helpers\RazorHelper.cs" />
+    <Compile Include="Areas\MD\Controllers\BrandController.cs" />
     <Compile Include="Areas\MD\Controllers\ItemMasterController.cs" />
     <Compile Include="Areas\MD\Controllers\PriceListController.cs" />
     <Compile Include="Areas\MD\MDAreaRegistration.cs" />
@@ -696,18 +697,27 @@
     <Content Include="App_Data\DefaultPhoto\txt.png" />
     <Content Include="App_Data\DefaultPhoto\xls.png" />
     <Content Include="App_Data\MIGRATE-REGION-PROVINCE.sql" />
+    <Content Include="Areas\MD\Scripts\Controllers\Brand\BrandAddOrUpdateController.js" />
+    <Content Include="Areas\MD\Scripts\Controllers\Brand\BrandIndexController.js" />
     <Content Include="Areas\MD\Scripts\Controllers\ItemMaster\ItemMasterAddOrUpdateController.js" />
     <Content Include="Areas\MD\Scripts\Controllers\ItemMaster\ItemMasterIndexController.js" />
     <Content Include="Areas\MD\Scripts\Controllers\PriceList\PricelistAddOrUpdateController.js" />
     <Content Include="Areas\MD\Scripts\Controllers\PriceList\PriceListIndexController.js" />
+    <Content Include="Areas\MD\Scripts\Services\BrandService.js" />
     <Content Include="Areas\MD\Scripts\Services\ItemMasterService.js" />
     <Content Include="Areas\MD\Scripts\Services\PriceListService.js" />
     <Content Include="Areas\PY\Scripts\Controllers\Cashiering\CashieringIndexController.js" />
+    <Content Include="Areas\PY\Scripts\Controllers\Cashiering\PaymentEntryController.js" />
     <Content Include="Areas\PY\Scripts\Services\CashieringService.js" />
+    <Content Include="Content\Cashiering.css" />
     <Content Include="Content\Image\communitechheaderlogo.png" />
+    <Content Include="Content\Image\gcash.ico" />
     <Content Include="Content\Image\mainlogocomm.png" />
     <Content Include="Content\Image\mainlogocommwithshadow.png" />
+    <Content Include="Content\Image\Master-Card-Blue-icon.png" />
+    <Content Include="Content\Image\money.ico" />
     <Content Include="Content\Image\ticket.png" />
+    <Content Include="Content\Image\Visa-icon.png" />
     <Content Include="Scripts\angular-animate\angular-animate.js" />
     <Content Include="Scripts\angular-animate\angular-animate.min.js" />
     <Content Include="Scripts\angular-animate\index.js" />
@@ -770,6 +780,12 @@
     <Content Include="Areas\PY\Views\_ViewStart.cshtml" />
     <Content Include="Areas\PY\Views\Cashiering\Index.cshtml" />
     <Content Include="Areas\PY\Views\Web.config" />
+    <Content Include="Areas\MD\Views\Brand\Index.cshtml" />
+    <Content Include="Areas\MD\Views\Brand\Form.cshtml" />
+    <Content Include="Areas\PY\Views\Cashiering\Form.cshtml" />
+    <Content Include="Areas\PY\Views\Cashiering\FormEntry\_MainInfo.cshtml" />
+    <Content Include="Areas\PY\Views\Cashiering\FormEntry\_SideInfo.cshtml" />
+    <Content Include="Areas\PY\Views\Cashiering\_Form.cshtml" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <Content Include="Views\Shared\_ChooseFromList.cshtml" />
     <Content Include="Views\ChooseFromList\GetLookup.cshtml" />
@@ -778,6 +794,7 @@
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\SignUpConfirmation.cshtml" />
     <Content Include="Views\Account\Activate.cshtml" />
+    <Content Include="Views\Shared\_LayoutForCashiering.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

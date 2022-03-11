@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - TARELCO</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    @*<link rel="shortcut icon" href="~/Content/Image/Tarelconew.ico" type="image/x-icon" />*@
+    <!-- BEGIN CSS -->
+    @Html.Partial("_Styles")
+    @RenderSection("pagestyles", required: false)
+    <!-- END CSS -->
+
+</head>
+<!-- END HEAD -->
+<body class="page-header-fixed page-sidebar-fixed page-footer-fixed page-sidebar-closed-hide-logo page-content-white page-md" ng-app="MetronicApp">
+    <div class="page-wrapper">
+        <div>
+            <!-- BEGIN HEADER -->
+            @Html.Partial("_PageHeader")
+            <!-- END HEADER -->
+            <!-- BEGIN HEADER & CONTENT DIVIDER -->
+            <div class="clearfix"> </div>
+            <!-- END HEADER & CONTENT DIVIDER -->
+            <!-- BEGIN CONTAINER -->
+            <div class="page-container">
+                <!-- BEGIN SIDEBAR -->
+                <!-- END SIDEBAR -->
+                <!-- BEGIN CONTENT -->
+                <div class="page-content-wrapper">
+                    <div class="page-content" style="background-color: #eef1f5;">
+                        @RenderBody()
+                        @Html.Partial("_Modal") <!-- MODAL -->
+                    </div>
+                    <!-- END CONTENT BODY -->
+                </div>
+                <!-- END CONTENT -->
+                <!-- BEGIN QUICK SIDEBAR -->
+                <!-- /*Html.Partial("_QuickSidebar")*/-->
+                <!-- END QUICK SIDEBAR -->
+            </div>
+        </div>
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        <!-- END FOOTER -->
+    </div>
+    <!-- BEGIN SCRIPT -->
+
+    @Html.Partial("_Scripts")
+
+    @Scripts.Render("~/Scripts/stomp.js")
+
+    @RenderSection("pagepluginscripts", required: false)
+    @RenderSection("pagescripts", required: false)
+    @RenderSection("angularjsplugins", required: false)
+    @RenderSection("angularjspage", required: false)
+</body>
+
+</html>

@@ -93,11 +93,12 @@
                                         <a href="#pricelistDataTab" id="pricelistDataTabLi" data-toggle="tab" target="_self"><span>PRICE LIST DATA</span></a>
                                     </li>
                                     <li>
-                                        <a href="#inventoryDataTab" id="inventoryDataTabLi" data-toggle="tab" target="_self"><span>INVENTORY DATA</span></a>
+                                        <a href="#brandDataTab" id="brandDataTabLi" data-toggle="tab" target="_self"><span>BRAND</span></a>
                                     </li>
                                     <li>
-                                        <a href="#packagingDataTab" id="packagingDataTabLi" data-toggle="tab" target="_self"><span>UOM GROUP</span></a>
+                                        <a href="#inventoryDataTab" id="inventoryDataTabLi" data-toggle="tab" target="_self"><span>INVENTORY DATA</span></a>
                                     </li>
+         
                                     <li>
                                         <a href="#purchasingDataTab" id="purchasingDataTabLi" data-toggle="tab" target="_self"><span>PURCHASING DATA</span></a>
                                     </li>
@@ -119,7 +120,7 @@
                                                     <label class="control-label">Base Price</label>
                                                     <input type="text" class="form-control text-right" ng-model="m.BasePrice" name="BasePrice" onchange="formatToCurrency(this)"
                                                            onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode==46'>
-                                       
+
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -147,29 +148,206 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
-                                                    <table ng-table="priceListTableParams" ng-class="{'loading': isLoading}"
+                                                    <table ng-class="{'loading': isLoading}"
                                                            class="table table-bordered table-striped table-hover">
-                                                        <tr ng-repeat="item in $data">
+                                                        <tr>
+                                                            <th class="table-header">
+                                                                CODE
+                                                            </th>
+                                                            <th class="table-header">
+                                                                NAME
+                                                            </th>
+                                                            <th class="table-header text-right">
+                                                                ITEM COST
+                                                            </th>
+                                                            @*<th  class="table-header text-center" width="1%">DEFAULT</th>*@
+                                                        </tr>
+                                                        <tr ng-repeat="item in m.PriceLists">
 
-                                                            <td width="10%" data-title="'CODE'" header-class="'table-header text-left'" class="text-left">
+                                                            <td width="10%" class="text-left">
                                                                 <a ng-click="viewPriceList(item.Id)">
                                                                     {{item.Code}}
                                                                 </a>
 
                                                             </td>
-                                                            <td width="10%" data-title="'NAME'" header-class="'table-header text-left'" class="text-left">
+                                                            <td width="10%" class="text-left">
                                                                 {{item.Name}}
                                                             </td>
 
-                                                            <td width="10%" data-title="'ITEM COST'" header-class="'table-header text-right'" class="text-right">
+                                                            <td width="10%" class="text-right">
+                                                                <input type="text" ng-model="item.ItemCost" class="form-control text-right" onchange="formatToCurrency(this)"
+                                                                       onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode==46' />
+                                                            </td>
+                                                            @*<td class="text-center" width="1%">
+                                    <div class="form-group">
+                                        <div class="md-checkbox-inline">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" class="md-check"
+                                                       ng-checked="item.IsDefault"
+                                                       ng-model="item.IsDefault"
+                                                       ng-disabled="isView"
+                                                       id="isDefault{{$index}}">
+                                                <label for="isDefault{{$index}}">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>*@
+
+
+                                                        </tr>
+                                                        <tr ng-show="m.PriceLists.length == 0">
+                                                            <td hidden></td>
+                                                            <td colspan="14" class="text-center" style="font-style:unset">
+                                                                No data available
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="brandDataTab">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                                                    <table ng-class="{'loading': isLoading}"
+                                                           class="table table-bordered table-striped table-hover">
+                                                        <tr>
+                                                            <th class="table-header">
+                                                                CODE
+                                                            </th>
+                                                            <th class="table-header">
+                                                                NAME
+                                                            </th>
+                                                            <th class="table-header text-right">
+                                                                ITEM COST
+                                                            </th>
+                                                            <th class="table-header text-center" width="1%">DEFAULT</th>
+
+                                                        </tr>
+                                                        <tr ng-repeat="item in m.Brands">
+
+                                                            <td width="10%" class="text-left">
+                                                                <a ng-click="viewPriceList(item.Id)">
+                                                                    {{item.Code}}
+                                                                </a>
+
+                                                            </td>
+                                                            <td width="10%" class="text-left">
+                                                                {{item.Name}}
+                                                            </td>
+
+                                                            <td width="10%" class="text-right">
                                                                 <input type="text" ng-model="item.ItemCost" class="form-control text-right" onchange="formatToCurrency(this)"
                                                                        onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode==46' />
                                                             </td>
 
+                                                            <td class="text-center" width="1%">
+                                                                <div class="form-group">
+                                                                    <div class="md-checkbox-inline">
+                                                                        <div class="md-checkbox">
+                                                                            <input type="checkbox" class="md-check"
+                                                                                   ng-checked="item.IsDefault"
+                                                                                   ng-model="item.IsDefault"
+                                                                                   ng-disabled="isView"
+                                                                                   id="isDefault{{$index}}">
+                                                                            <label for="isDefault{{$index}}">
+                                                                                <span class="inc"></span>
+                                                                                <span class="check"></span>
+                                                                                <span class="box"></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
 
 
                                                         </tr>
-                                                        <tr ng-show="$data.length == 0">
+                                                        <tr ng-show="m.Brands.length == 0">
+                                                            <td hidden></td>
+                                                            <td colspan="14" class="text-center" style="font-style:unset">
+                                                                No data available
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="inventoryDataTab">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive padding-bottom-50" style="overflow-x:auto;" loading-container="tableParams.settings().$loading">
+                                                    <table ng-class="{'loading': isLoading}"
+                                                           class="table table-bordered table-striped table-hover">
+                                                        <tr>
+                                                            <th width="1%" class="text-center">
+                                                                <button class="btn btn-info btn-mini" ng-click="addInventory()" style="width:100%">
+                                                                    <span class="fa fa-plus"></span>
+                                                                </button>
+                                                            </th>
+                                                            <th class="table-header" width="15%">
+                                                                PACKAGING UOM
+                                                            </th>
+                                                            <th class="table-header text-right" width="10%">
+                                                                QUANTITY
+                                                            </th>
+                                                            <th class="table-header" width="15%">
+                                                                BASE UOM
+                                                            </th>
+                                                            <th class="table-header text-right" width="10%">
+                                                                QUANTITY
+                                                            </th>
+                                                            <th class="table-header" width="10%">
+                                                                BRAND
+                                                            </th>
+                                                            <th class="table-header" width="15%">DATE ADDED</th>
+
+                                                        </tr>
+                                                        <tr ng-repeat="item in m.InventoryItems">
+                                                            <td>
+                                                                <button class="btn btn-danger btn-mini" ng-click="removeInventory($index)" style="width:100%" ng-show="item.Id==0">
+                                                                    <span class="fa fa-trash"></span>
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <select select2
+                                                                        ng-model="item.PackagingUoMId"
+                                                                        ng-options="it.Id as it.Name for it in uoms"
+                                                                        name="packagingUoM{{$index}}">
+                                                                    <option value="">---Please select---</option>
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control text-right" ng-model="item.PackagingUoMQuantity" numbers-only />
+                                                            </td>
+                                                            <td>
+                                                                <select select2
+                                                                        ng-model="item.BaseUoMId"
+                                                                        ng-options="it.Id as it.Name for it in uoms"
+                                                                        name="baseUoM{{$index}}">
+                                                                    <option value="">---Please select---</option>
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control text-right" ng-model="item.BaseUoMQuantity" numbers-only />
+                                                            </td>
+                                                            <td>
+                                                                <select select2
+                                                                        ng-model="item.BrandId"
+                                                                        ng-options="it.Id as it.Name for it in brands"
+                                                                        name="brandInventoryItem{{$index}}">
+                                                                    <option value="">---Please select---</option>
+                                                                </select>
+                                                            </td>
+                                                            <td>{{item.CreatedOn | date:'MM/dd/yyyy'}}</td>
+                                                        </tr>
+                                                        <tr ng-show="m.InventoryItems.length == 0">
                                                             <td hidden></td>
                                                             <td colspan="14" class="text-center" style="font-style:unset">
                                                                 No data available
@@ -241,6 +419,7 @@
 }
 
 @section angularjspage {
+    <script src="~/Areas/MD/Scripts/Services/BrandService.js"></script>
     <script src="~/Areas/MD/Scripts/Services/ItemMasterService.js"></script>
     <script src="~/Areas/MD/Scripts/Services/PriceListService.js"></script>
     <script src="~/Areas/MD/Scripts/Controllers/ItemMaster/ItemMasterAddOrUpdateController.js"></script>

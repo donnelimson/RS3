@@ -27,7 +27,11 @@ namespace Codebiz.Domain.ERP.Context
         #endregion
         public IDbSet<ItemMaster> ItemMasters { get; set; }
         public IDbSet<PriceList> PriceLists { get; set; }
+        public IDbSet<Brand> Brands { get; set; }
         public IDbSet<PriceListItemMaster> PriceListItemMasters { get; set; }
+        public IDbSet<BrandItemMaster> BrandItemMasters { get; set; }
+        public IDbSet<SaleTransaction> SaleTransactions { get; set; }
+        public IDbSet<SaleTransactionDetail> SaleTransactionDetails { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

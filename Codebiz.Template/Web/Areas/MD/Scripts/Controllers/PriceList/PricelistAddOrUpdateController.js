@@ -5,8 +5,18 @@
             Page: 1,
             PageSize: 50,
         }
+        let formatter = Intl.NumberFormat('en-US', { minimumFractionDigits: 2 });
         this.$onInit = function () {
-            loadAllItems();
+            if ($location.search().id != null) {
+                PriceListService.GetDetailsById({ id: $location.search().id }).then(function (d) {
+                    $scope.m = d.result;
+                    $scope.isUpdate = true;
+                    loadAllItems();
+                })
+            }
+            else
+              loadAllItems();
+
         }
         $scope.m = {
             Id: 0,
@@ -60,9 +70,13 @@
                     $scope.f.PageSize = params.count();
                     $scope.f.SortDirection = $scope.sortOrder == null ? 'asc' : $scope.sortOrder;
                     $scope.f.SortColumn = $scope.sortColumn == null ? 'LongDescription' : $scope.sortColumn;
+                    $scope.f.Id = $scope.isUpdate ? $scope.m.Id : null;
                     PriceListService.GetAllItemsForPriceList({ filter: $scope.f }).then(function (data) {
                         $scope.resultsLength = data.totalRecordCount;
                         params.total(data.totalRecordCount);
+                        for (var i = 0; i <= data.result.length - 1; i++) {
+                            data.result[i].ItemCost = formatter.format(data.result[i].ItemCost);
+                        }
                         d.resolve(data.result);
                         $scope.m.Items = data.result;
                     });

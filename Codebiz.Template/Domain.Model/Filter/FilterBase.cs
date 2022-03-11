@@ -20,27 +20,6 @@ namespace Codebiz.Domain.Common.Model.Filter
     public class LookUpFilter : FilterBase
     {
         public string Searcher { get; set; }
-
-        public int? AccountId { get; set; }
-
-        public bool? ForVat { get; set; }
-        public int? BillingUnbundledTransactionId { get; set; }
-       
-        public string CardType { get; set; }
-        public List<int?> Ids { get; set; }
-        public List<string> Codes { get; set; }
-        public bool? NotAssigned { get; set; }
-        public bool ExcludeBOM { get; set; }
-        public string ItemType { get; set; }
-        public string Postable { get; set; }
-
-        public int? DepartmentId { get; set; }
-        public int? DivisionId { get; set; }
-        public int? DivisionCategoryId { get; set; }
-
-        public int? ProvinceId { get; set; }
-        public int? CityTownId { get; set; }
-        public int? BarangayId { get; set; }
-        public long? BusinessPartnerId { get; set; }
+        public int? Id { get; set; }
     }
 }

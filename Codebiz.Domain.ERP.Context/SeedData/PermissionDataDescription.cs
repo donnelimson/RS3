@@ -250,6 +250,14 @@
         public const string UserCanEditPriceList = "UserCanEditPriceList";
         public const string UserCanDeletePriceList= "UserCanDeletePriceList";
         public const string UserCanViewPriceList = "UserCanViewPriceList";
+        public const string UserCanExportPriceList = "UserCanExportPriceList";
+        #endregion
+        #region Brand
+        public const string UserCanAddBrand = "UserCanAddBrand";
+        public const string UserCanEditBrand = "UserCanEditBrand";
+        public const string UserCanDeleteBrand = "UserCanDeleteBrand";
+        public const string UserCanExportBrand = "UserCanExportBrand";
+        public const string UserCanViewBrand = "UserCanViewBrand";
         #endregion
         #endregion
         #region Payment
